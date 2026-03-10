@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Four Factors Live · NBA on NBC</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700;1,800&family=Barlow:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #06101e;
+    --surface: #0c1a30;
+    --surface2: #112240;
+    --border: #1a3a6e;
+    --text: #ffffff;
+    --muted: #6a9abf;
+    --accent: #f5c800;
+    --nbc-blue: #1460c0;
+    --nbc-blue-bright: #1a78e0;
+    --nbc-blue-dark: #0a3070;
+    --green: #00e87a;
+    --red: #ff3030;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    background-image: radial-gradient(ellipse at 30% 0%, #0d2a5a 0%, transparent 60%), radial-gradient(ellipse at 70% 100%, #0a1e40 0%, transparent 60%);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 560px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .header h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    font-style: italic;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-shadow: 0 0 30px rgba(245,200,0,0.3);
+  }
+  .header span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* Today's Games */
+  .today-section { margin-bottom: 28px; }
+
+  .today-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .today-label .refresh-note { font-size: 9px; opacity: 0.6; }
+
+  .games-loading {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    padding: 12px 0;
+    letter-spacing: 0.05em;
+  }
+
+  .games-scroll {
+    max-height: 220px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .games-scroll::-webkit-scrollbar { width: 4px; }
+  .games-scroll::-webkit-scrollbar-track { background: transparent; }
+  .games-scroll::-webkit-scrollbar-thumb { background: var(--nbc-blue); border-radius: 2px; }
+
+  .game-pill {
+    display: grid;
+    grid-template-columns: 48px 36px 16px 36px 48px 1fr;
+    align-items: center;
+    gap: 4px;
+    padding: 9px 12px;
+    margin-bottom: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .game-pill:hover { border-color: var(--nbc-blue-bright); background: var(--surface2); border-left-color: var(--accent); }
+  .game-pill.active { border-color: var(--nbc-blue-bright); background: var(--surface2); border-left-color: var(--accent); }
+
+  .pill-team {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .pill-team.away { text-align: left; }
+  .pill-team.home { text-align: right; }
+
+  .pill-score {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .pill-score.leading  { color: white; }
+  .pill-score.trailing { color: var(--muted); }
+
+  .pill-divider {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .pill-status {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    text-align: right;
+    padding-right: 4px;
+  }
+  .pill-status.live {
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+  .pill-status.live::before {
+    content: '';
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+  .pill-status.final { color: var(--muted); }
+  .pill-status.pre   { color: var(--muted); }
+
+  .active-indicator {
+    display: none;
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+  .game-pill.active .active-indicator { display: block; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+  .game-id-input {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--nbc-blue);
+    color: var(--text);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    padding: 9px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .game-id-input:focus { border-color: var(--nbc-blue-bright); border-bottom-color: var(--accent); }
+  .game-id-input::placeholder { color: var(--muted); }
+
+  .btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-start { background: var(--nbc-blue); color: #fff; border: 1px solid var(--nbc-blue-bright); }
+  .btn-start:hover { background: var(--nbc-blue-bright); }
+  .btn-stop { background: transparent; color: var(--red); border: 1px solid var(--red); }
+  .btn-stop:hover { background: var(--red); color: #fff; }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* Status */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    min-height: 18px;
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+  .status-dot.live {
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  /* Dashboard */
+  .scoreboard { display: none; }
+  .scoreboard.visible { display: block; }
+
+  .score-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    padding: 14px 16px;
+    margin-bottom: 2px;
+    position: relative;
+    overflow: hidden;
+    background: var(--surface2);
+    border-left: 4px solid var(--nbc-blue);
+  }
+  .score-row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--team-color, #1460c0);
+    opacity: 0.18;
+  }
+  .team-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 24px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    color: #fff;
+  }
+  .team-record {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-left: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .team-score {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 46px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+    min-width: 64px;
+    text-align: right;
+  }
+  .team-score.winning { color: var(--accent); }
+  .team-score.losing  { color: var(--muted); }
+  .color-bar {
+    width: 4px;
+    align-self: stretch;
+    margin-left: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .clock-row {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 18px;
+    background: var(--nbc-blue-dark);
+    margin-bottom: 2px;
+  }
+  .clock-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--nbc-blue);
+    padding: 4px 16px;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .section-header {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(90deg, var(--nbc-blue) 0%, var(--nbc-blue-dark) 100%);
+    padding: 7px 16px;
+    margin-top: 14px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .col-headers {
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    padding: 6px 16px;
+    background: var(--nbc-blue-dark);
+    border-bottom: 2px solid var(--nbc-blue);
+  }
+  .col-header {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--accent);
+    text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .col-header:first-child { text-align: left; }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    align-items: center;
+    padding: 7px 16px;
+    transition: background 0.1s;
+    border-bottom: 1px solid rgba(26,58,110,0.4);
+  }
+  .stat-row:hover { background: var(--surface2); }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .stat-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    transition: color 0.3s;
+  }
+  .stat-val.better  { color: var(--green); }
+  .stat-val.worse   { color: var(--red); }
+  .stat-val.neutral { color: var(--accent); }
+
+  .bs-val {
+    font-family: 'Share Tech Mono', monospace !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.03em;
+    color: var(--text) !important;
+  }
+
+  .error-msg {
+    background: #1a0810;
+    border: 1px solid var(--red);
+    border-left: 3px solid var(--red);
+    color: var(--red);
+    padding: 12px 16px;
+    font-size: 12px;
+    font-family: 'Share Tech Mono', monospace;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  .idle-msg {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--muted);
+  }
+  .idle-msg .big {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    font-style: italic;
+    color: var(--nbc-blue);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .idle-msg p { font-size: 13px; line-height: 1.6; }
+
+  .last-updated {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    padding: 20px 0 8px;
+    letter-spacing: 0.08em;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>Four Factors</h1>
+    <span>LIVE NBA TRACKER</span>
+  </div>
+
+  <!-- Today's Games picker -->
+  <div class="today-section">
+    <div class="today-label">
+      Today's Games
+      <span class="refresh-note">· updates every 60s</span>
+    </div>
+    <div class="games-scroll">
+      <div id="gamesList"><div class="games-loading">Loading today's games...</div></div>
+    </div>
+  </div>
+
+  <!-- Manual fallback -->
+  <div class="controls">
+    <input class="game-id-input" id="gameIdInput" type="text" placeholder="Or enter ESPN Game ID manually" />
+    <button class="btn btn-start" id="startBtn" onclick="startTracking()">Start</button>
+    <button class="btn btn-stop"  id="stopBtn"  onclick="stopTracking()" disabled>Stop</button>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-dot" id="statusDot"></div>
+    <span id="statusText">Select a game above or enter a Game ID</span>
+  </div>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div id="idleMsg" class="idle-msg">
+    <span class="big">🏀</span>
+    <p>Select a game from the list above<br>or paste an ESPN Game ID and hit Start.</p>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="scoreboard" id="scoreboard">
+
+    <div class="score-row" id="scoreRow1">
+      <div style="position:relative;z-index:1;display:flex;align-items:baseline">
+        <span class="team-name" id="team1Name">—</span>
+        <span class="team-record" id="team1Record"></span>
+      </div>
+      <span class="team-score" id="team1Score">—</span>
+      <div class="color-bar" id="colorBar1"></div>
+    </div>
+
+    <div class="score-row" id="scoreRow2">
+      <div style="position:relative;z-index:1;display:flex;align-items:baseline">
+        <span class="team-name" id="team2Name">—</span>
+        <span class="team-record" id="team2Record"></span>
+      </div>
+      <span class="team-score" id="team2Score">—</span>
+      <div class="color-bar" id="colorBar2"></div>
+    </div>
+
+    <div class="clock-row">
+      <span class="clock-text" id="clockText">—</span>
+    </div>
+
+    <div class="col-headers">
+      <span class="col-header">Stat</span>
+      <span class="col-header" id="colHead1">—</span>
+      <span class="col-header" id="colHead2">—</span>
+    </div>
+
+    <div class="section-header">Four Factors</div>
+    <div class="stat-row"><span class="stat-label">eFG%</span><span class="stat-val" id="efg1">—</span><span class="stat-val" id="efg2">—</span></div>
+    <div class="stat-row"><span class="stat-label">TOV%</span><span class="stat-val" id="tov1">—</span><span class="stat-val" id="tov2">—</span></div>
+    <div class="stat-row"><span class="stat-label">OREB%</span><span class="stat-val" id="oreb1">—</span><span class="stat-val" id="oreb2">—</span></div>
+    <div class="stat-row"><span class="stat-label">FT Rate</span><span class="stat-val" id="ftr1">—</span><span class="stat-val" id="ftr2">—</span></div>
+
+    <div class="section-header">Advanced</div>
+    <div class="stat-row"><span class="stat-label">Off Rtg</span><span class="stat-val" id="ortg1">—</span><span class="stat-val" id="ortg2">—</span></div>
+    <div class="stat-row"><span class="stat-label">Def Rtg</span><span class="stat-val" id="drtg1">—</span><span class="stat-val" id="drtg2">—</span></div>
+    <div class="stat-row"><span class="stat-label">Net Rtg</span><span class="stat-val" id="nrtg1">—</span><span class="stat-val" id="nrtg2">—</span></div>
+    <div class="stat-row"><span class="stat-label">Pace</span><span class="stat-val" id="pace1">—</span><span class="stat-val" id="pace2">—</span></div>
+    <div class="stat-row"><span class="stat-label">3PT Rate</span><span class="stat-val" id="tpr1">—</span><span class="stat-val" id="tpr2">—</span></div>
+    <div class="stat-row"><span class="stat-label">FT%</span><span class="stat-val" id="ftp1">—</span><span class="stat-val" id="ftp2">—</span></div>
+
+    <div class="section-header">Other</div>
+    <div class="stat-row"><span class="stat-label">AST Ratio</span><span class="stat-val" id="ast1">—</span><span class="stat-val" id="ast2">—</span></div>
+    <div class="stat-row"><span class="stat-label">STL Rate</span><span class="stat-val" id="stl1">—</span><span class="stat-val" id="stl2">—</span></div>
+    <div class="stat-row"><span class="stat-label">BLK Rate</span><span class="stat-val" id="blk1">—</span><span class="stat-val" id="blk2">—</span></div>
+
+    <div class="section-header">Box Score</div>
+    <div class="stat-row"><span class="stat-label">FG</span><span class="stat-val bs-val" id="bs-fg1">—</span><span class="stat-val bs-val" id="bs-fg2">—</span></div>
+    <div class="stat-row"><span class="stat-label">3PT</span><span class="stat-val bs-val" id="bs-tp1">—</span><span class="stat-val bs-val" id="bs-tp2">—</span></div>
+    <div class="stat-row"><span class="stat-label">FT</span><span class="stat-val bs-val" id="bs-ft1">—</span><span class="stat-val bs-val" id="bs-ft2">—</span></div>
+    <div class="stat-row"><span class="stat-label">REB (O/D)</span><span class="stat-val bs-val" id="bs-reb1">—</span><span class="stat-val bs-val" id="bs-reb2">—</span></div>
+    <div class="stat-row"><span class="stat-label">AST</span><span class="stat-val bs-val" id="bs-ast1">—</span><span class="stat-val bs-val" id="bs-ast2">—</span></div>
+    <div class="stat-row"><span class="stat-label">STL</span><span class="stat-val bs-val" id="bs-stl1">—</span><span class="stat-val bs-val" id="bs-stl2">—</span></div>
+    <div class="stat-row"><span class="stat-label">BLK</span><span class="stat-val bs-val" id="bs-blk1">—</span><span class="stat-val bs-val" id="bs-blk2">—</span></div>
+    <div class="stat-row"><span class="stat-label">TOV</span><span class="stat-val bs-val" id="bs-tov1">—</span><span class="stat-val bs-val" id="bs-tov2">—</span></div>
+    <div class="stat-row"><span class="stat-label">FOULS</span><span class="stat-val bs-val" id="bs-foul1">—</span><span class="stat-val bs-val" id="bs-foul2">—</span></div>
+
+    <div class="last-updated" id="lastUpdated"></div>
+  </div>
+
+</div>
+<script>
+let intervalId = null;
+let activeGameId = null;
+
+// ── Today's Games ─────────────────────────────────────────
+
+async function fetchTodaysGames() {
+  try {
+    const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard');
+    const data = await res.json();
+    renderGamesList(data.events || []);
+  } catch(e) {
+    document.getElementById('gamesList').innerHTML =
+      '<div class="games-loading">Could not load today\'s games.</div>';
+  }
+}
+
+function renderGamesList(events) {
+  const container = document.getElementById('gamesList');
+  if (!events.length) {
+    container.innerHTML = '<div class="games-loading">No NBA games today.</div>';
+    return;
+  }
+
+  container.innerHTML = events.map(event => {
+    const comp        = event.competitions[0];
+    const status      = comp.status;
+    const home        = comp.competitors.find(c => c.homeAway === 'home') || comp.competitors[0];
+    const away        = comp.competitors.find(c => c.homeAway === 'away') || comp.competitors[1];
+    const homeAbbr    = home.team.abbreviation;
+    const awayAbbr    = away.team.abbreviation;
+    const homeScore   = parseInt(home.score) || 0;
+    const awayScore   = parseInt(away.score) || 0;
+    const gameId      = event.id;
+    const state       = status.type.state;
+    const isLive      = state === 'in';
+    const isFinal     = state === 'post';
+    const isActive    = gameId === activeGameId;
+
+    let statusHtml = '';
+    let homeScoreHtml = '';
+    let awayScoreHtml = '';
+
+    if (isLive) {
+      const detail = status.type.shortDetail || '';
+      const parts  = detail.split(' - ');
+      const isHalftime = status.type.name === 'STATUS_HALFTIME';
+      const clock  = parts[0] || status.displayClock;
+      const qtr    = parts[1] || status.displayPeriod;
+      statusHtml    = isHalftime
+        ? `<span class="pill-status live">Halftime</span>`
+        : `<span class="pill-status live">${clock} ${qtr}</span>`;
+      homeScoreHtml = `<span class="pill-score ${homeScore >= awayScore ? 'leading' : 'trailing'}">${homeScore}</span>`;
+      awayScoreHtml = `<span class="pill-score ${awayScore >= homeScore ? 'leading' : 'trailing'}">${awayScore}</span>`;
+    } else if (isFinal) {
+      statusHtml    = `<span class="pill-status final">Final</span>`;
+      homeScoreHtml = `<span class="pill-score ${homeScore >= awayScore ? 'leading' : 'trailing'}">${homeScore}</span>`;
+      awayScoreHtml = `<span class="pill-score ${awayScore >= homeScore ? 'leading' : 'trailing'}">${awayScore}</span>`;
+    } else {
+      const t = new Date(event.date).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
+      statusHtml    = `<span class="pill-status pre">${t}</span>`;
+      homeScoreHtml = `<span class="pill-score" style="color:var(--muted);font-size:11px">—</span>`;
+      awayScoreHtml = `<span class="pill-score" style="color:var(--muted);font-size:11px">—</span>`;
+    }
+
+    return `
+      <div class="game-pill ${isActive ? 'active' : ''}" onclick="selectGame('${gameId}')" data-game-id="${gameId}">
+        <div class="active-indicator"></div>
+        <span class="pill-team away">${awayAbbr}</span>
+        ${awayScoreHtml}
+        <span class="pill-divider">@</span>
+        ${homeScoreHtml}
+        <span class="pill-team home">${homeAbbr}</span>
+        ${statusHtml}
+      </div>`;
+  }).join('');
+}
+
+function selectGame(gameId) {
+  if (intervalId) stopTracking();
+  activeGameId = gameId;
+  document.getElementById('gameIdInput').value = gameId;
+  document.querySelectorAll('.game-pill').forEach(p =>
+    p.classList.toggle('active', p.dataset.gameId === gameId)
+  );
+  startTracking();
+}
+
+// ── Calculator ────────────────────────────────────────────
+
+function startTracking() {
+  const gameId = document.getElementById('gameIdInput').value.trim();
+  if (!gameId) { showError('Please enter a Game ID.'); return; }
+  hideError();
+  activeGameId = gameId;
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('stopBtn').disabled  = false;
+  document.getElementById('statusDot').classList.add('live');
+  document.getElementById('statusText').textContent = 'Fetching data...';
+  fetchAndUpdate(gameId);
+  intervalId = setInterval(() => fetchAndUpdate(gameId), 60000);
+}
+
+function stopTracking() {
+  clearInterval(intervalId);
+  intervalId = null;
+  activeGameId = null;
+  document.getElementById('startBtn').disabled = false;
+  document.getElementById('stopBtn').disabled  = true;
+  document.getElementById('statusDot').classList.remove('live');
+  document.getElementById('statusText').textContent = 'Stopped.';
+  document.querySelectorAll('.game-pill').forEach(p => p.classList.remove('active'));
+}
+
+async function fetchAndUpdate(gameId) {
+  try {
+    const res  = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=${gameId}`);
+    const data = await res.json();
+
+    const teams       = data.boxscore.teams;
+    const competition = data.header.competitions[0];
+    const competitors = competition.competitors;
+    const status      = competition.status;
+    const clock       = status.displayClock;
+    const period      = status.displayPeriod;
+    const isLive      = status.type.state === 'in';
+    const isFinal     = status.type.state === 'post';
+
+    const scoreMap = {}, colorMap = {}, recordMap = {};
+    competitors.forEach(c => {
+      scoreMap[c.team.displayName]  = parseInt(c.score);
+      colorMap[c.team.displayName]  = c.team.color;
+      const rec = c.record?.find(r => r.type === 'total');
+      recordMap[c.team.displayName] = rec ? rec.summary : '';
+    });
+
+    const teamStats = teams.map(team => {
+      const stats = {};
+      team.statistics.forEach(s => stats[s.name] = s.displayValue);
+      const name = team.team.displayName;
+      const fg = (stats['fieldGoalsMade-fieldGoalsAttempted'] || '0-0').split('-');
+      const tp = (stats['threePointFieldGoalsMade-threePointFieldGoalsAttempted'] || '0-0').split('-');
+      const ft = (stats['freeThrowsMade-freeThrowsAttempted'] || '0-0').split('-');
+      return {
+        name,
+        fgm:+fg[0], fga:+fg[1], tpm:+tp[0], tpa:+tp[1], ftm:+ft[0], fta:+ft[1],
+        tov: +(stats['turnovers']||0),
+        oreb:+(stats['offensiveRebounds']||0),
+        dreb:+(stats['defensiveRebounds']||0),
+        ast: +(stats['assists']||0),
+        stl: +(stats['steals']||0),
+        blk: +(stats['blocks']||0),
+        fouls:+(stats['fouls']||0),
+        pts:  scoreMap[name]||0,
+        color:colorMap[name]||'888888',
+        record:recordMap[name]||'',
+      };
+    });
+
+    const results = teamStats.map((t, i) => {
+      const opp  = teamStats[1-i];
+      const poss = (t.fga-t.oreb+t.tov+0.44*t.fta + opp.fga-opp.oreb+opp.tov+0.44*opp.fta) / 2;
+      const safe = (n, d) => d > 0 ? +((n/d)*100).toFixed(1) : 0;
+      return {
+        name:t.name, pts:t.pts, color:t.color, record:t.record,
+        poss:     +poss.toFixed(1),
+        efg:      safe(t.fgm+0.5*t.tpm, t.fga),
+        tov_pct:  safe(t.tov, t.fga+0.44*t.fta+t.tov),
+        oreb_pct: safe(t.oreb, t.oreb+opp.dreb),
+        ft_rate:  safe(t.ftm, t.fga),
+        three_rate:safe(t.tpa, t.fga),
+        ft_pct:   safe(t.ftm, t.fta),
+        ortg:     safe(t.pts, poss),
+        drtg:     safe(opp.pts, poss),
+        net_rtg:  poss>0 ? +((t.pts-opp.pts)/poss*100).toFixed(1) : 0,
+        ast_ratio:safe(t.ast, t.fga+0.44*t.fta+t.ast+t.tov),
+        stl_rate: safe(t.stl, poss),
+        blk_rate: safe(t.blk, opp.fga),
+        raw_fgm:t.fgm, raw_fga:t.fga,
+        raw_tpm:t.tpm, raw_tpa:t.tpa,
+        raw_ftm:t.ftm, raw_fta:t.fta,
+        raw_oreb:t.oreb, raw_dreb:t.dreb, raw_treb:t.oreb+t.dreb,
+        raw_ast:t.ast, raw_stl:t.stl, raw_blk:t.blk,
+        raw_tov:t.tov, raw_fouls:t.fouls,
+      };
+    });
+
+    renderDashboard(results, clock, period, isLive, isFinal);
+    hideError();
+    document.getElementById('lastUpdated').textContent = `Last updated ${new Date().toLocaleTimeString()}`;
+    document.getElementById('statusText').textContent  = isLive
+      ? `Live · ${clock} ${period}` : isFinal ? 'Final' : period;
+
+  } catch(e) {
+    showError(`Could not fetch game data. Check the Game ID and try again. (${e.message})`);
+    document.getElementById('statusText').textContent = 'Error fetching data.';
+  }
+}
+
+function renderDashboard(results, clock, period, isLive, isFinal) {
+  const t1 = results[0], t2 = results[1];
+  document.getElementById('idleMsg').style.display = 'none';
+  document.getElementById('scoreboard').classList.add('visible');
+
+  const abbr1 = t1.name.split(' ').pop().toUpperCase();
+  const abbr2 = t2.name.split(' ').pop().toUpperCase();
+  setText('team1Name', abbr1);   setText('team2Name', abbr2);
+  setText('team1Record', t1.record); setText('team2Record', t2.record);
+  setText('colHead1', abbr1);    setText('colHead2', abbr2);
+
+  const s1 = document.getElementById('team1Score');
+  const s2 = document.getElementById('team2Score');
+  s1.textContent = t1.pts;
+  s2.textContent = t2.pts;
+  s1.className = 'team-score ' + (t1.pts >= t2.pts ? 'winning' : 'losing');
+  s2.className = 'team-score ' + (t2.pts >= t1.pts ? 'winning' : 'losing');
+
+  const c1 = '#'+t1.color, c2 = '#'+t2.color;
+  document.getElementById('scoreRow1').style.setProperty('--team-color', c1);
+  document.getElementById('scoreRow2').style.setProperty('--team-color', c2);
+  document.getElementById('colorBar1').style.background = c1;
+  document.getElementById('colorBar2').style.background = c2;
+
+  setText('clockText', isFinal ? 'Final' : `${clock} · ${period}`);
+
+  setDuel('efg1','efg2',   t1.efg,        t2.efg,        true);
+  setDuel('tov1','tov2',   t1.tov_pct,    t2.tov_pct,    false);
+  setDuel('oreb1','oreb2', t1.oreb_pct,   t2.oreb_pct,   true);
+  setDuel('ftr1','ftr2',   t1.ft_rate,    t2.ft_rate,    true);
+  setDuel('ortg1','ortg2', t1.ortg,       t2.ortg,       true);
+  setDuel('drtg1','drtg2', t1.drtg,       t2.drtg,       false);
+  setDuel('nrtg1','nrtg2', t1.net_rtg,    t2.net_rtg,    true);
+  setDuel('pace1','pace2', t1.poss,       t2.poss,       null);
+  setDuel('tpr1','tpr2',   t1.three_rate, t2.three_rate, null);
+  setDuel('ftp1','ftp2',   t1.ft_pct,     t2.ft_pct,     true);
+  setDuel('ast1','ast2',   t1.ast_ratio,  t2.ast_ratio,  true);
+  setDuel('stl1','stl2',   t1.stl_rate,   t2.stl_rate,   true);
+  setDuel('blk1','blk2',   t1.blk_rate,   t2.blk_rate,   true);
+
+  setBs('bs-fg1','bs-fg2',   `${t1.raw_fgm}-${t1.raw_fga}`, `${t2.raw_fgm}-${t2.raw_fga}`);
+  setBs('bs-tp1','bs-tp2',   `${t1.raw_tpm}-${t1.raw_tpa}`, `${t2.raw_tpm}-${t2.raw_tpa}`);
+  setBs('bs-ft1','bs-ft2',   `${t1.raw_ftm}-${t1.raw_fta}`, `${t2.raw_ftm}-${t2.raw_fta}`);
+  setBs('bs-reb1','bs-reb2', `${t1.raw_treb} (${t1.raw_oreb}/${t1.raw_dreb})`, `${t2.raw_treb} (${t2.raw_oreb}/${t2.raw_dreb})`);
+  setBs('bs-ast1','bs-ast2', t1.raw_ast,   t2.raw_ast);
+  setBs('bs-stl1','bs-stl2', t1.raw_stl,   t2.raw_stl);
+  setBs('bs-blk1','bs-blk2', t1.raw_blk,   t2.raw_blk);
+  setBs('bs-tov1','bs-tov2', t1.raw_tov,   t2.raw_tov);
+  setBs('bs-foul1','bs-foul2',t1.raw_fouls,t2.raw_fouls);
+}
+
+function setText(id, val) { document.getElementById(id).textContent = val; }
+
+function setDuel(id1, id2, v1, v2, higher) {
+  const e1 = document.getElementById(id1);
+  const e2 = document.getElementById(id2);
+  e1.textContent = v1; e2.textContent = v2;
+  if (higher === null) { e1.className = e2.className = 'stat-val neutral'; return; }
+  if (Math.abs(v1-v2) < 0.5) { e1.className = e2.className = 'stat-val neutral'; return; }
+  const v1Better = higher ? v1 > v2 : v1 < v2;
+  e1.className = 'stat-val ' + (v1Better ? 'better' : 'worse');
+  e2.className = 'stat-val ' + (v1Better ? 'worse'  : 'better');
+}
+
+function setBs(id1, id2, v1, v2) {
+  document.getElementById(id1).textContent = v1;
+  document.getElementById(id2).textContent = v2;
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg; el.style.display = 'block';
+}
+function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
+
+document.getElementById('gameIdInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') startTracking();
+});
+
+// Boot — load games immediately, refresh list every 60s
+fetchTodaysGames();
+setInterval(fetchTodaysGames, 60000);
+</script>
+</body>
+</html>
