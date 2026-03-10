@@ -9,7 +9,7 @@ Requirements:
 
 Usage:
     python nba_importance.py
-    Then open nba_importance_report.html in your browser.
+    Then open index.html in your browser.
 """
 
 import numpy as np
@@ -1184,7 +1184,7 @@ applyFilters();
 </body>
 </html>"""
 
-    output_path = "nba_importance_report.html"
+    output_path = "index.html"
     with open(output_path, "w") as f:
         f.write(html)
     print(f"   ✅ Report saved to: {output_path}")
