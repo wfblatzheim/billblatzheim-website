@@ -871,6 +871,20 @@ def build_html(scored_games, srs_df, standings):
   }}
   .dot {{ width: 8px; height: 3px; border-radius: 0; flex-shrink: 0; }}
 
+  /* ── Back link ── */
+  .back-link {{
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; color: #888;
+    text-decoration: none;
+    transition: color .15s;
+    margin-bottom: 8px;
+  }}
+  .back-link:hover {{ color: #e8002d; }}
+  .back-link svg {{ transition: transform .15s; }}
+  .back-link:hover svg {{ transform: translateX(-2px); }}
+
   #no-results {{
     display:none; padding: 32px; text-align: center;
     color: var(--text-muted);
@@ -887,6 +901,10 @@ def build_html(scored_games, srs_df, standings):
 
 <div class="header">
   <div class="header-inner">
+    <a class="back-link" href="https://billblatzheim.com">
+      <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M11 5H1M4 1L1 5l3 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Blatz Labs
+    </a>
     <h1>NBA <span class="nbc-accent">Game</span> Importance</h1>
     <p class="subtitle">{SEASON} &nbsp;·&nbsp; {now} &nbsp;·&nbsp; SRS from live data</p>
   </div>

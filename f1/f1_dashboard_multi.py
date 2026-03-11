@@ -460,7 +460,7 @@ def generate_html(all_seasons_data, generated_at):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>F1 Season Tracker</title>
+<title>Formula One Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -473,6 +473,10 @@ body{{background:#08080d;color:#e8e8e8;font-family:'Barlow Condensed','Oswald',s
 .header-inner{{max-width:1200px;margin:0 auto;padding:0 24px}}
 .logo-text{{font-size:24px;font-weight:900;letter-spacing:.1em}}
 .logo-text span{{color:#e8002d}}
+.back-link{{display:inline-flex;align-items:center;gap:6px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#888;text-decoration:none;transition:color .15s}}
+.back-link:hover{{color:#e8002d}}
+.back-link svg{{transition:transform .15s}}
+.back-link:hover svg{{transform:translateX(-2px)}}
 .top-bar{{display:flex;align-items:center;justify-content:space-between;padding:14px 0 10px}}
 .season-btns{{display:flex;gap:6px;align-items:center}}
 .season-btn{{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#888;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.08em;padding:6px 14px;border-radius:4px;cursor:pointer;transition:all .15s}}
@@ -509,12 +513,16 @@ body{{background:#08080d;color:#e8e8e8;font-family:'Barlow Condensed','Oswald',s
 </style>
 </head>
 <body>
+<a class="back-link" href="https://billblatzheim.com" style="display:block;padding:10px 24px 0;max-width:1200px;margin:0 auto;">
+  <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M11 5H1M4 1L1 5l3 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  Blatz Labs
+</a>
 <div class="header">
   <div class="header-inner">
     <div class="top-bar">
       <div style="display:flex;align-items:center;gap:14px;">
         <svg width="36" height="22" viewBox="0 0 36 22"><rect x="0" y="0" width="36" height="7" rx="2" fill="#e8002d"/><rect x="0" y="8" width="36" height="6" rx="2" fill="#fff"/><rect x="0" y="15" width="36" height="7" rx="2" fill="#e8002d"/></svg>
-        <span class="logo-text">FORMULA <span>TRACKER</span></span>
+        <span class="logo-text">FORMULA <span>ONE TRACKER</span></span>
       </div>
       <div style="display:flex;align-items:center;gap:16px;">
         <div class="season-btns">
@@ -921,12 +929,12 @@ def main():
     generated_at = datetime.now().strftime("%b %d, %Y")
     html = generate_html(all_data, generated_at)
 
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "f1_tracker.html")
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")
     with open(out, "w", encoding="utf-8") as f:
         f.write(html)
 
     size_kb = len(html.encode()) / 1024
-    print(f"✅ Done! → f1_tracker.html  ({size_kb:.0f} KB)\n")
+    print(f"✅ Done! → index.html  ({size_kb:.0f} KB)\n")
     print("Tips:")
     print("  python3 f1_dashboard_multi.py                        # rebuild from cache")
     print("  python3 f1_dashboard_multi.py --add 2026             # fetch & cache 2026")
