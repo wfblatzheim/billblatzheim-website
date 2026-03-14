@@ -108,30 +108,30 @@ SEASONS_DATA = {
         {"position":"10","points":"10","wins":"0","Constructor":{"constructorId":"alpine","name":"Alpine","nationality":"French"}},
     ],
     "races":[
-        {"round":"1","raceName":"Australian Grand Prix","date":"2025-03-16","Circuit":{"circuitName":"Albert Park Circuit","Location":{"country":"Australia"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"2","raceName":"Chinese Grand Prix","date":"2025-03-23","Circuit":{"circuitName":"Shanghai International Circuit","Location":{"country":"China"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[]},
-        {"round":"3","raceName":"Japanese Grand Prix","date":"2025-04-06","Circuit":{"circuitName":"Suzuka International Racing Course","Location":{"country":"Japan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"4","raceName":"Bahrain Grand Prix","date":"2025-04-13","Circuit":{"circuitName":"Bahrain International Circuit","Location":{"country":"Bahrain"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[]},
-        {"round":"5","raceName":"Saudi Arabian Grand Prix","date":"2025-04-20","Circuit":{"circuitName":"Jeddah Corniche Circuit","Location":{"country":"Saudi Arabia"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"6","raceName":"Miami Grand Prix","date":"2025-05-04","Circuit":{"circuitName":"Miami International Autodrome","Location":{"country":"USA"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[]},
-        {"round":"7","raceName":"Emilia Romagna Grand Prix","date":"2025-05-18","Circuit":{"circuitName":"Autodromo Enzo e Dino Ferrari","Location":{"country":"Italy"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"8","raceName":"Monaco Grand Prix","date":"2025-05-25","Circuit":{"circuitName":"Circuit de Monaco","Location":{"country":"Monaco"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"9","raceName":"Spanish Grand Prix","date":"2025-06-01","Circuit":{"circuitName":"Circuit de Barcelona-Catalunya","Location":{"country":"Spain"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[]},
-        {"round":"10","raceName":"Canadian Grand Prix","date":"2025-06-15","Circuit":{"circuitName":"Circuit Gilles Villeneuve","Location":{"country":"Canada"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"11","raceName":"Austrian Grand Prix","date":"2025-06-29","Circuit":{"circuitName":"Red Bull Ring","Location":{"country":"Austria"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[]},
-        {"round":"12","raceName":"British Grand Prix","date":"2025-07-06","Circuit":{"circuitName":"Silverstone Circuit","Location":{"country":"UK"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[]},
-        {"round":"13","raceName":"Belgian Grand Prix","date":"2025-07-27","Circuit":{"circuitName":"Circuit de Spa-Francorchamps","Location":{"country":"Belgium"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"14","raceName":"Hungarian Grand Prix","date":"2025-08-03","Circuit":{"circuitName":"Hungaroring","Location":{"country":"Hungary"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[]},
-        {"round":"15","raceName":"Dutch Grand Prix","date":"2025-08-31","Circuit":{"circuitName":"Circuit Zandvoort","Location":{"country":"Netherlands"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"16","raceName":"Italian Grand Prix","date":"2025-09-07","Circuit":{"circuitName":"Autodromo Nazionale Monza","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"17","raceName":"Azerbaijan Grand Prix","date":"2025-09-21","Circuit":{"circuitName":"Baku City Circuit","Location":{"country":"Azerbaijan"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[]},
-        {"round":"18","raceName":"Singapore Grand Prix","date":"2025-10-05","Circuit":{"circuitName":"Marina Bay Street Circuit","Location":{"country":"Singapore"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"19","raceName":"United States Grand Prix","date":"2025-10-19","Circuit":{"circuitName":"Circuit of the Americas","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"20","raceName":"Mexico City Grand Prix","date":"2025-10-26","Circuit":{"circuitName":"Autodromo Hermanos Rodriguez","Location":{"country":"Mexico"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"21","raceName":"São Paulo Grand Prix","date":"2025-11-09","Circuit":{"circuitName":"Autodromo Jose Carlos Pace","Location":{"country":"Brazil"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"22","raceName":"Las Vegas Grand Prix","date":"2025-11-22","Circuit":{"circuitName":"Las Vegas Strip Street Circuit","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"23","raceName":"Qatar Grand Prix","date":"2025-11-30","Circuit":{"circuitName":"Lusail International Circuit","Location":{"country":"Qatar"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[]},
-        {"round":"24","raceName":"Abu Dhabi Grand Prix","date":"2025-12-07","Circuit":{"circuitName":"Yas Marina Circuit","Location":{"country":"Abu Dhabi"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
+        {"round":"1","raceName":"Australian Grand Prix","date":"2025-03-16","Circuit":{"circuitName":"Albert Park Circuit","Location":{"country":"Australia"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"2","raceName":"Chinese Grand Prix","date":"2025-03-23","Circuit":{"circuitName":"Shanghai International Circuit","Location":{"country":"China"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"3","raceName":"Japanese Grand Prix","date":"2025-04-06","Circuit":{"circuitName":"Suzuka International Racing Course","Location":{"country":"Japan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"4","raceName":"Bahrain Grand Prix","date":"2025-04-13","Circuit":{"circuitName":"Bahrain International Circuit","Location":{"country":"Bahrain"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"5","raceName":"Saudi Arabian Grand Prix","date":"2025-04-20","Circuit":{"circuitName":"Jeddah Corniche Circuit","Location":{"country":"Saudi Arabia"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"6","raceName":"Miami Grand Prix","date":"2025-05-04","Circuit":{"circuitName":"Miami International Autodrome","Location":{"country":"USA"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"7","raceName":"Emilia Romagna Grand Prix","date":"2025-05-18","Circuit":{"circuitName":"Autodromo Enzo e Dino Ferrari","Location":{"country":"Italy"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"8","raceName":"Monaco Grand Prix","date":"2025-05-25","Circuit":{"circuitName":"Circuit de Monaco","Location":{"country":"Monaco"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"9","raceName":"Spanish Grand Prix","date":"2025-06-01","Circuit":{"circuitName":"Circuit de Barcelona-Catalunya","Location":{"country":"Spain"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[],"sprint_results":[]},
+        {"round":"10","raceName":"Canadian Grand Prix","date":"2025-06-15","Circuit":{"circuitName":"Circuit Gilles Villeneuve","Location":{"country":"Canada"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"11","raceName":"Austrian Grand Prix","date":"2025-06-29","Circuit":{"circuitName":"Red Bull Ring","Location":{"country":"Austria"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"12","raceName":"British Grand Prix","date":"2025-07-06","Circuit":{"circuitName":"Silverstone Circuit","Location":{"country":"UK"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[],"sprint_results":[]},
+        {"round":"13","raceName":"Belgian Grand Prix","date":"2025-07-27","Circuit":{"circuitName":"Circuit de Spa-Francorchamps","Location":{"country":"Belgium"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"14","raceName":"Hungarian Grand Prix","date":"2025-08-03","Circuit":{"circuitName":"Hungaroring","Location":{"country":"Hungary"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"15","raceName":"Dutch Grand Prix","date":"2025-08-31","Circuit":{"circuitName":"Circuit Zandvoort","Location":{"country":"Netherlands"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"16","raceName":"Italian Grand Prix","date":"2025-09-07","Circuit":{"circuitName":"Autodromo Nazionale Monza","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"17","raceName":"Azerbaijan Grand Prix","date":"2025-09-21","Circuit":{"circuitName":"Baku City Circuit","Location":{"country":"Azerbaijan"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[],"sprint_results":[]},
+        {"round":"18","raceName":"Singapore Grand Prix","date":"2025-10-05","Circuit":{"circuitName":"Marina Bay Street Circuit","Location":{"country":"Singapore"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"19","raceName":"United States Grand Prix","date":"2025-10-19","Circuit":{"circuitName":"Circuit of the Americas","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"20","raceName":"Mexico City Grand Prix","date":"2025-10-26","Circuit":{"circuitName":"Autodromo Hermanos Rodriguez","Location":{"country":"Mexico"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"21","raceName":"São Paulo Grand Prix","date":"2025-11-09","Circuit":{"circuitName":"Autodromo Jose Carlos Pace","Location":{"country":"Brazil"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"22","raceName":"Las Vegas Grand Prix","date":"2025-11-22","Circuit":{"circuitName":"Las Vegas Strip Street Circuit","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"23","raceName":"Qatar Grand Prix","date":"2025-11-30","Circuit":{"circuitName":"Lusail International Circuit","Location":{"country":"Qatar"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"24","raceName":"Abu Dhabi Grand Prix","date":"2025-12-07","Circuit":{"circuitName":"Yas Marina Circuit","Location":{"country":"Abu Dhabi"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
     ],
     "progression":{"NOR":[25,43,55,67,92,114,139,164,182,194,220,246,271,296,302,308,316,322,322,322,347,347,373,423],"VER":[18,36,61,73,79,91,97,103,109,134,140,146,158,164,189,214,232,257,282,307,313,338,350,421],"PIA":[2,27,39,64,70,95,103,111,119,125,150,162,180,205,211,211,219,225,231,237,249,249,274,410],"RUS":[15,21,27,33,39,51,59,63,88,100,106,131,149,155,161,167,175,181,187,193,199,217,223,319],"LEC":[12,18,24,30,36,42,48,54,60,66,74,82,90,96,108,120,126,132,144,150,158,170,182,242],"HAM":[6,12,18,27,33,39,45,51,57,63,71,79,87,93,99,107,113,119,125,131,131,139,145,156],"ANT":[3,9,15,21,21,27,33,37,43,49,53,57,65,69,77,81,85,91,95,99,101,115,109,114],"SAI":[0,0,6,12,18,26,34,40,46,58,62,66,70,74,78,82,82,82,84,86,90,98,98,96]},
     "race_labels":["AUS","CHN","JPN","BHR","SAU","MIA","IMO","MON","ESP","CAN","AUT","GBR","BEL","HUN","NLD","ITA","AZE","SGP","USA","MEX","SAO","LVG","QAT","ABU"],
@@ -174,30 +174,30 @@ SEASONS_DATA = {
         {"position":"10","points":"4","wins":"0","Constructor":{"constructorId":"kick_sauber","name":"Kick Sauber","nationality":"Swiss"}},
     ],
     "races":[
-        {"round":"1","raceName":"Bahrain Grand Prix","date":"2024-03-02","Circuit":{"circuitName":"Bahrain International Circuit","Location":{"country":"Bahrain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"2","raceName":"Saudi Arabian Grand Prix","date":"2024-03-09","Circuit":{"circuitName":"Jeddah Corniche Circuit","Location":{"country":"Saudi Arabia"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"3","raceName":"Australian Grand Prix","date":"2024-03-24","Circuit":{"circuitName":"Albert Park Circuit","Location":{"country":"Australia"}},"winner":"SAI","winnerFull":"Carlos Sainz","team":"Ferrari","results":[]},
-        {"round":"4","raceName":"Japanese Grand Prix","date":"2024-04-07","Circuit":{"circuitName":"Suzuka International Racing Course","Location":{"country":"Japan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"5","raceName":"Chinese Grand Prix","date":"2024-04-21","Circuit":{"circuitName":"Shanghai International Circuit","Location":{"country":"China"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"6","raceName":"Miami Grand Prix","date":"2024-05-05","Circuit":{"circuitName":"Miami International Autodrome","Location":{"country":"USA"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"7","raceName":"Emilia Romagna Grand Prix","date":"2024-05-19","Circuit":{"circuitName":"Autodromo Enzo e Dino Ferrari","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"8","raceName":"Monaco Grand Prix","date":"2024-05-26","Circuit":{"circuitName":"Circuit de Monaco","Location":{"country":"Monaco"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[]},
-        {"round":"9","raceName":"Canadian Grand Prix","date":"2024-06-09","Circuit":{"circuitName":"Circuit Gilles Villeneuve","Location":{"country":"Canada"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"10","raceName":"Spanish Grand Prix","date":"2024-06-23","Circuit":{"circuitName":"Circuit de Barcelona-Catalunya","Location":{"country":"Spain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"11","raceName":"Austrian Grand Prix","date":"2024-06-30","Circuit":{"circuitName":"Red Bull Ring","Location":{"country":"Austria"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[]},
-        {"round":"12","raceName":"British Grand Prix","date":"2024-07-07","Circuit":{"circuitName":"Silverstone Circuit","Location":{"country":"UK"}},"winner":"HAM","winnerFull":"Lewis Hamilton","team":"Mercedes","results":[]},
-        {"round":"13","raceName":"Hungarian Grand Prix","date":"2024-07-21","Circuit":{"circuitName":"Hungaroring","Location":{"country":"Hungary"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[]},
-        {"round":"14","raceName":"Belgian Grand Prix","date":"2024-07-28","Circuit":{"circuitName":"Circuit de Spa-Francorchamps","Location":{"country":"Belgium"}},"winner":"HAM","winnerFull":"Lewis Hamilton","team":"Mercedes","results":[]},
-        {"round":"15","raceName":"Dutch Grand Prix","date":"2024-08-25","Circuit":{"circuitName":"Circuit Zandvoort","Location":{"country":"Netherlands"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"16","raceName":"Italian Grand Prix","date":"2024-09-01","Circuit":{"circuitName":"Autodromo Nazionale Monza","Location":{"country":"Italy"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[]},
-        {"round":"17","raceName":"Azerbaijan Grand Prix","date":"2024-09-15","Circuit":{"circuitName":"Baku City Circuit","Location":{"country":"Azerbaijan"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[]},
-        {"round":"18","raceName":"Singapore Grand Prix","date":"2024-09-22","Circuit":{"circuitName":"Marina Bay Street Circuit","Location":{"country":"Singapore"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"19","raceName":"United States Grand Prix","date":"2024-10-20","Circuit":{"circuitName":"Circuit of the Americas","Location":{"country":"USA"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[]},
-        {"round":"20","raceName":"Mexico City Grand Prix","date":"2024-10-27","Circuit":{"circuitName":"Autodromo Hermanos Rodriguez","Location":{"country":"Mexico"}},"winner":"SAI","winnerFull":"Carlos Sainz","team":"Ferrari","results":[]},
-        {"round":"21","raceName":"São Paulo Grand Prix","date":"2024-11-03","Circuit":{"circuitName":"Autodromo Jose Carlos Pace","Location":{"country":"Brazil"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"22","raceName":"Las Vegas Grand Prix","date":"2024-11-23","Circuit":{"circuitName":"Las Vegas Strip Street Circuit","Location":{"country":"USA"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[]},
-        {"round":"23","raceName":"Qatar Grand Prix","date":"2024-12-01","Circuit":{"circuitName":"Lusail International Circuit","Location":{"country":"Qatar"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"24","raceName":"Abu Dhabi Grand Prix","date":"2024-12-08","Circuit":{"circuitName":"Yas Marina Circuit","Location":{"country":"Abu Dhabi"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
+        {"round":"1","raceName":"Bahrain Grand Prix","date":"2024-03-02","Circuit":{"circuitName":"Bahrain International Circuit","Location":{"country":"Bahrain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"2","raceName":"Saudi Arabian Grand Prix","date":"2024-03-09","Circuit":{"circuitName":"Jeddah Corniche Circuit","Location":{"country":"Saudi Arabia"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"3","raceName":"Australian Grand Prix","date":"2024-03-24","Circuit":{"circuitName":"Albert Park Circuit","Location":{"country":"Australia"}},"winner":"SAI","winnerFull":"Carlos Sainz","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"4","raceName":"Japanese Grand Prix","date":"2024-04-07","Circuit":{"circuitName":"Suzuka International Racing Course","Location":{"country":"Japan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"5","raceName":"Chinese Grand Prix","date":"2024-04-21","Circuit":{"circuitName":"Shanghai International Circuit","Location":{"country":"China"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"6","raceName":"Miami Grand Prix","date":"2024-05-05","Circuit":{"circuitName":"Miami International Autodrome","Location":{"country":"USA"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"7","raceName":"Emilia Romagna Grand Prix","date":"2024-05-19","Circuit":{"circuitName":"Autodromo Enzo e Dino Ferrari","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"8","raceName":"Monaco Grand Prix","date":"2024-05-26","Circuit":{"circuitName":"Circuit de Monaco","Location":{"country":"Monaco"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"9","raceName":"Canadian Grand Prix","date":"2024-06-09","Circuit":{"circuitName":"Circuit Gilles Villeneuve","Location":{"country":"Canada"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"10","raceName":"Spanish Grand Prix","date":"2024-06-23","Circuit":{"circuitName":"Circuit de Barcelona-Catalunya","Location":{"country":"Spain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"11","raceName":"Austrian Grand Prix","date":"2024-06-30","Circuit":{"circuitName":"Red Bull Ring","Location":{"country":"Austria"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[],"sprint_results":[]},
+        {"round":"12","raceName":"British Grand Prix","date":"2024-07-07","Circuit":{"circuitName":"Silverstone Circuit","Location":{"country":"UK"}},"winner":"HAM","winnerFull":"Lewis Hamilton","team":"Mercedes","results":[],"sprint_results":[]},
+        {"round":"13","raceName":"Hungarian Grand Prix","date":"2024-07-21","Circuit":{"circuitName":"Hungaroring","Location":{"country":"Hungary"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"14","raceName":"Belgian Grand Prix","date":"2024-07-28","Circuit":{"circuitName":"Circuit de Spa-Francorchamps","Location":{"country":"Belgium"}},"winner":"HAM","winnerFull":"Lewis Hamilton","team":"Mercedes","results":[],"sprint_results":[]},
+        {"round":"15","raceName":"Dutch Grand Prix","date":"2024-08-25","Circuit":{"circuitName":"Circuit Zandvoort","Location":{"country":"Netherlands"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"16","raceName":"Italian Grand Prix","date":"2024-09-01","Circuit":{"circuitName":"Autodromo Nazionale Monza","Location":{"country":"Italy"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"17","raceName":"Azerbaijan Grand Prix","date":"2024-09-15","Circuit":{"circuitName":"Baku City Circuit","Location":{"country":"Azerbaijan"}},"winner":"PIA","winnerFull":"Oscar Piastri","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"18","raceName":"Singapore Grand Prix","date":"2024-09-22","Circuit":{"circuitName":"Marina Bay Street Circuit","Location":{"country":"Singapore"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"19","raceName":"United States Grand Prix","date":"2024-10-20","Circuit":{"circuitName":"Circuit of the Americas","Location":{"country":"USA"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"20","raceName":"Mexico City Grand Prix","date":"2024-10-27","Circuit":{"circuitName":"Autodromo Hermanos Rodriguez","Location":{"country":"Mexico"}},"winner":"SAI","winnerFull":"Carlos Sainz","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"21","raceName":"São Paulo Grand Prix","date":"2024-11-03","Circuit":{"circuitName":"Autodromo Jose Carlos Pace","Location":{"country":"Brazil"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"22","raceName":"Las Vegas Grand Prix","date":"2024-11-23","Circuit":{"circuitName":"Las Vegas Strip Street Circuit","Location":{"country":"USA"}},"winner":"RUS","winnerFull":"George Russell","team":"Mercedes","results":[],"sprint_results":[]},
+        {"round":"23","raceName":"Qatar Grand Prix","date":"2024-12-01","Circuit":{"circuitName":"Lusail International Circuit","Location":{"country":"Qatar"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"24","raceName":"Abu Dhabi Grand Prix","date":"2024-12-08","Circuit":{"circuitName":"Yas Marina Circuit","Location":{"country":"Abu Dhabi"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
     ],
     "progression":{"VER":[26,51,51,77,110,110,160,160,194,219,225,225,229,235,249,249,255,273,298,298,331,356,369,437],"NOR":[6,21,21,21,34,59,65,71,71,78,90,108,126,140,168,168,174,198,215,222,240,263,298,374],"LEC":[12,27,33,39,45,51,57,94,94,101,107,113,125,131,147,172,178,184,209,215,221,231,234,356],"PIA":[9,24,24,30,42,48,54,60,66,74,86,104,120,126,154,154,164,176,176,198,204,210,222,292],"SAI":[15,21,33,45,51,57,63,63,63,70,82,96,104,118,130,138,144,150,157,182,184,188,192,290],"PER":[18,36,44,50,56,58,110,110,138,150,152,152,152,152,152,152,155,159,159,159,161,165,168,192],"RUS":[4,10,10,10,16,22,28,34,40,46,62,74,82,82,90,96,96,96,96,96,96,122,128,177],"HAM":[0,4,12,12,18,24,30,36,42,48,54,60,68,98,98,98,104,106,108,110,110,116,122,174]},
     "race_labels":["BHR","SAU","AUS","JPN","CHN","MIA","IMO","MON","CAN","ESP","AUT","GBR","HUN","BEL","NLD","ITA","AZE","SGP","USA","MEX","SAO","LVG","QAT","ABU"],
@@ -230,28 +230,28 @@ SEASONS_DATA = {
         {"position":"10","points":"12","wins":"0","Constructor":{"constructorId":"haas","name":"Haas F1 Team","nationality":"American"}},
     ],
     "races":[
-        {"round":"1","raceName":"Bahrain Grand Prix","date":"2023-03-05","Circuit":{"circuitName":"Bahrain International Circuit","Location":{"country":"Bahrain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"2","raceName":"Saudi Arabian Grand Prix","date":"2023-03-19","Circuit":{"circuitName":"Jeddah Corniche Circuit","Location":{"country":"Saudi Arabia"}},"winner":"PER","winnerFull":"Sergio Pérez","team":"Red Bull Racing","results":[]},
-        {"round":"3","raceName":"Australian Grand Prix","date":"2023-04-02","Circuit":{"circuitName":"Albert Park Circuit","Location":{"country":"Australia"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"4","raceName":"Azerbaijan Grand Prix","date":"2023-04-30","Circuit":{"circuitName":"Baku City Circuit","Location":{"country":"Azerbaijan"}},"winner":"PER","winnerFull":"Sergio Pérez","team":"Red Bull Racing","results":[]},
-        {"round":"5","raceName":"Miami Grand Prix","date":"2023-05-07","Circuit":{"circuitName":"Miami International Autodrome","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"6","raceName":"Monaco Grand Prix","date":"2023-05-28","Circuit":{"circuitName":"Circuit de Monaco","Location":{"country":"Monaco"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"7","raceName":"Spanish Grand Prix","date":"2023-06-04","Circuit":{"circuitName":"Circuit de Barcelona-Catalunya","Location":{"country":"Spain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"8","raceName":"Canadian Grand Prix","date":"2023-06-18","Circuit":{"circuitName":"Circuit Gilles Villeneuve","Location":{"country":"Canada"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"9","raceName":"Austrian Grand Prix","date":"2023-07-02","Circuit":{"circuitName":"Red Bull Ring","Location":{"country":"Austria"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"10","raceName":"British Grand Prix","date":"2023-07-09","Circuit":{"circuitName":"Silverstone Circuit","Location":{"country":"UK"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[]},
-        {"round":"11","raceName":"Hungarian Grand Prix","date":"2023-07-23","Circuit":{"circuitName":"Hungaroring","Location":{"country":"Hungary"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"12","raceName":"Belgian Grand Prix","date":"2023-07-30","Circuit":{"circuitName":"Circuit de Spa-Francorchamps","Location":{"country":"Belgium"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"13","raceName":"Dutch Grand Prix","date":"2023-08-27","Circuit":{"circuitName":"Circuit Zandvoort","Location":{"country":"Netherlands"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"14","raceName":"Italian Grand Prix","date":"2023-09-03","Circuit":{"circuitName":"Autodromo Nazionale Monza","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"15","raceName":"Singapore Grand Prix","date":"2023-09-17","Circuit":{"circuitName":"Marina Bay Street Circuit","Location":{"country":"Singapore"}},"winner":"SAI","winnerFull":"Carlos Sainz","team":"Ferrari","results":[]},
-        {"round":"16","raceName":"Japanese Grand Prix","date":"2023-09-24","Circuit":{"circuitName":"Suzuka International Racing Course","Location":{"country":"Japan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"17","raceName":"Qatar Grand Prix","date":"2023-10-08","Circuit":{"circuitName":"Lusail International Circuit","Location":{"country":"Qatar"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"18","raceName":"United States Grand Prix","date":"2023-10-22","Circuit":{"circuitName":"Circuit of the Americas","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"19","raceName":"Mexico City Grand Prix","date":"2023-10-29","Circuit":{"circuitName":"Autodromo Hermanos Rodriguez","Location":{"country":"Mexico"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"20","raceName":"São Paulo Grand Prix","date":"2023-11-05","Circuit":{"circuitName":"Autodromo Jose Carlos Pace","Location":{"country":"Brazil"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"21","raceName":"Las Vegas Grand Prix","date":"2023-11-18","Circuit":{"circuitName":"Las Vegas Strip Street Circuit","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"22","raceName":"Abu Dhabi Grand Prix","date":"2023-11-26","Circuit":{"circuitName":"Yas Marina Circuit","Location":{"country":"Abu Dhabi"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
+        {"round":"1","raceName":"Bahrain Grand Prix","date":"2023-03-05","Circuit":{"circuitName":"Bahrain International Circuit","Location":{"country":"Bahrain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"2","raceName":"Saudi Arabian Grand Prix","date":"2023-03-19","Circuit":{"circuitName":"Jeddah Corniche Circuit","Location":{"country":"Saudi Arabia"}},"winner":"PER","winnerFull":"Sergio Pérez","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"3","raceName":"Australian Grand Prix","date":"2023-04-02","Circuit":{"circuitName":"Albert Park Circuit","Location":{"country":"Australia"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"4","raceName":"Azerbaijan Grand Prix","date":"2023-04-30","Circuit":{"circuitName":"Baku City Circuit","Location":{"country":"Azerbaijan"}},"winner":"PER","winnerFull":"Sergio Pérez","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"5","raceName":"Miami Grand Prix","date":"2023-05-07","Circuit":{"circuitName":"Miami International Autodrome","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"6","raceName":"Monaco Grand Prix","date":"2023-05-28","Circuit":{"circuitName":"Circuit de Monaco","Location":{"country":"Monaco"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"7","raceName":"Spanish Grand Prix","date":"2023-06-04","Circuit":{"circuitName":"Circuit de Barcelona-Catalunya","Location":{"country":"Spain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"8","raceName":"Canadian Grand Prix","date":"2023-06-18","Circuit":{"circuitName":"Circuit Gilles Villeneuve","Location":{"country":"Canada"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"9","raceName":"Austrian Grand Prix","date":"2023-07-02","Circuit":{"circuitName":"Red Bull Ring","Location":{"country":"Austria"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"10","raceName":"British Grand Prix","date":"2023-07-09","Circuit":{"circuitName":"Silverstone Circuit","Location":{"country":"UK"}},"winner":"NOR","winnerFull":"Lando Norris","team":"McLaren","results":[],"sprint_results":[]},
+        {"round":"11","raceName":"Hungarian Grand Prix","date":"2023-07-23","Circuit":{"circuitName":"Hungaroring","Location":{"country":"Hungary"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"12","raceName":"Belgian Grand Prix","date":"2023-07-30","Circuit":{"circuitName":"Circuit de Spa-Francorchamps","Location":{"country":"Belgium"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"13","raceName":"Dutch Grand Prix","date":"2023-08-27","Circuit":{"circuitName":"Circuit Zandvoort","Location":{"country":"Netherlands"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"14","raceName":"Italian Grand Prix","date":"2023-09-03","Circuit":{"circuitName":"Autodromo Nazionale Monza","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"15","raceName":"Singapore Grand Prix","date":"2023-09-17","Circuit":{"circuitName":"Marina Bay Street Circuit","Location":{"country":"Singapore"}},"winner":"SAI","winnerFull":"Carlos Sainz","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"16","raceName":"Japanese Grand Prix","date":"2023-09-24","Circuit":{"circuitName":"Suzuka International Racing Course","Location":{"country":"Japan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"17","raceName":"Qatar Grand Prix","date":"2023-10-08","Circuit":{"circuitName":"Lusail International Circuit","Location":{"country":"Qatar"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"18","raceName":"United States Grand Prix","date":"2023-10-22","Circuit":{"circuitName":"Circuit of the Americas","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"19","raceName":"Mexico City Grand Prix","date":"2023-10-29","Circuit":{"circuitName":"Autodromo Hermanos Rodriguez","Location":{"country":"Mexico"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"20","raceName":"São Paulo Grand Prix","date":"2023-11-05","Circuit":{"circuitName":"Autodromo Jose Carlos Pace","Location":{"country":"Brazil"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"21","raceName":"Las Vegas Grand Prix","date":"2023-11-18","Circuit":{"circuitName":"Las Vegas Strip Street Circuit","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"22","raceName":"Abu Dhabi Grand Prix","date":"2023-11-26","Circuit":{"circuitName":"Yas Marina Circuit","Location":{"country":"Abu Dhabi"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
     ],
     "progression":{"VER":[25,44,69,94,119,144,170,195,220,220,255,274,294,312,312,337,362,387,412,437,462,575],"PER":[6,31,43,74,80,92,104,116,128,132,144,156,163,171,179,179,185,191,197,200,206,285],"ALO":[15,27,39,45,57,63,75,87,105,111,117,125,131,139,147,153,159,165,171,177,183,234],"HAM":[0,8,14,20,26,26,32,38,44,56,68,74,82,94,94,94,100,106,112,122,128,206],"SAI":[6,12,20,26,32,38,44,50,56,68,74,80,86,92,118,118,124,130,140,150,162,205],"NOR":[0,0,4,4,4,8,12,14,16,32,38,40,52,58,64,64,64,64,70,76,76,97]},
     "race_labels":["BHR","SAU","AUS","AZE","MIA","MON","ESP","CAN","AUT","GBR","HUN","BEL","NLD","ITA","SGP","JPN","QAT","USA","MEX","SAO","LVG","ABU"],
@@ -284,28 +284,28 @@ SEASONS_DATA = {
         {"position":"10","points":"8","wins":"0","Constructor":{"constructorId":"williams","name":"Williams","nationality":"British"}},
     ],
     "races":[
-        {"round":"1","raceName":"Bahrain Grand Prix","date":"2022-03-20","Circuit":{"circuitName":"Bahrain International Circuit","Location":{"country":"Bahrain"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[]},
-        {"round":"2","raceName":"Saudi Arabian Grand Prix","date":"2022-03-27","Circuit":{"circuitName":"Jeddah Corniche Circuit","Location":{"country":"Saudi Arabia"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[]},
-        {"round":"3","raceName":"Australian Grand Prix","date":"2022-04-10","Circuit":{"circuitName":"Albert Park Circuit","Location":{"country":"Australia"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[]},
-        {"round":"4","raceName":"Emilia Romagna Grand Prix","date":"2022-04-24","Circuit":{"circuitName":"Autodromo Enzo e Dino Ferrari","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"5","raceName":"Miami Grand Prix","date":"2022-05-08","Circuit":{"circuitName":"Miami International Autodrome","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"6","raceName":"Spanish Grand Prix","date":"2022-05-22","Circuit":{"circuitName":"Circuit de Barcelona-Catalunya","Location":{"country":"Spain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"7","raceName":"Monaco Grand Prix","date":"2022-05-29","Circuit":{"circuitName":"Circuit de Monaco","Location":{"country":"Monaco"}},"winner":"PER","winnerFull":"Sergio Pérez","team":"Red Bull Racing","results":[]},
-        {"round":"8","raceName":"Azerbaijan Grand Prix","date":"2022-06-12","Circuit":{"circuitName":"Baku City Circuit","Location":{"country":"Azerbaijan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"9","raceName":"Canadian Grand Prix","date":"2022-06-19","Circuit":{"circuitName":"Circuit Gilles Villeneuve","Location":{"country":"Canada"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"10","raceName":"British Grand Prix","date":"2022-07-03","Circuit":{"circuitName":"Silverstone Circuit","Location":{"country":"UK"}},"winner":"SAI","winnerFull":"Carlos Sainz","team":"Ferrari","results":[]},
-        {"round":"11","raceName":"Austrian Grand Prix","date":"2022-07-10","Circuit":{"circuitName":"Red Bull Ring","Location":{"country":"Austria"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[]},
-        {"round":"12","raceName":"French Grand Prix","date":"2022-07-24","Circuit":{"circuitName":"Circuit Paul Ricard","Location":{"country":"France"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"13","raceName":"Hungarian Grand Prix","date":"2022-07-31","Circuit":{"circuitName":"Hungaroring","Location":{"country":"Hungary"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"14","raceName":"Belgian Grand Prix","date":"2022-08-28","Circuit":{"circuitName":"Circuit de Spa-Francorchamps","Location":{"country":"Belgium"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"15","raceName":"Dutch Grand Prix","date":"2022-09-04","Circuit":{"circuitName":"Circuit Zandvoort","Location":{"country":"Netherlands"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"16","raceName":"Italian Grand Prix","date":"2022-09-11","Circuit":{"circuitName":"Autodromo Nazionale Monza","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"17","raceName":"Singapore Grand Prix","date":"2022-10-02","Circuit":{"circuitName":"Marina Bay Street Circuit","Location":{"country":"Singapore"}},"winner":"PER","winnerFull":"Sergio Pérez","team":"Red Bull Racing","results":[]},
-        {"round":"18","raceName":"Japanese Grand Prix","date":"2022-10-09","Circuit":{"circuitName":"Suzuka International Racing Course","Location":{"country":"Japan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"19","raceName":"United States Grand Prix","date":"2022-10-23","Circuit":{"circuitName":"Circuit of the Americas","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"20","raceName":"Mexico City Grand Prix","date":"2022-10-30","Circuit":{"circuitName":"Autodromo Hermanos Rodriguez","Location":{"country":"Mexico"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"21","raceName":"São Paulo Grand Prix","date":"2022-11-13","Circuit":{"circuitName":"Autodromo Jose Carlos Pace","Location":{"country":"Brazil"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
-        {"round":"22","raceName":"Abu Dhabi Grand Prix","date":"2022-11-20","Circuit":{"circuitName":"Yas Marina Circuit","Location":{"country":"Abu Dhabi"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[]},
+        {"round":"1","raceName":"Bahrain Grand Prix","date":"2022-03-20","Circuit":{"circuitName":"Bahrain International Circuit","Location":{"country":"Bahrain"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"2","raceName":"Saudi Arabian Grand Prix","date":"2022-03-27","Circuit":{"circuitName":"Jeddah Corniche Circuit","Location":{"country":"Saudi Arabia"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"3","raceName":"Australian Grand Prix","date":"2022-04-10","Circuit":{"circuitName":"Albert Park Circuit","Location":{"country":"Australia"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"4","raceName":"Emilia Romagna Grand Prix","date":"2022-04-24","Circuit":{"circuitName":"Autodromo Enzo e Dino Ferrari","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"5","raceName":"Miami Grand Prix","date":"2022-05-08","Circuit":{"circuitName":"Miami International Autodrome","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"6","raceName":"Spanish Grand Prix","date":"2022-05-22","Circuit":{"circuitName":"Circuit de Barcelona-Catalunya","Location":{"country":"Spain"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"7","raceName":"Monaco Grand Prix","date":"2022-05-29","Circuit":{"circuitName":"Circuit de Monaco","Location":{"country":"Monaco"}},"winner":"PER","winnerFull":"Sergio Pérez","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"8","raceName":"Azerbaijan Grand Prix","date":"2022-06-12","Circuit":{"circuitName":"Baku City Circuit","Location":{"country":"Azerbaijan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"9","raceName":"Canadian Grand Prix","date":"2022-06-19","Circuit":{"circuitName":"Circuit Gilles Villeneuve","Location":{"country":"Canada"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"10","raceName":"British Grand Prix","date":"2022-07-03","Circuit":{"circuitName":"Silverstone Circuit","Location":{"country":"UK"}},"winner":"SAI","winnerFull":"Carlos Sainz","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"11","raceName":"Austrian Grand Prix","date":"2022-07-10","Circuit":{"circuitName":"Red Bull Ring","Location":{"country":"Austria"}},"winner":"LEC","winnerFull":"Charles Leclerc","team":"Ferrari","results":[],"sprint_results":[]},
+        {"round":"12","raceName":"French Grand Prix","date":"2022-07-24","Circuit":{"circuitName":"Circuit Paul Ricard","Location":{"country":"France"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"13","raceName":"Hungarian Grand Prix","date":"2022-07-31","Circuit":{"circuitName":"Hungaroring","Location":{"country":"Hungary"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"14","raceName":"Belgian Grand Prix","date":"2022-08-28","Circuit":{"circuitName":"Circuit de Spa-Francorchamps","Location":{"country":"Belgium"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"15","raceName":"Dutch Grand Prix","date":"2022-09-04","Circuit":{"circuitName":"Circuit Zandvoort","Location":{"country":"Netherlands"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"16","raceName":"Italian Grand Prix","date":"2022-09-11","Circuit":{"circuitName":"Autodromo Nazionale Monza","Location":{"country":"Italy"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"17","raceName":"Singapore Grand Prix","date":"2022-10-02","Circuit":{"circuitName":"Marina Bay Street Circuit","Location":{"country":"Singapore"}},"winner":"PER","winnerFull":"Sergio Pérez","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"18","raceName":"Japanese Grand Prix","date":"2022-10-09","Circuit":{"circuitName":"Suzuka International Racing Course","Location":{"country":"Japan"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"19","raceName":"United States Grand Prix","date":"2022-10-23","Circuit":{"circuitName":"Circuit of the Americas","Location":{"country":"USA"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"20","raceName":"Mexico City Grand Prix","date":"2022-10-30","Circuit":{"circuitName":"Autodromo Hermanos Rodriguez","Location":{"country":"Mexico"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"21","raceName":"São Paulo Grand Prix","date":"2022-11-13","Circuit":{"circuitName":"Autodromo Jose Carlos Pace","Location":{"country":"Brazil"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
+        {"round":"22","raceName":"Abu Dhabi Grand Prix","date":"2022-11-20","Circuit":{"circuitName":"Yas Marina Circuit","Location":{"country":"Abu Dhabi"}},"winner":"VER","winnerFull":"Max Verstappen","team":"Red Bull Racing","results":[],"sprint_results":[]},
     ],
     "progression":{"VER":[26,45,71,87,103,116,122,138,157,157,163,182,200,219,244,263,272,281,300,319,337,454],"LEC":[26,51,71,71,71,78,78,78,78,84,98,98,104,104,104,116,116,116,116,116,116,308],"PER":[18,30,30,36,48,54,84,100,110,110,116,122,128,134,139,145,175,195,207,220,226,305],"RUS":[0,4,14,20,26,38,44,56,62,74,86,94,106,112,120,128,134,140,148,156,165,275],"SAI":[0,15,30,30,38,50,54,54,60,85,85,91,99,105,105,111,111,111,111,119,127,265],"HAM":[0,9,15,21,27,33,39,39,47,47,47,56,59,74,80,80,80,86,95,104,113,240]},
     "race_labels":["BHR","SAU","AUS","IMO","MIA","ESP","MON","AZE","CAN","GBR","AUT","FRA","HUN","BEL","NLD","ITA","SGP","JPN","USA","MEX","SAO","ABU"],
@@ -356,6 +356,37 @@ def fetch_all_races(season):
     # Return sorted by round number
     return [all_races[k] for k in sorted(all_races.keys(), key=lambda x: int(x))]
 
+def fetch_all_sprints(season):
+    """Fetch all sprint results for a season, paginating as needed. Returns dict keyed by round."""
+    sprint_map = {}
+    offset = 0
+    limit = 100
+
+    while True:
+        url = f"{BASE_URL}/{season}/sprint/?limit={limit}&offset={offset}"
+        r = requests.get(url, timeout=20)
+        r.raise_for_status()
+        data = r.json().get("MRData", {})
+        races_page = data.get("RaceTable", {}).get("Races", [])
+        total = int(data.get("total", 0))
+
+        if total == 0 or not races_page:
+            break  # season has no sprints
+
+        for race in races_page:
+            rnd = race.get("round")
+            if rnd not in sprint_map:
+                sprint_map[rnd] = []
+            sprint_map[rnd].extend(race.get("SprintResults", []))
+
+        offset += limit
+        if offset >= total:
+            break
+
+        time.sleep(0.3)
+
+    return sprint_map  # {round: [SprintResult, ...]}
+
 def slim_result(r):
     """Keep only the fields we need per driver result to keep file size reasonable."""
     return {
@@ -388,6 +419,13 @@ def fetch_season(season):
     print(f"  [{season}] Fetching all race results (paginating)...")
     all_races_raw = fetch_all_races(season)
 
+    print(f"  [{season}] Fetching sprint results...")
+    sprint_map = fetch_all_sprints(season)
+    if sprint_map:
+        print(f"    Found sprints at rounds: {sorted(sprint_map.keys())}")
+    else:
+        print(f"    No sprints found for {season}")
+
     races = []
     driver_map = {}
     race_labels = []
@@ -401,8 +439,13 @@ def fetch_season(season):
         # Slim down results to just what we display
         results = [slim_result(r) for r in raw_results]
 
+        # Attach sprint results for this round if they exist
+        rnd = race.get("round")
+        raw_sprint = sprint_map.get(rnd, [])
+        sprint_results = [slim_result(r) for r in raw_sprint]
+
         races.append({
-            "round": race.get("round"),
+            "round": rnd,
             "raceName": race.get("raceName"),
             "date": race.get("date"),
             "Circuit": race.get("Circuit",{}),
@@ -410,6 +453,7 @@ def fetch_season(season):
             "winnerFull": f"{winner.get('Driver',{}).get('givenName','')} {winner.get('Driver',{}).get('familyName','')}".strip(),
             "team": winner.get("Constructor",{}).get("name",""),
             "results": results,
+            "sprint_results": sprint_results,
         })
 
         for r in raw_results:
@@ -662,10 +706,11 @@ function renderRaces(){{
     const country=r.Circuit?.Location?.country||'';
     const short=r.raceName.replace(' Grand Prix','').replace('Grand Prix','').trim();
     const sel=r.round===selectedRound;
+    const hasSprint=r.sprint_results && r.sprint_results.length>0;
     return `<div class="race-item${{sel?' selected':''}}" onclick="selectRace('${{r.round}}')">
       <span style="font-size:18px;flex-shrink:0;">${{flag(country)}}</span>
       <div style="flex:1;min-width:0;">
-        <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${{short}}</div>
+        <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${{short}}${{hasSprint?' <span style="font-size:9px;background:#FF8000;color:#000;padding:1px 5px;border-radius:3px;font-weight:900;letter-spacing:.05em;vertical-align:middle;">SPRINT</span>':''}}</div>
         <div style="font-size:11px;color:#555;margin-top:1px;">${{r.date}}</div>
       </div>
       <span style="font-size:11px;color:#333;font-weight:700;">R${{r.round}}</span>
@@ -732,18 +777,51 @@ function renderRaces(){{
       </div>`;
     }}
 
+    // Sprint results
+    let sprintHtml='';
+    const hasSprint=race.sprint_results && race.sprint_results.length>0;
+    if(hasSprint){{
+      const sprintWinner=race.sprint_results[0];
+      const swc=tc(sprintWinner.Constructor?.constructorId);
+      const sprintRows=race.sprint_results.map(r=>{{
+        const c=tc(r.Constructor?.constructorId);
+        const fin=r.status==='Finished'||r.status?.includes('Lap');
+        return `<div class="results-row">
+          <span style="font-weight:900;font-size:16px;color:${{posColor(r.position)}}">${{r.position}}</span>
+          <span style="font-size:10px;text-align:center;color:#444;">${{r.grid||'—'}}</span>
+          <div><span style="font-weight:600;font-size:14px;">${{r.Driver?.givenName?.charAt(0)}}. </span><span style="font-weight:900;font-size:14px;color:${{c}}">${{r.Driver?.familyName}}</span></div>
+          <span style="font-size:12px;color:#555;font-family:Barlow,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${{r.Constructor?.name}}</span>
+          <span style="font-size:11px;color:${{fin?'#4ade80':'#f87171'}};font-family:Barlow,sans-serif;">${{r.status}}</span>
+          <span style="font-size:12px;color:#555;text-align:center;">${{r.laps}}</span>
+          <div style="text-align:right;"><span style="font-size:14px;font-weight:700;color:${{r.points!=='0'?'#FFD700':'#444'}}">${{r.points}}</span></div>
+        </div>`;
+      }}).join('');
+      sprintHtml=`<div style="margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span style="background:#FF8000;color:#000;font-size:10px;font-weight:900;padding:3px 10px;border-radius:4px;letter-spacing:.1em;">⚡ SPRINT RACE</span>
+          <span style="font-size:13px;color:#888;font-family:Barlow,sans-serif;">Winner: <span style="color:${{swc}};font-weight:700;">${{sprintWinner.Driver?.givenName}} ${{sprintWinner.Driver?.familyName}}</span></span>
+        </div>
+        <div class="card" style="overflow:hidden;">
+          <div class="results-hdr"><span>FIN</span><span style="color:#444;font-size:9px;">GRD</span><span>DRIVER</span><span>TEAM</span><span>STATUS</span><span style="text-align:center;">LAPS</span><span style="text-align:right;">PTS</span></div>
+          ${{sprintRows}}
+        </div>
+      </div>`;
+    }}
+
     detailHtml=`
       <div style="margin-bottom:20px;">
         <div style="font-size:11px;color:#e8002d;letter-spacing:.12em;font-weight:700;margin-bottom:6px;">ROUND ${{race.round}} · ${{(race.Circuit?.Location?.country||'').toUpperCase()}}</div>
         <div style="font-size:30px;font-weight:900;letter-spacing:.05em;line-height:1;">${{race.raceName.toUpperCase()}}</div>
         <div style="font-size:13px;color:#555;margin-top:6px;font-family:Barlow,sans-serif;">${{race.Circuit?.circuitName}} · ${{race.date}}</div>
       </div>
-      ${{podiumHtml}}${{tableHtml}}`;
+      ${{sprintHtml}}${{podiumHtml}}${{tableHtml}}`;
   }}
 
+  const sprintCount=races.filter(r=>r.sprint_results&&r.sprint_results.length>0).length;
+  const sprintLabel=sprintCount>0?` · ${{sprintCount}} ⚡ SPRINTS`:'';
   document.getElementById('tab-races').innerHTML=`<div class="fade race-grid">
     <div class="card race-sidebar">
-      <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px;font-weight:700;letter-spacing:.1em;color:#555;">${{currentSeason}} CALENDAR · ${{races.length}} RACES</div>
+      <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px;font-weight:700;letter-spacing:.1em;color:#555;">${{currentSeason}} CALENDAR · ${{races.length}} RACES${{sprintLabel}}</div>
       <div class="race-list">${{sidebar||'<div class="no-data">No races yet.</div>'}}</div>
     </div>
     <div>${{detailHtml}}</div>
