@@ -193,6 +193,19 @@ def fetch_standings():
     df["games_played"] = df["wins"] + df["losses"]
     df["games_remaining"] = 82 - df["games_played"]
 
+    # Calculate games back within each conference
+    def calc_games_back(conf_df):
+        leader = conf_df.sort_values("seed").iloc[0]
+        gb = ((leader["wins"] - conf_df["wins"]) + (conf_df["losses"] - leader["losses"])) / 2
+        return gb.round(1)
+
+    gb_series = []
+    for conf in ["East", "West"]:
+        conf_df = df[df["conference"] == conf].copy()
+        conf_df["games_back"] = calc_games_back(conf_df)
+        gb_series.append(conf_df)
+    df = pd.concat(gb_series).sort_index()
+
     # Fix ambiguous city names using team IDs
     TEAM_ID_TO_ABBR = {
         1610612747: "LAL", 1610612746: "LAC",  # both "Los Angeles" / "LA"
@@ -336,24 +349,34 @@ def score_games(schedule, standings, srs_dict):
         same_conf = h["conference"] == a["conference"]
         conf_factor = 1.0 if same_conf else 0.6
 
-        # --- Seed pressure: Gaussian decay from every meaningful boundary ---
-        # Each boundary contributes pressure that falls off smoothly with distance.
-        # sigma=1.5 means a team 3 seeds away still feels ~13% of the boundary weight,
-        # so a team at 4 feels both the 4/5 home-court line AND the 6/7 play-in cliff.
-        def seed_pressure(seed, games_remaining):
+        # --- Seed pressure: Gaussian decay from meaningful boundaries ---
+        # Uses actual games back from boundary teams rather than seed number alone,
+        # so a team at seed 5 by 0.5 GB feels almost the same pressure as seed 6.
+        def get_gb_to_boundary(team_row, conf_standings, boundary_seed):
+            # GB between this team and the team sitting at boundary_seed
+            boundary_teams = conf_standings[conf_standings["seed"] == boundary_seed]
+            if boundary_teams.empty:
+                # Fall back to seed-based distance if boundary team not found
+                return abs(team_row["seed"] - boundary_seed - 0.5)
+            b = boundary_teams.iloc[0]
+            raw_gb = ((b["wins"] - team_row["wins"]) + (team_row["losses"] - b["losses"])) / 2
+            return abs(raw_gb)
+
+        def seed_pressure(team_row, conf_standings, games_remaining):
             if games_remaining == 0:
                 return 0
             pressure = 0
             for boundary, weight in BOUNDARY_WEIGHTS.items():
-                # Boundary sits *between* seeds `boundary` and `boundary+1`
-                # Distance is how far this team is from that dividing line
-                dist = abs(seed - boundary - 0.5)
-                sigma = 1.5
-                pressure += weight * np.exp(-0.5 * (dist / sigma) ** 2)
+                # For each boundary, find GB to the team sitting right at that seed
+                gb = get_gb_to_boundary(team_row, conf_standings, boundary)
+                sigma = 3.0  # ~3 GB = meaningful falloff; wider than before since GB is the unit now
+                pressure += weight * np.exp(-0.5 * (gb / sigma) ** 2)
             return pressure
 
-        h_pressure = seed_pressure(h["seed"], h["games_remaining"])
-        a_pressure = seed_pressure(a["seed"], a["games_remaining"])
+        h_conf = standings[standings["conference"] == h["conference"]]
+        a_conf = standings[standings["conference"] == a["conference"]]
+        h_pressure = seed_pressure(h, h_conf, h["games_remaining"])
+        a_pressure = seed_pressure(a, a_conf, a["games_remaining"])
         combined_pressure = h_pressure + a_pressure
 
         # --- Head-to-head multiplier: chasing same seed? ---
@@ -505,8 +528,8 @@ def build_html(scored_games, srs_df, standings):
     def conf_table(conf_name):
         conf = standings[standings["conference"] == conf_name].sort_values("seed")
         rows_html = ""
-        DIVIDER_GOLD = '<tr><td colspan="4" style="padding:2px 0;"><div style="height:2px;background:#f0c030;opacity:0.6;"></div></td></tr>'
-        DIVIDER_RED  = '<tr><td colspan="4" style="padding:2px 0;"><div style="height:2px;background:#cc1122;opacity:0.6;"></div></td></tr>'
+        DIVIDER_GOLD = '<tr><td colspan="5" style="padding:2px 0;"><div style="height:2px;background:#f0c030;opacity:0.6;"></div></td></tr>'
+        DIVIDER_RED  = '<tr><td colspan="5" style="padding:2px 0;"><div style="height:2px;background:#cc1122;opacity:0.6;"></div></td></tr>'
         for _, r in conf.iterrows():
             seed = int(r["seed"])
             if seed == 7:
@@ -514,10 +537,13 @@ def build_html(scored_games, srs_df, standings):
             if seed == 11:
                 rows_html += DIVIDER_RED
             badge_color = "#2979ff" if seed <= 6 else ("#f0c030" if seed <= 10 else "#3d5a80")
+            gb = r["games_back"]
+            gb_str = "—" if gb == 0 else f"{gb:.1f}"
             rows_html += f"""<tr>
               <td style="color:{badge_color};font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">{seed}</td>
               <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">{r['team']}</td>
               <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">{r['wins']}-{r['losses']}</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">{gb_str}</td>
               <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">{r['games_remaining']}g</td>
             </tr>"""
         return rows_html
