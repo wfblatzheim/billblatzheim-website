@@ -72,6 +72,7 @@ DRIVER_COLORS = [
 SEASONS_DATA = {
 
 2025: {
+    "season_complete":True,
     "champion":"Lando Norris","champion_team":"McLaren","ctor_champion":"McLaren",
     "driver_standings":[
         {"position":"1","points":"423","wins":"7","Driver":{"givenName":"Lando","familyName":"Norris","code":"NOR","nationality":"British"},"Constructors":[{"constructorId":"mclaren","name":"McLaren"}]},
@@ -138,6 +139,7 @@ SEASONS_DATA = {
 },
 
 2024: {
+    "season_complete":True,
     "champion":"Max Verstappen","champion_team":"Red Bull Racing","ctor_champion":"McLaren",
     "driver_standings":[
         {"position":"1","points":"437","wins":"9","Driver":{"givenName":"Max","familyName":"Verstappen","code":"VER","nationality":"Dutch"},"Constructors":[{"constructorId":"red_bull","name":"Red Bull Racing"}]},
@@ -204,6 +206,7 @@ SEASONS_DATA = {
 },
 
 2023: {
+    "season_complete":True,
     "champion":"Max Verstappen","champion_team":"Red Bull Racing","ctor_champion":"Red Bull Racing",
     "driver_standings":[
         {"position":"1","points":"575","wins":"19","Driver":{"givenName":"Max","familyName":"Verstappen","code":"VER","nationality":"Dutch"},"Constructors":[{"constructorId":"red_bull","name":"Red Bull Racing"}]},
@@ -258,6 +261,7 @@ SEASONS_DATA = {
 },
 
 2022: {
+    "season_complete":True,
     "champion":"Max Verstappen","champion_team":"Red Bull Racing","ctor_champion":"Red Bull Racing",
     "driver_standings":[
         {"position":"1","points":"454","wins":"15","Driver":{"givenName":"Max","familyName":"Verstappen","code":"VER","nationality":"Dutch"},"Constructors":[{"constructorId":"red_bull","name":"Red Bull Racing"}]},
@@ -471,6 +475,7 @@ def fetch_season(season):
     ctor_s = constructor_standings[0] if constructor_standings else {}
 
     return {
+        "season_complete": season < datetime.now().year,
         "champion": f"{champion_s.get('Driver',{}).get('givenName','')} {champion_s.get('Driver',{}).get('familyName','')}".strip(),
         "champion_team": champion_s.get("Constructors",[{}])[0].get("name",""),
         "ctor_champion": ctor_s.get("Constructor",{}).get("name",""),
@@ -626,7 +631,7 @@ function selectRace(round){{ selectedRound=round; renderRaces(); }}
 function renderStandings(){{
   const d=seasonsData[currentSeason]; if(!d) return;
   let bannerHtml='';
-  if(d.champion) bannerHtml=`<div class="champ-banner">
+  if(d.champion && d.season_complete) bannerHtml=`<div class="champ-banner">
     <span style="font-size:28px;">🏆</span>
     <div>
       <div style="font-size:11px;color:#e8002d;font-weight:700;letter-spacing:.1em;">${{currentSeason}} CHAMPIONS</div>
@@ -721,14 +726,20 @@ function renderRaces(){{
   let detailHtml='<div class="no-data">Select a race from the calendar.</div>';
 
   if(race){{
-    const winnerCtorId=(d.driver_standings||[]).find(s=>s.Driver?.code===race.winner)?.Constructors?.[0]?.constructorId||'';
-    const winnerColor=tc(winnerCtorId);
     const hasResults=race.results && race.results.length>0;
+    const hasSprint=race.sprint_results && race.sprint_results.length>0;
 
-    // Podium
-    let podiumHtml='';
-    if(hasResults && race.results.length>=3){{
-      const [p1,p2,p3]=[race.results[0],race.results[1],race.results[2]];
+    // Helper: build podium + results table for either race type
+    function buildResultsTable(results, isSprint){{
+      if(!results || results.length===0){{
+        const msg=isSprint
+          ? 'Sprint has not taken place yet.'
+          : hasSprint
+            ? 'Grand Prix has not taken place yet.'
+            : `Full results not loaded. Run: <code style="color:#e8002d;">python3 update.py --refresh ${{currentSeason}}</code>`;
+        return `<div class="card" style="padding:20px;"><div style="font-size:13px;color:#555;font-family:Barlow,sans-serif;">${{msg}}</div></div>`;
+      }}
+      const [p1,p2,p3]=results;
       const pCard=(r,medal,bump)=>{{
         const c=tc(r.Constructor?.constructorId);
         return `<div style="background:rgba(255,255,255,.02);border:1px solid ${{medal==='🥇'?'rgba(255,215,0,.2)':'rgba(255,255,255,.07)'}};border-radius:8px;padding:18px;text-align:center;transform:${{bump?'translateY(-10px)':'none'}};">
@@ -738,15 +749,10 @@ function renderRaces(){{
           <div style="font-size:22px;font-weight:900;margin-top:10px;">${{r.points}} <span style="font-size:10px;color:#444;">PTS</span></div>
         </div>`;
       }};
-      podiumHtml=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
+      const podium=results.length>=3?`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
         ${{pCard(p2,'🥈',false)}}${{pCard(p1,'🥇',true)}}${{pCard(p3,'🥉',false)}}
-      </div>`;
-    }}
-
-    // Full results table
-    let tableHtml='';
-    if(hasResults){{
-      const rows=race.results.map(r=>{{
+      </div>`:'';
+      const rows=results.map(r=>{{
         const c=tc(r.Constructor?.constructorId);
         const fin=r.status==='Finished'||r.status?.includes('Lap');
         const fl=r.FastestLap?.rank==='1';
@@ -761,60 +767,35 @@ function renderRaces(){{
           <span style="font-size:12px;color:#555;text-align:center;">${{r.laps}}</span>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
             <span style="font-size:14px;font-weight:700;color:${{r.points!=='0'?'#FFD700':'#444'}}">${{r.points}}</span>
-            <span style="font-size:10px;">${{gainedStr}}</span>
+            ${{isSprint?'':`<span style="font-size:10px;">${{gainedStr}}</span>`}}
           </div>
         </div>`;
       }}).join('');
-      tableHtml=`<div class="card" style="overflow:hidden;">
-        <div class="results-hdr"><span>FIN</span><span style="color:#444;font-size:9px;">GRD</span><span>DRIVER</span><span>TEAM</span><span>STATUS</span><span style="text-align:center;">LAPS</span><span style="text-align:right;">PTS ±POS</span></div>
-        ${{rows}}
-      </div>`;
-    }} else {{
-      tableHtml=`<div class="card" style="padding:20px;">
-        <div style="font-size:13px;color:#555;font-family:Barlow,sans-serif;">
-          Full results not loaded. Run: <code style="color:#e8002d;">python3 f1_dashboard_multi.py --add ${{currentSeason}}</code>
-        </div>
-      </div>`;
+      const hdr=isSprint
+        ?`<span>FIN</span><span style="color:#444;font-size:9px;">GRD</span><span>DRIVER</span><span>TEAM</span><span>STATUS</span><span style="text-align:center;">LAPS</span><span style="text-align:right;">PTS</span>`
+        :`<span>FIN</span><span style="color:#444;font-size:9px;">GRD</span><span>DRIVER</span><span>TEAM</span><span>STATUS</span><span style="text-align:center;">LAPS</span><span style="text-align:right;">PTS ±POS</span>`;
+      return `${{podium}}<div class="card" style="overflow:hidden;"><div class="results-hdr">${{hdr}}</div>${{rows}}</div>`;
     }}
 
-    // Sprint results
-    let sprintHtml='';
-    const hasSprint=race.sprint_results && race.sprint_results.length>0;
+    const header=`<div style="margin-bottom:20px;">
+      <div style="font-size:11px;color:#e8002d;letter-spacing:.12em;font-weight:700;margin-bottom:6px;">ROUND ${{race.round}} · ${{(race.Circuit?.Location?.country||'').toUpperCase()}}</div>
+      <div style="font-size:30px;font-weight:900;letter-spacing:.05em;line-height:1;">${{race.raceName.toUpperCase()}}</div>
+      <div style="font-size:13px;color:#555;margin-top:6px;font-family:Barlow,sans-serif;">${{race.Circuit?.circuitName}} · ${{race.date}}</div>
+    </div>`;
+
     if(hasSprint){{
-      const sprintWinner=race.sprint_results[0];
-      const swc=tc(sprintWinner.Constructor?.constructorId);
-      const sprintRows=race.sprint_results.map(r=>{{
-        const c=tc(r.Constructor?.constructorId);
-        const fin=r.status==='Finished'||r.status?.includes('Lap');
-        return `<div class="results-row">
-          <span style="font-weight:900;font-size:16px;color:${{posColor(r.position)}}">${{r.position}}</span>
-          <span style="font-size:10px;text-align:center;color:#444;">${{r.grid||'—'}}</span>
-          <div><span style="font-weight:600;font-size:14px;">${{r.Driver?.givenName?.charAt(0)}}. </span><span style="font-weight:900;font-size:14px;color:${{c}}">${{r.Driver?.familyName}}</span></div>
-          <span style="font-size:12px;color:#555;font-family:Barlow,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${{r.Constructor?.name}}</span>
-          <span style="font-size:11px;color:${{fin?'#4ade80':'#f87171'}};font-family:Barlow,sans-serif;">${{r.status}}</span>
-          <span style="font-size:12px;color:#555;text-align:center;">${{r.laps}}</span>
-          <div style="text-align:right;"><span style="font-size:14px;font-weight:700;color:${{r.points!=='0'?'#FFD700':'#444'}}">${{r.points}}</span></div>
-        </div>`;
-      }}).join('');
-      sprintHtml=`<div style="margin-bottom:20px;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-          <span style="background:#FF8000;color:#000;font-size:10px;font-weight:900;padding:3px 10px;border-radius:4px;letter-spacing:.1em;">⚡ SPRINT RACE</span>
-          <span style="font-size:13px;color:#888;font-family:Barlow,sans-serif;">Winner: <span style="color:${{swc}};font-weight:700;">${{sprintWinner.Driver?.givenName}} ${{sprintWinner.Driver?.familyName}}</span></span>
+      const gpContent=buildResultsTable(race.results, false);
+      const sprintContent=buildResultsTable(race.sprint_results, true);
+      detailHtml=`${{header}}
+        <div style="display:flex;gap:8px;margin-bottom:20px;">
+          <button id="race-tab-gp" onclick="showRaceTab('gp')" style="background:#e8002d;border:none;color:#fff;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.1em;padding:8px 20px;border-radius:4px;cursor:pointer;">GRAND PRIX</button>
+          <button id="race-tab-sprint" onclick="showRaceTab('sprint')" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#888;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.1em;padding:8px 20px;border-radius:4px;cursor:pointer;">⚡ SPRINT</button>
         </div>
-        <div class="card" style="overflow:hidden;">
-          <div class="results-hdr"><span>FIN</span><span style="color:#444;font-size:9px;">GRD</span><span>DRIVER</span><span>TEAM</span><span>STATUS</span><span style="text-align:center;">LAPS</span><span style="text-align:right;">PTS</span></div>
-          ${{sprintRows}}
-        </div>
-      </div>`;
+        <div id="race-panel-gp">${{gpContent}}</div>
+        <div id="race-panel-sprint" style="display:none;">${{sprintContent}}</div>`;
+    }} else {{
+      detailHtml=`${{header}}${{buildResultsTable(race.results, false)}}`;
     }}
-
-    detailHtml=`
-      <div style="margin-bottom:20px;">
-        <div style="font-size:11px;color:#e8002d;letter-spacing:.12em;font-weight:700;margin-bottom:6px;">ROUND ${{race.round}} · ${{(race.Circuit?.Location?.country||'').toUpperCase()}}</div>
-        <div style="font-size:30px;font-weight:900;letter-spacing:.05em;line-height:1;">${{race.raceName.toUpperCase()}}</div>
-        <div style="font-size:13px;color:#555;margin-top:6px;font-family:Barlow,sans-serif;">${{race.Circuit?.circuitName}} · ${{race.date}}</div>
-      </div>
-      ${{sprintHtml}}${{podiumHtml}}${{tableHtml}}`;
   }}
 
   const sprintCount=races.filter(r=>r.sprint_results&&r.sprint_results.length>0).length;
@@ -826,6 +807,18 @@ function renderRaces(){{
     </div>
     <div>${{detailHtml}}</div>
   </div>`;
+}}
+
+function showRaceTab(tab){{
+  const isGp=tab==='gp';
+  document.getElementById('race-panel-gp').style.display     = isGp?'block':'none';
+  document.getElementById('race-panel-sprint').style.display = isGp?'none':'block';
+  document.getElementById('race-tab-gp').style.cssText       = isGp
+    ?'background:#e8002d;border:none;color:#fff;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.1em;padding:8px 20px;border-radius:4px;cursor:pointer;'
+    :'background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#888;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.1em;padding:8px 20px;border-radius:4px;cursor:pointer;';
+  document.getElementById('race-tab-sprint').style.cssText   = isGp
+    ?'background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#888;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.1em;padding:8px 20px;border-radius:4px;cursor:pointer;'
+    :'background:#FF8000;border:none;color:#000;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.1em;padding:8px 20px;border-radius:4px;cursor:pointer;';
 }}
 
 // ── DRIVERS ───────────────────────────────────────────────────────────────
