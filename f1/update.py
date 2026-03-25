@@ -6,10 +6,10 @@ Fetched season data is cached in f1_cache.json next to the script.
 The generated HTML is fully self-contained — the cache is build-time only.
 
 Usage:
-    python3 f1_dashboard_multi.py                        # use cache + baked-in data
-    python3 f1_dashboard_multi.py --add 2022 2023 2024 2025  # fetch & cache seasons
-    python3 f1_dashboard_multi.py --add 2026             # add 2026 mid-season
-    python3 f1_dashboard_multi.py --refresh 2025         # force re-fetch a season
+    python3 update.py                        # use cache + baked-in data
+    python3 update.py --add 2022 2023 2024 2025  # fetch & cache seasons
+    python3 update.py --add 2026             # add 2026 mid-season
+    python3 update.py --refresh 2025         # force re-fetch a season
 """
 
 import json, sys, os, time
