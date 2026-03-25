@@ -360,6 +360,23 @@ def fetch_all_races(season):
     # Return sorted by round number
     return [all_races[k] for k in sorted(all_races.keys(), key=lambda x: int(x))]
 
+def fetch_schedule(season):
+    """Fetch the full race calendar for a season (includes future races with date+time)."""
+    url = f"{BASE_URL}/{season}/?limit=100"
+    r = requests.get(url, timeout=20)
+    r.raise_for_status()
+    races = r.json().get("MRData", {}).get("RaceTable", {}).get("Races", [])
+    # Returns dict keyed by round string -> {raceName, date, time, Circuit}
+    return {
+        race.get("round"): {
+            "raceName": race.get("raceName"),
+            "date": race.get("date"),
+            "time": race.get("time", ""),  # UTC start time e.g. "13:00:00Z"
+            "Circuit": race.get("Circuit", {}),
+        }
+        for race in races
+    }
+
 def fetch_all_sprints(season):
     """Fetch all sprint results for a season, paginating as needed. Returns dict keyed by round."""
     sprint_map = {}
@@ -420,6 +437,9 @@ def fetch_season(season):
     c_raw = fetch(f"{season}/constructorstandings")
     constructor_standings = c_raw.get("StandingsTable",{}).get("StandingsLists",[{}])[0].get("ConstructorStandings",[])
 
+    print(f"  [{season}] Fetching full schedule (all rounds)...")
+    schedule = fetch_schedule(season)
+
     print(f"  [{season}] Fetching all race results (paginating)...")
     all_races_raw = fetch_all_races(season)
 
@@ -434,25 +454,29 @@ def fetch_season(season):
     driver_map = {}
     race_labels = []
 
-    for i, race in enumerate(all_races_raw):
-        short = race.get("raceName","").replace(" Grand Prix","")[:4].upper()
-        race_labels.append(short)
-        raw_results = race.get("Results",[])
-        winner = raw_results[0] if raw_results else {}
+    # Build a map of completed rounds for merging
+    results_map = {race.get("round"): race for race in all_races_raw}
 
-        # Slim down results to just what we display
+    for rnd in sorted(schedule.keys(), key=lambda x: int(x)):
+        sched_race = schedule[rnd]
+        completed = results_map.get(rnd)
+
+        short = sched_race["raceName"].replace(" Grand Prix","")[:4].upper()
+        race_labels.append(short)
+
+        raw_results = completed.get("Results", []) if completed else []
+        winner = raw_results[0] if raw_results else {}
         results = [slim_result(r) for r in raw_results]
 
-        # Attach sprint results for this round if they exist
-        rnd = race.get("round")
         raw_sprint = sprint_map.get(rnd, [])
         sprint_results = [slim_result(r) for r in raw_sprint]
 
         races.append({
             "round": rnd,
-            "raceName": race.get("raceName"),
-            "date": race.get("date"),
-            "Circuit": race.get("Circuit",{}),
+            "raceName": sched_race["raceName"],
+            "date": sched_race["date"],
+            "time": sched_race["time"],
+            "Circuit": sched_race["Circuit"],
             "winner": winner.get("Driver",{}).get("code",""),
             "winnerFull": f"{winner.get('Driver',{}).get('givenName','')} {winner.get('Driver',{}).get('familyName','')}".strip(),
             "team": winner.get("Constructor",{}).get("name",""),
@@ -467,7 +491,8 @@ def fetch_season(season):
             driver_map[code]["cumul"] += float(r.get("points",0))
             driver_map[code]["points"].append(round(driver_map[code]["cumul"],1))
 
-        print(f"    Round {race.get('round'):>2} — {race.get('raceName')} ✓")
+        status = "✓" if completed else "scheduled"
+        print(f"    Round {rnd:>2} — {sched_race['raceName']} {status}")
         time.sleep(0.3)  # be polite to the API
 
     progression = {k: v["points"] for k,v in driver_map.items()}
@@ -625,7 +650,14 @@ function switchTab(name,el){{
   renderAll();
 }}
 function switchSubTab(n){{ currentSubTab=n; renderStandings(); }}
-function selectRace(round){{ selectedRound=round; renderRaces(); }}
+function selectRace(round){{
+  selectedRound=round;
+  const list=document.querySelector('.race-list');
+  const scrollTop=list?list.scrollTop:0;
+  renderRaces();
+  const listAfter=document.querySelector('.race-list');
+  if(listAfter) listAfter.scrollTop=scrollTop;
+}}
 
 // ── STANDINGS ─────────────────────────────────────────────────────────────
 function renderStandings(){{
@@ -663,17 +695,6 @@ function renderStandings(){{
   }} else {{
     const st=d.constructor_standings||[];
     const maxP=parseFloat(st[0]?.points||1);
-    const bw=560,bh=Math.max(200,st.length*36),ih=28;
-    const gap=(bh-st.length*ih)/(st.length+1);
-    const bars=st.map((s,i)=>{{
-      const color=tc(s.Constructor?.constructorId);
-      const w=(parseFloat(s.points)/maxP)*(bw-120);
-      const y=gap+i*(ih+gap);
-      const name=(s.Constructor?.name||'').replace(' F1 Team','').replace(' Racing','');
-      return `<text x="110" y="${{(y+ih*.72).toFixed(1)}}" font-size="12" fill="#aaa" text-anchor="end" font-family="Barlow Condensed,sans-serif">${{name}}</text>
-        <rect x="118" y="${{y.toFixed(1)}}" width="${{w.toFixed(1)}}" height="${{ih}}" rx="3" fill="${{color}}" opacity=".85"/>
-        <text x="${{(118+w+6).toFixed(1)}}" y="${{(y+ih*.72).toFixed(1)}}" font-size="11" fill="#888" font-family="Barlow Condensed,sans-serif">${{s.points}}</text>`;
-    }}).join('');
     const rows=st.map((s,i)=>{{
       const color=tc(s.Constructor?.constructorId);
       const pct=(parseFloat(s.points)/maxP)*85;
@@ -687,11 +708,7 @@ function renderStandings(){{
         <div style="text-align:right;position:relative;"><div style="font-size:24px;font-weight:900;line-height:1;">${{s.points}}</div><div style="font-size:10px;color:#444;letter-spacing:.08em;">PTS</div></div>
       </div>`;
     }}).join('');
-    subHtml=st.length===0?'<div class="no-data">No data yet.</div>'
-      :`<div class="card" style="padding:24px;margin-bottom:16px;">
-          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#555;margin-bottom:16px;">CONSTRUCTOR POINTS</div>
-          <svg width="100%" viewBox="0 0 ${{bw}} ${{bh}}" xmlns="http://www.w3.org/2000/svg">${{bars}}</svg>
-        </div>${{rows}}`;
+    subHtml=st.length===0?'<div class="no-data">No data yet.</div>':`${{rows}}`;
   }}
 
   document.getElementById('tab-standings').innerHTML=`<div class="fade">${{bannerHtml}}
@@ -702,21 +719,37 @@ function renderStandings(){{
 }}
 
 // ── RACES ─────────────────────────────────────────────────────────────────
+function localRaceTime(date, time){{
+  if(!time) return date;
+  try{{
+    const dt=new Date(date+'T'+time.replace('Z','')+'Z');
+    return dt.toLocaleString(undefined,{{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}});
+  }}catch(e){{return date;}}
+}}
+
 function renderRaces(){{
   const d=seasonsData[currentSeason]; if(!d) return;
   const races=d.races||[];
-  if(!selectedRound && races.length>0) selectedRound=races[races.length-1].round;
+  // Default to last completed race
+  if(!selectedRound){{
+    const completed=races.filter(r=>r.results&&r.results.length>0);
+    selectedRound=(completed.length>0?completed[completed.length-1]:races[races.length-1])?.round;
+  }}
 
   const sidebar=races.map(r=>{{
     const country=r.Circuit?.Location?.country||'';
     const short=r.raceName.replace(' Grand Prix','').replace('Grand Prix','').trim();
     const sel=r.round===selectedRound;
     const hasSprint=r.sprint_results && r.sprint_results.length>0;
-    return `<div class="race-item${{sel?' selected':''}}" onclick="selectRace('${{r.round}}')">
+    const upcoming=!r.results||r.results.length===0;
+    const subline=upcoming
+      ? localRaceTime(r.date, r.time)
+      : r.date;
+    return `<div class="race-item${{sel?' selected':''}}" onclick="selectRace('${{r.round}}')" style="${{upcoming&&!sel?'opacity:.45;':''}}" >
       <span style="font-size:18px;flex-shrink:0;">${{flag(country)}}</span>
       <div style="flex:1;min-width:0;">
-        <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${{short}}${{hasSprint?' <span style="font-size:9px;background:#FF8000;color:#000;padding:1px 5px;border-radius:3px;font-weight:900;letter-spacing:.05em;vertical-align:middle;">SPRINT</span>':''}}</div>
-        <div style="font-size:11px;color:#555;margin-top:1px;">${{r.date}}</div>
+        <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${{short}}${{hasSprint?' <span style="font-size:9px;background:#FF8000;color:#000;padding:1px 5px;border-radius:3px;font-weight:900;letter-spacing:.05em;vertical-align:middle;">SPRINT</span>':''}}${{upcoming?' <span style="font-size:9px;background:rgba(100,100,255,.15);color:#8888ff;padding:1px 5px;border-radius:3px;font-weight:700;letter-spacing:.05em;vertical-align:middle;">UPCOMING</span>':''}}</div>
+        <div style="font-size:11px;color:#555;margin-top:1px;">${{subline}}</div>
       </div>
       <span style="font-size:11px;color:#333;font-weight:700;">R${{r.round}}</span>
     </div>`;
@@ -783,7 +816,15 @@ function renderRaces(){{
       <div style="font-size:13px;color:#555;margin-top:6px;font-family:Barlow,sans-serif;">${{race.Circuit?.circuitName}} · ${{race.date}}</div>
     </div>`;
 
-    if(hasSprint){{
+    if(!hasResults){{
+      const localTime=localRaceTime(race.date, race.time);
+      detailHtml=`${{header}}<div class="card" style="padding:32px;text-align:center;">
+        <div style="font-size:36px;margin-bottom:16px;">🏁</div>
+        <div style="font-size:14px;font-weight:700;letter-spacing:.1em;color:#8888ff;margin-bottom:8px;">UPCOMING RACE</div>
+        <div style="font-size:18px;font-weight:800;margin-bottom:4px;">${{localTime}}</div>
+        <div style="font-size:12px;color:#555;font-family:Barlow,sans-serif;">${{race.Circuit?.Location?.locality}}, ${{race.Circuit?.Location?.country}}</div>
+      </div>`;
+    }} else if(hasSprint){{
       const gpContent=buildResultsTable(race.results, false);
       const sprintContent=buildResultsTable(race.sprint_results, true);
       detailHtml=`${{header}}
@@ -798,11 +839,12 @@ function renderRaces(){{
     }}
   }}
 
-  const sprintCount=races.filter(r=>r.sprint_results&&r.sprint_results.length>0).length;
+  const completedRaces=races.filter(r=>r.results&&r.results.length>0);
+  const sprintCount=completedRaces.filter(r=>r.sprint_results&&r.sprint_results.length>0).length;
   const sprintLabel=sprintCount>0?` · ${{sprintCount}} ⚡ SPRINTS`:'';
   document.getElementById('tab-races').innerHTML=`<div class="fade race-grid">
     <div class="card race-sidebar">
-      <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px;font-weight:700;letter-spacing:.1em;color:#555;">${{currentSeason}} CALENDAR · ${{races.length}} RACES${{sprintLabel}}</div>
+      <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px;font-weight:700;letter-spacing:.1em;color:#555;">${{currentSeason}} CALENDAR · ${{completedRaces.length}} RACES${{sprintLabel}}</div>
       <div class="race-list">${{sidebar||'<div class="no-data">No races yet.</div>'}}</div>
     </div>
     <div>${{detailHtml}}</div>
