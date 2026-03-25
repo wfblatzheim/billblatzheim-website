@@ -80,6 +80,24 @@ table.pt th:nth-child(7),table.pt td:nth-child(7){width:20px}
 .sched-time{font-size:11px;color:#555;margin-top:3px}
 .sched-venue{font-size:10px;color:#aaa;margin-top:2px}
 
+/* ── Standings ── */
+.standings-wrap{max-width:1440px;margin:0 auto;border-bottom:2px solid #1a1a1a}
+.standings-inner{display:grid;grid-template-columns:repeat(6,1fr);border-left:1px solid #bbb}
+@media(max-width:1100px){.standings-inner{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.standings-inner{grid-template-columns:repeat(2,1fr)}}
+.standings-div{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:6px 10px}
+.standings-div-name{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:3px;border-bottom:1px solid #ddd;padding-bottom:2px}
+table.st{border-collapse:collapse;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:11px}
+table.st th{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-align:right;padding:0 3px 1px;color:#aaa}
+table.st th:first-child{text-align:left}
+table.st td{text-align:right;padding:0 3px;line-height:1.45}
+table.st td:first-child{text-align:left;font-weight:600}
+table.st th:nth-child(2),table.st td:nth-child(2),
+table.st th:nth-child(3),table.st td:nth-child(3){width:22px}
+table.st th:nth-child(4),table.st td:nth-child(4){width:30px}
+table.st th:nth-child(5),table.st td:nth-child(5){width:26px}
+table.st tr.div-leader td{font-weight:800}
+
 /* ── Notes ── */
 .notes{font-size:10px;color:#333;margin-top:5px;line-height:1.5;font-family:'Barlow Condensed',sans-serif}
 .meta{font-size:9px;color:#999;margin-top:3px;font-family:'Barlow Condensed',sans-serif}
@@ -96,11 +114,13 @@ table.pt th:nth-child(7),table.pt td:nth-child(7){width:20px}
 </div>
 <div class="arc-months"><button class="mon-btn" data-ym="2026-03" onclick="selectMonth('2026-03')">MAR '26</button><button class="mon-btn" data-ym="2026-04" onclick="selectMonth('2026-04')">APR '26</button><button class="mon-btn" data-ym="2026-05" onclick="selectMonth('2026-05')">MAY '26</button><button class="mon-btn" data-ym="2026-06" onclick="selectMonth('2026-06')">JUN '26</button><button class="mon-btn" data-ym="2026-07" onclick="selectMonth('2026-07')">JUL '26</button><button class="mon-btn" data-ym="2026-08" onclick="selectMonth('2026-08')">AUG '26</button><button class="mon-btn" data-ym="2026-09" onclick="selectMonth('2026-09')">SEP '26</button></div>
 <div class="arc-dates" id="arc-dates"></div>
+<div class="standings-wrap" id="standings"></div>
 <div id="content"></div>
 <div class="footer">Generated Mar 25, 2026 &middot; Data: MLB Stats API</div>
 
 <script>
 const gamesData={};
+const standingsData={};
 
 const scheduleData={};
 scheduleData['2026-03-25']=[{"away_name":"New York Yankees","away_abbr":"NYY","home_name":"San Francisco Giants","home_abbr":"SF","time":"2026-03-26T00:05:00Z","venue":"Oracle Park"}];
@@ -332,10 +352,41 @@ function selectMonth(ym) {
   }).join('');
 }
 
+const DIV_ORDER = ['AL East','AL Central','AL West','NL East','NL Central','NL West'];
+
+function renderStandings(dateStr) {
+  const divs = standingsData[dateStr];
+  if (!divs || !Object.keys(divs).length) {
+    document.getElementById('standings').innerHTML = '';
+    return;
+  }
+  const cols = DIV_ORDER.map(divName => {
+    const teams = divs[divName] || [];
+    const rows = teams.map((t, i) =>
+      `<tr class="${i===0?'div-leader':''}">
+        <td>${t.abbr}</td><td>${t.w}</td><td>${t.l}</td><td>${t.pct}</td><td>${t.gb}</td>
+      </tr>`
+    ).join('');
+    return `<div class="standings-div">
+      <div class="standings-div-name">${divName}</div>
+      <table class="st">
+        <thead><tr><th></th><th>W</th><th>L</th><th>PCT</th><th>GB</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  }).join('');
+  const label = fmtDateLabel(dateStr);
+  document.getElementById('standings').innerHTML =
+    `<div style="max-width:1440px;margin:0 auto;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;">Standings through games of ${label}</div>
+    <div class="standings-inner">${cols}</div>`;
+}
+
 function renderDate(dateStr) {
   currentDate = dateStr;
   document.querySelectorAll('.day-btn').forEach(b => b.classList.toggle('active', b.dataset.date === dateStr));
   document.getElementById('hdr-date').textContent = fmtDateLabel(dateStr);
+
+  renderStandings(dateStr);
 
   const games = gamesData[dateStr];
   if (games && games.length > 0) {

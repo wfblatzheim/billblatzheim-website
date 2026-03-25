@@ -241,13 +241,55 @@ def fetch_full_schedule(year, start_date=None):
     print(f"  {len(result)} dates loaded.")
     return result
 
+DIVISIONS = {
+    "American League East": "AL East",
+    "American League Central": "AL Central",
+    "American League West": "AL West",
+    "National League East": "NL East",
+    "National League Central": "NL Central",
+    "National League West": "NL West",
+}
+DIV_ORDER = ["AL East", "AL Central", "AL West", "NL East", "NL Central", "NL West"]
+
+def fetch_standings(date_str):
+    print(f"  Fetching standings for {date_str}...", end=" ", flush=True)
+    try:
+        data = api_get("standings", {
+            "leagueId": "103,104",
+            "season": date_str[:4],
+            "standingsType": "regularSeason",
+            "date": date_str,
+        })
+        divisions = {}
+        for record in data.get("records", []):
+            raw_div = record.get("division", {}).get("nameShort") or \
+                      record.get("division", {}).get("name", "")
+            # Normalize division name
+            div = next((v for k, v in DIVISIONS.items() if raw_div in k or k.endswith(raw_div)), raw_div)
+            teams = []
+            for tr in record.get("teamRecords", []):
+                teams.append({
+                    "name": tr["team"]["name"],
+                    "abbr": get_abbr(tr["team"]["name"]),
+                    "w": tr.get("wins", 0),
+                    "l": tr.get("losses", 0),
+                    "pct": tr.get("winningPercentage", ".000"),
+                    "gb": tr.get("gamesBack", "-"),
+                })
+            divisions[div] = teams
+        print("ok")
+        return divisions
+    except Exception as e:
+        print(f"ERROR: {e}")
+        return {}
+
 def fetch_day(date_str):
     print(f"\nFetching {date_str}...")
     sched = api_get("schedule", {"sportId": 1, "date": date_str})
     dates = sched.get("dates", [])
     if not dates:
         print("  No games scheduled.")
-        return []
+        return {"games": [], "standings": {}}
 
     games = []
     for g in dates[0].get("games", []):
@@ -268,8 +310,9 @@ def fetch_day(date_str):
         except Exception as e:
             print(f"ERROR: {e}")
 
+    standings = fetch_standings(date_str)
     print(f"  {len(games)} games fetched.")
-    return games
+    return {"games": games, "standings": standings}
 
 
 # ── HTML GENERATION ───────────────────────────────────────────────────────────
@@ -282,8 +325,15 @@ def generate_html(cache, generated_at):
     game_dates = sorted([k for k in cache if not k.startswith("__")], reverse=True)[:MAX_DAYS]
     default = game_dates[0] if game_dates else ""
 
-    js_data = "const gamesData={};\n" + "\n".join(
-        f"gamesData['{d}']={json.dumps(cache[d], ensure_ascii=False, separators=(',',':'))};"
+    # Cache entries may be the old format (list) or new format (dict with games+standings)
+    def get_games(entry):
+        return entry["games"] if isinstance(entry, dict) else entry
+    def get_standings(entry):
+        return entry.get("standings", {}) if isinstance(entry, dict) else {}
+
+    js_data = "const gamesData={};\nconst standingsData={};\n" + "\n".join(
+        f"gamesData['{d}']={json.dumps(get_games(cache[d]), ensure_ascii=False, separators=(',',':'))};"
+        f"standingsData['{d}']={json.dumps(get_standings(cache[d]), ensure_ascii=False, separators=(',',':'))};"
         for d in game_dates
     )
 
@@ -399,6 +449,24 @@ table.pt th:nth-child(7),table.pt td:nth-child(7){{width:20px}}
 .sched-time{{font-size:11px;color:#555;margin-top:3px}}
 .sched-venue{{font-size:10px;color:#aaa;margin-top:2px}}
 
+/* ── Standings ── */
+.standings-wrap{{max-width:1440px;margin:0 auto;border-bottom:2px solid #1a1a1a}}
+.standings-inner{{display:grid;grid-template-columns:repeat(6,1fr);border-left:1px solid #bbb}}
+@media(max-width:1100px){{.standings-inner{{grid-template-columns:repeat(3,1fr)}}}}
+@media(max-width:600px){{.standings-inner{{grid-template-columns:repeat(2,1fr)}}}}
+.standings-div{{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:6px 10px}}
+.standings-div-name{{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:3px;border-bottom:1px solid #ddd;padding-bottom:2px}}
+table.st{{border-collapse:collapse;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:11px}}
+table.st th{{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-align:right;padding:0 3px 1px;color:#aaa}}
+table.st th:first-child{{text-align:left}}
+table.st td{{text-align:right;padding:0 3px;line-height:1.45}}
+table.st td:first-child{{text-align:left;font-weight:600}}
+table.st th:nth-child(2),table.st td:nth-child(2),
+table.st th:nth-child(3),table.st td:nth-child(3){{width:22px}}
+table.st th:nth-child(4),table.st td:nth-child(4){{width:30px}}
+table.st th:nth-child(5),table.st td:nth-child(5){{width:26px}}
+table.st tr.div-leader td{{font-weight:800}}
+
 /* ── Notes ── */
 .notes{{font-size:10px;color:#333;margin-top:5px;line-height:1.5;font-family:'Barlow Condensed',sans-serif}}
 .meta{{font-size:9px;color:#999;margin-top:3px;font-family:'Barlow Condensed',sans-serif}}
@@ -415,6 +483,7 @@ table.pt th:nth-child(7),table.pt td:nth-child(7){{width:20px}}
 </div>
 <div class="arc-months">{month_btns}</div>
 <div class="arc-dates" id="arc-dates"></div>
+<div class="standings-wrap" id="standings"></div>
 <div id="content"></div>
 <div class="footer">Generated {generated_at} &middot; Data: MLB Stats API</div>
 
@@ -459,10 +528,41 @@ function selectMonth(ym) {{
   }}).join('');
 }}
 
+const DIV_ORDER = ['AL East','AL Central','AL West','NL East','NL Central','NL West'];
+
+function renderStandings(dateStr) {{
+  const divs = standingsData[dateStr];
+  if (!divs || !Object.keys(divs).length) {{
+    document.getElementById('standings').innerHTML = '';
+    return;
+  }}
+  const cols = DIV_ORDER.map(divName => {{
+    const teams = divs[divName] || [];
+    const rows = teams.map((t, i) =>
+      `<tr class="${{i===0?'div-leader':''}}">
+        <td>${{t.abbr}}</td><td>${{t.w}}</td><td>${{t.l}}</td><td>${{t.pct}}</td><td>${{t.gb}}</td>
+      </tr>`
+    ).join('');
+    return `<div class="standings-div">
+      <div class="standings-div-name">${{divName}}</div>
+      <table class="st">
+        <thead><tr><th></th><th>W</th><th>L</th><th>PCT</th><th>GB</th></tr></thead>
+        <tbody>${{rows}}</tbody>
+      </table>
+    </div>`;
+  }}).join('');
+  const label = fmtDateLabel(dateStr);
+  document.getElementById('standings').innerHTML =
+    `<div style="max-width:1440px;margin:0 auto;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;">Standings through games of ${{label}}</div>
+    <div class="standings-inner">${{cols}}</div>`;
+}}
+
 function renderDate(dateStr) {{
   currentDate = dateStr;
   document.querySelectorAll('.day-btn').forEach(b => b.classList.toggle('active', b.dataset.date === dateStr));
   document.getElementById('hdr-date').textContent = fmtDateLabel(dateStr);
+
+  renderStandings(dateStr);
 
   const games = gamesData[dateStr];
   if (games && games.length > 0) {{
@@ -618,9 +718,9 @@ def main():
         else:
             date_str = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
 
-        games = fetch_day(date_str)
-        if games:
-            cache[date_str] = games
+        result = fetch_day(date_str)
+        if result.get("games"):
+            cache[date_str] = result
             dirty = True
         elif date_str not in cache:
             print("No games fetched and nothing in cache for this date.")
