@@ -1,3 +1,6 @@
 {
-  "workbench.editor.labelFormat": "medium"
+  "workbench.editor.labelFormat": "medium",
+  "workbench.sideBar.location": "left",
+  "editor.minimap.enabled": false,
+  "breadcrumbs.enabled": false
 }
