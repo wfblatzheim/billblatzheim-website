@@ -8,17 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#f5f1e8;color:#1a1a1a;font-family:'Barlow Condensed',Arial,sans-serif;font-size:13px}
+body{background:#f5f1e8;color:#1a1a1a;font-family:'Barlow Condensed',Arial,sans-serif;font-size:13px;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 
 /* ── Masthead ── */
-.masthead{border-top:4px solid #1a1a1a;border-bottom:2px solid #1a1a1a;padding:10px 20px;display:flex;justify-content:space-between;align-items:baseline;max-width:1440px;margin:0 auto}
+.masthead{border-top:4px solid #1a1a1a;border-bottom:2px solid #1a1a1a;padding:10px 20px;display:flex;justify-content:space-between;align-items:baseline;width:100%}
+.back-link{display:inline-flex;align-items:center;gap:5px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#aaa;text-decoration:none;transition:color .15s}
+.back-link:hover{color:#1a1a1a}
+.back-link:hover svg{transform:translateX(-2px)}
+.back-link svg{transition:transform .15s}
 .masthead-title{font-family:'Playfair Display',Georgia,serif;font-size:32px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
 .masthead-date{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555}
 
 /* ── Archive nav ── */
-.arc-months{max-width:1440px;margin:0 auto;padding:5px 20px;border-bottom:1px solid #bbb;display:flex;flex-wrap:wrap;gap:2px;align-items:center}
-.arc-dates{max-width:1440px;margin:0 auto;padding:4px 20px;border-bottom:2px solid #1a1a1a;display:flex;flex-wrap:wrap;gap:2px;min-height:28px}
+.arc-months{width:100%;padding:5px 20px;border-bottom:1px solid #bbb;display:flex;flex-wrap:wrap;gap:2px;align-items:center}
+.arc-dates{width:100%;padding:4px 20px;border-bottom:2px solid #1a1a1a;display:flex;flex-wrap:wrap;gap:2px;min-height:28px}
 .mon-btn{cursor:pointer;padding:2px 10px;border:1px solid transparent;background:none;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;color:#666}
 .mon-btn:hover{color:#1a1a1a;border-color:#aaa}
 .mon-btn.active{background:#1a1a1a;color:#f5f1e8;border-color:#1a1a1a}
@@ -27,10 +31,9 @@ a{color:inherit;text-decoration:none}
 .day-btn.active{background:#555;color:#f5f1e8;border-color:#555}
 
 /* ── Grid ── */
-.grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:1440px;margin:0 auto;border-left:1px solid #bbb;border-top:1px solid #bbb}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.grid{grid-template-columns:1fr}}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-left:1px solid #bbb;border-top:1px solid #bbb}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.grid{grid-template-columns:minmax(0,1fr)}}
 
 /* ── Box score card ── */
 .box{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:9px 11px;font-size:11px;overflow:hidden}
@@ -71,21 +74,21 @@ table.pt th:nth-child(5),table.pt td:nth-child(5),table.pt th:nth-child(6),table
 table.pt th:nth-child(7),table.pt td:nth-child(7){width:20px}
 
 /* ── Schedule (upcoming) cards ── */
-.sched-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:1440px;margin:0 auto;border-left:1px solid #bbb;border-top:1px solid #bbb}
-@media(max-width:1100px){.sched-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:760px){.sched-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.sched-grid{grid-template-columns:1fr}}
+.sched-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;border-left:1px solid #bbb;border-top:1px solid #bbb}
+@media(max-width:1100px){.sched-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.sched-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.sched-grid{grid-template-columns:minmax(0,1fr)}}
 .sched-card{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:9px 11px}
 .sched-matchup{font-family:'Playfair Display',Georgia,serif;font-size:13px;font-weight:700;border-bottom:1px solid #ccc;padding-bottom:3px;margin-bottom:5px}
 .sched-time{font-size:11px;color:#555;margin-top:3px}
 .sched-venue{font-size:10px;color:#aaa;margin-top:2px}
 
 /* ── Standings ── */
-.standings-wrap{max-width:1440px;margin:0 auto;border-bottom:2px solid #1a1a1a}
-.standings-inner{display:grid;grid-template-columns:repeat(6,1fr);border-left:1px solid #bbb}
-@media(max-width:1100px){.standings-inner{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.standings-inner{grid-template-columns:repeat(2,1fr)}}
-.standings-div{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:6px 10px}
+.standings-wrap{width:100%;border-bottom:2px solid #1a1a1a}
+.standings-inner{display:grid;grid-template-columns:repeat(6,minmax(0,145px));border-left:1px solid #bbb}
+@media(max-width:800px){.standings-inner{grid-template-columns:repeat(3,minmax(0,145px))}}
+@media(max-width:500px){.standings-inner{grid-template-columns:repeat(2,minmax(0,145px))}}
+.standings-div{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:5px 7px}
 .standings-div-name{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:3px;border-bottom:1px solid #ddd;padding-bottom:2px}
 table.st{border-collapse:collapse;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:11px}
 table.st th{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-align:right;padding:0 3px 1px;color:#aaa}
@@ -102,28 +105,30 @@ table.st tr.div-leader td{font-weight:800}
 .notes{font-size:10px;color:#333;margin-top:5px;line-height:1.5;font-family:'Barlow Condensed',sans-serif}
 .meta{font-size:9px;color:#999;margin-top:3px;font-family:'Barlow Condensed',sans-serif}
 
-.no-games{padding:60px 20px;text-align:center;font-family:'Playfair Display',serif;font-size:18px;color:#888;max-width:1440px;margin:0 auto}
-.footer{max-width:1440px;margin:0 auto;padding:12px 20px;font-size:10px;color:#aaa;letter-spacing:.06em;border-top:1px solid #ccc}
+.no-games{padding:60px 20px;text-align:center;font-family:'Playfair Display',serif;font-size:18px;color:#888;width:100%}
+.footer{width:100%;padding:12px 20px;font-size:10px;color:#aaa;letter-spacing:.06em;border-top:1px solid #ccc}
 </style>
 </head>
 <body>
 
 <div class="masthead">
   <div class="masthead-title">MLB Box Scores</div>
-  <div class="masthead-date" id="hdr-date"></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <a class="back-link" href="https://billblatzheim.com"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M11 5H1M4 1L1 5l3 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Blatz Labs</a>
+    <div class="masthead-date" id="hdr-date"></div>
+  </div>
 </div>
 <div class="arc-months"><button class="mon-btn" data-ym="2026-03" onclick="selectMonth('2026-03')">MAR '26</button><button class="mon-btn" data-ym="2026-04" onclick="selectMonth('2026-04')">APR '26</button><button class="mon-btn" data-ym="2026-05" onclick="selectMonth('2026-05')">MAY '26</button><button class="mon-btn" data-ym="2026-06" onclick="selectMonth('2026-06')">JUN '26</button><button class="mon-btn" data-ym="2026-07" onclick="selectMonth('2026-07')">JUL '26</button><button class="mon-btn" data-ym="2026-08" onclick="selectMonth('2026-08')">AUG '26</button><button class="mon-btn" data-ym="2026-09" onclick="selectMonth('2026-09')">SEP '26</button></div>
 <div class="arc-dates" id="arc-dates"></div>
 <div class="standings-wrap" id="standings"></div>
 <div id="content"></div>
-<div class="footer">Generated Mar 25, 2026 &middot; Data: MLB Stats API</div>
+<div class="footer">Generated Mar 26, 2026 &middot; Data: MLB Stats API</div>
 
 <script>
 const gamesData={};
 const standingsData={};
-
+gamesData['2026-03-25']=[{"away_name":"New York Yankees","home_name":"San Francisco Giants","away_abbr":"NYY","home_abbr":"SF","away_r":7,"away_h":10,"away_e":1,"home_r":0,"home_h":3,"home_e":1,"innings":[{"n":1,"a":0,"h":0},{"n":2,"a":5,"h":0},{"n":3,"a":0,"h":0},{"n":4,"a":0,"h":0},{"n":5,"a":2,"h":0},{"n":6,"a":0,"h":0},{"n":7,"a":0,"h":0},{"n":8,"a":0,"h":0},{"n":9,"a":0,"h":0}],"away_batters":[{"name":"Grisham","pos":"cf","sub":false,"ab":5,"r":0,"h":1,"rbi":2,"avg":".200"},{"name":"Judge","pos":"rf","sub":false,"ab":5,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Bellinger","pos":"lf","sub":false,"ab":5,"r":1,"h":1,"rbi":0,"avg":".200"},{"name":"Rice","pos":"1b","sub":false,"ab":4,"r":1,"h":1,"rbi":0,"avg":".250"},{"name":"Stanton","pos":"dh","sub":false,"ab":4,"r":1,"h":2,"rbi":1,"avg":".500"},{"name":"Chisholm","pos":"2b","sub":false,"ab":3,"r":1,"h":1,"rbi":0,"avg":".333"},{"name":"Caballero","pos":"ss","sub":false,"ab":4,"r":1,"h":1,"rbi":1,"avg":".250"},{"name":"McMahon","pos":"3b","sub":false,"ab":3,"r":1,"h":1,"rbi":2,"avg":".333"},{"name":"Wells","pos":"c","sub":false,"ab":3,"r":1,"h":2,"rbi":0,"avg":".667"},{"name":"Fried","pos":"p","sub":false,"ab":0,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Bird","pos":"p","sub":false,"ab":0,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Headrick","pos":"p","sub":false,"ab":0,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Doval","pos":"p","sub":false,"ab":0,"r":0,"h":0,"rbi":0,"avg":".000"}],"home_batters":[{"name":"Arraez","pos":"2b","sub":false,"ab":3,"r":0,"h":1,"rbi":0,"avg":".333"},{"name":"Chapman","pos":"3b","sub":false,"ab":3,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Devers","pos":"dh","sub":false,"ab":4,"r":0,"h":1,"rbi":0,"avg":".250"},{"name":"Adames","pos":"ss","sub":false,"ab":4,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Lee","pos":"rf","sub":false,"ab":4,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Ramos","pos":"lf","sub":false,"ab":4,"r":0,"h":1,"rbi":0,"avg":".250"},{"name":"Schmitt","pos":"1b","sub":false,"ab":3,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Bailey","pos":"c","sub":false,"ab":3,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Bader","pos":"cf","sub":false,"ab":3,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Webb","pos":"p","sub":false,"ab":0,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Winn","pos":"p","sub":false,"ab":0,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Brubaker","pos":"p","sub":false,"ab":0,"r":0,"h":0,"rbi":0,"avg":".000"},{"name":"Kilian","pos":"p","sub":false,"ab":0,"r":0,"h":0,"rbi":0,"avg":".000"}],"away_pitchers":[{"name":"Fried","note":"","ip":"6⅓","h":2,"r":0,"er":0,"bb":1,"so":4},{"name":"Bird","note":"","ip":"0⅔","h":0,"r":0,"er":0,"bb":0,"so":1},{"name":"Headrick","note":"","ip":"1","h":1,"r":0,"er":0,"bb":1,"so":1},{"name":"Doval","note":"","ip":"1","h":0,"r":0,"er":0,"bb":0,"so":0}],"home_pitchers":[{"name":"Webb","note":"","ip":"5","h":9,"r":7,"er":6,"bb":1,"so":7},{"name":"Winn","note":"","ip":"1","h":0,"r":0,"er":0,"bb":1,"so":2},{"name":"Brubaker","note":"","ip":"2","h":1,"r":0,"er":0,"bb":1,"so":2},{"name":"Kilian","note":"","ip":"1","h":0,"r":0,"er":0,"bb":0,"so":1}],"notes":["E—NYY 1, SF 1","LOB—NYY 15, SF 13","3B—Grisham (1)","SB—Chisholm"],"time":"2:27.","att":"","venue":"Oracle Park."}];standingsData['2026-03-25']={"AL East":[{"name":"Yankees","abbr":"NYY","w":1,"l":0,"pct":"1.000","gb":"-"},{"name":"Blue Jays","abbr":"TOR","w":0,"l":0,"pct":".000","gb":"0.5"},{"name":"Orioles","abbr":"BAL","w":0,"l":0,"pct":".000","gb":"0.5"},{"name":"Rays","abbr":"TB","w":0,"l":0,"pct":".000","gb":"0.5"},{"name":"Red Sox","abbr":"BOS","w":0,"l":0,"pct":".000","gb":"0.5"}],"AL Central":[{"name":"Guardians","abbr":"CLE","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Royals","abbr":"KC","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Tigers","abbr":"DET","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Twins","abbr":"MIN","w":0,"l":0,"pct":".000","gb":"-"},{"name":"White Sox","abbr":"CWS","w":0,"l":0,"pct":".000","gb":"-"}],"AL West":[{"name":"Angels","abbr":"LAA","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Astros","abbr":"HOU","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Athletics","abbr":"ATH","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Mariners","abbr":"SEA","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Rangers","abbr":"TEX","w":0,"l":0,"pct":".000","gb":"-"}],"NL East":[{"name":"Braves","abbr":"ATL","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Marlins","abbr":"MIA","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Mets","abbr":"NYM","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Nationals","abbr":"WSH","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Phillies","abbr":"PHI","w":0,"l":0,"pct":".000","gb":"-"}],"NL Central":[{"name":"Brewers","abbr":"MIL","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Cardinals","abbr":"STL","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Cubs","abbr":"CHC","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Pirates","abbr":"PIT","w":0,"l":0,"pct":".000","gb":"-"},{"name":"Reds","abbr":"CIN","w":0,"l":0,"pct":".000","gb":"-"}],"NL West":[{"name":"D-backs","abbr":"ARI","w":0,"l":0,"pct":".000","gb":"-0.5"},{"name":"Dodgers","abbr":"LAD","w":0,"l":0,"pct":".000","gb":"-0.5"},{"name":"Padres","abbr":"SD","w":0,"l":0,"pct":".000","gb":"-0.5"},{"name":"Rockies","abbr":"COL","w":0,"l":0,"pct":".000","gb":"-0.5"},{"name":"Giants","abbr":"SF","w":0,"l":1,"pct":".000","gb":"-"}]};
 const scheduleData={};
-scheduleData['2026-03-25']=[{"away_name":"New York Yankees","away_abbr":"NYY","home_name":"San Francisco Giants","home_abbr":"SF","time":"2026-03-26T00:05:00Z","venue":"Oracle Park"}];
 scheduleData['2026-03-26']=[{"away_name":"Pittsburgh Pirates","away_abbr":"PIT","home_name":"New York Mets","home_abbr":"NYM","time":"2026-03-26T17:15:00Z","venue":"Citi Field"},{"away_name":"Chicago White Sox","away_abbr":"CWS","home_name":"Milwaukee Brewers","home_abbr":"MIL","time":"2026-03-26T18:10:00Z","venue":"American Family Field"},{"away_name":"Washington Nationals","away_abbr":"WSH","home_name":"Chicago Cubs","home_abbr":"CHC","time":"2026-03-26T18:20:00Z","venue":"Wrigley Field"},{"away_name":"Minnesota Twins","away_abbr":"MIN","home_name":"Baltimore Orioles","home_abbr":"BAL","time":"2026-03-26T19:05:00Z","venue":"Oriole Park at Camden Yards"},{"away_name":"Boston Red Sox","away_abbr":"BOS","home_name":"Cincinnati Reds","home_abbr":"CIN","time":"2026-03-26T20:10:00Z","venue":"Great American Ball Park"},{"away_name":"Los Angeles Angels","away_abbr":"LAA","home_name":"Houston Astros","home_abbr":"HOU","time":"2026-03-26T20:10:00Z","venue":"Daikin Park"},{"away_name":"Detroit Tigers","away_abbr":"DET","home_name":"San Diego Padres","home_abbr":"SD","time":"2026-03-26T20:10:00Z","venue":"Petco Park"},{"away_name":"Tampa Bay Rays","away_abbr":"TB","home_name":"St. Louis Cardinals","home_abbr":"STL","time":"2026-03-26T20:15:00Z","venue":"Busch Stadium"},{"away_name":"Texas Rangers","away_abbr":"TEX","home_name":"Philadelphia Phillies","home_abbr":"PHI","time":"2026-03-26T20:15:00Z","venue":"Citizens Bank Park"},{"away_name":"Arizona Diamondbacks","away_abbr":"ARI","home_name":"Los Angeles Dodgers","home_abbr":"LAD","time":"2026-03-27T00:30:00Z","venue":"Dodger Stadium"},{"away_name":"Cleveland Guardians","away_abbr":"CLE","home_name":"Seattle Mariners","home_abbr":"SEA","time":"2026-03-27T02:10:00Z","venue":"T-Mobile Park"}];
 scheduleData['2026-03-27']=[{"away_name":"New York Yankees","away_abbr":"NYY","home_name":"San Francisco Giants","home_abbr":"SF","time":"2026-03-27T20:35:00Z","venue":"Oracle Park"},{"away_name":"Athletics","away_abbr":"ATH","home_name":"Toronto Blue Jays","home_abbr":"TOR","time":"2026-03-27T23:07:00Z","venue":"Rogers Centre"},{"away_name":"Colorado Rockies","away_abbr":"COL","home_name":"Miami Marlins","home_abbr":"MIA","time":"2026-03-27T23:10:00Z","venue":"loanDepot park"},{"away_name":"Kansas City Royals","away_abbr":"KC","home_name":"Atlanta Braves","home_abbr":"ATL","time":"2026-03-27T23:15:00Z","venue":"Truist Park"},{"away_name":"Los Angeles Angels","away_abbr":"LAA","home_name":"Houston Astros","home_abbr":"HOU","time":"2026-03-28T00:15:00Z","venue":"Daikin Park"},{"away_name":"Detroit Tigers","away_abbr":"DET","home_name":"San Diego Padres","home_abbr":"SD","time":"2026-03-28T01:40:00Z","venue":"Petco Park"},{"away_name":"Cleveland Guardians","away_abbr":"CLE","home_name":"Seattle Mariners","home_abbr":"SEA","time":"2026-03-28T01:45:00Z","venue":"T-Mobile Park"},{"away_name":"Arizona Diamondbacks","away_abbr":"ARI","home_name":"Los Angeles Dodgers","home_abbr":"LAD","time":"2026-03-28T02:10:00Z","venue":"Dodger Stadium"}];
 scheduleData['2026-03-28']=[{"away_name":"Tampa Bay Rays","away_abbr":"TB","home_name":"St. Louis Cardinals","home_abbr":"STL","time":"2026-03-28T18:15:00Z","venue":"Busch Stadium"},{"away_name":"Washington Nationals","away_abbr":"WSH","home_name":"Chicago Cubs","home_abbr":"CHC","time":"2026-03-28T18:20:00Z","venue":"Wrigley Field"},{"away_name":"Athletics","away_abbr":"ATH","home_name":"Toronto Blue Jays","home_abbr":"TOR","time":"2026-03-28T19:07:00Z","venue":"Rogers Centre"},{"away_name":"Minnesota Twins","away_abbr":"MIN","home_name":"Baltimore Orioles","home_abbr":"BAL","time":"2026-03-28T20:05:00Z","venue":"Oriole Park at Camden Yards"},{"away_name":"Texas Rangers","away_abbr":"TEX","home_name":"Philadelphia Phillies","home_abbr":"PHI","time":"2026-03-28T20:05:00Z","venue":"Citizens Bank Park"},{"away_name":"Boston Red Sox","away_abbr":"BOS","home_name":"Cincinnati Reds","home_abbr":"CIN","time":"2026-03-28T20:10:00Z","venue":"Great American Ball Park"},{"away_name":"Pittsburgh Pirates","away_abbr":"PIT","home_name":"New York Mets","home_abbr":"NYM","time":"2026-03-28T20:10:00Z","venue":"Citi Field"},{"away_name":"Colorado Rockies","away_abbr":"COL","home_name":"Miami Marlins","home_abbr":"MIA","time":"2026-03-28T20:10:00Z","venue":"loanDepot park"},{"away_name":"Los Angeles Angels","away_abbr":"LAA","home_name":"Houston Astros","home_abbr":"HOU","time":"2026-03-28T23:10:00Z","venue":"Daikin Park"},{"away_name":"Chicago White Sox","away_abbr":"CWS","home_name":"Milwaukee Brewers","home_abbr":"MIL","time":"2026-03-28T23:10:00Z","venue":"American Family Field"},{"away_name":"Kansas City Royals","away_abbr":"KC","home_name":"Atlanta Braves","home_abbr":"ATL","time":"2026-03-28T23:15:00Z","venue":"Truist Park"},{"away_name":"New York Yankees","away_abbr":"NYY","home_name":"San Francisco Giants","home_abbr":"SF","time":"2026-03-28T23:15:00Z","venue":"Oracle Park"},{"away_name":"Detroit Tigers","away_abbr":"DET","home_name":"San Diego Padres","home_abbr":"SD","time":"2026-03-29T00:40:00Z","venue":"Petco Park"},{"away_name":"Arizona Diamondbacks","away_abbr":"ARI","home_name":"Los Angeles Dodgers","home_abbr":"LAD","time":"2026-03-29T01:10:00Z","venue":"Dodger Stadium"},{"away_name":"Cleveland Guardians","away_abbr":"CLE","home_name":"Seattle Mariners","home_abbr":"SEA","time":"2026-03-29T01:40:00Z","venue":"T-Mobile Park"}];
@@ -316,7 +321,7 @@ monthDates['2026-05']=["2026-05-01", "2026-05-02", "2026-05-03", "2026-05-04", "
 monthDates['2026-04']=["2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-18", "2026-04-19", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-25", "2026-04-26", "2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30"];
 monthDates['2026-03']=["2026-03-25", "2026-03-26", "2026-03-27", "2026-03-28", "2026-03-29", "2026-03-30", "2026-03-31"];
 
-const TODAY = '2026-03-25';
+const TODAY = '2026-03-26';
 let currentDate = '';
 let currentMonth = '';
 
@@ -377,7 +382,7 @@ function renderStandings(dateStr) {
   }).join('');
   const label = fmtDateLabel(dateStr);
   document.getElementById('standings').innerHTML =
-    `<div style="max-width:1440px;margin:0 auto;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;">Standings through games of ${label}</div>
+    `<div style="width:100%;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;">Standings through games of ${label}</div>
     <div class="standings-inner">${cols}</div>`;
 }
 
@@ -476,8 +481,8 @@ function renderGame(g, idx) {
   </div>`;
 }
 
-selectMonth('');
-renderDate('');
+selectMonth('2026-03');
+renderDate('2026-03-25');
 </script>
 </body>
 </html>

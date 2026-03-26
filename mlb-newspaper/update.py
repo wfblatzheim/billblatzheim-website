@@ -34,6 +34,13 @@ TEAM_ABBR = {
     "Seattle Mariners":"SEA","St. Louis Cardinals":"STL","Tampa Bay Rays":"TB",
     "Texas Rangers":"TEX","Toronto Blue Jays":"TOR","Washington Nationals":"WSH",
     "Athletics":"ATH",
+    # Short names returned by standings API
+    "Yankees":"NYY","Red Sox":"BOS","Blue Jays":"TOR","Orioles":"BAL","Rays":"TB",
+    "Guardians":"CLE","Royals":"KC","Tigers":"DET","Twins":"MIN","White Sox":"CWS",
+    "Astros":"HOU","Angels":"LAA","Mariners":"SEA","Rangers":"TEX",
+    "Braves":"ATL","Mets":"NYM","Phillies":"PHI","Marlins":"MIA","Nationals":"WSH",
+    "Brewers":"MIL","Cardinals":"STL","Cubs":"CHC","Reds":"CIN","Pirates":"PIT",
+    "Dodgers":"LAD","Giants":"SF","Padres":"SD","D-backs":"ARI","Rockies":"COL",
 }
 
 def load_cache():
@@ -242,12 +249,12 @@ def fetch_full_schedule(year, start_date=None):
     return result
 
 DIVISIONS = {
-    "American League East": "AL East",
-    "American League Central": "AL Central",
-    "American League West": "AL West",
-    "National League East": "NL East",
-    "National League Central": "NL Central",
-    "National League West": "NL West",
+    201: "AL East",
+    202: "AL Central",
+    200: "AL West",
+    204: "NL East",
+    205: "NL Central",
+    203: "NL West",
 }
 DIV_ORDER = ["AL East", "AL Central", "AL West", "NL East", "NL Central", "NL West"]
 
@@ -262,10 +269,10 @@ def fetch_standings(date_str):
         })
         divisions = {}
         for record in data.get("records", []):
-            raw_div = record.get("division", {}).get("nameShort") or \
-                      record.get("division", {}).get("name", "")
-            # Normalize division name
-            div = next((v for k, v in DIVISIONS.items() if raw_div in k or k.endswith(raw_div)), raw_div)
+            div_id = record.get("division", {}).get("id")
+            div = DIVISIONS.get(div_id)
+            if not div:
+                continue
             teams = []
             for tr in record.get("teamRecords", []):
                 teams.append({
@@ -285,7 +292,7 @@ def fetch_standings(date_str):
 
 def fetch_day(date_str):
     print(f"\nFetching {date_str}...")
-    sched = api_get("schedule", {"sportId": 1, "date": date_str})
+    sched = api_get("schedule", {"sportId": 1, "date": date_str, "gameType": "R"})
     dates = sched.get("dates", [])
     if not dates:
         print("  No games scheduled.")
@@ -377,17 +384,21 @@ def generate_html(cache, generated_at):
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{{box-sizing:border-box;margin:0;padding:0}}
-body{{background:#f5f1e8;color:#1a1a1a;font-family:'Barlow Condensed',Arial,sans-serif;font-size:13px}}
+body{{background:#f5f1e8;color:#1a1a1a;font-family:'Barlow Condensed',Arial,sans-serif;font-size:13px;overflow-x:hidden}}
 a{{color:inherit;text-decoration:none}}
 
 /* ── Masthead ── */
-.masthead{{border-top:4px solid #1a1a1a;border-bottom:2px solid #1a1a1a;padding:10px 20px;display:flex;justify-content:space-between;align-items:baseline;max-width:1440px;margin:0 auto}}
+.masthead{{border-top:4px solid #1a1a1a;border-bottom:2px solid #1a1a1a;padding:10px 20px;display:flex;justify-content:space-between;align-items:baseline;width:100%}}
+.back-link{{display:inline-flex;align-items:center;gap:5px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#aaa;text-decoration:none;transition:color .15s}}
+.back-link:hover{{color:#1a1a1a}}
+.back-link:hover svg{{transform:translateX(-2px)}}
+.back-link svg{{transition:transform .15s}}
 .masthead-title{{font-family:'Playfair Display',Georgia,serif;font-size:32px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}}
 .masthead-date{{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555}}
 
 /* ── Archive nav ── */
-.arc-months{{max-width:1440px;margin:0 auto;padding:5px 20px;border-bottom:1px solid #bbb;display:flex;flex-wrap:wrap;gap:2px;align-items:center}}
-.arc-dates{{max-width:1440px;margin:0 auto;padding:4px 20px;border-bottom:2px solid #1a1a1a;display:flex;flex-wrap:wrap;gap:2px;min-height:28px}}
+.arc-months{{width:100%;padding:5px 20px;border-bottom:1px solid #bbb;display:flex;flex-wrap:wrap;gap:2px;align-items:center}}
+.arc-dates{{width:100%;padding:4px 20px;border-bottom:2px solid #1a1a1a;display:flex;flex-wrap:wrap;gap:2px;min-height:28px}}
 .mon-btn{{cursor:pointer;padding:2px 10px;border:1px solid transparent;background:none;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;color:#666}}
 .mon-btn:hover{{color:#1a1a1a;border-color:#aaa}}
 .mon-btn.active{{background:#1a1a1a;color:#f5f1e8;border-color:#1a1a1a}}
@@ -396,10 +407,9 @@ a{{color:inherit;text-decoration:none}}
 .day-btn.active{{background:#555;color:#f5f1e8;border-color:#555}}
 
 /* ── Grid ── */
-.grid{{display:grid;grid-template-columns:repeat(4,1fr);max-width:1440px;margin:0 auto;border-left:1px solid #bbb;border-top:1px solid #bbb}}
-@media(max-width:1100px){{.grid{{grid-template-columns:repeat(3,1fr)}}}}
-@media(max-width:760px){{.grid{{grid-template-columns:repeat(2,1fr)}}}}
-@media(max-width:480px){{.grid{{grid-template-columns:1fr}}}}
+.grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-left:1px solid #bbb;border-top:1px solid #bbb}}
+@media(max-width:760px){{.grid{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
+@media(max-width:480px){{.grid{{grid-template-columns:minmax(0,1fr)}}}}
 
 /* ── Box score card ── */
 .box{{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:9px 11px;font-size:11px;overflow:hidden}}
@@ -440,21 +450,21 @@ table.pt th:nth-child(5),table.pt td:nth-child(5),table.pt th:nth-child(6),table
 table.pt th:nth-child(7),table.pt td:nth-child(7){{width:20px}}
 
 /* ── Schedule (upcoming) cards ── */
-.sched-grid{{display:grid;grid-template-columns:repeat(4,1fr);max-width:1440px;margin:0 auto;border-left:1px solid #bbb;border-top:1px solid #bbb}}
-@media(max-width:1100px){{.sched-grid{{grid-template-columns:repeat(3,1fr)}}}}
-@media(max-width:760px){{.sched-grid{{grid-template-columns:repeat(2,1fr)}}}}
-@media(max-width:480px){{.sched-grid{{grid-template-columns:1fr}}}}
+.sched-grid{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;border-left:1px solid #bbb;border-top:1px solid #bbb}}
+@media(max-width:1100px){{.sched-grid{{grid-template-columns:repeat(3,minmax(0,1fr))}}}}
+@media(max-width:760px){{.sched-grid{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
+@media(max-width:480px){{.sched-grid{{grid-template-columns:minmax(0,1fr)}}}}
 .sched-card{{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:9px 11px}}
 .sched-matchup{{font-family:'Playfair Display',Georgia,serif;font-size:13px;font-weight:700;border-bottom:1px solid #ccc;padding-bottom:3px;margin-bottom:5px}}
 .sched-time{{font-size:11px;color:#555;margin-top:3px}}
 .sched-venue{{font-size:10px;color:#aaa;margin-top:2px}}
 
 /* ── Standings ── */
-.standings-wrap{{max-width:1440px;margin:0 auto;border-bottom:2px solid #1a1a1a}}
-.standings-inner{{display:grid;grid-template-columns:repeat(6,1fr);border-left:1px solid #bbb}}
-@media(max-width:1100px){{.standings-inner{{grid-template-columns:repeat(3,1fr)}}}}
-@media(max-width:600px){{.standings-inner{{grid-template-columns:repeat(2,1fr)}}}}
-.standings-div{{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:6px 10px}}
+.standings-wrap{{width:100%;border-bottom:2px solid #1a1a1a}}
+.standings-inner{{display:grid;grid-template-columns:repeat(6,minmax(0,145px));border-left:1px solid #bbb}}
+@media(max-width:800px){{.standings-inner{{grid-template-columns:repeat(3,minmax(0,145px))}}}}
+@media(max-width:500px){{.standings-inner{{grid-template-columns:repeat(2,minmax(0,145px))}}}}
+.standings-div{{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:5px 7px}}
 .standings-div-name{{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:3px;border-bottom:1px solid #ddd;padding-bottom:2px}}
 table.st{{border-collapse:collapse;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:11px}}
 table.st th{{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-align:right;padding:0 3px 1px;color:#aaa}}
@@ -471,15 +481,18 @@ table.st tr.div-leader td{{font-weight:800}}
 .notes{{font-size:10px;color:#333;margin-top:5px;line-height:1.5;font-family:'Barlow Condensed',sans-serif}}
 .meta{{font-size:9px;color:#999;margin-top:3px;font-family:'Barlow Condensed',sans-serif}}
 
-.no-games{{padding:60px 20px;text-align:center;font-family:'Playfair Display',serif;font-size:18px;color:#888;max-width:1440px;margin:0 auto}}
-.footer{{max-width:1440px;margin:0 auto;padding:12px 20px;font-size:10px;color:#aaa;letter-spacing:.06em;border-top:1px solid #ccc}}
+.no-games{{padding:60px 20px;text-align:center;font-family:'Playfair Display',serif;font-size:18px;color:#888;width:100%}}
+.footer{{width:100%;padding:12px 20px;font-size:10px;color:#aaa;letter-spacing:.06em;border-top:1px solid #ccc}}
 </style>
 </head>
 <body>
 
 <div class="masthead">
   <div class="masthead-title">MLB Box Scores</div>
-  <div class="masthead-date" id="hdr-date"></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <a class="back-link" href="https://billblatzheim.com"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M11 5H1M4 1L1 5l3 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Blatz Labs</a>
+    <div class="masthead-date" id="hdr-date"></div>
+  </div>
 </div>
 <div class="arc-months">{month_btns}</div>
 <div class="arc-dates" id="arc-dates"></div>
@@ -553,7 +566,7 @@ function renderStandings(dateStr) {{
   }}).join('');
   const label = fmtDateLabel(dateStr);
   document.getElementById('standings').innerHTML =
-    `<div style="max-width:1440px;margin:0 auto;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;">Standings through games of ${{label}}</div>
+    `<div style="width:100%;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;">Standings through games of ${{label}}</div>
     <div class="standings-inner">${{cols}}</div>`;
 }}
 
