@@ -82,7 +82,7 @@ def fmt_ip(ip):
         return w + {'0':'','1':'⅓','2':'⅔'}.get(f, f'.{f}')
     return s
 
-def build_game(box, line):
+def build_game(box, line, pbp=None):
     away_box = box.get("teams", {}).get("away", {})
     home_box = box.get("teams", {}).get("home", {})
 
@@ -117,18 +117,22 @@ def build_game(box, line):
         rows = []
         for pid in tbox.get("batters", []):
             p = players.get(f"ID{pid}", {})
+            border = str(p.get("battingOrder", "0"))
+            if not border or border == "0":
+                continue  # pitcher with no batting slot (DH game)
             bs = p.get("stats", {}).get("batting", {})
             ab  = bs.get("atBats", 0)
             r   = bs.get("runs", 0)
             h   = bs.get("hits", 0)
             rbi = bs.get("rbi", 0)
+            bb  = bs.get("baseOnBalls", 0)
+            k   = bs.get("strikeOuts", 0)
             avg = p.get("seasonStats", {}).get("batting", {}).get("avg", "---")
             pos = p.get("position", {}).get("abbreviation", "").lower()
-            border = str(p.get("battingOrder", "0"))
-            is_sub = len(border) > 0 and border[-1] != "0"
+            is_sub = border[-1] != "0"
             name = last_name(p.get("person", {}).get("fullName", ""))
             rows.append({"name": name, "pos": pos, "sub": is_sub,
-                         "ab": ab, "r": r, "h": h, "rbi": rbi, "avg": avg})
+                         "ab": ab, "r": r, "h": h, "rbi": rbi, "bb": bb, "k": k, "avg": avg})
         return rows
 
     def build_pitchers(tbox):
@@ -221,6 +225,17 @@ def build_game(box, line):
         "home_pitchers": build_pitchers(home_box),
         "notes": notes,
         "time": time_g, "att": att, "venue": venue,
+        "scoring": [
+            {
+                "half": "Top" if p["about"]["isTopInning"] else "Bot",
+                "inning": p["about"]["inning"],
+                "away_score": p["result"]["awayScore"],
+                "home_score": p["result"]["homeScore"],
+                "desc": p["result"]["description"],
+            }
+            for p in (pbp or {}).get("allPlays", [])
+            if p.get("about", {}).get("isScoringPlay")
+        ],
     }
 
 def fetch_full_schedule(year, start_date=None):
@@ -290,6 +305,36 @@ def fetch_standings(date_str):
         print(f"ERROR: {e}")
         return {}
 
+def fetch_leaders(date_str):
+    print(f"  Fetching leaders for {date_str}...", end=" ", flush=True)
+    try:
+        hit = api_get("stats/leaders", {
+            "leaderCategories": "homeRuns,battingAverage,runsBattedIn",
+            "season": date_str[:4], "sportId": 1, "limit": 5,
+            "statGroup": "hitting", "leaderGameTypes": "R", "hydrate": "person,team",
+        })
+        pit = api_get("stats/leaders", {
+            "leaderCategories": "earnedRunAverage,strikeouts,wins,saves",
+            "season": date_str[:4], "sportId": 1, "limit": 5,
+            "statGroup": "pitching", "leaderGameTypes": "R", "hydrate": "person,team",
+        })
+        result = {}
+        for cat in hit.get("leagueLeaders", []) + pit.get("leagueLeaders", []):
+            key = cat.get("leaderCategory")
+            if key and key not in result:
+                result[key] = [
+                    {"name": last_name(r.get("person", {}).get("fullName", "")),
+                     "team": r.get("team", {}).get("abbreviation", ""),
+                     "val": r.get("value", ""),
+                     "rank": r.get("rank", 0)}
+                    for r in cat.get("leaders", [])[:5]
+                ]
+        print("ok")
+        return result
+    except Exception as e:
+        print(f"ERROR: {e}")
+        return {}
+
 def fetch_day(date_str):
     print(f"\nFetching {date_str}...")
     sched = api_get("schedule", {"sportId": 1, "date": date_str, "gameType": "R"})
@@ -311,15 +356,17 @@ def fetch_day(date_str):
         try:
             box  = api_get(f"game/{pk}/boxscore")
             line = api_get(f"game/{pk}/linescore")
-            games.append(build_game(box, line))
+            pbp  = api_get(f"game/{pk}/playByPlay")
+            games.append(build_game(box, line, pbp))
             print("ok")
             time.sleep(0.4)
         except Exception as e:
             print(f"ERROR: {e}")
 
     standings = fetch_standings(date_str)
+    leaders = fetch_leaders(date_str)
     print(f"  {len(games)} games fetched.")
-    return {"games": games, "standings": standings}
+    return {"games": games, "standings": standings, "leaders": leaders}
 
 
 # ── HTML GENERATION ───────────────────────────────────────────────────────────
@@ -337,10 +384,13 @@ def generate_html(cache, generated_at):
         return entry["games"] if isinstance(entry, dict) else entry
     def get_standings(entry):
         return entry.get("standings", {}) if isinstance(entry, dict) else {}
+    def get_leaders(entry):
+        return entry.get("leaders", {}) if isinstance(entry, dict) else {}
 
-    js_data = "const gamesData={};\nconst standingsData={};\n" + "\n".join(
+    js_data = "const gamesData={};\nconst standingsData={};\nconst leadersData={};\n" + "\n".join(
         f"gamesData['{d}']={json.dumps(get_games(cache[d]), ensure_ascii=False, separators=(',',':'))};"
         f"standingsData['{d}']={json.dumps(get_standings(cache[d]), ensure_ascii=False, separators=(',',':'))};"
+        f"leadersData['{d}']={json.dumps(get_leaders(cache[d]), ensure_ascii=False, separators=(',',':'))};"
         for d in game_dates
     )
 
@@ -425,6 +475,11 @@ table.ls td{{text-align:center;padding:0 4px;line-height:1.6;width:18px}}
 table.ls td:first-child{{text-align:left;font-weight:700;width:40px}}
 table.ls .tot{{border-left:1px solid #bbb;font-weight:700;width:22px}}
 
+/* ── Section toggle headers ── */
+.section-hdr{{width:100%;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;box-sizing:border-box}}
+.section-hdr:hover{{color:#555}}
+.section-hdr-arrow{{font-size:8px}}
+
 /* ── Expand toggle ── */
 .expand-btn{{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;color:#888;cursor:pointer;padding:2px 0;user-select:none;border-top:1px solid #ddd;margin-top:2px}}
 .expand-btn:hover{{color:#1a1a1a}}
@@ -443,7 +498,9 @@ table.bt th:nth-child(2),table.bt td:nth-child(2){{width:26px}}
 table.bt th:nth-child(3),table.bt td:nth-child(3){{width:20px}}
 table.bt th:nth-child(4),table.bt td:nth-child(4){{width:20px}}
 table.bt th:nth-child(5),table.bt td:nth-child(5){{width:20px}}
-table.bt th:nth-child(6),table.bt td:nth-child(6){{width:34px}}
+table.bt th:nth-child(6),table.bt td:nth-child(6){{width:20px}}
+table.bt th:nth-child(7),table.bt td:nth-child(7){{width:20px}}
+table.bt th:nth-child(8),table.bt td:nth-child(8){{width:34px}}
 table.pt th:nth-child(2),table.pt td:nth-child(2){{width:28px}}
 table.pt th:nth-child(3),table.pt td:nth-child(3),table.pt th:nth-child(4),table.pt td:nth-child(4),
 table.pt th:nth-child(5),table.pt td:nth-child(5),table.pt th:nth-child(6),table.pt td:nth-child(6),
@@ -463,7 +520,15 @@ table.pt th:nth-child(7),table.pt td:nth-child(7){{width:20px}}
 .standings-wrap{{width:100%;border-bottom:2px solid #1a1a1a}}
 .standings-inner{{display:grid;grid-template-columns:repeat(6,minmax(0,145px));border-left:1px solid #bbb}}
 @media(max-width:800px){{.standings-inner{{grid-template-columns:repeat(3,minmax(0,145px))}}}}
-@media(max-width:500px){{.standings-inner{{grid-template-columns:repeat(2,minmax(0,145px))}}}}
+@media(max-width:500px){{
+  .standings-inner{{grid-template-columns:repeat(2,minmax(0,145px))}}
+  .standings-inner .standings-div:nth-child(1){{order:1}}
+  .standings-inner .standings-div:nth-child(2){{order:3}}
+  .standings-inner .standings-div:nth-child(3){{order:5}}
+  .standings-inner .standings-div:nth-child(4){{order:2}}
+  .standings-inner .standings-div:nth-child(5){{order:4}}
+  .standings-inner .standings-div:nth-child(6){{order:6}}
+}}
 .standings-div{{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:5px 7px}}
 .standings-div-name{{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:3px;border-bottom:1px solid #ddd;padding-bottom:2px}}
 table.st{{border-collapse:collapse;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:11px}}
@@ -476,6 +541,24 @@ table.st th:nth-child(3),table.st td:nth-child(3){{width:22px}}
 table.st th:nth-child(4),table.st td:nth-child(4){{width:30px}}
 table.st th:nth-child(5),table.st td:nth-child(5){{width:26px}}
 table.st tr.div-leader td{{font-weight:800}}
+
+/* ── Leaders strip ── */
+.leaders-inner{{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-left:1px solid #bbb;border-bottom:2px solid #1a1a1a}}
+@media(max-width:800px){{.leaders-inner{{grid-template-columns:repeat(3,minmax(0,1fr))}}}}
+@media(max-width:500px){{.leaders-inner{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
+.leaders-cat{{border-right:1px solid #bbb;padding:5px 7px}}
+.leaders-cat-name{{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:3px;border-bottom:1px solid #ddd;padding-bottom:2px}}
+.leaders-row{{font-family:'Barlow Condensed',sans-serif;font-size:11px;display:flex;justify-content:space-between;align-items:baseline;padding:1px 0;line-height:1.4}}
+.leaders-row-name{{font-weight:600}}
+.leaders-row-team{{color:#aaa;font-weight:400;font-size:10px;margin-left:3px}}
+.leaders-row-val{{color:#333;font-size:11px}}
+
+/* ── Scoring plays ── */
+.scoring-plays{{font-family:'Barlow Condensed',sans-serif;font-size:11px;padding:4px 0}}
+.scoring-play{{padding:2px 0;border-bottom:1px solid #f0ece2;line-height:1.4}}
+.scoring-play:last-child{{border-bottom:none}}
+.sc-inn{{font-weight:700;font-size:10px;letter-spacing:.05em;color:#888;margin-right:4px}}
+.sc-score{{font-weight:700;color:#1a1a1a;margin-right:4px}}
 
 /* ── Notes ── */
 .notes{{font-size:10px;color:#333;margin-top:5px;line-height:1.5;font-family:'Barlow Condensed',sans-serif}}
@@ -497,6 +580,7 @@ table.st tr.div-leader td{{font-weight:800}}
 <div class="arc-months">{month_btns}</div>
 <div class="arc-dates" id="arc-dates"></div>
 <div class="standings-wrap" id="standings"></div>
+<div id="leaders"></div>
 <div id="content"></div>
 <div class="footer">Generated {generated_at} &middot; Data: MLB Stats API</div>
 
@@ -542,6 +626,20 @@ function selectMonth(ym) {{
 }}
 
 const DIV_ORDER = ['AL East','AL Central','AL West','NL East','NL Central','NL West'];
+let standingsOpen = true;
+let leadersOpen = true;
+
+function toggleStandings() {{
+  standingsOpen = !standingsOpen;
+  document.getElementById('standings-body').style.display = standingsOpen ? '' : 'none';
+  document.getElementById('standings-arrow').textContent = standingsOpen ? '\u25be' : '\u25b8';
+}}
+
+function toggleLeaders() {{
+  leadersOpen = !leadersOpen;
+  document.getElementById('leaders-body').style.display = leadersOpen ? '' : 'none';
+  document.getElementById('leaders-arrow').textContent = leadersOpen ? '\u25be' : '\u25b8';
+}}
 
 function renderStandings(dateStr) {{
   const divs = standingsData[dateStr];
@@ -566,8 +664,13 @@ function renderStandings(dateStr) {{
   }}).join('');
   const label = fmtDateLabel(dateStr);
   document.getElementById('standings').innerHTML =
-    `<div style="width:100%;padding:4px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;">Standings through games of ${{label}}</div>
-    <div class="standings-inner">${{cols}}</div>`;
+    `<div class="section-hdr" onclick="toggleStandings()">
+       <span>Standings &mdash; through games of ${{label}}</span>
+       <span class="section-hdr-arrow" id="standings-arrow">${{standingsOpen ? '\u25be' : '\u25b8'}}</span>
+     </div>
+     <div id="standings-body" style="display:${{standingsOpen ? '' : 'none'}}">
+       <div class="standings-inner">${{cols}}</div>
+     </div>`;
 }}
 
 function renderDate(dateStr) {{
@@ -576,6 +679,7 @@ function renderDate(dateStr) {{
   document.getElementById('hdr-date').textContent = fmtDateLabel(dateStr);
 
   renderStandings(dateStr);
+  renderLeaders(dateStr);
 
   const games = gamesData[dateStr];
   if (games && games.length > 0) {{
@@ -603,12 +707,51 @@ function renderSchedCard(g) {{
   </div>`;
 }}
 
+const LEADERS_ORDER = [
+  {{key:'homeRuns',label:'HR'}},
+  {{key:'battingAverage',label:'AVG'}},
+  {{key:'runsBattedIn',label:'RBI'}},
+  {{key:'earnedRunAverage',label:'ERA'}},
+  {{key:'strikeouts',label:'K'}},
+  {{key:'wins',label:'W'}},
+];
+
+function renderLeaders(dateStr) {{
+  const data = leadersData[dateStr];
+  if (!data || !Object.keys(data).length) {{
+    document.getElementById('leaders').innerHTML = '';
+    return;
+  }}
+  const cols = LEADERS_ORDER.map(cat => {{
+    const rows = (data[cat.key] || []).map(r =>
+      `<div class="leaders-row"><span class="leaders-row-name">${{r.name}}<span class="leaders-row-team">${{r.team}}</span></span><span class="leaders-row-val">${{r.val}}</span></div>`
+    ).join('');
+    return `<div class="leaders-cat"><div class="leaders-cat-name">${{cat.label}}</div>${{rows}}</div>`;
+  }}).join('');
+  document.getElementById('leaders').innerHTML =
+    `<div class="section-hdr" onclick="toggleLeaders()">
+       <span>League Leaders</span>
+       <span class="section-hdr-arrow" id="leaders-arrow">${{leadersOpen ? '\u25be' : '\u25b8'}}</span>
+     </div>
+     <div id="leaders-body" style="display:${{leadersOpen ? '' : 'none'}}">
+       <div class="leaders-inner">${{cols}}</div>
+     </div>`;
+}}
+
 function toggleBox(idx) {{
   const el = document.getElementById('bx-' + idx);
   const lbl = document.getElementById('bx-lbl-' + idx);
   const open = el.style.display !== 'none';
   el.style.display = open ? 'none' : 'block';
   lbl.textContent = open ? '\u25b8 FULL BOX' : '\u25be CLOSE';
+}}
+
+function toggleScoring(idx) {{
+  const el = document.getElementById('sc-' + idx);
+  const lbl = document.getElementById('sc-lbl-' + idx);
+  const open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  lbl.textContent = open ? '\u25b8 HOW THEY SCORED' : '\u25be HOW THEY SCORED';
 }}
 
 function renderGame(g, idx) {{
@@ -631,13 +774,14 @@ function renderGame(g, idx) {{
   function batTable(batters, abbr) {{
     const rows = batters.map(b => {{
       const namePos = b.sub ? `<td style="padding-left:10px;color:#555">${{b.name}} ${{b.pos}}</td>` : `<td>${{b.name}} ${{b.pos}}</td>`;
-      return `<tr>${{namePos}}<td>${{b.ab}}</td><td>${{b.r}}</td><td>${{b.h}}</td><td>${{b.rbi}}</td><td>${{b.avg}}</td></tr>`;
+      return `<tr>${{namePos}}<td>${{b.ab}}</td><td>${{b.r}}</td><td>${{b.h}}</td><td>${{b.rbi}}</td><td>${{b.bb}}</td><td>${{b.k}}</td><td>${{b.avg}}</td></tr>`;
     }}).join('');
     const totAB=batters.reduce((s,b)=>s+(b.ab||0),0), totR=batters.reduce((s,b)=>s+(b.r||0),0);
     const totH=batters.reduce((s,b)=>s+(b.h||0),0), totRBI=batters.reduce((s,b)=>s+(b.rbi||0),0);
+    const totBB=batters.reduce((s,b)=>s+(b.bb||0),0), totK=batters.reduce((s,b)=>s+(b.k||0),0);
     return `<div class="tbl-hdr">${{abbr}} Batting</div>
-    <table class="bt"><thead><tr><th></th><th>AB</th><th>R</th><th>H</th><th>BI</th><th>AVG</th></tr></thead>
-    <tbody>${{rows}}<tr class="totrow"><td>Totals</td><td>${{totAB}}</td><td>${{totR}}</td><td>${{totH}}</td><td>${{totRBI}}</td><td></td></tr></tbody></table>`;
+    <table class="bt"><thead><tr><th></th><th>AB</th><th>R</th><th>H</th><th>BI</th><th>BB</th><th>K</th><th>AVG</th></tr></thead>
+    <tbody>${{rows}}<tr class="totrow"><td>Totals</td><td>${{totAB}}</td><td>${{totR}}</td><td>${{totH}}</td><td>${{totRBI}}</td><td>${{totBB}}</td><td>${{totK}}</td><td></td></tr></tbody></table>`;
   }}
 
   function pitTable(pitchers, abbr) {{
@@ -654,8 +798,15 @@ function renderGame(g, idx) {{
   const metaParts = [g.time?`T\u2014${{g.time}}`:'', g.att?`A\u2014${{g.att}}`:'', g.venue].filter(Boolean);
   const metaHtml = metaParts.length ? `<div class="meta">${{metaParts.join(' \u00b7 ')}}</div>` : '';
 
+  const scoringRows = (g.scoring||[]).map(p =>
+    `<div class="scoring-play"><span class="sc-inn">${{p.half.toUpperCase()}} ${{p.inning}}</span><span class="sc-score">${{p.away_score}}-${{p.home_score}}</span>${{p.desc}}</div>`
+  ).join('');
+  const scoringHtml = scoringRows ? `
+    <div class="expand-btn" onclick="toggleScoring(${{idx}})"><span id="sc-lbl-${{idx}}">\u25be HOW THEY SCORED</span></div>
+    <div id="sc-${{idx}}"><div class="scoring-plays">${{scoringRows}}</div></div>` : '';
+
   return `<div class="box">
-    ${{hdr}}${{ls}}
+    ${{hdr}}${{ls}}${{scoringHtml}}
     <div class="expand-btn" onclick="toggleBox(${{idx}})"><span id="bx-lbl-${{idx}}">\u25b8 FULL BOX</span></div>
     <div id="bx-${{idx}}" style="display:none">
       ${{batTable(g.away_batters,g.away_abbr)}}${{batTable(g.home_batters,g.home_abbr)}}
