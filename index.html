@@ -2,290 +2,1082 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Blatz Labs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA Game Importance Scorer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --red:#e8002d;
-  --bg:#08080d;
-  --border:rgba(255,255,255,.07);
-  --muted:#444;
-  --soft:#888;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:#e8e8e8;font-family:'Barlow Condensed',sans-serif;min-height:100vh;overflow-x:hidden}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+  :root {
+    --nbc-blue: #1059c4;
+    --nbc-blue-dark: #0a3d8f;
+    --nbc-blue-bright: #2979ff;
+    --nbc-gold: #f0c030;
+    --nbc-red: #cc1122;
+    --bg: #08101e;
+    --bg-card: #0d1b30;
+    --bg-card-alt: #111f35;
+    --border: #1a3155;
+    --text-primary: #ffffff;
+    --text-secondary: #8eadd4;
+    --text-muted: #3d5a80;
+  }
 
-body::before{
-  content:'';
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:0;opacity:.4;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.header{
-  border-bottom:1px solid var(--border);
-  background:rgba(8,8,13,.97);
-  backdrop-filter:blur(12px);
-  position:sticky;top:0;z-index:100;
-}
-.header-inner{max-width:900px;margin:0 auto;padding:0 24px}
-.top-bar{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
-.logo{display:flex;align-items:center;gap:12px}
-.logo-mark{
-  width:28px;height:28px;
-  border:2px solid var(--red);
-  border-radius:4px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:900;color:var(--red);
-}
-.logo-text{font-size:20px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
-.logo-text span{color:var(--red)}
-.header-meta{font-family:'Barlow',sans-serif;font-size:11px;color:var(--muted);letter-spacing:.06em;font-style:italic}
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(16, 89, 196, 0.03) 3px,
+        rgba(16, 89, 196, 0.03) 4px
+      );
+  }
 
-.hero{
-  max-width:900px;margin:0 auto;padding:72px 24px 48px;
-  position:relative;z-index:1;
-}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--red);
-  text-transform:uppercase;margin-bottom:20px;
-}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:24px;height:1px;background:var(--red)}
-.hero h1{
-  font-size:clamp(64px,10vw,112px);
-  font-weight:900;
-  letter-spacing:-.01em;
-  line-height:.92;
-  text-transform:uppercase;
-  margin-bottom:12px;
-}
-.hero h1 span{color:var(--red)}
-.hero-tagline{
-  font-family:'Barlow',sans-serif;
-  font-size:13px;font-style:italic;color:var(--muted);
-  letter-spacing:.04em;margin-bottom:32px;
-}
-.hero-desc{
-  font-family:'Barlow',sans-serif;
-  font-size:15px;font-weight:300;color:var(--soft);
-  line-height:1.7;max-width:540px;
-  border-left:2px solid var(--border);
-  padding-left:20px;
-}
-.hero-desc strong{color:#ccc;font-weight:400}
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, var(--nbc-blue-dark) 0%, #0d2d6e 50%, #091d4a 100%);
+    border-bottom: 3px solid var(--nbc-gold);
+    padding: 0 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 18px,
+      rgba(255,255,255,0.03) 18px,
+      rgba(255,255,255,0.03) 19px
+    );
+    pointer-events: none;
+  }
+  .header-inner {
+    position: relative;
+    padding: 14px 0 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    font-style: italic;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  h1 span.nbc-accent {
+    color: var(--nbc-gold);
+  }
+  .subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  @media (min-width: 768px) {
+    .header { padding: 0 28px; }
+    h1 { font-size: 36px; }
+  }
 
-.stat-row{
-  max-width:900px;margin:0 auto;padding:40px 24px 48px;
-  display:flex;gap:40px;flex-wrap:wrap;
-  position:relative;z-index:1;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  margin-bottom:48px;
-}
-.stat{display:flex;flex-direction:column;gap:3px}
-.stat-num{font-size:40px;font-weight:900;color:var(--red);line-height:1}
-.stat-label{font-family:'Barlow',sans-serif;font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+  /* ── Layout ── */
+  .layout { display: flex; flex-direction: column; gap: 14px; padding: 14px 16px 24px; }
+  @media (min-width: 768px) {
+    .layout { flex-direction: row; padding: 20px 28px 28px; align-items: flex-start; }
+    .main-col { flex: 1; min-width: 0; }
+    .side-col { width: 290px; flex-shrink: 0; }
+  }
+  .main-col { width: 100%; }
+  .side-col { display: flex; flex-direction: column; gap: 12px; }
 
-.divider{
-  max-width:900px;margin:0 auto;padding:0 24px;
-  display:flex;align-items:center;gap:16px;
-  font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--muted);
-  text-transform:uppercase;margin-bottom:32px;
-  position:relative;z-index:1;
-}
-.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+  /* ── Cards ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 14px;
+    position: relative;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--nbc-blue) 0%, var(--nbc-blue-bright) 100%);
+  }
+  @media (min-width: 768px) { .card { padding: 16px 18px; } }
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--nbc-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
 
-.projects{
-  max-width:900px;margin:0 auto;padding:0 24px 80px;
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:16px;
-  position:relative;z-index:1;
-}
+  /* ── Filters ── */
+  .filters {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .filters::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--nbc-blue) 0%, var(--nbc-blue-bright) 100%);
+  }
+  @media (min-width: 768px) { .filters { padding: 14px 18px; margin-bottom: 14px; } }
 
-.card{
-  background:rgba(255,255,255,.025);
-  border:1px solid var(--border);
-  border-radius:8px;padding:28px 24px;
-  text-decoration:none;color:inherit;
-  display:flex;flex-direction:column;gap:12px;
-  position:relative;overflow:hidden;
-  transition:border-color .2s,background .2s,transform .2s;
-}
-.card::before{
-  content:'';
-  position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--accent,var(--red));
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .3s ease;
-}
-.card:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14);transform:translateY(-2px)}
-.card:hover::before{transform:scaleX(1)}
+  .filter-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .filter-row:last-child { margin-bottom: 0; }
+  .filter-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--nbc-gold);
+    text-transform: uppercase; letter-spacing: 1px;
+    width: 46px; flex-shrink: 0;
+  }
+  .conf-btn, .team-btn, .clear-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    padding: 4px 10px; border-radius: 1px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-secondary);
+    cursor: pointer; transition: all 0.12s;
+    white-space: nowrap; flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .conf-btn:hover, .team-btn:hover { border-color: var(--nbc-blue-bright); color: #fff; }
+  .conf-btn.active {
+    background: var(--nbc-blue);
+    border-color: var(--nbc-blue-bright);
+    color: #fff;
+  }
+  .team-btn.active {
+    background: var(--nbc-blue);
+    border-color: var(--nbc-blue-bright);
+    color: #fff;
+  }
+  .clear-btn { border-color: var(--nbc-red); color: var(--nbc-red); }
+  .clear-btn:hover { background: var(--nbc-red); color: #fff; }
 
-.card-sport{
-  font-size:9px;font-weight:700;letter-spacing:.2em;
-  color:var(--accent,var(--red));text-transform:uppercase;
-  display:flex;align-items:center;gap:6px;
-}
-.card-sport::before{content:'';width:16px;height:1px;background:var(--accent,var(--red))}
-.card-title{font-size:22px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;line-height:1.1}
-.card-desc{font-family:'Barlow',sans-serif;font-size:13px;font-weight:300;color:var(--soft);line-height:1.6;flex:1}
-.card-quip{
-  font-family:'Barlow',sans-serif;
-  font-size:11px;font-style:italic;color:var(--muted);
-  border-top:1px solid var(--border);
-  padding-top:12px;line-height:1.5;
-}
-.card-arrow{
-  display:flex;align-items:center;gap:6px;
-  font-size:10px;font-weight:700;letter-spacing:.14em;
-  color:var(--muted);text-transform:uppercase;
-  transition:color .2s,gap .2s;
-}
-.card:hover .card-arrow{color:#e8e8e8;gap:10px}
-.card:hover .card-arrow svg{transform:translateX(2px)}
-.card-arrow svg{transition:transform .2s}
+  .conf-row { display: flex; gap: 5px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+  .conf-row::-webkit-scrollbar { display: none; }
+  .team-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; flex: 1; }
+  .team-scroll::-webkit-scrollbar { display: none; }
+  .team-scroll-inner { display: flex; gap: 4px; width: max-content; }
+  .result-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    white-space: nowrap; margin-left: 4px;
+  }
 
-.card.soon{opacity:.4;pointer-events:none}
-.card.soon::after{
-  content:'SOON';position:absolute;top:14px;right:14px;
-  font-size:8px;font-weight:700;letter-spacing:.18em;
-  color:var(--muted);border:1px solid var(--border);
-  padding:3px 7px;border-radius:3px;
-}
+  /* ── Games table ── */
+  .games-table { width: 100%; border-collapse: collapse; }
+  .games-table th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--nbc-gold);
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 0 10px 10px; text-align: left; white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .games-table td {
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(26,49,85,0.6);
+    vertical-align: middle;
+  }
+  .games-table tr:last-child td { border-bottom: none; }
+  .games-table tbody tr:active td { background: #0f2040; }
+  @media (min-width: 768px) {
+    .games-table tbody tr:hover td { background: #0f2040; }
+    .games-table th { font-size: 12px; padding: 0 14px 10px; }
+    .games-table td { padding: 11px 14px; }
+  }
 
-footer{
-  border-top:1px solid var(--border);
-  padding:28px 24px;
-  display:flex;justify-content:space-between;align-items:center;
-  font-family:'Barlow',sans-serif;font-size:11px;color:var(--muted);
-  letter-spacing:.06em;position:relative;z-index:1;
-  max-width:900px;margin:0 auto;
-}
+  .col-rank, .col-srs, .col-prob, .col-stakes { display: none; }
+  @media (min-width: 768px) {
+    .col-rank, .col-srs, .col-prob, .col-stakes { display: table-cell; }
+  }
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.hero{animation:fadeUp .5s ease forwards}
-.stat-row{opacity:0;animation:fadeUp .4s ease .2s forwards}
-.card{opacity:0;animation:fadeUp .4s ease forwards}
-.card:nth-child(1){animation-delay:.15s}
-.card:nth-child(2){animation-delay:.23s}
-.card:nth-child(3){animation-delay:.31s}
-.card:nth-child(4){animation-delay:.39s}
+  /* Score bar */
+  .imp-bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .imp-bar { height: 4px; border-radius: 0; min-width: 2px; max-width: 70px; flex-shrink: 0; }
+  .imp-val {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700; font-size: 13px;
+    width: 40px; text-align: right; flex-shrink: 0;
+    letter-spacing: 0.3px;
+  }
 
-@media(max-width:600px){
-  .projects{grid-template-columns:1fr}
-  .hero h1{font-size:72px}
-  .stat-row{gap:28px}
-  footer{flex-direction:column;gap:8px;text-align:center}
-}
+  /* Date cell */
+  .date-cell {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase; white-space: nowrap;
+  }
+
+  /* Matchup */
+  .team-name {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700; font-size: 14px;
+    text-transform: none; letter-spacing: 0.3px;
+  }
+  .team-record {
+    font-family: 'Barlow', sans-serif;
+    color: var(--text-muted); font-size: 11px; margin-left: 3px;
+  }
+  .vs-sep {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 11px;
+    color: var(--nbc-gold); margin: 0 5px;
+    text-transform: uppercase;
+  }
+  .inter-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700;
+    background: rgba(41,121,255,0.15);
+    color: var(--nbc-blue-bright);
+    border: 1px solid rgba(41,121,255,0.3);
+    padding: 1px 5px; margin-left: 5px; vertical-align: middle;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  /* Stakes / SRS / prob cells */
+  .stakes-cell {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 600;
+    color: var(--text-secondary); line-height: 1.7;
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .srs-cell {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    text-align: center; color: var(--text-secondary); white-space: nowrap;
+  }
+  .prob-cell {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    text-align: center; color: var(--text-secondary); white-space: nowrap;
+  }
+
+  /* Mobile expand */
+  .detail-row { display: none; }
+  .detail-row td { padding: 0 10px 12px; border-bottom: 1px solid var(--border); }
+  .detail-row.open { display: table-row; }
+  .detail-inner {
+    background: var(--bg);
+    border-left: 3px solid var(--nbc-blue);
+    padding: 10px 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.3px;
+    line-height: 1.8;
+  }
+  @media (min-width: 768px) {
+    .detail-row { display: none !important; }
+    .game-row { cursor: default; }
+  }
+  .game-row { cursor: pointer; }
+
+  /* ── Side tables ── */
+  .side-table { width: 100%; border-collapse: collapse; }
+  .side-table td {
+    padding: 7px 8px;
+    border-bottom: 1px solid rgba(26,49,85,0.6);
+    vertical-align: middle; white-space: nowrap;
+  }
+  .side-table tr:last-child td { border-bottom: none; }
+  .side-table tr:hover td { background: #0f2040; }
+
+  .side-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
+  @media (min-width: 768px) { .side-grid { display: contents; } }
+
+  /* ── Legend ── */
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .legend-item {
+    display: flex; align-items: center; gap: 5px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .dot { width: 8px; height: 3px; border-radius: 0; flex-shrink: 0; }
+
+  /* ── Back link ── */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; color: #888;
+    text-decoration: none;
+    transition: color .15s;
+    margin-bottom: 8px;
+  }
+  .back-link:hover { color: #e8002d; }
+  .back-link svg { transition: transform .15s; }
+  .back-link:hover svg { transform: translateX(-2px); }
+
+  #no-results {
+    display:none; padding: 32px; text-align: center;
+    color: var(--text-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .sortable { cursor: pointer; user-select: none; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+  .sortable:hover { color: #fff; }
+  .active-sort { color: #fff !important; }
+  .sort-arrow { font-size: 10px; margin-left: 2px; opacity: 0.8; }
 </style>
 </head>
 <body>
 
 <div class="header">
   <div class="header-inner">
-    <div class="top-bar">
-      <div class="logo">
-        <div class="logo-mark">BL</div>
-        <div class="logo-text">BLATZ <span>LABS</span></div>
+    <a class="back-link" href="https://billblatzheim.com">
+      <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M11 5H1M4 1L1 5l3 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Blatz Labs
+    </a>
+    <h1>NBA <span class="nbc-accent">Game</span> Importance</h1>
+    <p class="subtitle">2025-26 &nbsp;·&nbsp; March 27, 2026 at 09:31 AM &nbsp;·&nbsp; SRS from live data</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- Main column -->
+  <div class="main-col">
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-row">
+        <span class="filter-label">Conf</span>
+        <div class="conf-row">
+          <button class="conf-btn active" onclick="filterConf('all')">All</button>
+          <button class="conf-btn" onclick="filterConf('East')">East</button>
+          <button class="conf-btn" onclick="filterConf('West')">West</button>
+          <button class="conf-btn" onclick="filterConf('inter')">Inter-conf</button>
+        </div>
+        <span class="result-count" id="result-count"></span>
       </div>
-      <div class="header-meta">nobody asked for this</div>
+      <div class="filter-row" style="align-items:flex-start;">
+        <span class="filter-label" style="padding-top:4px;">Team</span>
+        <div style="flex:1;min-width:0;">
+          <div class="team-scroll" style="margin-bottom:5px;">
+            <div class="team-scroll-inner"><button class="team-btn" onclick="filterTeam('ATL')">ATL</button><button class="team-btn" onclick="filterTeam('BKN')">BKN</button><button class="team-btn" onclick="filterTeam('BOS')">BOS</button><button class="team-btn" onclick="filterTeam('CHA')">CHA</button><button class="team-btn" onclick="filterTeam('CHI')">CHI</button><button class="team-btn" onclick="filterTeam('CLE')">CLE</button><button class="team-btn" onclick="filterTeam('DET')">DET</button><button class="team-btn" onclick="filterTeam('IND')">IND</button><button class="team-btn" onclick="filterTeam('MIA')">MIA</button><button class="team-btn" onclick="filterTeam('MIL')">MIL</button><button class="team-btn" onclick="filterTeam('NYK')">NYK</button><button class="team-btn" onclick="filterTeam('ORL')">ORL</button><button class="team-btn" onclick="filterTeam('PHI')">PHI</button><button class="team-btn" onclick="filterTeam('TOR')">TOR</button><button class="team-btn" onclick="filterTeam('WAS')">WAS</button></div>
+          </div>
+          <div class="team-scroll">
+            <div class="team-scroll-inner"><button class="team-btn" onclick="filterTeam('DAL')">DAL</button><button class="team-btn" onclick="filterTeam('DEN')">DEN</button><button class="team-btn" onclick="filterTeam('GSW')">GSW</button><button class="team-btn" onclick="filterTeam('HOU')">HOU</button><button class="team-btn" onclick="filterTeam('LAC')">LAC</button><button class="team-btn" onclick="filterTeam('LAL')">LAL</button><button class="team-btn" onclick="filterTeam('MEM')">MEM</button><button class="team-btn" onclick="filterTeam('MIN')">MIN</button><button class="team-btn" onclick="filterTeam('NOP')">NOP</button><button class="team-btn" onclick="filterTeam('OKC')">OKC</button><button class="team-btn" onclick="filterTeam('PHX')">PHX</button><button class="team-btn" onclick="filterTeam('POR')">POR</button><button class="team-btn" onclick="filterTeam('SAC')">SAC</button><button class="team-btn" onclick="filterTeam('SAS')">SAS</button><button class="team-btn" onclick="filterTeam('UTA')">UTA</button></div>
+          </div>
+        </div>
+        <button class="clear-btn" onclick="clearFilters()">✕</button>
+      </div>
     </div>
+
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item"><div class="dot" style="background:#cc1122;"></div>High (75+)</div>
+      <div class="legend-item"><div class="dot" style="background:#f0c030;"></div>Med-high (50+)</div>
+      <div class="legend-item"><div class="dot" style="background:#2979ff;"></div>Medium (25+)</div>
+      <div class="legend-item"><div class="dot" style="background:#3d5a80;"></div>Lower</div>
+    </div>
+
+    <!-- Games table -->
+    <div class="card" style="padding: 14px 0;">
+      <table class="games-table" id="games-table">
+        <thead>
+          <tr>
+            <th class="col-rank" style="padding-left:10px;">#</th>
+            <th class="sortable active-sort" onclick="sortBy('importance')" data-col="importance">Score <span class="sort-arrow">↓</span></th>
+            <th class="sortable" onclick="sortBy('date_sort')" data-col="date_sort">Date <span class="sort-arrow"></span></th>
+            <th class="sortable" onclick="sortBy('home')" data-col="home">Matchup <span class="sort-arrow"></span></th>
+            <th class="stakes-header col-stakes">At Stake</th>
+            <th class="col-srs sortable" onclick="sortBy('srs_gap')" data-col="srs_gap" style="text-align:center;">SRS Gap <span class="sort-arrow"></span></th>
+            <th class="col-prob sortable" onclick="sortBy('closeness')" data-col="closeness" style="text-align:center;">Win% <span class="sort-arrow"></span></th>
+          </tr>
+        </thead>
+        <tbody id="games-tbody">
+        </tbody>
+      </table>
+      <div id="no-results">No games match your filter.</div>
+    </div>
+
+    <p style="color:#1e293b;font-size:10px;margin-top:10px;text-align:center;">
+      Score = seed pressure × head-to-head × upset potential × scarcity × conf factor. Tap a row on mobile for details.
+    </p>
+  </div>
+
+  <!-- Side column -->
+  <div class="side-col">
+    <div class="side-grid">
+
+      <div class="card">
+        <div class="card-title">East</div>
+        <div style="font-size:10px;color:#475569;margin-bottom:6px;">
+          <span style="color:#f0c030;">━</span> playoff &nbsp;<span style="color:#cc1122;">━</span> play-in
+        </div>
+        <table class="side-table">
+          <tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">1</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">DET</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">53-20</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">—</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">2</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">BOS</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">48-24</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">4.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">10g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">3</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">NYK</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">48-26</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">5.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">8g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">4</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">CLE</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">45-28</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">8.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">5</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">ATL</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">41-32</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">12.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">6</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">TOR</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">40-32</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">12.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">10g</td>
+            </tr><tr><td colspan="5" style="padding:2px 0;"><div style="height:2px;background:#f0c030;opacity:0.6;"></div></td></tr><tr>
+              <td style="color:#f0c030;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">7</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">PHI</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">40-33</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">13.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#f0c030;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">8</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">ORL</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">39-34</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">14.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#f0c030;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">9</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">CHA</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">39-34</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">14.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#f0c030;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">10</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">MIA</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">39-34</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">14.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr><td colspan="5" style="padding:2px 0;"><div style="height:2px;background:#cc1122;opacity:0.6;"></div></td></tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">11</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">MIL</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">29-43</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">23.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">10g</td>
+            </tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">12</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">CHI</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">29-43</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">23.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">10g</td>
+            </tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">13</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">WAS</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">17-55</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">35.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">10g</td>
+            </tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">14</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">BKN</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">17-56</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">36.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">15</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">IND</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">16-57</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">37.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title">West</div>
+        <div style="font-size:10px;color:#475569;margin-bottom:6px;">
+          <span style="color:#f0c030;">━</span> playoff &nbsp;<span style="color:#cc1122;">━</span> play-in
+        </div>
+        <table class="side-table">
+          <tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">1</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">OKC</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">57-16</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">—</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">2</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">SAS</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">55-18</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">2.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">3</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">LAL</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">47-26</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">10.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">4</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">DEN</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">46-28</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">11.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">8g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">5</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">MIN</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">45-28</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">12.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#2979ff;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">6</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">HOU</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">43-29</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">13.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">10g</td>
+            </tr><tr><td colspan="5" style="padding:2px 0;"><div style="height:2px;background:#f0c030;opacity:0.6;"></div></td></tr><tr>
+              <td style="color:#f0c030;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">7</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">PHX</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">40-33</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">17.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#f0c030;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">8</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">LAC</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">37-36</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">20.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#f0c030;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">9</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">POR</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">37-37</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">20.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">8g</td>
+            </tr><tr>
+              <td style="color:#f0c030;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">10</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">GSW</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">35-38</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">22.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr><td colspan="5" style="padding:2px 0;"><div style="height:2px;background:#cc1122;opacity:0.6;"></div></td></tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">11</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">NOP</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">25-49</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">32.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">8g</td>
+            </tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">12</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">MEM</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">24-48</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">32.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">10g</td>
+            </tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">13</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">DAL</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">23-50</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">34.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">14</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">UTA</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">21-52</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">36.0</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">9g</td>
+            </tr><tr>
+              <td style="color:#3d5a80;font-family:'Barlow Condensed',sans-serif;font-weight:900;text-align:center;width:24px;font-size:14px;">15</td>
+              <td style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:0.3px;">SAC</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:#8eadd4;">19-55</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#f0c030;">38.5</td>
+              <td style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#3d5a80;">8g</td>
+            </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">SRS Ratings</div>
+      <p style="font-size:10px;color:#475569;margin-bottom:10px;">Adj. pt diff vs strength of schedule. Cap: 20pts.</p>
+      <table class="side-table">
+        <tr>
+          <td style="font-weight:700;font-size:13px;">OKC</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:71.7px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+8.61</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">SAS</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:56.2px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+6.74</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">DET</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:45.5px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+5.46</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">BOS</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:45.1px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+5.41</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">NYK</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:31.8px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+3.81</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">DEN</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:28.2px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+3.38</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">HOU</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:27.1px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+3.25</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">CLE</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:25.9px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+3.11</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">MIN</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:22.2px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+2.66</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">CHA</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:20.4px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+2.45</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">MIA</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:16.4px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+1.97</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">PHX</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:15.3px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+1.84</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">LAL</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:13.2px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+1.59</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">ATL</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:11.4px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+1.37</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">TOR</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:9.3px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+1.12</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">LAC</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:7.1px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+0.85</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">PHI</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:5.9px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+0.71</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">ORL</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:4.4px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+0.53</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">GSW</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#22c55e;height:8px;width:2.8px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#22c55e;font-weight:700;font-size:13px;">+0.33</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">POR</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:1.1px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-0.13</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">NOP</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:26.6px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-3.19</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">CHI</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:27.5px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-3.30</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">MEM</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:31.4px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-3.77</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">MIL</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:33.3px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-4.00</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">DAL</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:37.2px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-4.47</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">UTA</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:51.3px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-6.15</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">BKN</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:55.2px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-6.63</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">SAC</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:59.9px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-7.19</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">IND</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:64.7px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-7.76</span>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-weight:700;font-size:13px;">WAS</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="background:#ef4444;height:8px;width:70.8px;border-radius:4px;min-width:2px;"></div>
+              <span style="color:#ef4444;font-weight:700;font-size:13px;">-8.50</span>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
   </div>
 </div>
 
-<section class="hero">
-  <div class="hero-eyebrow">EST. 2026</div>
-  <h1>Nobody<br>Asked<br><span>For This.</span></h1>
-  <div class="hero-tagline">— and yet, here we are.</div>
-  <p class="hero-desc">
-    A personal collection of sports dashboards built purely out of stubbornness
-    and a desire to understand the games better.
-    No agenda. No audience. Just <strong>one guy, too many tabs,</strong>
-    and a burning need to know if the things I was wondering about could
-    be quantified.
-  </p>
-</section>
+<script>
+const ALL_GAMES = [{"rank": 1, "importance": 100.0, "date": "Apr 10", "date_sort": 1775779200, "home": "ATL", "home_full": "hawks", "away": "CLE", "away_full": "cavaliers", "home_record": "41-32", "away_record": "45-28", "home_seed": 5, "away_seed": 4, "home_conf": "East", "away_conf": "East", "home_srs": 1.4, "away_srs": 3.1, "p_home_win": 54.5, "home_stakes": "#5 \u2014 direct playoff", "away_stakes": "#4 \u2014 R1 home court", "same_conf": true, "game_time_utc": "2026-04-10T23:00:00Z"}, {"rank": 2, "importance": 88.9, "date": "Mar 29", "date_sort": 1774742400, "home": "TOR", "home_full": "raptors", "away": "ORL", "away_full": "magic", "home_record": "40-32", "away_record": "39-34", "home_seed": 6, "away_seed": 8, "home_conf": "East", "away_conf": "East", "home_srs": 1.1, "away_srs": 0.5, "p_home_win": 62.5, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#8 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-03-29T22:00:00Z"}, {"rank": 3, "importance": 87.6, "date": "Apr 08", "date_sort": 1775606400, "home": "CLE", "home_full": "cavaliers", "away": "ATL", "away_full": "hawks", "home_record": "45-28", "away_record": "41-32", "home_seed": 4, "away_seed": 5, "home_conf": "East", "away_conf": "East", "home_srs": 3.1, "away_srs": 1.4, "p_home_win": 66.3, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#5 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-08T23:00:00Z"}, {"rank": 4, "importance": 86.5, "date": "Mar 28", "date_sort": 1774656000, "home": "CHA", "home_full": "hornets", "away": "PHI", "away_full": "76ers", "home_record": "39-34", "away_record": "40-33", "home_seed": 9, "away_seed": 7, "home_conf": "East", "away_conf": "East", "home_srs": 2.5, "away_srs": 0.7, "p_home_win": 66.3, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#7 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-03-28T22:00:00Z"}, {"rank": 5, "importance": 84.7, "date": "Apr 06", "date_sort": 1775433600, "home": "ATL", "home_full": "hawks", "away": "NYK", "away_full": "knicks", "home_record": "41-32", "away_record": "48-26", "home_seed": 5, "away_seed": 3, "home_conf": "East", "away_conf": "East", "home_srs": 1.4, "away_srs": 3.8, "p_home_win": 52.0, "home_stakes": "#5 \u2014 direct playoff", "away_stakes": "#3 \u2014 R1 home court", "same_conf": true, "game_time_utc": "2026-04-06T23:00:00Z"}, {"rank": 6, "importance": 81.5, "date": "Apr 10", "date_sort": 1775779200, "home": "HOU", "home_full": "rockets", "away": "MIN", "away_full": "timberwolves", "home_record": "43-29", "away_record": "45-28", "home_seed": 6, "away_seed": 5, "home_conf": "West", "away_conf": "West", "home_srs": 3.3, "away_srs": 2.7, "p_home_win": 62.5, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#5 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-11T01:30:00Z"}, {"rank": 7, "importance": 78.7, "date": "Apr 01", "date_sort": 1775001600, "home": "ORL", "home_full": "magic", "away": "ATL", "away_full": "hawks", "home_record": "39-34", "away_record": "41-32", "home_seed": 8, "away_seed": 5, "home_conf": "East", "away_conf": "East", "home_srs": 0.5, "away_srs": 1.4, "p_home_win": 57.6, "home_stakes": "#8 \u2014 play-in", "away_stakes": "#5 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-01T23:00:00Z"}, {"rank": 8, "importance": 73.4, "date": "Mar 30", "date_sort": 1774828800, "home": "MIA", "home_full": "heat", "away": "PHI", "away_full": "76ers", "home_record": "39-34", "away_record": "40-33", "home_seed": 10, "away_seed": 7, "home_conf": "East", "away_conf": "East", "home_srs": 2.0, "away_srs": 0.7, "p_home_win": 64.7, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#7 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-03-30T23:00:00Z"}, {"rank": 9, "importance": 70.0, "date": "Apr 04", "date_sort": 1775260800, "home": "DEN", "home_full": "nuggets", "away": "SAS", "away_full": "spurs", "home_record": "46-28", "away_record": "55-18", "home_seed": 4, "away_seed": 2, "home_conf": "West", "away_conf": "West", "home_srs": 3.4, "away_srs": 6.7, "p_home_win": 48.7, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#2 \u2014 HCA thru conf finals", "same_conf": true, "game_time_utc": "2026-04-04T19:00:00Z"}, {"rank": 10, "importance": 67.1, "date": "Mar 30", "date_sort": 1774828800, "home": "ATL", "home_full": "hawks", "away": "BOS", "away_full": "celtics", "home_record": "41-32", "away_record": "48-24", "home_seed": 5, "away_seed": 2, "home_conf": "East", "away_conf": "East", "home_srs": 1.4, "away_srs": 5.4, "p_home_win": 46.3, "home_stakes": "#5 \u2014 direct playoff", "away_stakes": "#2 \u2014 HCA thru conf finals", "same_conf": true, "game_time_utc": "2026-03-30T23:30:00Z"}, {"rank": 11, "importance": 66.1, "date": "Apr 07", "date_sort": 1775520000, "home": "PHX", "home_full": "suns", "away": "HOU", "away_full": "rockets", "home_record": "40-33", "away_record": "43-29", "home_seed": 7, "away_seed": 6, "home_conf": "West", "away_conf": "West", "home_srs": 1.8, "away_srs": 3.3, "p_home_win": 55.7, "home_stakes": "#7 \u2014 play-in", "away_stakes": "#6 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-08T03:00:00Z"}, {"rank": 12, "importance": 64.3, "date": "Apr 09", "date_sort": 1775692800, "home": "NYK", "home_full": "knicks", "away": "BOS", "away_full": "celtics", "home_record": "48-26", "away_record": "48-24", "home_seed": 3, "away_seed": 2, "home_conf": "East", "away_conf": "East", "home_srs": 3.8, "away_srs": 5.4, "p_home_win": 55.0, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#2 \u2014 HCA thru conf finals", "same_conf": true, "game_time_utc": "2026-04-09T23:30:00Z"}, {"rank": 13, "importance": 62.6, "date": "Apr 09", "date_sort": 1775692800, "home": "TOR", "home_full": "raptors", "away": "MIA", "away_full": "heat", "home_record": "40-32", "away_record": "39-34", "home_seed": 6, "away_seed": 10, "home_conf": "East", "away_conf": "East", "home_srs": 1.1, "away_srs": 2.0, "p_home_win": 57.6, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#10 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-09T23:00:00Z"}, {"rank": 14, "importance": 62.6, "date": "Apr 07", "date_sort": 1775520000, "home": "TOR", "home_full": "raptors", "away": "MIA", "away_full": "heat", "home_record": "40-32", "away_record": "39-34", "home_seed": 6, "away_seed": 10, "home_conf": "East", "away_conf": "East", "home_srs": 1.1, "away_srs": 2.0, "p_home_win": 57.6, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#10 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-07T23:30:00Z"}, {"rank": 15, "importance": 59.6, "date": "Apr 12", "date_sort": 1775952000, "home": "MIA", "home_full": "heat", "away": "ATL", "away_full": "hawks", "home_record": "39-34", "away_record": "41-32", "home_seed": 10, "away_seed": 5, "home_conf": "East", "away_conf": "East", "home_srs": 2.0, "away_srs": 1.4, "p_home_win": 62.6, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#5 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-12T22:00:00Z"}, {"rank": 16, "importance": 58.0, "date": "Apr 10", "date_sort": 1775779200, "home": "NYK", "home_full": "knicks", "away": "TOR", "away_full": "raptors", "home_record": "48-26", "away_record": "40-32", "home_seed": 3, "away_seed": 6, "home_conf": "East", "away_conf": "East", "home_srs": 3.8, "away_srs": 1.1, "p_home_win": 69.3, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#6 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-10T23:30:00Z"}, {"rank": 17, "importance": 55.9, "date": "Apr 12", "date_sort": 1775952000, "home": "SAS", "home_full": "spurs", "away": "DEN", "away_full": "nuggets", "home_record": "55-18", "away_record": "46-28", "home_seed": 2, "away_seed": 4, "home_conf": "West", "away_conf": "West", "home_srs": 6.7, "away_srs": 3.4, "p_home_win": 71.3, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#4 \u2014 R1 home court", "same_conf": true, "game_time_utc": "2026-04-13T00:30:00Z"}, {"rank": 18, "importance": 55.6, "date": "Apr 10", "date_sort": 1775779200, "home": "DEN", "home_full": "nuggets", "away": "OKC", "away_full": "thunder", "home_record": "46-28", "away_record": "57-16", "home_seed": 4, "away_seed": 1, "home_conf": "West", "away_conf": "West", "home_srs": 3.4, "away_srs": 8.6, "p_home_win": 42.1, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#1 \u2014 full HCA", "same_conf": true, "game_time_utc": "2026-04-11T01:00:00Z"}, {"rank": 19, "importance": 53.5, "date": "Mar 27", "date_sort": 1774569600, "home": "BOS", "home_full": "celtics", "away": "ATL", "away_full": "hawks", "home_record": "48-24", "away_record": "41-32", "home_seed": 2, "away_seed": 5, "home_conf": "East", "away_conf": "East", "home_srs": 5.4, "away_srs": 1.4, "p_home_win": 73.2, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#5 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-03-27T23:30:00Z"}, {"rank": 20, "importance": 52.5, "date": "Apr 07", "date_sort": 1775520000, "home": "LAL", "home_full": "lakers", "away": "OKC", "away_full": "thunder", "home_record": "47-26", "away_record": "57-16", "home_seed": 3, "away_seed": 1, "home_conf": "West", "away_conf": "West", "home_srs": 1.6, "away_srs": 8.6, "p_home_win": 36.0, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#1 \u2014 full HCA", "same_conf": true, "game_time_utc": "2026-04-08T02:30:00Z"}, {"rank": 21, "importance": 50.4, "date": "Mar 29", "date_sort": 1774742400, "home": "CHA", "home_full": "hornets", "away": "BOS", "away_full": "celtics", "home_record": "39-34", "away_record": "48-24", "home_seed": 9, "away_seed": 2, "home_conf": "East", "away_conf": "East", "home_srs": 2.5, "away_srs": 5.4, "p_home_win": 50.2, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#2 \u2014 HCA thru conf finals", "same_conf": true, "game_time_utc": "2026-03-29T22:00:00Z"}, {"rank": 22, "importance": 50.3, "date": "Apr 10", "date_sort": 1775779200, "home": "CHA", "home_full": "hornets", "away": "DET", "away_full": "pistons", "home_record": "39-34", "away_record": "53-20", "home_seed": 9, "away_seed": 1, "home_conf": "East", "away_conf": "East", "home_srs": 2.5, "away_srs": 5.5, "p_home_win": 50.0, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#1 \u2014 full HCA", "same_conf": true, "game_time_utc": "2026-04-10T23:00:00Z"}, {"rank": 23, "importance": 49.7, "date": "Apr 01", "date_sort": 1775001600, "home": "MIA", "home_full": "heat", "away": "BOS", "away_full": "celtics", "home_record": "39-34", "away_record": "48-24", "home_seed": 10, "away_seed": 2, "home_conf": "East", "away_conf": "East", "home_srs": 2.0, "away_srs": 5.4, "p_home_win": 48.4, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#2 \u2014 HCA thru conf finals", "same_conf": true, "game_time_utc": "2026-04-01T23:30:00Z"}, {"rank": 24, "importance": 49.2, "date": "Apr 04", "date_sort": 1775260800, "home": "PHI", "home_full": "76ers", "away": "DET", "away_full": "pistons", "home_record": "40-33", "away_record": "53-20", "home_seed": 7, "away_seed": 1, "home_conf": "East", "away_conf": "East", "home_srs": 0.7, "away_srs": 5.5, "p_home_win": 43.8, "home_stakes": "#7 \u2014 play-in", "away_stakes": "#1 \u2014 full HCA", "same_conf": true, "game_time_utc": "2026-04-04T23:00:00Z"}, {"rank": 25, "importance": 47.8, "date": "Apr 10", "date_sort": 1775779200, "home": "POR", "home_full": "trail blazers", "away": "LAC", "away_full": "clippers", "home_record": "37-37", "away_record": "37-36", "home_seed": 9, "away_seed": 8, "home_conf": "West", "away_conf": "West", "home_srs": -0.1, "away_srs": 0.8, "p_home_win": 57.2, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#8 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-11T02:00:00Z"}, {"rank": 26, "importance": 46.9, "date": "Apr 06", "date_sort": 1775433600, "home": "ORL", "home_full": "magic", "away": "DET", "away_full": "pistons", "home_record": "39-34", "away_record": "53-20", "home_seed": 8, "away_seed": 1, "home_conf": "East", "away_conf": "East", "home_srs": 0.5, "away_srs": 5.5, "p_home_win": 43.1, "home_stakes": "#8 \u2014 play-in", "away_stakes": "#1 \u2014 full HCA", "same_conf": true, "game_time_utc": "2026-04-06T23:00:00Z"}, {"rank": 27, "importance": 46.4, "date": "Mar 27", "date_sort": 1774569600, "home": "CLE", "home_full": "cavaliers", "away": "MIA", "away_full": "heat", "home_record": "45-28", "away_record": "39-34", "home_seed": 4, "away_seed": 10, "home_conf": "East", "away_conf": "East", "home_srs": 3.1, "away_srs": 2.0, "p_home_win": 64.4, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#10 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-03-27T23:30:00Z"}, {"rank": 28, "importance": 44.3, "date": "Apr 12", "date_sort": 1775952000, "home": "NYK", "home_full": "knicks", "away": "CHA", "away_full": "hornets", "home_record": "48-26", "away_record": "39-34", "home_seed": 3, "away_seed": 9, "home_conf": "East", "away_conf": "East", "home_srs": 3.8, "away_srs": 2.5, "p_home_win": 65.1, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#9 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-12T22:00:00Z"}, {"rank": 29, "importance": 44.3, "date": "Mar 31", "date_sort": 1774915200, "home": "LAC", "home_full": "clippers", "away": "POR", "away_full": "trail blazers", "home_record": "37-36", "away_record": "37-37", "home_seed": 8, "away_seed": 9, "home_conf": "West", "away_conf": "West", "home_srs": 0.8, "away_srs": -0.1, "p_home_win": 63.8, "home_stakes": "#8 \u2014 play-in", "away_stakes": "#9 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-01T03:00:00Z"}, {"rank": 30, "importance": 42.3, "date": "Apr 02", "date_sort": 1775088000, "home": "OKC", "home_full": "thunder", "away": "LAL", "away_full": "lakers", "home_record": "57-16", "away_record": "47-26", "home_seed": 1, "away_seed": 3, "home_conf": "West", "away_conf": "West", "home_srs": 8.6, "away_srs": 1.6, "p_home_win": 80.7, "home_stakes": "#1 \u2014 full HCA", "away_stakes": "#3 \u2014 R1 home court", "same_conf": true, "game_time_utc": "2026-04-03T01:30:00Z"}, {"rank": 31, "importance": 42.3, "date": "Apr 05", "date_sort": 1775347200, "home": "BOS", "home_full": "celtics", "away": "TOR", "away_full": "raptors", "home_record": "48-24", "away_record": "40-32", "home_seed": 2, "away_seed": 6, "home_conf": "East", "away_conf": "East", "home_srs": 5.4, "away_srs": 1.1, "p_home_win": 73.9, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#6 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-05T19:30:00Z"}, {"rank": 32, "importance": 42.1, "date": "Mar 31", "date_sort": 1774915200, "home": "DET", "home_full": "pistons", "away": "TOR", "away_full": "raptors", "home_record": "53-20", "away_record": "40-32", "home_seed": 1, "away_seed": 6, "home_conf": "East", "away_conf": "East", "home_srs": 5.5, "away_srs": 1.1, "p_home_win": 74.1, "home_stakes": "#1 \u2014 full HCA", "away_stakes": "#6 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-01T00:00:00Z"}, {"rank": 33, "importance": 40.5, "date": "Apr 05", "date_sort": 1775347200, "home": "GSW", "home_full": "warriors", "away": "HOU", "away_full": "rockets", "home_record": "35-38", "away_record": "43-29", "home_seed": 10, "away_seed": 6, "home_conf": "West", "away_conf": "West", "home_srs": 0.3, "away_srs": 3.3, "p_home_win": 50.3, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#6 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-06T02:00:00Z"}, {"rank": 34, "importance": 40.4, "date": "Apr 07", "date_sort": 1775520000, "home": "BOS", "home_full": "celtics", "away": "CHA", "away_full": "hornets", "home_record": "48-24", "away_record": "39-34", "home_seed": 2, "away_seed": 9, "home_conf": "East", "away_conf": "East", "home_srs": 5.4, "away_srs": 2.5, "p_home_win": 70.1, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#9 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-08T00:00:00Z"}, {"rank": 35, "importance": 39.1, "date": "Apr 12", "date_sort": 1775952000, "home": "LAC", "home_full": "clippers", "away": "GSW", "away_full": "warriors", "home_record": "37-36", "away_record": "35-38", "home_seed": 8, "away_seed": 10, "home_conf": "West", "away_conf": "West", "home_srs": 0.8, "away_srs": 0.3, "p_home_win": 62.3, "home_stakes": "#8 \u2014 play-in", "away_stakes": "#10 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-13T00:30:00Z"}, {"rank": 36, "importance": 37.6, "date": "Apr 12", "date_sort": 1775952000, "home": "BOS", "home_full": "celtics", "away": "ORL", "away_full": "magic", "home_record": "48-24", "away_record": "39-34", "home_seed": 2, "away_seed": 8, "home_conf": "East", "away_conf": "East", "home_srs": 5.4, "away_srs": 0.5, "p_home_win": 75.5, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#8 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-12T22:00:00Z"}, {"rank": 37, "importance": 34.8, "date": "Apr 03", "date_sort": 1775174400, "home": "PHI", "home_full": "76ers", "away": "MIN", "away_full": "timberwolves", "home_record": "40-33", "away_record": "45-28", "home_seed": 7, "away_seed": 5, "home_conf": "East", "away_conf": "West", "home_srs": 0.7, "away_srs": 2.7, "p_home_win": 53.7, "home_stakes": "#7 \u2014 play-in", "away_stakes": "#5 \u2014 direct playoff", "same_conf": false, "game_time_utc": "2026-04-03T23:00:00Z"}, {"rank": 38, "importance": 33.7, "date": "Apr 08", "date_sort": 1775606400, "home": "ORL", "home_full": "magic", "away": "MIN", "away_full": "timberwolves", "home_record": "39-34", "away_record": "45-28", "home_seed": 8, "away_seed": 5, "home_conf": "East", "away_conf": "West", "home_srs": 0.5, "away_srs": 2.7, "p_home_win": 53.1, "home_stakes": "#8 \u2014 play-in", "away_stakes": "#5 \u2014 direct playoff", "same_conf": false, "game_time_utc": "2026-04-08T23:00:00Z"}, {"rank": 39, "importance": 31.4, "date": "Mar 29", "date_sort": 1774742400, "home": "DEN", "home_full": "nuggets", "away": "GSW", "away_full": "warriors", "home_record": "46-28", "away_record": "35-38", "home_seed": 4, "away_seed": 10, "home_conf": "West", "away_conf": "West", "home_srs": 3.4, "away_srs": 0.3, "p_home_win": 70.4, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#10 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-03-30T02:00:00Z"}, {"rank": 40, "importance": 31.4, "date": "Apr 01", "date_sort": 1775001600, "home": "GSW", "home_full": "warriors", "away": "SAS", "away_full": "spurs", "home_record": "35-38", "away_record": "55-18", "home_seed": 10, "away_seed": 2, "home_conf": "West", "away_conf": "West", "home_srs": 0.3, "away_srs": 6.7, "p_home_win": 38.0, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#2 \u2014 HCA thru conf finals", "same_conf": true, "game_time_utc": "2026-04-02T02:00:00Z"}, {"rank": 41, "importance": 30.9, "date": "Apr 05", "date_sort": 1775347200, "home": "MIN", "home_full": "timberwolves", "away": "CHA", "away_full": "hornets", "home_record": "45-28", "away_record": "39-34", "home_seed": 5, "away_seed": 9, "home_conf": "West", "away_conf": "East", "home_srs": 2.7, "away_srs": 2.5, "p_home_win": 61.3, "home_stakes": "#5 \u2014 direct playoff", "away_stakes": "#9 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-04-05T23:00:00Z"}, {"rank": 42, "importance": 30.8, "date": "Apr 02", "date_sort": 1775088000, "home": "LAC", "home_full": "clippers", "away": "SAS", "away_full": "spurs", "home_record": "37-36", "away_record": "55-18", "home_seed": 8, "away_seed": 2, "home_conf": "West", "away_conf": "West", "home_srs": 0.8, "away_srs": 6.7, "p_home_win": 39.8, "home_stakes": "#8 \u2014 play-in", "away_stakes": "#2 \u2014 HCA thru conf finals", "same_conf": true, "game_time_utc": "2026-04-03T02:30:00Z"}, {"rank": 43, "importance": 30.7, "date": "Apr 06", "date_sort": 1775433600, "home": "DEN", "home_full": "nuggets", "away": "POR", "away_full": "trail blazers", "home_record": "46-28", "away_record": "37-37", "home_seed": 4, "away_seed": 9, "home_conf": "West", "away_conf": "West", "home_srs": 3.4, "away_srs": -0.1, "p_home_win": 71.7, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#9 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-07T01:00:00Z"}, {"rank": 44, "importance": 30.4, "date": "Apr 09", "date_sort": 1775692800, "home": "GSW", "home_full": "warriors", "away": "LAL", "away_full": "lakers", "home_record": "35-38", "away_record": "47-26", "home_seed": 10, "away_seed": 3, "home_conf": "West", "away_conf": "West", "home_srs": 0.3, "away_srs": 1.6, "p_home_win": 56.2, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#3 \u2014 R1 home court", "same_conf": true, "game_time_utc": "2026-04-10T02:00:00Z"}, {"rank": 45, "importance": 29.9, "date": "Apr 10", "date_sort": 1775779200, "home": "CHI", "home_full": "bulls", "away": "ORL", "away_full": "magic", "home_record": "29-43", "away_record": "39-34", "home_seed": 12, "away_seed": 8, "home_conf": "East", "away_conf": "East", "home_srs": -3.3, "away_srs": 0.5, "p_home_win": 47.0, "home_stakes": "#12 \u2014 lottery", "away_stakes": "#8 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-11T00:00:00Z"}, {"rank": 46, "importance": 29.4, "date": "Apr 08", "date_sort": 1775606400, "home": "LAC", "home_full": "clippers", "away": "OKC", "away_full": "thunder", "home_record": "37-36", "away_record": "57-16", "home_seed": 8, "away_seed": 1, "home_conf": "West", "away_conf": "West", "home_srs": 0.8, "away_srs": 8.6, "p_home_win": 33.6, "home_stakes": "#8 \u2014 play-in", "away_stakes": "#1 \u2014 full HCA", "same_conf": true, "game_time_utc": "2026-04-09T02:00:00Z"}, {"rank": 47, "importance": 29.3, "date": "Apr 09", "date_sort": 1775692800, "home": "HOU", "home_full": "rockets", "away": "PHI", "away_full": "76ers", "home_record": "43-29", "away_record": "40-33", "home_seed": 6, "away_seed": 7, "home_conf": "West", "away_conf": "East", "home_srs": 3.3, "away_srs": 0.7, "p_home_win": 68.8, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#7 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-04-10T00:00:00Z"}, {"rank": 48, "importance": 29.0, "date": "Apr 10", "date_sort": 1775779200, "home": "WAS", "home_full": "wizards", "away": "MIA", "away_full": "heat", "home_record": "17-55", "away_record": "39-34", "home_seed": 13, "away_seed": 10, "home_conf": "East", "away_conf": "East", "home_srs": -8.5, "away_srs": 2.0, "p_home_win": 25.6, "home_stakes": "#13 \u2014 lottery", "away_stakes": "#10 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-10T23:00:00Z"}, {"rank": 49, "importance": 28.7, "date": "Apr 10", "date_sort": 1775779200, "home": "LAL", "home_full": "lakers", "away": "PHX", "away_full": "suns", "home_record": "47-26", "away_record": "40-33", "home_seed": 3, "away_seed": 7, "home_conf": "West", "away_conf": "West", "home_srs": 1.6, "away_srs": 1.8, "p_home_win": 59.7, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#7 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-11T02:30:00Z"}, {"rank": 50, "importance": 27.3, "date": "Mar 31", "date_sort": 1774915200, "home": "ORL", "home_full": "magic", "away": "PHX", "away_full": "suns", "home_record": "39-34", "away_record": "40-33", "home_seed": 8, "away_seed": 7, "home_conf": "East", "away_conf": "West", "home_srs": 0.5, "away_srs": 1.8, "p_home_win": 56.0, "home_stakes": "#8 \u2014 play-in", "away_stakes": "#7 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-03-31T23:00:00Z"}, {"rank": 51, "importance": 27.0, "date": "Apr 10", "date_sort": 1775779200, "home": "IND", "home_full": "pacers", "away": "PHI", "away_full": "76ers", "home_record": "16-57", "away_record": "40-33", "home_seed": 15, "away_seed": 7, "home_conf": "East", "away_conf": "East", "home_srs": -7.8, "away_srs": 0.7, "p_home_win": 31.4, "home_stakes": "#15 \u2014 lottery", "away_stakes": "#7 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-10T23:30:00Z"}, {"rank": 52, "importance": 26.9, "date": "Apr 03", "date_sort": 1775174400, "home": "BKN", "home_full": "nets", "away": "ATL", "away_full": "hawks", "home_record": "17-56", "away_record": "41-32", "home_seed": 14, "away_seed": 5, "home_conf": "East", "away_conf": "East", "home_srs": -6.6, "away_srs": 1.4, "p_home_win": 32.9, "home_stakes": "#14 \u2014 lottery", "away_stakes": "#5 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-04-03T23:30:00Z"}, {"rank": 53, "importance": 26.6, "date": "Mar 28", "date_sort": 1774656000, "home": "MIN", "home_full": "timberwolves", "away": "DET", "away_full": "pistons", "home_record": "45-28", "away_record": "53-20", "home_seed": 5, "away_seed": 1, "home_conf": "West", "away_conf": "East", "home_srs": 2.7, "away_srs": 5.5, "p_home_win": 50.7, "home_stakes": "#5 \u2014 direct playoff", "away_stakes": "#1 \u2014 full HCA", "same_conf": false, "game_time_utc": "2026-03-28T21:30:00Z"}, {"rank": 54, "importance": 25.9, "date": "Apr 01", "date_sort": 1775001600, "home": "WAS", "home_full": "wizards", "away": "PHI", "away_full": "76ers", "home_record": "17-55", "away_record": "40-33", "home_seed": 13, "away_seed": 7, "home_conf": "East", "away_conf": "East", "home_srs": -8.5, "away_srs": 0.7, "p_home_win": 29.2, "home_stakes": "#13 \u2014 lottery", "away_stakes": "#7 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-01T23:00:00Z"}, {"rank": 55, "importance": 25.8, "date": "Mar 31", "date_sort": 1774915200, "home": "HOU", "home_full": "rockets", "away": "NYK", "away_full": "knicks", "home_record": "43-29", "away_record": "48-26", "home_seed": 6, "away_seed": 3, "home_conf": "West", "away_conf": "East", "home_srs": 3.3, "away_srs": 3.8, "p_home_win": 58.6, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#3 \u2014 R1 home court", "same_conf": false, "game_time_utc": "2026-04-01T00:00:00Z"}, {"rank": 56, "importance": 25.4, "date": "Apr 02", "date_sort": 1775088000, "home": "CHA", "home_full": "hornets", "away": "PHX", "away_full": "suns", "home_record": "39-34", "away_record": "40-33", "home_seed": 9, "away_seed": 7, "home_conf": "East", "away_conf": "West", "home_srs": 2.5, "away_srs": 1.8, "p_home_win": 62.6, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#7 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-04-02T23:00:00Z"}, {"rank": 57, "importance": 25.2, "date": "Apr 12", "date_sort": 1775952000, "home": "OKC", "home_full": "thunder", "away": "PHX", "away_full": "suns", "home_record": "57-16", "away_record": "40-33", "home_seed": 1, "away_seed": 7, "home_conf": "West", "away_conf": "West", "home_srs": 8.6, "away_srs": 1.8, "p_home_win": 80.1, "home_stakes": "#1 \u2014 full HCA", "away_stakes": "#7 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-13T00:30:00Z"}, {"rank": 58, "importance": 24.8, "date": "Mar 31", "date_sort": 1774915200, "home": "BKN", "home_full": "nets", "away": "CHA", "away_full": "hornets", "home_record": "17-56", "away_record": "39-34", "home_seed": 14, "away_seed": 9, "home_conf": "East", "away_conf": "East", "home_srs": -6.6, "away_srs": 2.5, "p_home_win": 29.6, "home_stakes": "#14 \u2014 lottery", "away_stakes": "#9 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-03-31T23:30:00Z"}, {"rank": 59, "importance": 24.7, "date": "Apr 08", "date_sort": 1775606400, "home": "SAS", "home_full": "spurs", "away": "POR", "away_full": "trail blazers", "home_record": "55-18", "away_record": "37-37", "home_seed": 2, "away_seed": 9, "home_conf": "West", "away_conf": "West", "home_srs": 6.7, "away_srs": -0.1, "p_home_win": 80.4, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#9 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-09T01:30:00Z"}, {"rank": 60, "importance": 24.6, "date": "Apr 12", "date_sort": 1775952000, "home": "PHI", "home_full": "76ers", "away": "MIL", "away_full": "bucks", "home_record": "40-33", "away_record": "29-43", "home_seed": 7, "away_seed": 11, "home_conf": "East", "away_conf": "East", "home_srs": 0.7, "away_srs": -4.0, "p_home_win": 75.1, "home_stakes": "#7 \u2014 play-in", "away_stakes": "#11 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-12T22:00:00Z"}, {"rank": 61, "importance": 24.2, "date": "Mar 29", "date_sort": 1774742400, "home": "IND", "home_full": "pacers", "away": "MIA", "away_full": "heat", "home_record": "16-57", "away_record": "39-34", "home_seed": 15, "away_seed": 10, "home_conf": "East", "away_conf": "East", "home_srs": -7.8, "away_srs": 2.0, "p_home_win": 27.7, "home_stakes": "#15 \u2014 lottery", "away_stakes": "#10 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-03-29T21:00:00Z"}, {"rank": 62, "importance": 24.1, "date": "Apr 04", "date_sort": 1775260800, "home": "MIA", "home_full": "heat", "away": "WAS", "away_full": "wizards", "home_record": "39-34", "away_record": "17-55", "home_seed": 10, "away_seed": 13, "home_conf": "East", "away_conf": "East", "home_srs": 2.0, "away_srs": -8.5, "p_home_win": 87.2, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#13 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-04T19:00:00Z"}, {"rank": 63, "importance": 23.9, "date": "Apr 06", "date_sort": 1775433600, "home": "SAS", "home_full": "spurs", "away": "PHI", "away_full": "76ers", "home_record": "55-18", "away_record": "40-33", "home_seed": 2, "away_seed": 7, "home_conf": "West", "away_conf": "East", "home_srs": 6.7, "away_srs": 0.7, "p_home_win": 78.4, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#7 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-04-07T00:00:00Z"}, {"rank": 64, "importance": 23.0, "date": "Mar 31", "date_sort": 1774915200, "home": "LAL", "home_full": "lakers", "away": "CLE", "away_full": "cavaliers", "home_record": "47-26", "away_record": "45-28", "home_seed": 3, "away_seed": 4, "home_conf": "West", "away_conf": "East", "home_srs": 1.6, "away_srs": 3.1, "p_home_win": 55.3, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#4 \u2014 R1 home court", "same_conf": false, "game_time_utc": "2026-04-01T02:30:00Z"}, {"rank": 65, "importance": 22.1, "date": "Apr 12", "date_sort": 1775952000, "home": "TOR", "home_full": "raptors", "away": "BKN", "away_full": "nets", "home_record": "40-32", "away_record": "17-56", "home_seed": 6, "away_seed": 14, "home_conf": "East", "away_conf": "East", "home_srs": 1.1, "away_srs": -6.6, "p_home_win": 82.3, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#14 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-12T22:00:00Z"}, {"rank": 66, "importance": 21.7, "date": "Apr 02", "date_sort": 1775088000, "home": "GSW", "home_full": "warriors", "away": "CLE", "away_full": "cavaliers", "home_record": "35-38", "away_record": "45-28", "home_seed": 10, "away_seed": 4, "home_conf": "West", "away_conf": "East", "home_srs": 0.3, "away_srs": 3.1, "p_home_win": 50.8, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#4 \u2014 R1 home court", "same_conf": false, "game_time_utc": "2026-04-03T02:00:00Z"}, {"rank": 67, "importance": 21.6, "date": "Apr 02", "date_sort": 1775088000, "home": "DET", "home_full": "pistons", "away": "MIN", "away_full": "timberwolves", "home_record": "53-20", "away_record": "45-28", "home_seed": 1, "away_seed": 5, "home_conf": "East", "away_conf": "West", "home_srs": 5.5, "away_srs": 2.7, "p_home_win": 69.6, "home_stakes": "#1 \u2014 full HCA", "away_stakes": "#5 \u2014 direct playoff", "same_conf": false, "game_time_utc": "2026-04-02T23:00:00Z"}, {"rank": 68, "importance": 21.2, "date": "Mar 29", "date_sort": 1774742400, "home": "NOP", "home_full": "pelicans", "away": "HOU", "away_full": "rockets", "home_record": "25-49", "away_record": "43-29", "home_seed": 11, "away_seed": 6, "home_conf": "West", "away_conf": "West", "home_srs": -3.2, "away_srs": 3.3, "p_home_win": 37.9, "home_stakes": "#11 \u2014 lottery", "away_stakes": "#6 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-03-29T23:00:00Z"}, {"rank": 69, "importance": 20.0, "date": "Mar 27", "date_sort": 1774569600, "home": "MEM", "home_full": "grizzlies", "away": "HOU", "away_full": "rockets", "home_record": "24-48", "away_record": "43-29", "home_seed": 12, "away_seed": 6, "home_conf": "West", "away_conf": "West", "home_srs": -3.8, "away_srs": 3.3, "p_home_win": 36.0, "home_stakes": "#12 \u2014 lottery", "away_stakes": "#6 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-03-28T00:00:00Z"}, {"rank": 70, "importance": 19.8, "date": "Mar 30", "date_sort": 1774828800, "home": "DAL", "home_full": "mavericks", "away": "MIN", "away_full": "timberwolves", "home_record": "23-50", "away_record": "45-28", "home_seed": 13, "away_seed": 5, "home_conf": "West", "away_conf": "West", "home_srs": -4.5, "away_srs": 2.7, "p_home_win": 35.7, "home_stakes": "#13 \u2014 lottery", "away_stakes": "#5 \u2014 direct playoff", "same_conf": true, "game_time_utc": "2026-03-31T00:30:00Z"}, {"rank": 71, "importance": 19.7, "date": "Apr 03", "date_sort": 1775174400, "home": "CHA", "home_full": "hornets", "away": "IND", "away_full": "pacers", "home_record": "39-34", "away_record": "16-57", "home_seed": 9, "away_seed": 15, "home_conf": "East", "away_conf": "East", "home_srs": 2.5, "away_srs": -7.8, "p_home_win": 86.9, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#15 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-03T23:00:00Z"}, {"rank": 72, "importance": 19.4, "date": "Mar 30", "date_sort": 1774828800, "home": "OKC", "home_full": "thunder", "away": "DET", "away_full": "pistons", "home_record": "57-16", "away_record": "53-20", "home_seed": 1, "away_seed": 1, "home_conf": "West", "away_conf": "East", "home_srs": 8.6, "away_srs": 5.5, "p_home_win": 70.7, "home_stakes": "#1 \u2014 full HCA", "away_stakes": "#1 \u2014 full HCA", "same_conf": false, "game_time_utc": "2026-03-31T01:30:00Z"}, {"rank": 73, "importance": 19.1, "date": "Mar 29", "date_sort": 1774742400, "home": "OKC", "home_full": "thunder", "away": "NYK", "away_full": "knicks", "home_record": "57-16", "away_record": "48-26", "home_seed": 1, "away_seed": 3, "home_conf": "West", "away_conf": "East", "home_srs": 8.6, "away_srs": 3.8, "p_home_win": 75.3, "home_stakes": "#1 \u2014 full HCA", "away_stakes": "#3 \u2014 R1 home court", "same_conf": false, "game_time_utc": "2026-03-29T23:30:00Z"}, {"rank": 74, "importance": 18.5, "date": "Apr 05", "date_sort": 1775347200, "home": "NOP", "home_full": "pelicans", "away": "ORL", "away_full": "magic", "home_record": "25-49", "away_record": "39-34", "home_seed": 11, "away_seed": 8, "home_conf": "West", "away_conf": "East", "home_srs": -3.2, "away_srs": 0.5, "p_home_win": 47.4, "home_stakes": "#11 \u2014 lottery", "away_stakes": "#8 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-04-05T23:00:00Z"}, {"rank": 75, "importance": 18.0, "date": "Apr 03", "date_sort": 1775174400, "home": "MEM", "home_full": "grizzlies", "away": "TOR", "away_full": "raptors", "home_record": "24-48", "away_record": "40-32", "home_seed": 12, "away_seed": 6, "home_conf": "West", "away_conf": "East", "home_srs": -3.8, "away_srs": 1.1, "p_home_win": 43.3, "home_stakes": "#12 \u2014 lottery", "away_stakes": "#6 \u2014 direct playoff", "same_conf": false, "game_time_utc": "2026-04-04T00:00:00Z"}, {"rank": 76, "importance": 17.4, "date": "Apr 03", "date_sort": 1775174400, "home": "DAL", "home_full": "mavericks", "away": "ORL", "away_full": "magic", "home_record": "23-50", "away_record": "39-34", "home_seed": 13, "away_seed": 8, "home_conf": "West", "away_conf": "East", "home_srs": -4.5, "away_srs": 0.5, "p_home_win": 42.9, "home_stakes": "#13 \u2014 lottery", "away_stakes": "#8 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-04-04T00:30:00Z"}, {"rank": 77, "importance": 17.2, "date": "Apr 01", "date_sort": 1775001600, "home": "UTA", "home_full": "jazz", "away": "DEN", "away_full": "nuggets", "home_record": "21-52", "away_record": "46-28", "home_seed": 14, "away_seed": 4, "home_conf": "West", "away_conf": "West", "home_srs": -6.1, "away_srs": 3.4, "p_home_win": 28.2, "home_stakes": "#14 \u2014 lottery", "away_stakes": "#4 \u2014 R1 home court", "same_conf": true, "game_time_utc": "2026-04-02T01:00:00Z"}, {"rank": 78, "importance": 17.1, "date": "Apr 02", "date_sort": 1775088000, "home": "POR", "home_full": "trail blazers", "away": "NOP", "away_full": "pelicans", "home_record": "37-37", "away_record": "25-49", "home_seed": 9, "away_seed": 11, "home_conf": "West", "away_conf": "West", "home_srs": -0.1, "away_srs": -3.2, "p_home_win": 70.4, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#11 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-03T02:00:00Z"}, {"rank": 79, "importance": 16.9, "date": "Apr 12", "date_sort": 1775952000, "home": "MIN", "home_full": "timberwolves", "away": "NOP", "away_full": "pelicans", "home_record": "45-28", "away_record": "25-49", "home_seed": 5, "away_seed": 11, "home_conf": "West", "away_conf": "West", "home_srs": 2.7, "away_srs": -3.2, "p_home_win": 78.0, "home_stakes": "#5 \u2014 direct playoff", "away_stakes": "#11 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-13T00:30:00Z"}, {"rank": 80, "importance": 16.1, "date": "Apr 12", "date_sort": 1775952000, "home": "HOU", "home_full": "rockets", "away": "MEM", "away_full": "grizzlies", "home_record": "43-29", "away_record": "24-48", "home_seed": 6, "away_seed": 12, "home_conf": "West", "away_conf": "West", "home_srs": 3.3, "away_srs": -3.8, "p_home_win": 80.7, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#12 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-13T00:30:00Z"}, {"rank": 81, "importance": 15.3, "date": "Apr 03", "date_sort": 1775174400, "home": "HOU", "home_full": "rockets", "away": "UTA", "away_full": "jazz", "home_record": "43-29", "away_record": "21-52", "home_seed": 6, "away_seed": 14, "home_conf": "West", "away_conf": "West", "home_srs": 3.3, "away_srs": -6.1, "p_home_win": 85.5, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#14 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-04T00:00:00Z"}, {"rank": 82, "importance": 15.1, "date": "Mar 27", "date_sort": 1774569600, "home": "TOR", "home_full": "raptors", "away": "NOP", "away_full": "pelicans", "home_record": "40-32", "away_record": "25-49", "home_seed": 6, "away_seed": 11, "home_conf": "East", "away_conf": "West", "home_srs": 1.1, "away_srs": -3.2, "p_home_win": 74.0, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#11 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-28T00:30:00Z"}, {"rank": 83, "importance": 15.0, "date": "Apr 08", "date_sort": 1775606400, "home": "DEN", "home_full": "nuggets", "away": "MEM", "away_full": "grizzlies", "home_record": "46-28", "away_record": "24-48", "home_seed": 4, "away_seed": 12, "home_conf": "West", "away_conf": "West", "home_srs": 3.4, "away_srs": -3.8, "p_home_win": 81.0, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#12 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-09T01:00:00Z"}, {"rank": 84, "importance": 14.2, "date": "Mar 27", "date_sort": 1774569600, "home": "DEN", "home_full": "nuggets", "away": "UTA", "away_full": "jazz", "home_record": "46-28", "away_record": "21-52", "home_seed": 4, "away_seed": 14, "home_conf": "West", "away_conf": "West", "home_srs": 3.4, "away_srs": -6.1, "p_home_win": 85.7, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#14 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-03-28T01:00:00Z"}, {"rank": 85, "importance": 14.0, "date": "Apr 05", "date_sort": 1775347200, "home": "DAL", "home_full": "mavericks", "away": "LAL", "away_full": "lakers", "home_record": "23-50", "away_record": "47-26", "home_seed": 13, "away_seed": 3, "home_conf": "West", "away_conf": "West", "home_srs": -4.5, "away_srs": 1.6, "p_home_win": 39.2, "home_stakes": "#13 \u2014 lottery", "away_stakes": "#3 \u2014 R1 home court", "same_conf": true, "game_time_utc": "2026-04-05T23:30:00Z"}, {"rank": 86, "importance": 13.3, "date": "Apr 01", "date_sort": 1775001600, "home": "TOR", "home_full": "raptors", "away": "SAC", "away_full": "kings", "home_record": "40-32", "away_record": "19-55", "home_seed": 6, "away_seed": 15, "home_conf": "East", "away_conf": "West", "home_srs": 1.1, "away_srs": -7.2, "p_home_win": 83.4, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#15 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-04-02T00:00:00Z"}, {"rank": 87, "importance": 13.1, "date": "Mar 28", "date_sort": 1774656000, "home": "ATL", "home_full": "hawks", "away": "SAC", "away_full": "kings", "home_record": "41-32", "away_record": "19-55", "home_seed": 5, "away_seed": 15, "home_conf": "East", "away_conf": "West", "home_srs": 1.4, "away_srs": -7.2, "p_home_win": 83.9, "home_stakes": "#5 \u2014 direct playoff", "away_stakes": "#15 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-28T23:30:00Z"}, {"rank": 88, "importance": 12.9, "date": "Apr 03", "date_sort": 1775174400, "home": "MIL", "home_full": "bucks", "away": "BOS", "away_full": "celtics", "home_record": "29-43", "away_record": "48-24", "home_seed": 11, "away_seed": 2, "home_conf": "East", "away_conf": "East", "home_srs": -4.0, "away_srs": 5.4, "p_home_win": 28.6, "home_stakes": "#11 \u2014 lottery", "away_stakes": "#2 \u2014 HCA thru conf finals", "same_conf": true, "game_time_utc": "2026-04-04T00:00:00Z"}, {"rank": 89, "importance": 12.6, "date": "Mar 30", "date_sort": 1774828800, "home": "MEM", "home_full": "grizzlies", "away": "PHX", "away_full": "suns", "home_record": "24-48", "away_record": "40-33", "home_seed": 12, "away_seed": 7, "home_conf": "West", "away_conf": "West", "home_srs": -3.8, "away_srs": 1.8, "p_home_win": 40.8, "home_stakes": "#12 \u2014 lottery", "away_stakes": "#7 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-03-31T00:00:00Z"}, {"rank": 90, "importance": 12.5, "date": "Apr 10", "date_sort": 1775779200, "home": "SAC", "home_full": "kings", "away": "GSW", "away_full": "warriors", "home_record": "19-55", "away_record": "35-38", "home_seed": 15, "away_seed": 10, "home_conf": "West", "away_conf": "West", "home_srs": -7.2, "away_srs": 0.3, "p_home_win": 34.4, "home_stakes": "#15 \u2014 lottery", "away_stakes": "#10 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-11T02:00:00Z"}, {"rank": 91, "importance": 12.1, "date": "Apr 05", "date_sort": 1775347200, "home": "CLE", "home_full": "cavaliers", "away": "IND", "away_full": "pacers", "home_record": "45-28", "away_record": "16-57", "home_seed": 4, "away_seed": 15, "home_conf": "East", "away_conf": "East", "home_srs": 3.1, "away_srs": -7.8, "p_home_win": 87.9, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#15 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-05T22:00:00Z"}, {"rank": 92, "importance": 11.7, "date": "Apr 03", "date_sort": 1775174400, "home": "NYK", "home_full": "knicks", "away": "CHI", "away_full": "bulls", "home_record": "48-26", "away_record": "29-43", "home_seed": 3, "away_seed": 12, "home_conf": "East", "away_conf": "East", "home_srs": 3.8, "away_srs": -3.3, "p_home_win": 80.9, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#12 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-03T23:30:00Z"}, {"rank": 93, "importance": 11.7, "date": "Apr 12", "date_sort": 1775952000, "home": "CLE", "home_full": "cavaliers", "away": "WAS", "away_full": "wizards", "home_record": "45-28", "away_record": "17-55", "home_seed": 4, "away_seed": 13, "home_conf": "East", "away_conf": "East", "home_srs": 3.1, "away_srs": -8.5, "p_home_win": 89.0, "home_stakes": "#4 \u2014 R1 home court", "away_stakes": "#13 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-12T22:00:00Z"}, {"rank": 94, "importance": 11.6, "date": "Apr 10", "date_sort": 1775779200, "home": "SAS", "home_full": "spurs", "away": "DAL", "away_full": "mavericks", "home_record": "55-18", "away_record": "23-50", "home_seed": 2, "away_seed": 13, "home_conf": "West", "away_conf": "West", "home_srs": 6.7, "away_srs": -4.5, "p_home_win": 88.4, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#13 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-11T00:00:00Z"}, {"rank": 95, "importance": 11.3, "date": "Apr 05", "date_sort": 1775347200, "home": "OKC", "home_full": "thunder", "away": "UTA", "away_full": "jazz", "home_record": "57-16", "away_record": "21-52", "home_seed": 1, "away_seed": 14, "home_conf": "West", "away_conf": "West", "home_srs": 8.6, "away_srs": -6.1, "p_home_win": 92.7, "home_stakes": "#1 \u2014 full HCA", "away_stakes": "#14 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-05T23:00:00Z"}, {"rank": 96, "importance": 11.1, "date": "Apr 05", "date_sort": 1775347200, "home": "SAC", "home_full": "kings", "away": "LAC", "away_full": "clippers", "home_record": "19-55", "away_record": "37-36", "home_seed": 15, "away_seed": 8, "home_conf": "West", "away_conf": "West", "home_srs": -7.2, "away_srs": 0.8, "p_home_win": 32.7, "home_stakes": "#15 \u2014 lottery", "away_stakes": "#8 \u2014 play-in", "same_conf": true, "game_time_utc": "2026-04-06T01:00:00Z"}, {"rank": 97, "importance": 10.9, "date": "Apr 12", "date_sort": 1775952000, "home": "IND", "home_full": "pacers", "away": "DET", "away_full": "pistons", "home_record": "16-57", "away_record": "53-20", "home_seed": 15, "away_seed": 1, "home_conf": "East", "away_conf": "East", "home_srs": -7.8, "away_srs": 5.5, "p_home_win": 18.8, "home_stakes": "#15 \u2014 lottery", "away_stakes": "#1 \u2014 full HCA", "same_conf": true, "game_time_utc": "2026-04-12T22:00:00Z"}, {"rank": 98, "importance": 10.7, "date": "Mar 27", "date_sort": 1774569600, "home": "POR", "home_full": "trail blazers", "away": "DAL", "away_full": "mavericks", "home_record": "37-37", "away_record": "23-50", "home_seed": 9, "away_seed": 13, "home_conf": "West", "away_conf": "West", "home_srs": -0.1, "away_srs": -4.5, "p_home_win": 74.0, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#13 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-03-28T02:00:00Z"}, {"rank": 99, "importance": 10.6, "date": "Apr 12", "date_sort": 1775952000, "home": "LAL", "home_full": "lakers", "away": "UTA", "away_full": "jazz", "home_record": "47-26", "away_record": "21-52", "home_seed": 3, "away_seed": 14, "home_conf": "West", "away_conf": "West", "home_srs": 1.6, "away_srs": -6.1, "p_home_win": 82.3, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#14 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-13T00:30:00Z"}, {"rank": 100, "importance": 10.5, "date": "Apr 07", "date_sort": 1775520000, "home": "IND", "home_full": "pacers", "away": "MIN", "away_full": "timberwolves", "home_record": "16-57", "away_record": "45-28", "home_seed": 15, "away_seed": 5, "home_conf": "East", "away_conf": "West", "home_srs": -7.8, "away_srs": 2.7, "p_home_win": 25.7, "home_stakes": "#15 \u2014 lottery", "away_stakes": "#5 \u2014 direct playoff", "same_conf": false, "game_time_utc": "2026-04-07T23:00:00Z"}, {"rank": 101, "importance": 10.1, "date": "Apr 08", "date_sort": 1775606400, "home": "DET", "home_full": "pistons", "away": "MIL", "away_full": "bucks", "home_record": "53-20", "away_record": "29-43", "home_seed": 1, "away_seed": 11, "home_conf": "East", "away_conf": "East", "home_srs": 5.5, "away_srs": -4.0, "p_home_win": 85.6, "home_stakes": "#1 \u2014 full HCA", "away_stakes": "#11 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-08T23:00:00Z"}, {"rank": 102, "importance": 10.1, "date": "Apr 07", "date_sort": 1775520000, "home": "GSW", "home_full": "warriors", "away": "SAC", "away_full": "kings", "home_record": "35-38", "away_record": "19-55", "home_seed": 10, "away_seed": 15, "home_conf": "West", "away_conf": "West", "home_srs": 0.3, "away_srs": -7.2, "p_home_win": 81.8, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#15 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-08T02:00:00Z"}, {"rank": 103, "importance": 10.0, "date": "Apr 06", "date_sort": 1775433600, "home": "MEM", "home_full": "grizzlies", "away": "CLE", "away_full": "cavaliers", "home_record": "24-48", "away_record": "45-28", "home_seed": 12, "away_seed": 4, "home_conf": "West", "away_conf": "East", "home_srs": -3.8, "away_srs": 3.1, "p_home_win": 36.5, "home_stakes": "#12 \u2014 lottery", "away_stakes": "#4 \u2014 R1 home court", "same_conf": false, "game_time_utc": "2026-04-07T00:00:00Z"}, {"rank": 104, "importance": 9.9, "date": "Apr 08", "date_sort": 1775606400, "home": "PHX", "home_full": "suns", "away": "DAL", "away_full": "mavericks", "home_record": "40-33", "away_record": "23-50", "home_seed": 7, "away_seed": 13, "home_conf": "West", "away_conf": "West", "home_srs": 1.8, "away_srs": -4.5, "p_home_win": 79.1, "home_stakes": "#7 \u2014 play-in", "away_stakes": "#13 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-09T02:00:00Z"}, {"rank": 105, "importance": 9.9, "date": "Apr 12", "date_sort": 1775952000, "home": "POR", "home_full": "trail blazers", "away": "SAC", "away_full": "kings", "home_record": "37-37", "away_record": "19-55", "home_seed": 9, "away_seed": 15, "home_conf": "West", "away_conf": "West", "home_srs": -0.1, "away_srs": -7.2, "p_home_win": 80.8, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#15 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-13T00:30:00Z"}, {"rank": 106, "importance": 9.7, "date": "Apr 07", "date_sort": 1775520000, "home": "LAC", "home_full": "clippers", "away": "DAL", "away_full": "mavericks", "home_record": "37-36", "away_record": "23-50", "home_seed": 8, "away_seed": 13, "home_conf": "West", "away_conf": "West", "home_srs": 0.8, "away_srs": -4.5, "p_home_win": 76.6, "home_stakes": "#8 \u2014 play-in", "away_stakes": "#13 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-08T02:30:00Z"}, {"rank": 107, "importance": 9.6, "date": "Apr 01", "date_sort": 1775001600, "home": "HOU", "home_full": "rockets", "away": "MIL", "away_full": "bucks", "home_record": "43-29", "away_record": "29-43", "home_seed": 6, "away_seed": 11, "home_conf": "West", "away_conf": "East", "home_srs": 3.3, "away_srs": -4.0, "p_home_win": 81.2, "home_stakes": "#6 \u2014 direct playoff", "away_stakes": "#11 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-04-02T00:00:00Z"}, {"rank": 108, "importance": 9.4, "date": "Mar 28", "date_sort": 1774656000, "home": "PHX", "home_full": "suns", "away": "UTA", "away_full": "jazz", "home_record": "40-33", "away_record": "21-52", "home_seed": 7, "away_seed": 14, "home_conf": "West", "away_conf": "West", "home_srs": 1.8, "away_srs": -6.1, "p_home_win": 82.8, "home_stakes": "#7 \u2014 play-in", "away_stakes": "#14 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-03-29T02:00:00Z"}, {"rank": 109, "importance": 9.3, "date": "Mar 30", "date_sort": 1774828800, "home": "UTA", "home_full": "jazz", "away": "CLE", "away_full": "cavaliers", "home_record": "21-52", "away_record": "45-28", "home_seed": 14, "away_seed": 4, "home_conf": "West", "away_conf": "East", "home_srs": -6.1, "away_srs": 3.1, "p_home_win": 29.0, "home_stakes": "#14 \u2014 lottery", "away_stakes": "#4 \u2014 R1 home court", "same_conf": false, "game_time_utc": "2026-03-31T01:00:00Z"}, {"rank": 110, "importance": 8.5, "date": "Apr 01", "date_sort": 1775001600, "home": "MEM", "home_full": "grizzlies", "away": "NYK", "away_full": "knicks", "home_record": "24-48", "away_record": "48-26", "home_seed": 12, "away_seed": 3, "home_conf": "West", "away_conf": "East", "home_srs": -3.8, "away_srs": 3.8, "p_home_win": 34.2, "home_stakes": "#12 \u2014 lottery", "away_stakes": "#3 \u2014 R1 home court", "same_conf": false, "game_time_utc": "2026-04-02T00:00:00Z"}, {"rank": 111, "importance": 8.4, "date": "Mar 28", "date_sort": 1774656000, "home": "MIL", "home_full": "bucks", "away": "SAS", "away_full": "spurs", "home_record": "29-43", "away_record": "55-18", "home_seed": 11, "away_seed": 2, "home_conf": "East", "away_conf": "West", "home_srs": -4.0, "away_srs": 6.7, "p_home_win": 24.9, "home_stakes": "#11 \u2014 lottery", "away_stakes": "#2 \u2014 HCA thru conf finals", "same_conf": false, "game_time_utc": "2026-03-28T19:00:00Z"}, {"rank": 112, "importance": 7.7, "date": "Apr 05", "date_sort": 1775347200, "home": "CHI", "home_full": "bulls", "away": "PHX", "away_full": "suns", "home_record": "29-43", "away_record": "40-33", "home_seed": 12, "away_seed": 7, "home_conf": "East", "away_conf": "West", "home_srs": -3.3, "away_srs": 1.8, "p_home_win": 42.4, "home_stakes": "#12 \u2014 lottery", "away_stakes": "#7 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-04-05T19:30:00Z"}, {"rank": 113, "importance": 7.4, "date": "Mar 29", "date_sort": 1774742400, "home": "MIL", "home_full": "bucks", "away": "LAC", "away_full": "clippers", "home_record": "29-43", "away_record": "37-36", "home_seed": 11, "away_seed": 8, "home_conf": "East", "away_conf": "West", "home_srs": -4.0, "away_srs": 0.8, "p_home_win": 43.4, "home_stakes": "#11 \u2014 lottery", "away_stakes": "#8 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-03-29T19:30:00Z"}, {"rank": 114, "importance": 7.1, "date": "Mar 27", "date_sort": 1774569600, "home": "OKC", "home_full": "thunder", "away": "CHI", "away_full": "bulls", "home_record": "57-16", "away_record": "29-43", "home_seed": 1, "away_seed": 12, "home_conf": "West", "away_conf": "East", "home_srs": 8.6, "away_srs": -3.3, "p_home_win": 89.4, "home_stakes": "#1 \u2014 full HCA", "away_stakes": "#12 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-28T00:00:00Z"}, {"rank": 115, "importance": 7.1, "date": "Mar 30", "date_sort": 1774828800, "home": "SAS", "home_full": "spurs", "away": "CHI", "away_full": "bulls", "home_record": "55-18", "away_record": "29-43", "home_seed": 2, "away_seed": 12, "home_conf": "West", "away_conf": "East", "home_srs": 6.7, "away_srs": -3.3, "p_home_win": 86.6, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#12 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-31T00:00:00Z"}, {"rank": 116, "importance": 6.7, "date": "Apr 10", "date_sort": 1775779200, "home": "BOS", "home_full": "celtics", "away": "NOP", "away_full": "pelicans", "home_record": "48-24", "away_record": "25-49", "home_seed": 2, "away_seed": 11, "home_conf": "East", "away_conf": "West", "home_srs": 5.4, "away_srs": -3.2, "p_home_win": 84.0, "home_stakes": "#2 \u2014 HCA thru conf finals", "away_stakes": "#11 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-04-10T23:30:00Z"}, {"rank": 117, "importance": 6.4, "date": "Mar 27", "date_sort": 1774569600, "home": "IND", "home_full": "pacers", "away": "LAC", "away_full": "clippers", "home_record": "16-57", "away_record": "37-36", "home_seed": 15, "away_seed": 8, "home_conf": "East", "away_conf": "West", "home_srs": -7.8, "away_srs": 0.8, "p_home_win": 31.0, "home_stakes": "#15 \u2014 lottery", "away_stakes": "#8 \u2014 play-in", "same_conf": false, "game_time_utc": "2026-03-27T23:00:00Z"}, {"rank": 118, "importance": 6.3, "date": "Mar 27", "date_sort": 1774569600, "home": "LAL", "home_full": "lakers", "away": "BKN", "away_full": "nets", "home_record": "47-26", "away_record": "17-56", "home_seed": 3, "away_seed": 14, "home_conf": "West", "away_conf": "East", "home_srs": 1.6, "away_srs": -6.6, "p_home_win": 83.2, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#14 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-28T02:30:00Z"}, {"rank": 119, "importance": 5.9, "date": "Mar 30", "date_sort": 1774828800, "home": "LAL", "home_full": "lakers", "away": "WAS", "away_full": "wizards", "home_record": "47-26", "away_record": "17-55", "home_seed": 3, "away_seed": 13, "home_conf": "West", "away_conf": "East", "home_srs": 1.6, "away_srs": -8.5, "p_home_win": 86.6, "home_stakes": "#3 \u2014 R1 home court", "away_stakes": "#13 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-31T02:00:00Z"}, {"rank": 120, "importance": 5.6, "date": "Mar 27", "date_sort": 1774569600, "home": "GSW", "home_full": "warriors", "away": "WAS", "away_full": "wizards", "home_record": "35-38", "away_record": "17-55", "home_seed": 10, "away_seed": 13, "home_conf": "West", "away_conf": "East", "home_srs": 0.3, "away_srs": -8.5, "p_home_win": 84.4, "home_stakes": "#10 \u2014 play-in", "away_stakes": "#13 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-28T02:00:00Z"}, {"rank": 121, "importance": 5.5, "date": "Mar 29", "date_sort": 1774742400, "home": "POR", "home_full": "trail blazers", "away": "WAS", "away_full": "wizards", "home_record": "37-37", "away_record": "17-55", "home_seed": 9, "away_seed": 13, "home_conf": "West", "away_conf": "East", "home_srs": -0.1, "away_srs": -8.5, "p_home_win": 83.5, "home_stakes": "#9 \u2014 play-in", "away_stakes": "#13 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-29T22:00:00Z"}, {"rank": 122, "importance": 0.2, "date": "Apr 07", "date_sort": 1775520000, "home": "WAS", "home_full": "wizards", "away": "CHI", "away_full": "bulls", "home_record": "17-55", "away_record": "29-43", "home_seed": 13, "away_seed": 12, "home_conf": "East", "away_conf": "East", "home_srs": -8.5, "away_srs": -3.3, "p_home_win": 42.2, "home_stakes": "#13 \u2014 lottery", "away_stakes": "#12 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-07T23:00:00Z"}, {"rank": 123, "importance": 0.2, "date": "Apr 09", "date_sort": 1775692800, "home": "WAS", "home_full": "wizards", "away": "CHI", "away_full": "bulls", "home_record": "17-55", "away_record": "29-43", "home_seed": 13, "away_seed": 12, "home_conf": "East", "away_conf": "East", "home_srs": -8.5, "away_srs": -3.3, "p_home_win": 42.2, "home_stakes": "#13 \u2014 lottery", "away_stakes": "#12 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-09T23:00:00Z"}, {"rank": 124, "importance": 0.1, "date": "Apr 05", "date_sort": 1775347200, "home": "MIL", "home_full": "bucks", "away": "MEM", "away_full": "grizzlies", "home_record": "29-43", "away_record": "24-48", "home_seed": 11, "away_seed": 12, "home_conf": "East", "away_conf": "West", "home_srs": -4.0, "away_srs": -3.8, "p_home_win": 59.8, "home_stakes": "#11 \u2014 lottery", "away_stakes": "#12 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-04-05T19:30:00Z"}, {"rank": 125, "importance": 0.1, "date": "Apr 10", "date_sort": 1775779200, "home": "MIL", "home_full": "bucks", "away": "BKN", "away_full": "nets", "home_record": "29-43", "away_record": "17-56", "home_seed": 11, "away_seed": 14, "home_conf": "East", "away_conf": "East", "home_srs": -4.0, "away_srs": -6.6, "p_home_win": 69.1, "home_stakes": "#11 \u2014 lottery", "away_stakes": "#14 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-11T00:00:00Z"}, {"rank": 126, "importance": 0.1, "date": "Mar 28", "date_sort": 1774656000, "home": "MEM", "home_full": "grizzlies", "away": "CHI", "away_full": "bulls", "home_record": "24-48", "away_record": "29-43", "home_seed": 12, "away_seed": 12, "home_conf": "West", "away_conf": "East", "home_srs": -3.8, "away_srs": -3.3, "p_home_win": 59.0, "home_stakes": "#12 \u2014 lottery", "away_stakes": "#12 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-29T00:00:00Z"}, {"rank": 127, "importance": 0.1, "date": "Mar 31", "date_sort": 1774915200, "home": "MIL", "home_full": "bucks", "away": "DAL", "away_full": "mavericks", "home_record": "29-43", "away_record": "23-50", "home_seed": 11, "away_seed": 13, "home_conf": "East", "away_conf": "West", "home_srs": -4.0, "away_srs": -4.5, "p_home_win": 62.1, "home_stakes": "#11 \u2014 lottery", "away_stakes": "#13 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-04-01T00:00:00Z"}, {"rank": 128, "importance": 0.1, "date": "Apr 01", "date_sort": 1775001600, "home": "CHI", "home_full": "bulls", "away": "IND", "away_full": "pacers", "home_record": "29-43", "away_record": "16-57", "home_seed": 12, "away_seed": 15, "home_conf": "East", "away_conf": "East", "home_srs": -3.3, "away_srs": -7.8, "p_home_win": 74.4, "home_stakes": "#12 \u2014 lottery", "away_stakes": "#15 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-02T00:00:00Z"}, {"rank": 129, "importance": 0.1, "date": "Apr 12", "date_sort": 1775952000, "home": "DAL", "home_full": "mavericks", "away": "CHI", "away_full": "bulls", "home_record": "23-50", "away_record": "29-43", "home_seed": 13, "away_seed": 12, "home_conf": "West", "away_conf": "East", "home_srs": -4.5, "away_srs": -3.3, "p_home_win": 56.5, "home_stakes": "#13 \u2014 lottery", "away_stakes": "#12 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-04-13T00:30:00Z"}, {"rank": 130, "importance": 0.1, "date": "Apr 07", "date_sort": 1775520000, "home": "BKN", "home_full": "nets", "away": "MIL", "away_full": "bucks", "home_record": "17-56", "away_record": "29-43", "home_seed": 14, "away_seed": 11, "home_conf": "East", "away_conf": "East", "home_srs": -6.6, "away_srs": -4.0, "p_home_win": 51.3, "home_stakes": "#14 \u2014 lottery", "away_stakes": "#11 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-07T23:30:00Z"}, {"rank": 131, "importance": 0.0, "date": "Apr 05", "date_sort": 1775347200, "home": "BKN", "home_full": "nets", "away": "WAS", "away_full": "wizards", "home_record": "17-56", "away_record": "17-55", "home_seed": 14, "away_seed": 13, "home_conf": "East", "away_conf": "East", "home_srs": -6.6, "away_srs": -8.5, "p_home_win": 66.7, "home_stakes": "#14 \u2014 lottery", "away_stakes": "#13 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-05T19:30:00Z"}, {"rank": 132, "importance": 0.0, "date": "Mar 29", "date_sort": 1774742400, "home": "BKN", "home_full": "nets", "away": "SAC", "away_full": "kings", "home_record": "17-56", "away_record": "19-55", "home_seed": 14, "away_seed": 15, "home_conf": "East", "away_conf": "West", "home_srs": -6.6, "away_srs": -7.2, "p_home_win": 62.5, "home_stakes": "#14 \u2014 lottery", "away_stakes": "#15 \u2014 lottery", "same_conf": false, "game_time_utc": "2026-03-29T22:00:00Z"}, {"rank": 133, "importance": 0.0, "date": "Apr 03", "date_sort": 1775174400, "home": "SAC", "home_full": "kings", "away": "NOP", "away_full": "pelicans", "home_record": "19-55", "away_record": "25-49", "home_seed": 15, "away_seed": 11, "home_conf": "West", "away_conf": "West", "home_srs": -7.2, "away_srs": -3.2, "p_home_win": 46.4, "home_stakes": "#15 \u2014 lottery", "away_stakes": "#11 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-04T02:00:00Z"}, {"rank": 134, "importance": 0.0, "date": "Apr 07", "date_sort": 1775520000, "home": "NOP", "home_full": "pelicans", "away": "UTA", "away_full": "jazz", "home_record": "25-49", "away_record": "21-52", "home_seed": 11, "away_seed": 14, "home_conf": "West", "away_conf": "West", "home_srs": -3.2, "away_srs": -6.1, "p_home_win": 70.1, "home_stakes": "#11 \u2014 lottery", "away_stakes": "#14 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-08T00:00:00Z"}, {"rank": 135, "importance": 0.0, "date": "Apr 10", "date_sort": 1775779200, "home": "UTA", "home_full": "jazz", "away": "MEM", "away_full": "grizzlies", "home_record": "21-52", "away_record": "24-48", "home_seed": 14, "away_seed": 12, "home_conf": "West", "away_conf": "West", "home_srs": -6.1, "away_srs": -3.8, "p_home_win": 52.2, "home_stakes": "#14 \u2014 lottery", "away_stakes": "#12 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-11T01:30:00Z"}, {"rank": 136, "importance": 0.0, "date": "Apr 09", "date_sort": 1775692800, "home": "BKN", "home_full": "nets", "away": "IND", "away_full": "pacers", "home_record": "17-56", "away_record": "16-57", "home_seed": 14, "away_seed": 15, "home_conf": "East", "away_conf": "East", "home_srs": -6.6, "away_srs": -7.8, "p_home_win": 64.4, "home_stakes": "#14 \u2014 lottery", "away_stakes": "#15 \u2014 lottery", "same_conf": true, "game_time_utc": "2026-04-09T23:30:00Z"}];
 
-<div class="stat-row">
-  <div class="stat">
-    <div class="stat-num">4</div>
-    <div class="stat-label">Projects live</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">~9</div>
-    <div class="stat-label">People who care</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">0</div>
-    <div class="stat-label">Requests received</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">∞</div>
-    <div class="stat-label">Hours wasted</div>
-  </div>
-</div>
+function impColor(s) {
+  if (s >= 75) return '#cc1122';    /* NBC red — top tier */
+  if (s >= 50) return '#f0c030';    /* NBC gold — high */
+  if (s >= 25) return '#2979ff';    /* NBC blue — medium */
+  return '#3d5a80';                 /* muted blue — lower */
+}
 
-<div class="divider">THE PROJECTS</div>
+function formatGameTime(utcStr) {
+  if (!utcStr || utcStr === 'nan' || utcStr === 'None') return '';
+  try {
+    // Ensure proper ISO format
+    const str = utcStr.endsWith('Z') ? utcStr : utcStr.replace(' ', 'T') + 'Z';
+    const dt = new Date(str);
+    if (isNaN(dt.getTime())) return '';
+    return dt.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+  } catch(e) { return ''; }
+}
 
-<div class="projects">
+function renderGames(games) {
+  const tbody = document.getElementById('games-tbody');
+  tbody.innerHTML = '';
+  games.forEach((g, i) => {
+    const color = impColor(g.importance);
+    const barW = Math.max(g.importance, 1);
+    const interBadge = g.same_conf ? '' : '<span class="inter-badge">Inter-conf</span>';
+    const hSrs = (g.home_srs >= 0 ? '+' : '') + g.home_srs.toFixed(1);
+    const aSrs = (g.away_srs >= 0 ? '+' : '') + g.away_srs.toFixed(1);
+    const rowId = `detail-${i}`;
 
-  <a class="card" href="/f1/" style="--accent:#e8002d">
-    <div class="card-sport">Formula 1</div>
-    <div class="card-title">F1 Season<br>Tracker</div>
-    <div class="card-desc">Full standings, race results, and driver analysis across multiple seasons. Every point, every podium.</div>
-    <div class="card-quip">Because I don't understand F1, but it seems super cool.</div>
-    <div class="card-arrow">
-      VIEW PROJECT
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-  </a>
+    // Main row
+    const tr = document.createElement('tr');
+    tr.className = 'game-row';
+    tr.onclick = () => {
+      const d = document.getElementById(rowId);
+      if (d) d.classList.toggle('open');
+    };
+    tr.innerHTML = `
+      <td class="rank-cell col-rank">${g.rank}</td>
+      <td>
+        <div class="imp-bar-wrap">
+          <div class="imp-bar" style="background:${color};width:${barW}px;"></div>
+          <span class="imp-val" style="color:${color}">${g.importance.toFixed(1)}</span>
+        </div>
+      </td>
+      <td class="date-cell">
+        ${g.date}
+        ${g.game_time_utc ? '<br><span style="font-size:10px;color:#475569;">' + formatGameTime(g.game_time_utc) + '</span>' : ''}
+      </td>
+      <td class="matchup-cell">
+        <span class="team-name">${g.away_full || g.away}</span><span class="team-record">${g.away_record}</span>
+        <span class="vs-sep">@</span>
+        <span class="team-name">${g.home_full || g.home}</span><span class="team-record">${g.home_record}</span>
+        ${interBadge}
+      </td>
+      <td class="stakes-cell col-stakes">${g.away}: ${g.away_stakes}<br>${g.home}: ${g.home_stakes}</td>
+      <td class="srs-cell col-srs">
+        ${aSrs} / ${hSrs}
+        <br><span style="font-size:10px;color:#475569;">
+          ${(function() {
+            const edge = (g.home_srs + 3.0) - g.away_srs;
+            const leader = edge > 0 ? g.home : g.away;
+            return leader + ' +' + Math.abs(edge).toFixed(1) + ' adj';
+          })()}
+        </span>
+      </td>
+      <td class="prob-cell col-prob">
+        ${g.p_home_win >= 50
+          ? g.home + " " + g.p_home_win.toFixed(1) + "%"
+          : g.away + " " + (100 - g.p_home_win).toFixed(1) + "%"
+        }
+      </td>
+    `;
+    tbody.appendChild(tr);
 
-  <a class="card" href="/four-factors/" style="--accent:#f97316">
-    <div class="card-sport">Basketball · NBA</div>
-    <div class="card-title">Four<br>Factors</div>
-    <div class="card-desc">Dean Oliver's four factors model applied across the NBA. Find out why a team is actually winning (or losing!).</div>
-    <div class="card-quip">Shooting, turnovers, rebounding, free throws. In that order.</div>
-    <div class="card-arrow">
-      VIEW PROJECT
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-  </a>
+    // Expandable detail row (mobile tap)
+    const dr = document.createElement('tr');
+    dr.className = 'detail-row';
+    dr.id = rowId;
+    dr.innerHTML = `
+      <td colspan="7">
+        <div class="detail-inner">
+          <div>${g.away}: ${g.away_stakes}</div>
+          <div>${g.home}: ${g.home_stakes}</div>
+          <div style="margin-top:6px;color:#64748b;">SRS: ${g.away} ${aSrs} / ${g.home} ${hSrs} · adj edge: ${(function(){const e=(g.home_srs+3.0)-g.away_srs;return (e>0?g.home:g.away)+' +'+ Math.abs(e).toFixed(1);})()}</div>
+          <div style="color:#64748b;">Win prob: ${g.p_home_win >= 50
+            ? g.home + " " + g.p_home_win.toFixed(1) + "%"
+            : g.away + " " + (100 - g.p_home_win).toFixed(1) + "%"
+          }</div>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(dr);
+  });
+  document.getElementById('result-count').textContent = games.length + ' games';
+  document.getElementById('no-results').style.display = games.length === 0 ? 'block' : 'none';
+}
 
-  <a class="card" href="/nba-importance/" style="--accent:#3b82f6">
-    <div class="card-sport">Basketball · NBA</div>
-    <div class="card-title">Game<br>Importance</div>
-    <div class="card-desc">Quantifying how much each regular season game actually matters for playoff positioning.</div>
-    <div class="card-quip">Turns out some games in March really do not matter. Confirmed with math.</div>
-    <div class="card-arrow">
-      VIEW PROJECT
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-  </a>
+// Add srs_gap as a derived field for sorting
+ALL_GAMES.forEach(g => {
+  g.srs_gap = Math.abs((g.home_srs + 3.0) - g.away_srs);
+  g.closeness = Math.abs(g.p_home_win - 50); // 0 = perfectly even, 50 = total blowout
+});
 
-  <a class="card" href="/mlb-newspaper/" style="--accent:#22c55e">
-    <div class="card-sport">Baseball · MLB</div>
-    <div class="card-title">Box Score<br>Newspaper</div>
-    <div class="card-desc">Every game, every day. Full box scores in classic newspaper format — batters, pitchers, notes, the works.</div>
-    <div class="card-quip">The old newspaper sports section, but on the internet.</div>
-    <div class="card-arrow">
-      VIEW PROJECT
-      <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-  </a>
+let activeConf = 'all';
+let activeTeam = null;
+let sortCol = 'importance';
+let sortDir = 1; // 1 = descending (high first), -1 = ascending (low first)
 
-</div>
+function getFilteredGames() {
+  let games = ALL_GAMES;
+  if (activeConf === 'East') games = games.filter(g => g.home_conf === 'East' && g.away_conf === 'East');
+  else if (activeConf === 'West') games = games.filter(g => g.home_conf === 'West' && g.away_conf === 'West');
+  else if (activeConf === 'inter') games = games.filter(g => !g.same_conf);
+  if (activeTeam) games = games.filter(g => g.home === activeTeam || g.away === activeTeam);
+  return games;
+}
 
-<footer>
-  <div>© 2026 Blatz Labs &nbsp;·&nbsp; All rights reserved by one person</div>
-  <div>Built with too much free time &nbsp;·&nbsp; Hi to all six of you</div>
-</footer>
+function getSortedGames(games) {
+  return [...games].sort((a, b) => {
+    let av = a[sortCol], bv = b[sortCol];
+    // sortDir: 1 = descending (high first), -1 = ascending (low first)
+    if (typeof av === 'string') return sortDir * bv.localeCompare(av);
+    return sortDir * (bv - av);
+  });
+}
+
+function applyFilters() {
+  renderGames(getSortedGames(getFilteredGames()));
+}
+
+function sortBy(col) {
+  if (sortCol === col) {
+    sortDir *= -1; // same column: flip direction
+  } else {
+    sortCol = col;
+    if (['date_sort', 'srs_gap', 'closeness'].includes(col)) sortDir = 1; // ascending = closest/earliest first
+    else sortDir = -1; // descending = highest first
+  }
+  // Update header styles
+  document.querySelectorAll('.sortable').forEach(th => {
+    th.classList.remove('active-sort');
+    th.querySelector('.sort-arrow').textContent = '';
+  });
+  const activeCol = document.querySelector(`[data-col="${col}"]`);
+  if (activeCol) {
+    activeCol.classList.add('active-sort');
+    activeCol.querySelector('.sort-arrow').textContent = sortDir === 1 ? '↓' : '↑';
+  }
+  applyFilters();
+}
+
+function filterConf(conf) {
+  activeConf = conf;
+  document.querySelectorAll('.conf-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  applyFilters();
+}
+
+function filterTeam(team) {
+  if (activeTeam === team) {
+    activeTeam = null;
+    document.querySelectorAll('.team-btn').forEach(b => b.classList.remove('active'));
+  } else {
+    activeTeam = team;
+    document.querySelectorAll('.team-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  applyFilters();
+}
+
+function clearFilters() {
+  activeConf = 'all';
+  activeTeam = null;
+  document.querySelectorAll('.conf-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.conf-btn').classList.add('active');
+  document.querySelectorAll('.team-btn').forEach(b => b.classList.remove('active'));
+  applyFilters();
+}
+
+// Initial render — importance descending by default
+sortCol = 'importance';
+sortDir = 1;
+applyFilters();
+</script>
 </body>
 </html>
