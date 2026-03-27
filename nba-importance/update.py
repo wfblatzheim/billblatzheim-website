@@ -12,6 +12,7 @@ Usage:
     Then open index.html in your browser.
 """
 
+import os
 import numpy as np
 import pandas as pd
 import json
@@ -1228,7 +1229,7 @@ applyFilters();
 </body>
 </html>"""
 
-    output_path = "index.html"
+    output_path = os.path.join(os.path.dirname(__file__), "index.html")
     with open(output_path, "w") as f:
         f.write(html)
     print(f"   ✅ Report saved to: {output_path}")
