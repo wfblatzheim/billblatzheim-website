@@ -128,11 +128,12 @@ def build_game(box, line, pbp=None):
             bb  = bs.get("baseOnBalls", 0)
             k   = bs.get("strikeOuts", 0)
             avg = p.get("seasonStats", {}).get("batting", {}).get("avg", "---")
+            ops = p.get("seasonStats", {}).get("batting", {}).get("ops", "---")
             pos = p.get("position", {}).get("abbreviation", "").lower()
             is_sub = border[-1] != "0"
             name = last_name(p.get("person", {}).get("fullName", ""))
             rows.append({"name": name, "pos": pos, "sub": is_sub,
-                         "ab": ab, "r": r, "h": h, "rbi": rbi, "bb": bb, "k": k, "avg": avg})
+                         "ab": ab, "r": r, "h": h, "rbi": rbi, "bb": bb, "k": k, "avg": avg, "ops": ops})
         return rows
 
     def build_pitchers(tbox):
@@ -263,6 +264,41 @@ def fetch_full_schedule(year, start_date=None):
     print(f"  {len(result)} dates loaded.")
     return result
 
+def refresh_probables(cache):
+    """Fetch probable pitchers for today + 7 days and update schedule cache entries."""
+    today = datetime.now().strftime("%Y-%m-%d")
+    end   = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
+    print(f"\nRefreshing probables {today} → {end}...", end=" ", flush=True)
+    try:
+        data = api_get("schedule", {
+            "sportId": 1, "startDate": today, "endDate": end,
+            "gameType": "R", "hydrate": "probablePitcher",
+        })
+        schedule = cache.setdefault("__schedule__", {})
+        for date_obj in data.get("dates", []):
+            d = date_obj.get("date")
+            games = []
+            for g in date_obj.get("games", []):
+                away_name = g["teams"]["away"]["team"]["name"]
+                home_name = g["teams"]["home"]["team"]["name"]
+                ap = g["teams"]["away"].get("probablePitcher", {}).get("fullName", "")
+                hp = g["teams"]["home"].get("probablePitcher", {}).get("fullName", "")
+                games.append({
+                    "away_name": away_name,
+                    "away_abbr": get_abbr(away_name),
+                    "home_name": home_name,
+                    "home_abbr": get_abbr(home_name),
+                    "time": g.get("gameDate", ""),
+                    "venue": g.get("venue", {}).get("name", ""),
+                    "away_probable": last_name(ap) if ap else "TBD",
+                    "home_probable": last_name(hp) if hp else "TBD",
+                })
+            if games:
+                schedule[d] = games
+        print("ok")
+    except Exception as e:
+        print(f"ERROR: {e}")
+
 DIVISIONS = {
     201: "AL East",
     202: "AL Central",
@@ -309,12 +345,12 @@ def fetch_leaders(date_str):
     print(f"  Fetching leaders for {date_str}...", end=" ", flush=True)
     try:
         hit = api_get("stats/leaders", {
-            "leaderCategories": "homeRuns,battingAverage,runsBattedIn",
+            "leaderCategories": "homeRuns,battingAverage,runsBattedIn,stolenBases,onBasePlusSlugging",
             "season": date_str[:4], "sportId": 1, "limit": 5,
             "statGroup": "hitting", "leaderGameTypes": "R", "hydrate": "person,team",
         })
         pit = api_get("stats/leaders", {
-            "leaderCategories": "earnedRunAverage,strikeouts,wins,saves",
+            "leaderCategories": "earnedRunAverage,strikeouts,saves",
             "season": date_str[:4], "sportId": 1, "limit": 5,
             "statGroup": "pitching", "leaderGameTypes": "R", "hydrate": "person,team",
         })
@@ -501,6 +537,7 @@ table.bt th:nth-child(5),table.bt td:nth-child(5){{width:20px}}
 table.bt th:nth-child(6),table.bt td:nth-child(6){{width:20px}}
 table.bt th:nth-child(7),table.bt td:nth-child(7){{width:20px}}
 table.bt th:nth-child(8),table.bt td:nth-child(8){{width:34px}}
+table.bt th:nth-child(9),table.bt td:nth-child(9){{width:34px}}
 table.pt th:nth-child(2),table.pt td:nth-child(2){{width:28px}}
 table.pt th:nth-child(3),table.pt td:nth-child(3),table.pt th:nth-child(4),table.pt td:nth-child(4),
 table.pt th:nth-child(5),table.pt td:nth-child(5),table.pt th:nth-child(6),table.pt td:nth-child(6),
@@ -515,10 +552,12 @@ table.pt th:nth-child(7),table.pt td:nth-child(7){{width:20px}}
 .sched-matchup{{font-family:'Playfair Display',Georgia,serif;font-size:13px;font-weight:700;border-bottom:1px solid #ccc;padding-bottom:3px;margin-bottom:5px}}
 .sched-time{{font-size:11px;color:#555;margin-top:3px}}
 .sched-venue{{font-size:10px;color:#aaa;margin-top:2px}}
+.sched-probables{{font-size:10px;color:#555;margin-top:4px;font-family:'Barlow Condensed',sans-serif}}
+.sched-probables span{{color:#aaa}}
 
 /* ── Standings ── */
 .standings-wrap{{width:100%;border-bottom:2px solid #1a1a1a}}
-.standings-inner{{display:grid;grid-template-columns:repeat(6,minmax(0,145px));border-left:1px solid #bbb}}
+.standings-inner{{display:grid;grid-template-columns:repeat(6,minmax(0,145px));border-left:1px solid #bbb;justify-content:center}}
 @media(max-width:800px){{.standings-inner{{grid-template-columns:repeat(3,minmax(0,145px))}}}}
 @media(max-width:500px){{
   .standings-inner{{grid-template-columns:repeat(2,minmax(0,145px))}}
@@ -543,8 +582,8 @@ table.st th:nth-child(5),table.st td:nth-child(5){{width:26px}}
 table.st tr.div-leader td{{font-weight:800}}
 
 /* ── Leaders strip ── */
-.leaders-inner{{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-left:1px solid #bbb;border-bottom:2px solid #1a1a1a}}
-@media(max-width:800px){{.leaders-inner{{grid-template-columns:repeat(3,minmax(0,1fr))}}}}
+.leaders-inner{{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));border-left:1px solid #bbb;border-bottom:2px solid #1a1a1a}}
+@media(max-width:800px){{.leaders-inner{{grid-template-columns:repeat(4,minmax(0,1fr))}}}}
 @media(max-width:500px){{.leaders-inner{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
 .leaders-cat{{border-right:1px solid #bbb;padding:5px 7px}}
 .leaders-cat-name{{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:3px;border-bottom:1px solid #ddd;padding-bottom:2px}}
@@ -559,6 +598,11 @@ table.st tr.div-leader td{{font-weight:800}}
 .scoring-play:last-child{{border-bottom:none}}
 .sc-inn{{font-weight:700;font-size:10px;letter-spacing:.05em;color:#888;margin-right:4px}}
 .sc-score{{font-weight:700;color:#1a1a1a;margin-right:4px}}
+
+/* ── Bulk controls ── */
+.bulk-controls{{width:100%;padding:3px 12px;display:flex;gap:12px;border-bottom:1px solid #ddd;box-sizing:border-box}}
+.bulk-btn{{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#aaa;cursor:pointer;user-select:none;background:none;border:none;padding:2px 0}}
+.bulk-btn:hover{{color:#1a1a1a}}
 
 /* ── Notes ── */
 .notes{{font-size:10px;color:#333;margin-top:5px;line-height:1.5;font-family:'Barlow Condensed',sans-serif}}
@@ -683,8 +727,14 @@ function renderDate(dateStr) {{
 
   const games = gamesData[dateStr];
   if (games && games.length > 0) {{
+    currentGameCount = games.length;
+    const hasScoring = games.some(g => g.scoring && g.scoring.length);
+    const controls = `<div class="bulk-controls">
+      <button class="bulk-btn" onclick="toggleAllBoxes()">toggle all box scores</button>
+      ${{hasScoring ? '<button class="bulk-btn" onclick="toggleAllScoring()">toggle all scoring</button>' : ''}}
+    </div>`;
     document.getElementById('content').innerHTML =
-      '<div class="grid">' + games.map((g,i) => renderGame(g,i)).join('') + '</div>';
+      controls + '<div class="grid">' + games.map((g,i) => renderGame(g,i)).join('') + '</div>';
     return;
   }}
 
@@ -700,20 +750,25 @@ function renderDate(dateStr) {{
 
 function renderSchedCard(g) {{
   const t = localGameTime(g.time);
+  const probables = (g.away_probable || g.home_probable) ?
+    `<div class="sched-probables"><span>${{g.away_abbr}}:</span> ${{g.away_probable||'TBD'}} &nbsp;<span>${{g.home_abbr}}:</span> ${{g.home_probable||'TBD'}}</div>` : '';
   return `<div class="sched-card">
     <div class="sched-matchup">${{g.away_name.toUpperCase()}} at ${{g.home_name.toUpperCase()}}</div>
     <div class="sched-time">${{t}}</div>
     <div class="sched-venue">${{g.venue}}</div>
+    ${{probables}}
   </div>`;
 }}
 
 const LEADERS_ORDER = [
   {{key:'homeRuns',label:'HR'}},
   {{key:'battingAverage',label:'AVG'}},
+  {{key:'onBasePlusSlugging',label:'OPS'}},
   {{key:'runsBattedIn',label:'RBI'}},
+  {{key:'stolenBases',label:'SB'}},
   {{key:'earnedRunAverage',label:'ERA'}},
   {{key:'strikeouts',label:'K'}},
-  {{key:'wins',label:'W'}},
+  {{key:'saves',label:'SV'}},
 ];
 
 function renderLeaders(dateStr) {{
@@ -736,6 +791,32 @@ function renderLeaders(dateStr) {{
      <div id="leaders-body" style="display:${{leadersOpen ? '' : 'none'}}">
        <div class="leaders-inner">${{cols}}</div>
      </div>`;
+}}
+
+let currentGameCount = 0;
+
+function toggleAllBoxes() {{
+  const anyOpen = Array.from({{length:currentGameCount}},(_,i)=>document.getElementById('bx-'+i))
+    .some(el=>el&&el.style.display!=='none');
+  for (let i=0;i<currentGameCount;i++) {{
+    const el=document.getElementById('bx-'+i);
+    const lbl=document.getElementById('bx-lbl-'+i);
+    if (!el) continue;
+    el.style.display = anyOpen?'none':'block';
+    lbl.textContent = anyOpen?'\u25b8 FULL BOX':'\u25be CLOSE';
+  }}
+}}
+
+function toggleAllScoring() {{
+  const anyOpen = Array.from({{length:currentGameCount}},(_,i)=>document.getElementById('sc-'+i))
+    .some(el=>el&&el.style.display!=='none');
+  for (let i=0;i<currentGameCount;i++) {{
+    const el=document.getElementById('sc-'+i);
+    const lbl=document.getElementById('sc-lbl-'+i);
+    if (!el) continue;
+    el.style.display = anyOpen?'none':'block';
+    lbl.textContent = anyOpen?'\u25b8 HOW THEY SCORED':'\u25be HOW THEY SCORED';
+  }}
 }}
 
 function toggleBox(idx) {{
@@ -774,14 +855,14 @@ function renderGame(g, idx) {{
   function batTable(batters, abbr) {{
     const rows = batters.map(b => {{
       const namePos = b.sub ? `<td style="padding-left:10px;color:#555">${{b.name}} ${{b.pos}}</td>` : `<td>${{b.name}} ${{b.pos}}</td>`;
-      return `<tr>${{namePos}}<td>${{b.ab}}</td><td>${{b.r}}</td><td>${{b.h}}</td><td>${{b.rbi}}</td><td>${{b.bb}}</td><td>${{b.k}}</td><td>${{b.avg}}</td></tr>`;
+      return `<tr>${{namePos}}<td>${{b.ab}}</td><td>${{b.r}}</td><td>${{b.h}}</td><td>${{b.rbi}}</td><td>${{b.bb}}</td><td>${{b.k}}</td><td>${{b.avg}}</td><td>${{b.ops}}</td></tr>`;
     }}).join('');
     const totAB=batters.reduce((s,b)=>s+(b.ab||0),0), totR=batters.reduce((s,b)=>s+(b.r||0),0);
     const totH=batters.reduce((s,b)=>s+(b.h||0),0), totRBI=batters.reduce((s,b)=>s+(b.rbi||0),0);
     const totBB=batters.reduce((s,b)=>s+(b.bb||0),0), totK=batters.reduce((s,b)=>s+(b.k||0),0);
     return `<div class="tbl-hdr">${{abbr}} Batting</div>
-    <table class="bt"><thead><tr><th></th><th>AB</th><th>R</th><th>H</th><th>BI</th><th>BB</th><th>K</th><th>AVG</th></tr></thead>
-    <tbody>${{rows}}<tr class="totrow"><td>Totals</td><td>${{totAB}}</td><td>${{totR}}</td><td>${{totH}}</td><td>${{totRBI}}</td><td>${{totBB}}</td><td>${{totK}}</td><td></td></tr></tbody></table>`;
+    <table class="bt"><thead><tr><th></th><th>AB</th><th>R</th><th>H</th><th>BI</th><th>BB</th><th>K</th><th>AVG</th><th>OPS</th></tr></thead>
+    <tbody>${{rows}}<tr class="totrow"><td>Totals</td><td>${{totAB}}</td><td>${{totR}}</td><td>${{totH}}</td><td>${{totRBI}}</td><td>${{totBB}}</td><td>${{totK}}</td><td></td><td></td></tr></tbody></table>`;
   }}
 
   function pitTable(pitchers, abbr) {{
@@ -888,6 +969,9 @@ def main():
             dirty = True
         elif date_str not in cache:
             print("No games fetched and nothing in cache for this date.")
+
+        refresh_probables(cache)
+        dirty = True
 
     if dirty:
         save_cache(cache)
