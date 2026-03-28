@@ -494,6 +494,7 @@ a{{color:inherit;text-decoration:none}}
 
 /* ── Grid ── */
 .grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-left:1px solid #bbb;border-top:1px solid #bbb}}
+@media(min-width:1400px){{.grid{{grid-template-columns:repeat(4,minmax(0,1fr))}}}}
 @media(max-width:760px){{.grid{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
 @media(max-width:480px){{.grid{{grid-template-columns:minmax(0,1fr)}}}}
 
