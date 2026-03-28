@@ -82,6 +82,32 @@ def fmt_ip(ip):
         return w + {'0':'','1':'⅓','2':'⅔'}.get(f, f'.{f}')
     return s
 
+def _build_scoring(pbp):
+    result = []
+    for p in (pbp or {}).get("allPlays", []):
+        half = "Top" if p["about"]["isTopInning"] else "Bot"
+        inning = p["about"]["inning"]
+        # Scoring sub-events within a play (wild pitches, passed balls, etc.)
+        for ev in p.get("playEvents", []):
+            d = ev.get("details", {})
+            if d.get("isScoringPlay"):
+                result.append({
+                    "half": half, "inning": inning,
+                    "away_score": d.get("awayScore"),
+                    "home_score": d.get("homeScore"),
+                    "desc": d.get("description", ""),
+                })
+        # Top-level scoring play (hit, sac fly, etc.)
+        if p.get("about", {}).get("isScoringPlay"):
+            result.append({
+                "half": half, "inning": inning,
+                "away_score": p["result"]["awayScore"],
+                "home_score": p["result"]["homeScore"],
+                "desc": p["result"]["description"],
+            })
+    return result
+
+
 def build_game(box, line, pbp=None):
     away_box = box.get("teams", {}).get("away", {})
     home_box = box.get("teams", {}).get("home", {})
@@ -226,17 +252,7 @@ def build_game(box, line, pbp=None):
         "home_pitchers": build_pitchers(home_box),
         "notes": notes,
         "time": time_g, "att": att, "venue": venue,
-        "scoring": [
-            {
-                "half": "Top" if p["about"]["isTopInning"] else "Bot",
-                "inning": p["about"]["inning"],
-                "away_score": p["result"]["awayScore"],
-                "home_score": p["result"]["homeScore"],
-                "desc": p["result"]["description"],
-            }
-            for p in (pbp or {}).get("allPlays", [])
-            if p.get("about", {}).get("isScoringPlay")
-        ],
+        "scoring": _build_scoring(pbp),
     }
 
 def fetch_full_schedule(year, start_date=None):
