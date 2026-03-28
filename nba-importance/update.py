@@ -18,6 +18,7 @@ import pandas as pd
 import json
 import time
 from datetime import datetime, date
+from zoneinfo import ZoneInfo
 from collections import defaultdict
 
 # ── nba_api imports ──────────────────────────────────────────────────────────
@@ -549,7 +550,7 @@ def build_html(scored_games, srs_df, standings):
             </tr>"""
         return rows_html
 
-    now = datetime.now().strftime("%B %d, %Y at %I:%M %p")
+    now = datetime.now(ZoneInfo("America/Chicago")).strftime("%B %d, %Y at %I:%M %p %Z")
 
     # Split team buttons by conference
     east_teams = sorted(set(
