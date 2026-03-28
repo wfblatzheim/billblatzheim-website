@@ -22,14 +22,14 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install nba_api pandas numpy requests
+        run: pip3 install nba_api pandas numpy requests
 
       - name: Run NBA update
-        run: python update.py
+        run: python3 update.py
         working-directory: nba-importance
 
       - name: Run MLB update
-        run: python update.py
+        run: python3 update.py
         working-directory: mlb-newspaper
 
       - name: Commit and push changes
