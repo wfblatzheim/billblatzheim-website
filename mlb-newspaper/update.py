@@ -503,7 +503,7 @@ def generate_html(cache, generated_at):
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MLB Box Scores</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{background:#f5f1e8;color:#1a1a1a;font-family:'Barlow Condensed',Arial,sans-serif;font-size:14px;overflow-x:hidden}}
@@ -541,7 +541,7 @@ a{{color:inherit;text-decoration:none}}
 .box-hdr .final{{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;color:#888;margin-left:4px}}
 
 /* ── Linescore ── */
-.ls-text{{font-size:12px;line-height:1.8;margin-bottom:4px;white-space:nowrap;font-variant-numeric:tabular-nums;width:100%}}
+.ls-text{{font-size:12px;line-height:1.8;margin-bottom:4px;white-space:nowrap;font-variant-numeric:tabular-nums;width:100%;font-family:'Barlow',Arial,sans-serif}}
 .ls-line{{display:flex;align-items:baseline}}
 .ls-team{{font-weight:700;width:90px;flex-shrink:0}}
 .ls-inn{{flex:1;letter-spacing:.05em;text-align:right}}
