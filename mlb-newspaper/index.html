@@ -19,6 +19,7 @@ a{color:inherit;text-decoration:none}
 .back-link svg{transition:transform .15s}
 .masthead-title{font-family:'Playfair Display',Georgia,serif;font-size:32px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
 .masthead-date{font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555}
+.masthead-context{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#aaa;text-align:right}
 
 /* ── Archive nav ── */
 .arc-months{width:100%;padding:5px 20px;border-bottom:1px solid #bbb;display:flex;flex-wrap:wrap;gap:2px;align-items:center}
@@ -42,13 +43,14 @@ a{color:inherit;text-decoration:none}
 .box-hdr .final{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;color:#888;margin-left:4px}
 
 /* ── Linescore ── */
-.ls-wrap{overflow-x:auto;margin-bottom:4px}
-table.ls{border-collapse:collapse;font-family:'Barlow Condensed',sans-serif;font-size:12px;white-space:nowrap}
-table.ls th{text-align:center;padding:0 4px;font-weight:700;font-size:10px;color:#888;border-bottom:1px solid #bbb;width:18px}
-table.ls th:first-child{text-align:left;width:40px}
-table.ls td{text-align:center;padding:0 4px;line-height:1.6;width:18px}
-table.ls td:first-child{text-align:left;font-weight:700;width:40px}
-table.ls .tot{border-left:1px solid #bbb;font-weight:700;width:22px}
+.ls-text{font-size:12px;line-height:1.8;margin-bottom:4px;white-space:nowrap;font-variant-numeric:tabular-nums;width:100%}
+.ls-line{display:flex;align-items:baseline}
+.ls-team{font-weight:700;width:90px;flex-shrink:0}
+.ls-inn{flex:1;letter-spacing:.05em;text-align:right}
+.ls-inn-group{display:inline-block;margin-right:.4em}
+.ls-cell{display:inline-block;min-width:.65em;text-align:center}
+.ls-rhe-val{display:inline-block;min-width:1.4em;text-align:right}
+.ls-rhe{flex-shrink:0;padding-left:.5em;border-left:1px solid #bbb;font-weight:700;letter-spacing:.08em}
 
 /* ── Section toggle headers ── */
 .section-hdr{width:100%;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;box-sizing:border-box}
@@ -158,6 +160,7 @@ table.st tr.div-leader td{font-weight:800}
   <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
     <a class="back-link" href="https://billblatzheim.com"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M11 5H1M4 1L1 5l3 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Blatz Labs</a>
     <div class="masthead-date" id="hdr-date"></div>
+    <div class="masthead-context" id="hdr-context"></div>
   </div>
 </div>
 <div class="arc-months"><button class="mon-btn" data-ym="2026-03" onclick="selectMonth('2026-03')">MAR '26</button><button class="mon-btn" data-ym="2026-04" onclick="selectMonth('2026-04')">APR '26</button><button class="mon-btn" data-ym="2026-05" onclick="selectMonth('2026-05')">MAY '26</button><button class="mon-btn" data-ym="2026-06" onclick="selectMonth('2026-06')">JUN '26</button><button class="mon-btn" data-ym="2026-07" onclick="selectMonth('2026-07')">JUL '26</button><button class="mon-btn" data-ym="2026-08" onclick="selectMonth('2026-08')">AUG '26</button><button class="mon-btn" data-ym="2026-09" onclick="selectMonth('2026-09')">SEP '26</button></div>
@@ -371,6 +374,11 @@ let currentMonth = '';
 
 const MONTH_NAMES = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
+const TEAM_SHORT_MAP = {'Arizona Diamondbacks':'D-backs','Atlanta Braves':'Braves','Baltimore Orioles':'Orioles','Boston Red Sox':'Red Sox','Chicago Cubs':'Cubs','Chicago White Sox':'White Sox','Cincinnati Reds':'Reds','Cleveland Guardians':'Guardians','Colorado Rockies':'Rockies','Detroit Tigers':'Tigers','Houston Astros':'Astros','Kansas City Royals':'Royals','Los Angeles Angels':'Angels','Los Angeles Dodgers':'Dodgers','Miami Marlins':'Marlins','Milwaukee Brewers':'Brewers','Minnesota Twins':'Twins','New York Mets':'Mets','New York Yankees':'Yankees','Oakland Athletics':'Athletics','Philadelphia Phillies':'Phillies','Pittsburgh Pirates':'Pirates','San Diego Padres':'Padres','San Francisco Giants':'Giants','Seattle Mariners':'Mariners','St. Louis Cardinals':'Cardinals','Tampa Bay Rays':'Rays','Texas Rangers':'Rangers','Toronto Blue Jays':'Blue Jays','Washington Nationals':'Nationals','Athletics':'Athletics'};
+const TEAM_CITY_MAP = {'Arizona Diamondbacks':'Arizona','Atlanta Braves':'Atlanta','Baltimore Orioles':'Baltimore','Boston Red Sox':'Boston','Chicago Cubs':'Chicago','Chicago White Sox':'Chicago','Cincinnati Reds':'Cincinnati','Cleveland Guardians':'Cleveland','Colorado Rockies':'Colorado','Detroit Tigers':'Detroit','Houston Astros':'Houston','Kansas City Royals':'Kansas City','Los Angeles Angels':'Los Angeles','Los Angeles Dodgers':'Los Angeles','Miami Marlins':'Miami','Milwaukee Brewers':'Milwaukee','Minnesota Twins':'Minnesota','New York Mets':'New York','New York Yankees':'New York','Oakland Athletics':'Oakland','Philadelphia Phillies':'Philadelphia','Pittsburgh Pirates':'Pittsburgh','San Diego Padres':'San Diego','San Francisco Giants':'San Francisco','Seattle Mariners':'Seattle','St. Louis Cardinals':'St. Louis','Tampa Bay Rays':'Tampa Bay','Texas Rangers':'Texas','Toronto Blue Jays':'Toronto','Washington Nationals':'Washington','Athletics':'Oakland'};
+function teamShort(g, side) { return g[side+'_short'] || TEAM_SHORT_MAP[g[side+'_name']] || g[side+'_abbr']; }
+function teamCity(g, side) { return g[side+'_city'] || TEAM_CITY_MAP[g[side+'_name']] || g[side+'_abbr']; }
+
 function fmtDateLabel(d) {
   const dt = new Date(d + 'T12:00:00');
   return dt.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
@@ -449,10 +457,24 @@ function renderStandings(dateStr) {
      </div>`;
 }
 
+function dateRelativeLabel(dateStr) {
+  const yesterday = new Date(TODAY + 'T12:00:00');
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yStr = yesterday.toISOString().slice(0,10);
+  const tomorrow = new Date(TODAY + 'T12:00:00');
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tStr = tomorrow.toISOString().slice(0,10);
+  if (dateStr === yStr) return "Yesterday's Results";
+  if (dateStr === TODAY) return "Today";
+  if (dateStr === tStr) return "Tomorrow's Schedule";
+  return '';
+}
+
 function renderDate(dateStr) {
   currentDate = dateStr;
   document.querySelectorAll('.day-btn').forEach(b => b.classList.toggle('active', b.dataset.date === dateStr));
   document.getElementById('hdr-date').textContent = fmtDateLabel(dateStr);
+  document.getElementById('hdr-context').textContent = dateRelativeLabel(dateStr);
 
   renderStandings(dateStr);
   renderLeaders(dateStr);
@@ -568,21 +590,32 @@ function toggleScoring(idx) {
 }
 
 function renderGame(g, idx) {
+  const extra = g.innings.length > 9 ? ` (${g.innings.length})` : '';
   const hdr = `<div class="box-hdr">
-    ${g.away_name.toUpperCase()} ${g.away_r}, ${g.home_name.toUpperCase()} ${g.home_r}
-    <span class="final">FINAL${g.innings.length > 9 ? ' (' + g.innings.length + ')' : ''}</span>
+    ${teamShort(g,'away')} ${g.away_r}, ${teamShort(g,'home')} ${g.home_r}
+    <span class="final">FINAL${extra}</span>
   </div>`;
 
-  const lsHead = '<tr><th></th>' + g.innings.map(i => `<th>${i.n}</th>`).join('') + '<th class="tot">R</th><th class="tot">H</th><th class="tot">E</th></tr>';
-  const awayInn = g.innings.map(i => `<td>${i.a !== null && i.a !== undefined ? i.a : ''}</td>`).join('');
-  const homeInn = g.innings.map(i => `<td>${i.h !== null && i.h !== undefined ? i.h : 'x'}</td>`).join('');
-  const ls = `<div class="ls-wrap"><table class="ls">
-    <thead>${lsHead}</thead>
-    <tbody>
-      <tr><td>${g.away_abbr}</td>${awayInn}<td class="tot">${g.away_r}</td><td class="tot">${g.away_h}</td><td class="tot">${g.away_e}</td></tr>
-      <tr><td>${g.home_abbr}</td>${homeInn}<td class="tot">${g.home_r}</td><td class="tot">${g.home_h}</td><td class="tot">${g.home_e}</td></tr>
-    </tbody>
-  </table></div>`;
+  function fmtInnings(vals) {
+    const groups = [];
+    for (let i = 0; i < vals.length; i += 3) {
+      const cells = vals.slice(i, i+3).map(v => `<span class="ls-cell">${v}</span>`).join('');
+      groups.push(`<span class="ls-inn-group">${cells}</span>`);
+    }
+    return groups.join('');
+  }
+  function fmtRHE(r, h, e) {
+    return `<span class="ls-rhe-val">${r}</span><span class="ls-rhe-val">${h}</span><span class="ls-rhe-val">${e}</span>`;
+  }
+  const awayVals = g.innings.map(i => i.a !== null && i.a !== undefined ? String(i.a) : '–');
+  const homeVals = g.innings.map((i, idx) => {
+    if (i.h === null || i.h === undefined) return idx === g.innings.length - 1 ? 'x' : '–';
+    return String(i.h);
+  });
+  const ls = `<div class="ls-text">
+    <div class="ls-line"><span class="ls-team">${teamCity(g,'away')}</span><span class="ls-inn">${fmtInnings(awayVals)}</span><span class="ls-rhe">${fmtRHE(g.away_r,g.away_h,g.away_e)}</span></div>
+    <div class="ls-line"><span class="ls-team">${teamCity(g,'home')}</span><span class="ls-inn">${fmtInnings(homeVals)}</span><span class="ls-rhe">${fmtRHE(g.home_r,g.home_h,g.home_e)}</span></div>
+  </div>`;
 
   function batTable(batters, abbr) {
     const rows = batters.map(b => {
