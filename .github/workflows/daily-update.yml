@@ -27,14 +27,17 @@ jobs:
       - name: Run NBA update
         run: python3 update.py
         working-directory: nba-importance
+        continue-on-error: true
 
       - name: Run MLB update
         run: python3 update.py
         working-directory: mlb-newspaper
+        continue-on-error: true
 
       - name: Run F1 update
         run: python3 update.py --refresh $(date +%Y)
         working-directory: f1
+        continue-on-error: true
 
       - name: Commit and push changes
         run: |

@@ -54,7 +54,8 @@ def fetch_game_results():
     finder = leaguegamefinder.LeagueGameFinder(
         season_nullable=SEASON,
         league_id_nullable="00",
-        season_type_nullable="Regular Season"
+        season_type_nullable="Regular Season",
+        timeout=60
     )
     time.sleep(SLEEP)
     df = finder.get_data_frames()[0]
@@ -145,7 +146,7 @@ def calculate_srs(df_games):
 # ── Step 3: Fetch current standings ─────────────────────────────────────────
 def fetch_standings():
     print("📡 Fetching current standings...")
-    standings_ep = leaguestandings.LeagueStandings(season=SEASON, league_id="00")
+    standings_ep = leaguestandings.LeagueStandings(season=SEASON, league_id="00", timeout=60)
     time.sleep(SLEEP)
     df = standings_ep.get_data_frames()[0]
 
@@ -240,7 +241,8 @@ def fetch_remaining_schedule():
     try:
         sched_ep = scheduleleaguev2.ScheduleLeagueV2(
             league_id="00",
-            season="2025-26"
+            season="2025-26",
+            timeout=60
         )
         time.sleep(SLEEP)
         df = sched_ep.get_data_frames()[0]
@@ -291,7 +293,7 @@ def fetch_remaining_schedule():
     if not schedule:
         try:
             from nba_api.stats.endpoints import leagueschedule
-            sched2 = leagueschedule.LeagueSchedule(season_year=SEASON, league_id="00")
+            sched2 = leagueschedule.LeagueSchedule(season_year=SEASON, league_id="00", timeout=60)
             time.sleep(SLEEP)
             df2 = sched2.get_data_frames()[0]
             print(f"   LeagueSchedule columns: {list(df2.columns)[:10]}")
