@@ -530,18 +530,18 @@ a{{color:inherit;text-decoration:none}}
 .day-btn.active{{background:#555;color:#f5f1e8;border-color:#555}}
 
 /* ── Grid ── */
-.grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border-left:1px solid #bbb;border-top:1px solid #bbb}}
-@media(min-width:1400px){{.grid{{grid-template-columns:repeat(4,minmax(0,1fr))}}}}
-@media(max-width:760px){{.grid{{grid-template-columns:repeat(2,minmax(0,1fr))}}}}
-@media(max-width:480px){{.grid{{grid-template-columns:minmax(0,1fr)}}}}
+.grid{{column-count:3;column-gap:0;width:100%;border-top:2px solid #1a1a1a;column-rule:1px solid #bbb}}
+@media(min-width:1400px){{.grid{{column-count:4}}}}
+@media(max-width:760px){{.grid{{column-count:2}}}}
+@media(max-width:480px){{.grid{{column-count:1}}}}
 
 /* ── Box score card ── */
-.box{{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:9px 11px;font-size:12px;overflow:hidden}}
-.box-hdr{{font-family:'Playfair Display',Georgia,serif;font-size:14px;font-weight:700;border-bottom:2px solid #1a1a1a;padding-bottom:3px;margin-bottom:5px;line-height:1.2}}
+.box{{break-inside:avoid;display:inline-block;width:100%;border-bottom:1px solid #bbb;padding:9px 11px;font-size:13px;overflow:hidden;box-sizing:border-box}}
+.box-hdr{{font-family:'Barlow Condensed',Arial,sans-serif;font-size:15px;font-weight:800;border-bottom:2px solid #1a1a1a;padding-bottom:3px;margin-bottom:5px;line-height:1.2;letter-spacing:.03em}}
 .box-hdr .final{{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;color:#888;margin-left:4px}}
 
 /* ── Linescore ── */
-.ls-text{{font-size:12px;line-height:1.8;margin-bottom:4px;white-space:nowrap;font-variant-numeric:tabular-nums;width:100%;font-family:'Barlow',Arial,sans-serif}}
+.ls-text{{font-size:13px;line-height:1.8;margin-bottom:4px;white-space:nowrap;font-variant-numeric:tabular-nums;width:100%;font-family:'Barlow',Arial,sans-serif}}
 .ls-line{{display:flex;align-items:baseline}}
 .ls-team{{font-weight:700;width:90px;flex-shrink:0}}
 .ls-inn{{flex:1;letter-spacing:.05em;text-align:right}}
@@ -561,7 +561,7 @@ a{{color:inherit;text-decoration:none}}
 
 /* ── Batting / Pitching tables ── */
 .tbl-hdr{{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:6px 0 2px;padding-bottom:1px;border-bottom:1px solid #1a1a1a}}
-table.bt,table.pt{{border-collapse:collapse;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:12px}}
+table.bt,table.pt{{border-collapse:collapse;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:13px}}
 table.bt th,table.pt th{{text-align:right;padding:0 3px 1px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #bbb}}
 table.bt th:first-child,table.pt th:first-child{{text-align:left}}
 table.bt td,table.pt td{{text-align:right;padding:0 3px;line-height:1.4}}
@@ -632,10 +632,10 @@ table.st tr.div-leader td{{font-weight:800}}
 .leaders-row-val{{color:#333;font-size:12px}}
 
 /* ── Scoring plays ── */
-.scoring-plays{{font-family:'Barlow Condensed',sans-serif;font-size:12px;padding:4px 0}}
+.scoring-plays{{font-family:'Barlow Condensed',sans-serif;font-size:13px;padding:4px 0}}
 .scoring-play{{padding:2px 0;border-bottom:1px solid #f0ece2;line-height:1.4}}
 .scoring-play:last-child{{border-bottom:none}}
-.sc-inn{{font-weight:700;font-size:11px;letter-spacing:.05em;color:#888;margin-right:4px}}
+.sc-inn{{font-weight:700;font-size:12px;letter-spacing:.05em;color:#888;margin-right:4px}}
 .sc-score{{font-weight:700;color:#1a1a1a;margin-right:4px}}
 
 /* ── Bulk controls ── */

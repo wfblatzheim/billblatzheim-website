@@ -3,154 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>MLB Box Scores</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<title>MLB Box Scores — The Times</title>
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#f5f1e8;color:#1a1a1a;font-family:'Barlow Condensed',Arial,sans-serif;font-size:14px;overflow-x:hidden}
+body{background:#fff;color:#111;font-family:'Old Standard TT',Georgia,serif;font-size:14px;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 
 /* ── Masthead ── */
-.masthead{border-top:4px solid #1a1a1a;border-bottom:2px solid #1a1a1a;padding:10px 20px;display:flex;justify-content:space-between;align-items:baseline;width:100%}
-.back-link{display:inline-flex;align-items:center;gap:5px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#aaa;text-decoration:none;transition:color .15s}
-.back-link:hover{color:#1a1a1a}
-.back-link:hover svg{transform:translateX(-2px)}
-.back-link svg{transition:transform .15s}
-.masthead-title{font-family:'Playfair Display',Georgia,serif;font-size:32px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
-.masthead-date{font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555}
-.masthead-context{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#aaa;text-align:right}
+.masthead{border-top:6px solid #111;border-bottom:3px double #111;padding:8px 20px 10px;display:flex;justify-content:space-between;align-items:baseline;width:100%}
+.masthead-title{font-family:'Old Standard TT',Georgia,serif;font-size:48px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1}
+.masthead-date{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#111;font-family:'Old Standard TT',serif}
+.masthead-context{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#555;text-align:right;font-family:'Old Standard TT',serif;font-style:italic}
+.back-link{display:inline-flex;align-items:center;gap:5px;font-family:'Old Standard TT',serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;text-decoration:none;transition:color .15s}
+.back-link:hover{color:#111}
+.back-link-arrow{transition:transform .15s}
+.back-link:hover .back-link-arrow{transform:translateX(-2px)}
 
-/* ── Archive nav ── */
-.arc-months{width:100%;padding:5px 20px;border-bottom:1px solid #bbb;display:flex;flex-wrap:wrap;gap:2px;align-items:center}
-.arc-dates{width:100%;padding:4px 20px;border-bottom:2px solid #1a1a1a;display:flex;flex-wrap:wrap;gap:2px;min-height:28px}
-.mon-btn{cursor:pointer;padding:2px 10px;border:1px solid transparent;background:none;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;color:#666}
-.mon-btn:hover{color:#1a1a1a;border-color:#aaa}
-.mon-btn.active{background:#1a1a1a;color:#f5f1e8;border-color:#1a1a1a}
-.day-btn{cursor:pointer;padding:2px 7px;border:1px solid transparent;background:none;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.03em;color:#666}
-.day-btn:hover{color:#1a1a1a;border-color:#aaa}
-.day-btn.active{background:#555;color:#f5f1e8;border-color:#555}
+/* ── Navigation ── */
+.arc-months{padding:4px 20px;border-bottom:1px solid #ccc;display:flex;flex-wrap:wrap;gap:2px}
+.arc-dates{padding:3px 20px;border-bottom:2px solid #111;display:flex;flex-wrap:wrap;gap:2px}
+.mon-btn{cursor:pointer;padding:2px 8px;border:1px solid transparent;background:none;font-family:'Old Standard TT',serif;font-size:13px;font-weight:700;color:#555}
+.mon-btn:hover{color:#111;border-color:#aaa}
+.mon-btn.active{background:#111;color:#fff;border-color:#111}
+.day-btn{cursor:pointer;padding:1px 6px;border:1px solid transparent;background:none;font-family:'Old Standard TT',serif;font-size:12px;color:#555}
+.day-btn:hover{color:#111;border-color:#aaa}
+.day-btn.active{background:#555;color:#fff;border-color:#555}
 
 /* ── Grid ── */
-.grid{column-count:3;column-gap:0;width:100%;border-top:2px solid #1a1a1a;column-rule:1px solid #bbb}
+.grid{column-count:3;column-gap:0;width:100%;border-top:3px solid #111;column-rule:1px solid #bbb}
 @media(min-width:1400px){.grid{column-count:4}}
 @media(max-width:760px){.grid{column-count:2}}
 @media(max-width:480px){.grid{column-count:1}}
 
 /* ── Box score card ── */
-.box{break-inside:avoid;display:inline-block;width:100%;border-bottom:1px solid #bbb;padding:9px 11px;font-size:13px;overflow:hidden;box-sizing:border-box}
-.box-hdr{font-family:'Barlow Condensed',Arial,sans-serif;font-size:15px;font-weight:800;border-bottom:2px solid #1a1a1a;padding-bottom:3px;margin-bottom:5px;line-height:1.2;letter-spacing:.03em}
-.box-hdr .final{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;color:#888;margin-left:4px}
+.box{break-inside:avoid;display:inline-block;width:100%;border-bottom:1px solid #ccc;padding:10px 12px;font-size:13px;overflow:hidden;box-sizing:border-box}
+.box-hdr{font-family:'Old Standard TT',Georgia,serif;font-size:15px;font-weight:700;border-bottom:2px solid #111;padding-bottom:3px;margin-bottom:5px;line-height:1.2}
+.box-hdr .final{font-family:'Old Standard TT',serif;font-size:11px;font-weight:400;font-style:italic;color:#666;margin-left:4px}
 
 /* ── Linescore ── */
-.ls-text{font-size:13px;line-height:1.8;margin-bottom:4px;white-space:nowrap;font-variant-numeric:tabular-nums;width:100%;font-family:'Barlow',Arial,sans-serif}
+.ls-text{font-size:13px;line-height:1.8;margin-bottom:4px;white-space:nowrap;font-variant-numeric:tabular-nums;width:100%;font-family:'Old Standard TT',serif}
 .ls-line{display:flex;align-items:baseline}
-.ls-team{font-weight:700;width:90px;flex-shrink:0}
+.ls-team{font-weight:700;width:90px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis}
 .ls-inn{flex:1;letter-spacing:.05em;text-align:right}
 .ls-inn-group{display:inline-block;margin-right:.4em}
 .ls-cell{display:inline-block;min-width:.65em;text-align:center}
-.ls-rhe-val{display:inline-block;min-width:1.4em;text-align:right}
 .ls-rhe{flex-shrink:0;padding-left:.5em;border-left:1px solid #bbb;font-weight:700;letter-spacing:.08em}
+.ls-rhe-val{display:inline-block;min-width:1.4em;text-align:right}
 
-/* ── Section toggle headers ── */
-.section-hdr{width:100%;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#aaa;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;box-sizing:border-box}
-.section-hdr:hover{color:#555}
+/* ── Sections ── */
+.section-hdr{width:100%;padding:3px 12px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#666;border-bottom:1px solid #ccc;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;box-sizing:border-box;font-family:'Old Standard TT',serif}
+.section-hdr:hover{color:#111}
 .section-hdr-arrow{font-size:9px}
+.expand-btn{font-family:'Old Standard TT',serif;font-style:italic;font-size:11px;color:#777;cursor:pointer;padding:2px 0;user-select:none;border-top:1px solid #ddd;margin-top:2px}
+.expand-btn:hover{color:#111}
 
-/* ── Expand toggle ── */
-.expand-btn{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;color:#888;cursor:pointer;padding:2px 0;user-select:none;border-top:1px solid #ddd;margin-top:2px}
-.expand-btn:hover{color:#1a1a1a}
-
-/* ── Batting / Pitching tables ── */
-.tbl-hdr{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:6px 0 2px;padding-bottom:1px;border-bottom:1px solid #1a1a1a}
-table.bt,table.pt{border-collapse:collapse;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:13px}
-table.bt th,table.pt th{text-align:right;padding:0 3px 1px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #bbb}
-table.bt th:first-child,table.pt th:first-child{text-align:left}
-table.bt td,table.pt td{text-align:right;padding:0 3px;line-height:1.4}
+/* ── Tables ── */
+.tbl-hdr{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:6px 0 2px;padding-bottom:1px;border-bottom:2px solid #111;font-family:'Old Standard TT',serif}
+table.bt,table.pt{border-collapse:collapse;width:100%;font-family:'Old Standard TT',serif;font-size:13px}
+table.bt th,table.pt th{text-align:right;padding:0 3px 1px;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid #bbb}
+table.bt td,table.pt td{padding:0 3px;line-height:1.4;text-align:right}
 table.bt td:first-child,table.pt td:first-child{text-align:left}
-table.bt .sub td:first-child{padding-left:10px;color:#555}
-table.bt .totrow td{border-top:1px solid #999;font-weight:700}
-/* Fixed widths on stat columns so they never shift */
-table.bt th:nth-child(2),table.bt td:nth-child(2){width:26px}
-table.bt th:nth-child(3),table.bt td:nth-child(3){width:20px}
-table.bt th:nth-child(4),table.bt td:nth-child(4){width:20px}
-table.bt th:nth-child(5),table.bt td:nth-child(5){width:20px}
-table.bt th:nth-child(6),table.bt td:nth-child(6){width:20px}
-table.bt th:nth-child(7),table.bt td:nth-child(7){width:20px}
-table.bt th:nth-child(8),table.bt td:nth-child(8){width:34px}
-table.bt th:nth-child(9),table.bt td:nth-child(9){width:34px}
-table.pt th:nth-child(2),table.pt td:nth-child(2){width:28px}
-table.pt th:nth-child(3),table.pt td:nth-child(3),table.pt th:nth-child(4),table.pt td:nth-child(4),
-table.pt th:nth-child(5),table.pt td:nth-child(5),table.pt th:nth-child(6),table.pt td:nth-child(6),
-table.pt th:nth-child(7),table.pt td:nth-child(7){width:20px}
+table.bt th:first-child,table.pt th:first-child{text-align:left}
+table.bt col:nth-child(2),table.pt col:nth-child(2){width:28px}
+table.bt col:nth-child(n+3):nth-child(-n+7),table.pt col:nth-child(n+3):nth-child(-n+7){width:20px}
+table.bt col:nth-child(n+8),table.pt col:nth-child(n+8){width:34px}
+.bt-sub td:first-child{padding-left:10px;color:#555}
+.bt-total{border-top:1px solid #999;font-weight:700}
 
-/* ── Schedule (upcoming) cards ── */
-.sched-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;border-left:1px solid #bbb;border-top:1px solid #bbb}
+/* ── Schedule ── */
+.sched-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;border-left:1px solid #ccc;border-top:2px solid #111}
 @media(max-width:1100px){.sched-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:760px){.sched-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.sched-grid{grid-template-columns:minmax(0,1fr)}}
-.sched-card{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:9px 11px}
-.sched-matchup{font-family:'Playfair Display',Georgia,serif;font-size:14px;font-weight:700;border-bottom:1px solid #ccc;padding-bottom:3px;margin-bottom:5px}
-.sched-time{font-size:12px;color:#555;margin-top:3px}
-.sched-venue{font-size:11px;color:#aaa;margin-top:2px}
-.sched-probables{font-size:11px;color:#555;margin-top:4px;font-family:'Barlow Condensed',sans-serif}
-.sched-probables span{color:#aaa}
+.sched-card{border-right:1px solid #ccc;border-bottom:1px solid #ccc;padding:9px 11px}
+.sched-matchup{font-family:'Old Standard TT',Georgia,serif;font-size:14px;font-weight:700;border-bottom:1px solid #ccc;padding-bottom:3px;margin-bottom:5px}
+.sched-time{font-size:12px;color:#555;margin-top:3px;font-style:italic}
+.sched-venue{font-size:11px;color:#888;margin-top:2px}
+.sched-probables{font-size:11px;color:#555;margin-top:4px;font-family:'Old Standard TT',serif}
 
 /* ── Standings ── */
-.standings-wrap{width:100%;border-bottom:2px solid #1a1a1a}
-.standings-inner{display:grid;grid-template-columns:repeat(6,minmax(0,145px));border-left:1px solid #bbb;justify-content:center}
+.standings-wrap{width:100%;border-bottom:2px solid #111}
+.standings-inner{display:grid;grid-template-columns:repeat(6,minmax(0,145px));border-left:1px solid #ccc;justify-content:center}
 @media(max-width:800px){.standings-inner{grid-template-columns:repeat(3,minmax(0,145px))}}
 @media(max-width:500px){
   .standings-inner{grid-template-columns:repeat(2,minmax(0,145px))}
-  .standings-inner .standings-div:nth-child(1){order:1}
-  .standings-inner .standings-div:nth-child(2){order:3}
-  .standings-inner .standings-div:nth-child(3){order:5}
-  .standings-inner .standings-div:nth-child(4){order:2}
-  .standings-inner .standings-div:nth-child(5){order:4}
-  .standings-inner .standings-div:nth-child(6){order:6}
+  .standings-div:nth-child(1){order:1}.standings-div:nth-child(2){order:3}.standings-div:nth-child(3){order:5}
+  .standings-div:nth-child(4){order:2}.standings-div:nth-child(5){order:4}.standings-div:nth-child(6){order:6}
 }
-.standings-div{border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:5px 7px}
-.standings-div-name{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:3px;border-bottom:1px solid #ddd;padding-bottom:2px}
-table.st{border-collapse:collapse;width:100%;font-family:'Barlow Condensed',sans-serif;font-size:11px}
-table.st th{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-align:right;padding:0 3px 1px;color:#aaa}
+.standings-div{border-right:1px solid #ccc;border-bottom:1px solid #ccc;padding:5px 7px}
+.standings-div-name{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#777;margin-bottom:3px;border-bottom:1px solid #ccc;padding-bottom:2px;font-family:'Old Standard TT',serif}
+table.st{border-collapse:collapse;width:100%;font-family:'Old Standard TT',serif;font-size:11px}
+table.st th{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-align:right;padding:0 3px 1px;color:#888}
+table.st td{padding:0 3px;line-height:1.45;text-align:right}
+table.st td:first-child{text-align:left;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 table.st th:first-child{text-align:left}
-table.st td{text-align:right;padding:0 3px;line-height:1.45}
-table.st td:first-child{text-align:left;font-weight:600}
-table.st th:nth-child(2),table.st td:nth-child(2),
-table.st th:nth-child(3),table.st td:nth-child(3){width:22px}
-table.st th:nth-child(4),table.st td:nth-child(4){width:30px}
-table.st th:nth-child(5),table.st td:nth-child(5){width:26px}
-table.st tr.div-leader td{font-weight:800}
+table.st col:nth-child(2),table.st col:nth-child(3){width:22px}
+table.st col:nth-child(4){width:30px}
+table.st col:nth-child(5){width:26px}
+.st-leader{font-weight:800}
 
-/* ── Leaders strip ── */
-.leaders-inner{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));border-left:1px solid #bbb;border-bottom:2px solid #1a1a1a}
+/* ── Leaders ── */
+.leaders-inner{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));border-left:1px solid #ccc;border-bottom:2px solid #111}
 @media(max-width:800px){.leaders-inner{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:500px){.leaders-inner{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.leaders-cat{border-right:1px solid #bbb;padding:5px 7px}
-.leaders-cat-name{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:3px;border-bottom:1px solid #ddd;padding-bottom:2px}
-.leaders-row{font-family:'Barlow Condensed',sans-serif;font-size:12px;display:flex;justify-content:space-between;align-items:baseline;padding:1px 0;line-height:1.4}
-.leaders-row-name{font-weight:600}
-.leaders-row-team{color:#aaa;font-weight:400;font-size:11px;margin-left:3px}
-.leaders-row-val{color:#333;font-size:12px}
+.leaders-cat{border-right:1px solid #ccc;border-bottom:1px solid #ccc;padding:5px 7px}
+.leaders-cat-name{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#777;margin-bottom:3px;border-bottom:1px solid #ccc;padding-bottom:2px;font-family:'Old Standard TT',serif}
+.leaders-row{font-family:'Old Standard TT',serif;font-size:12px;display:flex;justify-content:space-between;align-items:baseline;padding:1px 0;line-height:1.4}
+.leaders-row-name{font-weight:400}
+.leaders-row-team{color:#888;font-weight:400;font-size:10px;margin-left:3px;font-style:italic}
+.leaders-row-val{color:#111;font-size:12px;font-weight:700}
 
 /* ── Scoring plays ── */
-.scoring-plays{font-family:'Barlow Condensed',sans-serif;font-size:13px;padding:4px 0}
-.scoring-play{padding:2px 0;border-bottom:1px solid #f0ece2;line-height:1.4}
+.scoring-plays{font-family:'Old Standard TT',serif;font-size:13px;padding:4px 0}
+.scoring-play{padding:2px 0;border-bottom:1px solid #eee;line-height:1.4}
 .scoring-play:last-child{border-bottom:none}
-.sc-inn{font-weight:700;font-size:12px;letter-spacing:.05em;color:#888;margin-right:4px}
-.sc-score{font-weight:700;color:#1a1a1a;margin-right:4px}
+.sc-inn{font-weight:700;font-size:12px;letter-spacing:.04em;color:#666;margin-right:4px;font-style:italic}
+.sc-score{font-weight:700;margin-right:4px}
 
-/* ── Bulk controls ── */
+/* ── Misc ── */
 .bulk-controls{width:100%;padding:3px 12px;display:flex;gap:12px;border-bottom:1px solid #ddd;box-sizing:border-box}
-.bulk-btn{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#aaa;cursor:pointer;user-select:none;background:none;border:none;padding:2px 0}
-.bulk-btn:hover{color:#1a1a1a}
-
-/* ── Notes ── */
-.notes{font-size:11px;color:#333;margin-top:5px;line-height:1.5;font-family:'Barlow Condensed',sans-serif}
-.meta{font-size:10px;color:#999;margin-top:3px;font-family:'Barlow Condensed',sans-serif}
-
-.no-games{padding:60px 20px;text-align:center;font-family:'Playfair Display',serif;font-size:18px;color:#888;width:100%}
-.footer{width:100%;padding:12px 20px;font-size:11px;color:#aaa;letter-spacing:.06em;border-top:1px solid #ccc}
+.bulk-btn{font-family:'Old Standard TT',serif;font-style:italic;font-size:11px;color:#aaa;cursor:pointer;user-select:none;background:none;border:none;padding:2px 0}
+.bulk-btn:hover{color:#111}
+.notes{font-size:11px;color:#444;margin-top:5px;line-height:1.5;font-family:'Old Standard TT',serif;font-style:italic}
+.meta{font-size:10px;color:#888;margin-top:3px;font-family:'Old Standard TT',serif}
+.no-games{padding:60px 20px;text-align:center;font-family:'Old Standard TT',serif;font-size:18px;color:#888;width:100%}
+.footer{width:100%;padding:12px 20px;font-size:11px;color:#888;letter-spacing:.06em;border-top:1px solid #ccc;font-family:'Old Standard TT',serif;font-style:italic}
 </style>
 </head>
 <body>
