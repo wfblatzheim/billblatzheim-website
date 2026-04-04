@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA Playoff Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nbc-blue: #1059c4;
+    --nbc-blue-dark: #0a3d8f;
+    --nbc-blue-bright: #2979ff;
+    --nbc-gold: #f0c030;
+    --nbc-red: #cc1122;
+    --nbc-green: #22cc66;
+    --bg: #08101e;
+    --bg-card: #0d1b30;
+    --bg-card-alt: #111f35;
+    --border: #1a3155;
+    --text-primary: #ffffff;
+    --text-secondary: #8eadd4;
+    --text-muted: #3d5a80;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 3px,
+      rgba(16,89,196,0.03) 3px, rgba(16,89,196,0.03) 4px
+    );
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, var(--nbc-blue-dark) 0%, #0d2d6e 50%, #091d4a 100%);
+    border-bottom: 3px solid var(--nbc-gold);
+    padding: 0 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; left: 0; top: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(90deg, transparent, transparent 18px,
+      rgba(255,255,255,0.03) 18px, rgba(255,255,255,0.03) 19px);
+    pointer-events: none;
+  }
+  .header-inner {
+    position: relative;
+    padding: 14px 0 12px;
+    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  }
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px; font-weight: 900; font-style: italic;
+    color: #fff; text-transform: uppercase; letter-spacing: 1px; line-height: 1;
+  }
+  h1 span.nbc-accent { color: var(--nbc-gold); }
+  .subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    color: rgba(255,255,255,0.5); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px; line-height: 1;
+  }
+  .updated-at {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-left: auto;
+  }
+  @media (min-width: 768px) {
+    .header { padding: 0 28px; }
+    h1 { font-size: 36px; }
+  }
+
+  /* ── Nav tabs (Regular Season / Play-In / Playoffs) ── */
+  .mode-tabs {
+    display: flex; gap: 0;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+  }
+  .mode-tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted);
+    padding: 10px 14px; border: none; background: none;
+    cursor: pointer; border-bottom: 3px solid transparent;
+    margin-bottom: -1px; transition: all 0.12s;
+    text-decoration: none; display: inline-block;
+  }
+  .mode-tab:hover { color: var(--text-secondary); }
+  .mode-tab.active { color: var(--nbc-gold); border-bottom-color: var(--nbc-gold); }
+  @media (min-width: 768px) { .mode-tabs { padding: 0 28px; } }
+
+  /* ── Main layout ── */
+  .page { padding: 16px; }
+  @media (min-width: 768px) { .page { padding: 20px 28px 32px; } }
+
+  /* ── Championship probability strip ── */
+  .champ-strip {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .champ-strip::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--nbc-gold), #ffaa00);
+  }
+  .champ-strip-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 800;
+    color: var(--nbc-gold); text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .champ-teams {
+    display: flex; gap: 4px; flex-wrap: wrap;
+  }
+  .champ-team {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--bg); border: 1px solid var(--border);
+    padding: 5px 8px; border-radius: 1px;
+    cursor: default;
+  }
+  .champ-abbr {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 800; color: #fff;
+    text-transform: uppercase;
+  }
+  .champ-pct {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; color: var(--nbc-gold);
+  }
+  .champ-bar-wrap {
+    width: 40px; height: 3px;
+    background: var(--border); border-radius: 0;
+    overflow: hidden;
+  }
+  .champ-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--nbc-gold), #ffaa00);
+  }
+
+  /* ── Bracket container ── */
+  .bracket-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 1100px) {
+    .bracket-wrap {
+      /* West R1 | West Semis | West Finals | Finals | East Finals | East Semis | East R1 */
+      grid-template-columns: 1fr 1fr 1fr auto 1fr 1fr 1fr;
+      grid-template-rows: auto;
+      gap: 8px;
+      align-items: start;
+    }
+  }
+
+  /* ── Conference label ── */
+  .conf-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 6px 0 4px;
+    grid-column: span 3;
+  }
+
+  /* ── Round column ── */
+  .round-col {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .round-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+
+  /* ── Series card ── */
+  .series-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 10px 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .series-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--nbc-blue), var(--nbc-blue-bright));
+  }
+  .series-card.series-over::before {
+    background: linear-gradient(90deg, var(--nbc-gold), #ffaa00);
+  }
+  .series-card.tbd {
+    opacity: 0.35;
+    border-style: dashed;
+  }
+  .series-card.tbd::before { display: none; }
+
+  /* ── Series header: round + game number ── */
+  .series-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px;
+  }
+  .series-round-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-muted);
+  }
+  .series-game-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--nbc-blue-bright);
+    background: rgba(41,121,255,0.1);
+    border: 1px solid rgba(41,121,255,0.2);
+    padding: 1px 5px;
+  }
+  .series-game-badge.if-necessary {
+    color: var(--text-muted);
+    background: none;
+    border-color: var(--border);
+  }
+
+  /* ── Team rows ── */
+  .series-teams { display: flex; flex-direction: column; gap: 6px; }
+
+  .team-row {
+    display: flex; align-items: center; gap: 0;
+  }
+
+  .team-seed {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700;
+    color: var(--text-muted);
+    width: 14px; flex-shrink: 0; text-align: center;
+  }
+
+  .team-abbr {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-primary);
+    width: 44px; flex-shrink: 0;
+    line-height: 1;
+  }
+  .team-abbr.team-eliminated { color: var(--text-muted); }
+  .team-abbr.team-advancing { color: #fff; }
+
+  /* ── Pip race ── */
+  .pip-track {
+    display: flex; gap: 3px; align-items: center;
+    flex: 1;
+  }
+  .pip {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .pip.won {
+    background: var(--nbc-blue-bright);
+    border-color: var(--nbc-blue-bright);
+    box-shadow: 0 0 5px rgba(41,121,255,0.5);
+  }
+  .pip.won.series-clinch {
+    background: var(--nbc-gold);
+    border-color: var(--nbc-gold);
+    box-shadow: 0 0 6px rgba(240,192,48,0.6);
+  }
+  .pip.won.series-loss {
+    background: var(--text-muted);
+    border-color: var(--text-muted);
+    box-shadow: none;
+  }
+
+  .team-win-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 900;
+    color: var(--text-muted);
+    width: 18px; text-align: center; flex-shrink: 0;
+    line-height: 1;
+  }
+  .team-win-count.leading { color: #fff; }
+  .team-win-count.series-winner { color: var(--nbc-gold); }
+  .team-win-count.series-loser { color: var(--text-muted); }
+
+  /* ── Series win probability bar ── */
+  .series-prob-wrap {
+    margin-top: 9px;
+    position: relative;
+  }
+  .series-prob-bar {
+    height: 5px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    overflow: hidden;
+    display: flex;
+  }
+  .prob-fill-high {
+    height: 100%;
+    background: linear-gradient(90deg, var(--nbc-blue), var(--nbc-blue-bright));
+    transition: width 0.4s ease;
+  }
+  .prob-fill-low {
+    height: 100%;
+    background: var(--bg-card-alt);
+    flex: 1;
+  }
+  .series-prob-labels {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 3px;
+  }
+  .prob-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--text-muted); letter-spacing: 0.3px;
+  }
+  .prob-label.high { color: var(--nbc-blue-bright); }
+  .prob-label.even { color: var(--text-secondary); }
+
+  /* ── Next game info ── */
+  .next-game {
+    margin-top: 7px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .next-game-date { color: var(--text-secondary); }
+  .next-game-loc {
+    background: rgba(26,49,85,0.6);
+    padding: 1px 5px;
+    color: var(--text-muted);
+  }
+  .series-result-line {
+    margin-top: 7px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--nbc-gold);
+    text-transform: uppercase; letter-spacing: 1px;
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    text-align: center;
+  }
+
+  /* ── Finals center ── */
+  .finals-col {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .finals-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 3px;
+    color: var(--nbc-gold);
+    text-align: center;
+    padding: 4px 0;
+  }
+
+  /* ── Play-In section ── */
+  .playin-section {
+    margin-bottom: 16px;
+  }
+  .playin-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--nbc-blue-bright);
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .playin-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .playin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  @media (min-width: 768px) {
+    .playin-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* ── Connector lines (desktop bracket) ── */
+  .bracket-connector {
+    display: none;
+  }
+  @media (min-width: 1100px) {
+    .bracket-connector {
+      display: flex; align-items: center; justify-content: center;
+      color: var(--border); font-size: 20px;
+      padding: 0 4px; align-self: center;
+    }
+  }
+
+  /* ── Mobile: stacked conference blocks ── */
+  .mobile-conf-section { margin-bottom: 20px; }
+  .mobile-conf-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 2px;
+    color: var(--nbc-gold);
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-round-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin: 10px 0 6px;
+  }
+  .mobile-series-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  @media (min-width: 600px) {
+    .mobile-series-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* ── Tooltip-style SRS note ── */
+  .srs-note {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <div class="header-inner">
+    <h1>NBA <span class="nbc-accent">Playoff</span> Tracker</h1>
+    <span class="subtitle">SRS-Powered Series Odds</span>
+    <span class="updated-at">Updated: April 04, 2026 at 11:33 AM CDT — Projected</span>
+  </div>
+</header>
+
+<!-- ── Mode tabs ── -->
+<nav class="mode-tabs">
+  <a class="mode-tab" href="index.html">Regular Season</a>
+  <a class="mode-tab active" href="playoff.html">Play-In / Playoffs</a>
+</nav>
+
+<!-- ── Page body ── -->
+<div class="page">
+
+  <!-- Championship probability strip -->
+  <div class="champ-strip">
+    <div class="champ-strip-title">Championship Probability</div>
+    <div class="champ-teams" id="champ-strip"></div>
+  </div>
+
+  <!-- Play-In section -->
+  <div class="playin-section">
+    <div class="playin-title">Play-In Tournament</div>
+    <div class="playin-grid" id="playin-grid"></div>
+  </div>
+
+  <!-- Bracket: mobile layout -->
+  <div id="bracket-mobile"></div>
+
+</div>
+
+<script>
+// ── DATA_START ──
+const DATA = {
+  "updated": "April 04, 2026 at 11:33 AM CDT \u2014 Projected",
+  "playin": [
+    {
+      "game": "W 7v8",
+      "home": "PHX",
+      "home_seed": 7,
+      "away": "POR",
+      "away_seed": 8,
+      "home_wins": 0,
+      "away_wins": 0,
+      "status": "upcoming",
+      "home_prob": 0.642,
+      "label": "Play-In \u00b7 42-35 vs 40-38"
+    },
+    {
+      "game": "W 9v10",
+      "home": "LAC",
+      "home_seed": 9,
+      "away": "GSW",
+      "away_seed": 10,
+      "home_wins": 0,
+      "away_wins": 0,
+      "status": "upcoming",
+      "home_prob": 0.671,
+      "label": "Play-In \u00b7 39-38 vs 36-41"
+    },
+    {
+      "game": "E 7v8",
+      "home": "TOR",
+      "home_seed": 7,
+      "away": "CHA",
+      "away_seed": 8,
+      "home_wins": 0,
+      "away_wins": 0,
+      "status": "upcoming",
+      "home_prob": 0.518,
+      "label": "Play-In \u00b7 43-34 vs 42-36"
+    },
+    {
+      "game": "E 9v10",
+      "home": "ORL",
+      "home_seed": 9,
+      "away": "MIA",
+      "away_seed": 10,
+      "home_wins": 0,
+      "away_wins": 0,
+      "status": "upcoming",
+      "home_prob": 0.568,
+      "label": "Play-In \u00b7 41-36 vs 40-37"
+    }
+  ],
+  "series": {
+    "w1": {
+      "round": "First Round",
+      "high": "OKC",
+      "high_seed": 1,
+      "low": "POR",
+      "low_seed": 8,
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.9405,
+      "next": "61-16 vs 40-38",
+      "status": "ongoing"
+    },
+    "w2": {
+      "round": "First Round",
+      "high": "SAS",
+      "high_seed": 2,
+      "low": "PHX",
+      "low_seed": 7,
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.89,
+      "next": "59-18 vs 42-35",
+      "status": "ongoing"
+    },
+    "w3": {
+      "round": "First Round",
+      "high": "LAL",
+      "high_seed": 3,
+      "low": "MIN",
+      "low_seed": 6,
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5564,
+      "next": "50-27 vs 46-31",
+      "status": "ongoing"
+    },
+    "w4": {
+      "round": "First Round",
+      "high": "DEN",
+      "high_seed": 4,
+      "low": "HOU",
+      "low_seed": 5,
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5237,
+      "next": "49-28 vs 48-29",
+      "status": "ongoing"
+    },
+    "ws1": {
+      "round": "Second Round",
+      "high": "?",
+      "high_seed": "?",
+      "low": "?",
+      "low_seed": "?",
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5,
+      "next": null,
+      "status": "tbd"
+    },
+    "ws2": {
+      "round": "Second Round",
+      "high": "?",
+      "high_seed": "?",
+      "low": "?",
+      "low_seed": "?",
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5,
+      "next": null,
+      "status": "tbd"
+    },
+    "wcf": {
+      "round": "Conf Finals",
+      "high": "?",
+      "high_seed": "?",
+      "low": "?",
+      "low_seed": "?",
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5,
+      "next": null,
+      "status": "tbd"
+    },
+    "e1": {
+      "round": "First Round",
+      "high": "DET",
+      "high_seed": 1,
+      "low": "CHA",
+      "low_seed": 8,
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.6818,
+      "next": "56-21 vs 42-36",
+      "status": "ongoing"
+    },
+    "e2": {
+      "round": "First Round",
+      "high": "BOS",
+      "high_seed": 2,
+      "low": "TOR",
+      "low_seed": 7,
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.8355,
+      "next": "52-25 vs 43-34",
+      "status": "ongoing"
+    },
+    "e3": {
+      "round": "First Round",
+      "high": "NYK",
+      "high_seed": 3,
+      "low": "PHI",
+      "low_seed": 6,
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.7324,
+      "next": "50-28 vs 43-34",
+      "status": "ongoing"
+    },
+    "e4": {
+      "round": "First Round",
+      "high": "CLE",
+      "high_seed": 4,
+      "low": "ATL",
+      "low_seed": 5,
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5713,
+      "next": "48-29 vs 45-33",
+      "status": "ongoing"
+    },
+    "es1": {
+      "round": "Second Round",
+      "high": "?",
+      "high_seed": "?",
+      "low": "?",
+      "low_seed": "?",
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5,
+      "next": null,
+      "status": "tbd"
+    },
+    "es2": {
+      "round": "Second Round",
+      "high": "?",
+      "high_seed": "?",
+      "low": "?",
+      "low_seed": "?",
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5,
+      "next": null,
+      "status": "tbd"
+    },
+    "ecf": {
+      "round": "Conf Finals",
+      "high": "?",
+      "high_seed": "?",
+      "low": "?",
+      "low_seed": "?",
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5,
+      "next": null,
+      "status": "tbd"
+    },
+    "finals": {
+      "round": "NBA Finals",
+      "high": "?",
+      "high_seed": "?",
+      "low": "?",
+      "low_seed": "?",
+      "wins": [
+        0,
+        0
+      ],
+      "prob": 0.5,
+      "next": null,
+      "status": "tbd"
+    }
+  },
+  "champ_probs": [
+    {
+      "team": "OKC",
+      "prob": 0.4003
+    },
+    {
+      "team": "SAS",
+      "prob": 0.2692
+    },
+    {
+      "team": "BOS",
+      "prob": 0.1324
+    },
+    {
+      "team": "DET",
+      "prob": 0.1052
+    },
+    {
+      "team": "NYK",
+      "prob": 0.0248
+    },
+    {
+      "team": "CLE",
+      "prob": 0.0152
+    },
+    {
+      "team": "CHA",
+      "prob": 0.0131
+    },
+    {
+      "team": "HOU",
+      "prob": 0.0095
+    },
+    {
+      "team": "DEN",
+      "prob": 0.0093
+    },
+    {
+      "team": "ATL",
+      "prob": 0.0073
+    },
+    {
+      "team": "LAL",
+      "prob": 0.0058
+    },
+    {
+      "team": "MIN",
+      "prob": 0.0028
+    },
+    {
+      "team": "TOR",
+      "prob": 0.0019
+    },
+    {
+      "team": "PHX",
+      "prob": 0.0015
+    },
+    {
+      "team": "PHI",
+      "prob": 0.0011
+    },
+    {
+      "team": "POR",
+      "prob": 0.0006
+    }
+  ]
+};
+// ── DATA_END ──
+
+// ─────────────────────────────────────────────────────────────
+//  Render helpers
+// ─────────────────────────────────────────────────────────────
+
+function pct(p) {
+  return Math.round(p * 100) + "%";
+}
+
+function pips(wins, totalNeeded, isWinner, isLoser) {
+  let html = '';
+  for (let i = 0; i < totalNeeded; i++) {
+    let cls = 'pip';
+    if (i < wins) {
+      cls += ' won';
+      if (isWinner && wins === totalNeeded) cls += ' series-clinch';
+      if (isLoser) cls += ' series-loss';
+    }
+    html += `<span class="${cls}"></span>`;
+  }
+  return html;
+}
+
+function seriesCard(s, compact) {
+  if (s.status === 'tbd') {
+    return `<div class="series-card tbd">
+      <div class="series-meta">
+        <span class="series-round-badge">${s.round}</span>
+      </div>
+      <div style="text-align:center; padding: 12px 0; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">TBD</div>
+    </div>`;
+  }
+
+  const [hw, lw] = s.wins;
+  const needed = 4;
+  const seriesOver = hw === needed || lw === needed;
+  const winner = hw === needed ? 'high' : (lw === needed ? 'low' : null);
+
+  const highIsWinner = winner === 'high';
+  const lowIsWinner = winner === 'low';
+
+  const highAbbr = `<span class="team-abbr ${highIsWinner ? 'team-advancing' : (lowIsWinner ? 'team-eliminated' : '')}">${s.high}</span>`;
+  const lowAbbr = `<span class="team-abbr ${lowIsWinner ? 'team-advancing' : (highIsWinner ? 'team-eliminated' : '')}">${s.low}</span>`;
+
+  const highCount = `<span class="team-win-count ${hw > lw ? 'leading' : ''} ${highIsWinner ? 'series-winner' : ''} ${lowIsWinner ? 'series-loser' : ''}">${hw}</span>`;
+  const lowCount = `<span class="team-win-count ${lw > hw ? 'leading' : ''} ${lowIsWinner ? 'series-winner' : ''} ${highIsWinner ? 'series-loser' : ''}">${lw}</span>`;
+
+  const highPips = pips(hw, needed, highIsWinner, lowIsWinner);
+  const lowPips = pips(lw, needed, lowIsWinner, highIsWinner);
+
+  // Probability bar — prob is always P(high seed wins)
+  const highProb = seriesOver ? (highIsWinner ? 1.0 : 0.0) : s.prob;
+  const lowProb = 1 - highProb;
+  const probDiff = Math.abs(highProb - lowProb);
+  const barClass = probDiff < 0.08 ? 'even' : '';
+
+  let probSection = '';
+  if (!seriesOver) {
+    probSection = `
+      <div class="series-prob-wrap">
+        <div class="series-prob-bar">
+          <div class="prob-fill-high" style="width:${pct(highProb)}"></div>
+          <div class="prob-fill-low"></div>
+        </div>
+        <div class="series-prob-labels">
+          <span class="prob-label ${highProb > 0.55 ? 'high' : barClass}">${pct(highProb)} ${s.high}</span>
+          <span class="prob-label ${lowProb > 0.55 ? 'high' : barClass}">${s.low} ${pct(lowProb)}</span>
+        </div>
+      </div>`;
+  }
+
+  let footer = '';
+  if (seriesOver) {
+    const w = winner === 'high' ? s.high : s.low;
+    footer = `<div class="series-result-line">${w} wins ${hw}-${lw}</div>`;
+  } else if (s.next) {
+    // Figure out if next game is home/away for high seed using 2-2-1-1-1 format
+    const gameNum = hw + lw + 1;
+    const highSeedHome = [1,2,5,7].includes(gameNum);
+    const loc = highSeedHome ? `@ ${s.high}` : `@ ${s.low}`;
+    footer = `<div class="next-game">
+      <span class="next-game-date">${s.next.split('·')[0].trim()}</span>
+      <span class="next-game-loc">${loc}</span>
+    </div>`;
+  }
+
+  // Game badge
+  const gameNum = hw + lw;
+  const totalGames = hw + lw;
+  const nextGameNum = totalGames + 1;
+  const ifNec = [5,6,7].includes(nextGameNum) && !seriesOver;
+  const gameBadge = seriesOver
+    ? ''
+    : `<span class="series-game-badge ${ifNec ? 'if-necessary' : ''}">G${nextGameNum}${ifNec ? ' if nec.' : ''}</span>`;
+
+  return `<div class="series-card ${seriesOver ? 'series-over' : ''}">
+    <div class="series-meta">
+      <span class="series-round-badge">${s.round}</span>
+      ${gameBadge}
+    </div>
+    <div class="series-teams">
+      <div class="team-row">
+        <span class="team-seed">${s.high_seed}</span>
+        ${highAbbr}
+        <div class="pip-track">${highPips}</div>
+        ${highCount}
+      </div>
+      <div class="team-row">
+        <span class="team-seed">${s.low_seed}</span>
+        ${lowAbbr}
+        <div class="pip-track">${lowPips}</div>
+        ${lowCount}
+      </div>
+    </div>
+    ${probSection}
+    ${footer}
+  </div>`;
+}
+
+function playinCard(g) {
+  const homeWon = g.home_wins > g.away_wins && g.status === 'over';
+  const awayWon = g.away_wins > g.home_wins && g.status === 'over';
+
+  return `<div class="series-card ${g.status === 'over' ? 'series-over' : ''}">
+    <div class="series-meta">
+      <span class="series-round-badge">Play-In · ${g.game}</span>
+    </div>
+    <div class="series-teams">
+      <div class="team-row">
+        <span class="team-seed">${g.home_seed}</span>
+        <span class="team-abbr ${homeWon ? 'team-advancing' : (awayWon ? 'team-eliminated' : '')}">${g.home}</span>
+        <div class="pip-track">
+          <span class="pip ${g.home_wins > 0 ? 'won' : ''}"></span>
+        </div>
+        <span class="team-win-count ${g.home_wins > g.away_wins ? 'leading' : ''}">${g.home_wins}</span>
+      </div>
+      <div class="team-row">
+        <span class="team-seed">${g.away_seed}</span>
+        <span class="team-abbr ${awayWon ? 'team-advancing' : (homeWon ? 'team-eliminated' : '')}">${g.away}</span>
+        <div class="pip-track">
+          <span class="pip ${g.away_wins > 0 ? 'won' : ''}"></span>
+        </div>
+        <span class="team-win-count ${g.away_wins > g.home_wins ? 'leading' : ''}">${g.away_wins}</span>
+      </div>
+    </div>
+    <div class="series-prob-wrap">
+      <div class="series-prob-bar">
+        <div class="prob-fill-high" style="width:${pct(g.home_prob)}"></div>
+        <div class="prob-fill-low"></div>
+      </div>
+      <div class="series-prob-labels">
+        <span class="prob-label ${g.home_prob > 0.55 ? 'high' : ''}">${pct(g.home_prob)} ${g.home}</span>
+        <span class="prob-label ${(1-g.home_prob) > 0.55 ? 'high' : ''}">${g.away} ${pct(1-g.home_prob)}</span>
+      </div>
+    </div>
+    <div class="next-game">
+      <span class="next-game-date">${g.label.split('·')[0].trim()}</span>
+      <span class="next-game-loc">${g.label.split('·').slice(1).join('·').trim()}</span>
+    </div>
+  </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+//  Render champ strip
+// ─────────────────────────────────────────────────────────────
+(function renderChamp() {
+  const el = document.getElementById('champ-strip');
+  const maxProb = DATA.champ_probs[0].prob;
+  el.innerHTML = DATA.champ_probs.map(t => `
+    <div class="champ-team">
+      <span class="champ-abbr">${t.team}</span>
+      <div class="champ-bar-wrap">
+        <div class="champ-bar-fill" style="width:${Math.round(t.prob/maxProb*100)}%"></div>
+      </div>
+      <span class="champ-pct">${pct(t.prob)}</span>
+    </div>
+  `).join('');
+})();
+
+// ─────────────────────────────────────────────────────────────
+//  Render play-in grid
+// ─────────────────────────────────────────────────────────────
+(function renderPlayin() {
+  const el = document.getElementById('playin-grid');
+  el.innerHTML = DATA.playin.map(g => playinCard(g)).join('');
+})();
+
+// ─────────────────────────────────────────────────────────────
+//  Render bracket (mobile: stacked rounds per conference)
+// ─────────────────────────────────────────────────────────────
+(function renderBracket() {
+  const el = document.getElementById('bracket-mobile');
+  const s = DATA.series;
+
+  const westRounds = [
+    { label: "First Round", series: [s.w1, s.w2, s.w3, s.w4] },
+    { label: "Second Round", series: [s.ws1, s.ws2] },
+    { label: "Conference Finals", series: [s.wcf] },
+  ];
+  const eastRounds = [
+    { label: "First Round", series: [s.e1, s.e2, s.e3, s.e4] },
+    { label: "Second Round", series: [s.es1, s.es2] },
+    { label: "Conference Finals", series: [s.ecf] },
+  ];
+
+  function renderConf(label, rounds) {
+    return `<div class="mobile-conf-section">
+      <div class="mobile-conf-label">${label} Conference</div>
+      ${rounds.map(r => `
+        <div class="mobile-round-label">${r.label}</div>
+        <div class="mobile-series-grid">
+          ${r.series.map(s => seriesCard(s)).join('')}
+        </div>
+      `).join('')}
+    </div>`;
+  }
+
+  // Finals
+  const finalsHtml = `<div class="mobile-conf-section">
+    <div class="mobile-conf-label" style="color:var(--nbc-gold)">NBA Finals</div>
+    <div class="mobile-series-grid" style="grid-template-columns:1fr 1fr;">
+      ${seriesCard(s.finals)}
+    </div>
+  </div>`;
+
+  el.innerHTML = renderConf('Western', westRounds) + renderConf('Eastern', eastRounds) + finalsHtml;
+})();
+</script>
+</body>
+</html>

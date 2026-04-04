@@ -31,6 +31,8 @@ MOV_CAP = 20          # Cap margin of victory (reduces blowout inflation)
 HOME_COURT_ADVANTAGE = 3.0  # Points added to home team SRS before win probability calc
 SRS_ITERATIONS = 500  # Iterations for the solver
 SLEEP = 0.7           # Seconds between API calls (be polite to the API)
+SRS_DECAY = 0.005     # Temporal decay per day; game 180 days ago ≈ 40% weight vs today
+MONTE_CARLO_N = 10_000  # Playoff championship simulations
 
 # Every boundary between seeds carries weight — higher = more consequential.
 # Think of these as the "value of crossing this line":
@@ -50,15 +52,32 @@ BOUNDARY_WEIGHTS = {
 
 # ── Step 1: Fetch all games played this season ───────────────────────────────
 def fetch_game_results():
+    """
+    Fetch regular season + play-in + playoff games for SRS input.
+    Playoff games are treated as additional data points (83, 84, …).
+    The 82-game regular season still dominates numerically, but a team that
+    beats a strong opponent in 6 playoff games earns the SRS credit for it.
+    Recency weighting naturally up-weights the most recent playoff games.
+    """
     print("📡 Fetching game results from NBA API...")
-    finder = leaguegamefinder.LeagueGameFinder(
-        season_nullable=SEASON,
-        league_id_nullable="00",
-        season_type_nullable="Regular Season",
-        timeout=60
-    )
-    time.sleep(SLEEP)
-    df = finder.get_data_frames()[0]
+    frames = []
+    for season_type in ("Regular Season", "PlayIn", "Playoffs"):
+        try:
+            finder = leaguegamefinder.LeagueGameFinder(
+                season_nullable=SEASON,
+                league_id_nullable="00",
+                season_type_nullable=season_type,
+                timeout=60,
+            )
+            time.sleep(SLEEP)
+            chunk = finder.get_data_frames()[0]
+            if not chunk.empty:
+                frames.append(chunk)
+                print(f"   {season_type}: {len(chunk)//2} games")
+        except Exception as e:
+            print(f"   {season_type} fetch error (skipping): {e}")
+
+    df = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
 
     # Keep only completed games
     df = df[df["WL"].notna()].copy()
@@ -100,18 +119,24 @@ def calculate_srs(df_games):
     team_idx = {tid: i for i, tid in enumerate(team_ids)}
     n = len(team_ids)
 
-    # Point differential per game (capped)
+    # Point differential per game (capped), with exponential temporal decay.
+    # SRS_DECAY=0.005 means a game 180 days ago carries ~40% the weight of today.
+    # We only decay avg_mov (the "base rating"). The opponent-strength correction
+    # in the iterative solver stays unweighted — opponent quality doesn't decay.
+    most_recent = df_games["date"].max()
     mov_sum = defaultdict(float)
-    game_count = defaultdict(int)
+    game_count = defaultdict(float)   # float because weights are fractional
     opponent_games = defaultdict(list)  # team_id -> list of opponent_ids
 
     for _, row in df_games.iterrows():
         h, a = row["home_team_id"], row["away_team_id"]
         mov = np.clip(row["home_mov"], -MOV_CAP, MOV_CAP)
-        mov_sum[h] += mov
-        mov_sum[a] -= mov
-        game_count[h] += 1
-        game_count[a] += 1
+        days_ago = (most_recent - row["date"]).days
+        w = np.exp(-SRS_DECAY * days_ago)
+        mov_sum[h] += mov * w
+        mov_sum[a] -= mov * w
+        game_count[h] += w
+        game_count[a] += w
         opponent_games[h].append(a)
         opponent_games[a].append(h)
 
@@ -901,6 +926,27 @@ def build_html(scored_games, srs_df, standings):
   }}
   .dot {{ width: 8px; height: 3px; border-radius: 0; flex-shrink: 0; }}
 
+  /* ── Mode tabs ── */
+  .mode-tabs {{
+    display: flex;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+  }}
+  .mode-tab {{
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted);
+    padding: 10px 14px; border: none; background: none;
+    cursor: pointer; border-bottom: 3px solid transparent;
+    margin-bottom: -1px; transition: all 0.12s;
+    text-decoration: none; display: inline-block;
+  }}
+  .mode-tab:hover {{ color: var(--text-secondary); }}
+  .mode-tab.active {{ color: var(--nbc-gold); border-bottom-color: var(--nbc-gold); }}
+  @media (min-width: 768px) {{ .mode-tabs {{ padding: 0 28px; }} }}
+
   /* ── Back link ── */
   .back-link {{
     display: inline-flex; align-items: center; gap: 6px;
@@ -939,6 +985,11 @@ def build_html(scored_games, srs_df, standings):
     <p class="subtitle">{SEASON} &nbsp;·&nbsp; {now} &nbsp;·&nbsp; SRS from live data</p>
   </div>
 </div>
+
+<nav class="mode-tabs">
+  <a class="mode-tab active" href="index.html">Regular Season</a>
+  <a class="mode-tab" href="playoff.html">Play-In / Playoffs</a>
+</nav>
 
 <div class="layout">
 
@@ -1239,25 +1290,613 @@ applyFilters();
     return output_path
 
 
+# ── Playoff helpers ──────────────────────────────────────────────────────────
+# NBA 2-2-1-1-1 format: high seed has home court in games 1, 2, 5, 7.
+HIGH_SEED_HOME_GAMES = {1, 2, 5, 7}
+
+def p_high_wins_game(high_srs, low_srs, game_num):
+    """P(high seed wins a single playoff game), adjusted for home court."""
+    home_is_high = game_num in HIGH_SEED_HOME_GAMES
+    hca = HOME_COURT_ADVANTAGE if home_is_high else -HOME_COURT_ADVANTAGE
+    srs_diff = high_srs - low_srs + hca
+    return 1 / (1 + np.exp(-srs_diff / 7))
+
+
+def series_win_prob(high_srs, low_srs, high_wins, low_wins, needed=4):
+    """
+    P(high seed wins series) from current state.
+    Uses DP with home-court adjustment per 2-2-1-1-1 format.
+    """
+    from functools import lru_cache
+
+    @lru_cache(maxsize=None)
+    def dp(hw, lw):
+        if hw == needed:
+            return 1.0
+        if lw == needed:
+            return 0.0
+        p = p_high_wins_game(high_srs, low_srs, hw + lw + 1)
+        return p * dp(hw + 1, lw) + (1 - p) * dp(hw, lw + 1)
+
+    return round(dp(high_wins, low_wins), 4)
+
+
+# ── Hypothetical bracket builders (regular season preview) ───────────────────
+def build_hypothetical_playin(standings, srs_by_abbr):
+    """
+    Build play-in matchups from current standings (seeds 7–10 per conf).
+    Used during regular season to preview 'if playoffs started today'.
+    """
+    games = []
+    for conf in ("West", "East"):
+        c = conf[0]
+        conf_df = standings[standings["conference"] == conf].sort_values("seed")
+        seeds = {int(r["seed"]): r for _, r in conf_df.iterrows()}
+        for hi, lo in ((7, 8), (9, 10)):
+            if hi not in seeds or lo not in seeds:
+                continue
+            h, a = seeds[hi], seeds[lo]
+            h_srs = srs_by_abbr.get(h["team"], 0)
+            a_srs = srs_by_abbr.get(a["team"], 0)
+            prob = round(1 / (1 + np.exp(-(h_srs - a_srs + HOME_COURT_ADVANTAGE) / 7)), 3)
+            games.append({
+                "game": f"{c} {hi}v{lo}",
+                "home": h["team"], "home_seed": hi,
+                "away": a["team"], "away_seed": lo,
+                "home_wins": 0, "away_wins": 0,
+                "status": "upcoming",
+                "home_prob": prob,
+                "label": f"Play-In · {h['wins']}-{h['losses']} vs {a['wins']}-{a['losses']}",
+            })
+    return games
+
+
+def build_hypothetical_bracket(standings, srs_by_abbr):
+    """
+    Build a full first-round playoff bracket from current standings (seeds 1–8).
+    R2, Conf Finals, and Finals are TBD. Used for 'if playoffs started today'.
+    """
+    tbd = {
+        "round": 0, "conf": "TBD",
+        "high": "?", "high_seed": "?", "high_srs": 0,
+        "low":  "?", "low_seed":  "?", "low_srs":  0,
+        "high_wins": 0, "low_wins": 0,
+        "prob": 0.5, "status": "tbd", "next": None,
+    }
+    series_list = []
+    for conf in ("West", "East"):
+        conf_df = standings[standings["conference"] == conf].sort_values("seed")
+        seeds = {int(r["seed"]): r for _, r in conf_df.iterrows()}
+        for hi, lo in ((1, 8), (2, 7), (3, 6), (4, 5)):
+            if hi not in seeds or lo not in seeds:
+                continue
+            h, a = seeds[hi], seeds[lo]
+            h_srs = srs_by_abbr.get(h["team"], 0)
+            a_srs = srs_by_abbr.get(a["team"], 0)
+            prob = series_win_prob(h_srs, a_srs, 0, 0)
+            series_list.append({
+                "round": 1, "conf": conf,
+                "high": h["team"], "high_seed": hi, "high_srs": round(h_srs, 2),
+                "low":  a["team"], "low_seed":  lo, "low_srs":  round(a_srs, 2),
+                "high_wins": 0, "low_wins": 0,
+                "prob": prob, "status": "ongoing",
+                "next": f"{h['wins']}-{h['losses']} vs {a['wins']}-{a['losses']}",
+            })
+        # R2, Conf Finals placeholders
+        for rnd in (2, 3):
+            n = 2 if rnd == 2 else 1
+            for _ in range(n):
+                series_list.append(dict(tbd, round=rnd, conf=conf))
+    # Finals placeholder
+    series_list.append(dict(tbd, round=4, conf="Finals"))
+    return series_list
+
+
+# ── Step 7: Detect season mode ───────────────────────────────────────────────
+def detect_mode():
+    """Returns 'regular_season', 'playin', or 'playoffs'."""
+    print("🔍 Detecting season mode...")
+    try:
+        pf = leaguegamefinder.LeagueGameFinder(
+            season_nullable=SEASON, league_id_nullable="00",
+            season_type_nullable="Playoffs", timeout=30
+        )
+        time.sleep(SLEEP)
+        if len(pf.get_data_frames()[0]) > 0:
+            print("   ✅ Mode: PLAYOFFS")
+            return "playoffs"
+    except Exception as e:
+        print(f"   Playoff check error: {e}")
+    try:
+        pi = leaguegamefinder.LeagueGameFinder(
+            season_nullable=SEASON, league_id_nullable="00",
+            season_type_nullable="PlayIn", timeout=30
+        )
+        time.sleep(SLEEP)
+        if len(pi.get_data_frames()[0]) > 0:
+            print("   ✅ Mode: PLAY-IN")
+            return "playin"
+    except Exception as e:
+        print(f"   Play-in check error: {e}")
+    print("   ✅ Mode: REGULAR SEASON")
+    return "regular_season"
+
+
+# ── Step 8: Fetch play-in games ──────────────────────────────────────────────
+def fetch_playin_games(standings, srs_by_abbr):
+    """Fetch play-in tournament schedule and results."""
+    print("📡 Fetching play-in data...")
+    from nba_api.stats.endpoints import scheduleleaguev2
+
+    # Get schedule structure (all 005* games)
+    sched_ep = scheduleleaguev2.ScheduleLeagueV2(
+        league_id="00", season=SEASON, timeout=60
+    )
+    time.sleep(SLEEP)
+    df = sched_ep.get_data_frames()[0]
+    df.columns = [c.upper() for c in df.columns]
+    df = df[df["GAMEID"].astype(str).str[1:4] == "005"].copy()
+
+    if df.empty:
+        print("   No play-in games in schedule yet.")
+        return []
+
+    # Get actual results
+    result_lookup = {}
+    try:
+        finder = leaguegamefinder.LeagueGameFinder(
+            season_nullable=SEASON, league_id_nullable="00",
+            season_type_nullable="PlayIn", timeout=60
+        )
+        time.sleep(SLEEP)
+        res = finder.get_data_frames()[0]
+        res = res[res["WL"].notna()].copy()
+        home_res = res[res["MATCHUP"].str.contains("vs\\.")].copy()
+        away_res = res[res["MATCHUP"].str.contains("@")].copy()
+        for _, row in home_res.iterrows():
+            gid = str(row["GAME_ID"])
+            away_row = away_res[away_res["GAME_ID"] == row["GAME_ID"]]
+            if not away_row.empty:
+                result_lookup[gid] = {
+                    "home_won": row["WL"] == "W",
+                    "home_pts": int(row["PTS"]),
+                    "away_pts": int(away_row.iloc[0]["PTS"]),
+                }
+    except Exception as e:
+        print(f"   Play-in results fetch error: {e}")
+
+    stand_map = standings.set_index("team_id").to_dict("index")
+    games = []
+    for _, row in df.iterrows():
+        game_id = str(row["GAMEID"])
+        home_id = int(row["HOMETEAM_TEAMID"]) if pd.notna(row["HOMETEAM_TEAMID"]) else 0
+        away_id = int(row["AWAYTEAM_TEAMID"]) if pd.notna(row["AWAYTEAM_TEAMID"]) else 0
+        home_abbr = str(row.get("HOMETEAM_TEAMTRICODE", "?")).strip()
+        away_abbr = str(row.get("AWAYTEAM_TEAMTRICODE", "?")).strip()
+        if home_abbr in ("", "nan") or away_abbr in ("", "nan"):
+            continue  # TBD game, no teams assigned yet
+
+        home_seed = stand_map.get(home_id, {}).get("seed", "?")
+        away_seed = stand_map.get(away_id, {}).get("seed", "?")
+
+        h_srs = srs_by_abbr.get(home_abbr, 0)
+        a_srs = srs_by_abbr.get(away_abbr, 0)
+        home_prob = round(1 / (1 + np.exp(-(h_srs - a_srs + HOME_COURT_ADVANTAGE) / 7)), 3)
+
+        result = result_lookup.get(game_id, {})
+        if result:
+            home_wins = 1 if result["home_won"] else 0
+            away_wins = 0 if result["home_won"] else 1
+            status = "over"
+        else:
+            home_wins, away_wins, status = 0, 0, "upcoming"
+
+        date_col = next((c for c in ["GAMEDATE", "GAMEDATEUTC"] if c in row.index and pd.notna(row[c])), None)
+        date_str = str(row[date_col])[:10] if date_col else ""
+        label_col = next((c for c in ["GAMELABEL", "GAME_LABEL"] if c in row.index), None)
+        game_label = str(row[label_col]) if label_col else "Play-In"
+        conf_char = "W" if "west" in game_label.lower() else ("E" if "east" in game_label.lower() else "")
+
+        games.append({
+            "game": f"{conf_char} {home_seed}v{away_seed}",
+            "home": home_abbr,
+            "home_seed": home_seed,
+            "away": away_abbr,
+            "away_seed": away_seed,
+            "home_wins": home_wins,
+            "away_wins": away_wins,
+            "status": status,
+            "home_prob": home_prob,
+            "label": f"{date_str} · @ {home_abbr}",
+        })
+
+    print(f"   ✅ {len(games)} play-in games found.")
+    return games
+
+
+# ── Step 9: Parse series score from NBA seriesText string ────────────────────
+def parse_series_wins(text, high_abbr, low_abbr):
+    """
+    Parse 'OKC leads 3-1' or 'Series tied 2-2' into (high_wins, low_wins).
+    """
+    import re
+    if not text or str(text).strip() in ("", "nan", "None"):
+        return 0, 0
+    text = str(text).strip()
+    tied = re.search(r'tied\s+(\d+)-(\d+)', text, re.I)
+    if tied:
+        n = int(tied.group(1))
+        return n, n
+    match = re.search(r'(\w+)\s+(?:leads|wins|clinch\w*)\s+(\d+)-(\d+)', text, re.I)
+    if match:
+        leader = match.group(1).upper()
+        w1, w2 = int(match.group(2)), int(match.group(3))
+        return (w1, w2) if leader == high_abbr.upper() else (w2, w1)
+    return 0, 0
+
+
+# ── Step 10: Fetch full playoff bracket state ────────────────────────────────
+def fetch_playoff_series(standings, srs_by_abbr):
+    """
+    Build playoff bracket from ScheduleLeagueV2.
+    Returns a flat list of series dicts, sorted by conf / round / seed.
+    """
+    print("📡 Fetching playoff series data...")
+    from nba_api.stats.endpoints import scheduleleaguev2
+    sched_ep = scheduleleaguev2.ScheduleLeagueV2(
+        league_id="00", season=SEASON, timeout=60
+    )
+    time.sleep(SLEEP)
+    df = sched_ep.get_data_frames()[0]
+    df.columns = [c.upper() for c in df.columns]
+
+    # Filter to playoff games (GAMEID second–fourth chars = "004")
+    df = df[df["GAMEID"].astype(str).str[1:4] == "004"].copy()
+    if df.empty:
+        print("   ⚠️  No playoff games in schedule.")
+        return []
+
+    # Round is encoded at GAMEID position 8 (0-indexed)
+    df["ROUND"] = df["GAMEID"].astype(str).str[8].astype(int)
+
+    # Series key = sorted pair of team IDs (stable across home/away swaps)
+    def matchup_key(row):
+        ids = sorted([str(int(row["HOMETEAM_TEAMID"])), str(int(row["AWAYTEAM_TEAMID"]))])
+        return "_".join(ids)
+
+    df["MATCHUP_KEY"] = df.apply(matchup_key, axis=1)
+
+    stand_map = standings.set_index("team_id").to_dict("index")
+    series_text_col = next((c for c in ["SERIESTEXT", "SERIES_TEXT"] if c in df.columns), None)
+    date_col = next((c for c in ["GAMEDATE", "GAMEDATEUTC"] if c in df.columns), None)
+
+    series_list = []
+    for (mk, round_num), group in df.groupby(["MATCHUP_KEY", "ROUND"]):
+        group = group.sort_values("GAMEID").reset_index(drop=True)
+        first = group.iloc[0]
+
+        home_id = int(first["HOMETEAM_TEAMID"])
+        away_id = int(first["AWAYTEAM_TEAMID"])
+
+        # High seed = lower seed number
+        h_seed = stand_map.get(home_id, {}).get("seed", 99)
+        a_seed = stand_map.get(away_id, {}).get("seed", 99)
+        if h_seed <= a_seed:
+            high_id, low_id = home_id, away_id
+            high_abbr = str(first.get("HOMETEAM_TEAMTRICODE", "?")).strip()
+            low_abbr  = str(first.get("AWAYTEAM_TEAMTRICODE", "?")).strip()
+            high_seed, low_seed = h_seed, a_seed
+        else:
+            high_id, low_id = away_id, home_id
+            high_abbr = str(first.get("AWAYTEAM_TEAMTRICODE", "?")).strip()
+            low_abbr  = str(first.get("HOMETEAM_TEAMTRICODE", "?")).strip()
+            high_seed, low_seed = a_seed, h_seed
+
+        # Skip fully TBD series (no teams assigned)
+        if high_abbr in ("", "nan", "?") or low_abbr in ("", "nan", "?"):
+            # Still include as TBD placeholder so bracket structure is complete
+            series_list.append({
+                "round": round_num,
+                "conf": "TBD",
+                "high": "?", "high_seed": "?", "high_srs": 0,
+                "low": "?",  "low_seed": "?", "low_srs": 0,
+                "high_wins": 0, "low_wins": 0,
+                "prob": 0.5, "status": "tbd", "next": None,
+            })
+            continue
+
+        # Parse current series score from most recent seriesText
+        texts = group[series_text_col].dropna().tolist() if series_text_col else []
+        latest_text = texts[-1] if texts else ""
+        high_wins, low_wins = parse_series_wins(latest_text, high_abbr, low_abbr)
+
+        high_srs = srs_by_abbr.get(high_abbr, 0)
+        low_srs  = srs_by_abbr.get(low_abbr, 0)
+        prob = series_win_prob(high_srs, low_srs, high_wins, low_wins)
+
+        if high_wins == 4 or low_wins == 4:
+            status = "over"
+        else:
+            status = "ongoing"
+
+        conf = stand_map.get(high_id, {}).get("conference", "?")
+        if round_num == 4:
+            conf = "Finals"
+
+        # Next game info
+        next_label = None
+        if status == "ongoing":
+            games_played = high_wins + low_wins
+            if games_played < len(group):
+                ng = group.iloc[games_played]
+                gn = games_played + 1
+                home_is_high = gn in HIGH_SEED_HOME_GAMES
+                loc = high_abbr if home_is_high else low_abbr
+                date_str = str(ng[date_col])[:10] if date_col and pd.notna(ng[date_col]) else ""
+                if_nec = gn >= 5
+                next_label = f"G{gn}{'*' if if_nec else ''} · {date_str} · @ {loc}"
+
+        series_list.append({
+            "round": round_num,
+            "conf": conf,
+            "high": high_abbr,
+            "high_seed": int(high_seed) if high_seed != 99 else "?",
+            "high_srs": round(high_srs, 2),
+            "low": low_abbr,
+            "low_seed": int(low_seed) if low_seed != 99 else "?",
+            "low_srs": round(low_srs, 2),
+            "high_wins": high_wins,
+            "low_wins": low_wins,
+            "prob": prob,
+            "status": status,
+            "next": next_label,
+        })
+
+    series_list.sort(key=lambda s: (
+        0 if s["conf"] == "West" else (1 if s["conf"] == "East" else 2),
+        s["round"],
+        s["high_seed"] if isinstance(s["high_seed"], int) else 99,
+    ))
+    print(f"   ✅ {len(series_list)} playoff series found.")
+    return series_list
+
+
+# ── Step 11: Monte Carlo championship probabilities ──────────────────────────
+def _simulate_series_once(high_srs, low_srs, high_wins=0, low_wins=0, needed=4):
+    hw, lw = high_wins, low_wins
+    while hw < needed and lw < needed:
+        p = p_high_wins_game(high_srs, low_srs, hw + lw + 1)
+        hw, lw = (hw + 1, lw) if np.random.random() < p else (hw, lw + 1)
+    return "high" if hw == needed else "low"
+
+
+def monte_carlo_championship(series_list, srs_by_abbr, n=MONTE_CARLO_N):
+    """
+    Simulate the remaining playoff bracket n times.
+    Returns {team_abbr: championship_probability}, sorted descending.
+    """
+    print(f"🎲 Running Monte Carlo ({n:,} simulations)...")
+    np.random.seed(42)
+
+    # Build seed lookup (for determining home court in later rounds)
+    team_seeds = {}
+    for s in series_list:
+        if isinstance(s["high_seed"], int):
+            team_seeds[s["high"]] = s["high_seed"]
+        if isinstance(s["low_seed"], int):
+            team_seeds[s["low"]] = s["low_seed"]
+
+    def sim_series(s):
+        """Simulate an existing series entry to completion."""
+        if s["status"] == "over":
+            return s["high"] if s["high_wins"] == 4 else s["low"]
+        result = _simulate_series_once(s["high_srs"], s["low_srs"], s["high_wins"], s["low_wins"])
+        return s["high"] if result == "high" else s["low"]
+
+    def sim_new_series(team_a, team_b):
+        """Simulate a fresh series between two teams determined by earlier rounds."""
+        seed_a = team_seeds.get(team_a, 99)
+        seed_b = team_seeds.get(team_b, 99)
+        high, low = (team_a, team_b) if seed_a <= seed_b else (team_b, team_a)
+        result = _simulate_series_once(srs_by_abbr.get(high, 0), srs_by_abbr.get(low, 0))
+        return high if result == "high" else low
+
+    def conf_series(conf, rnd):
+        return sorted(
+            [s for s in series_list if s["conf"] == conf and s["round"] == rnd],
+            key=lambda s: s["high_seed"] if isinstance(s["high_seed"], int) else 99,
+        )
+
+    champ_counts = defaultdict(int)
+    for _ in range(n):
+        conf_champs = {}
+        for conf in ("West", "East"):
+            r1 = conf_series(conf, 1)
+            if len(r1) < 4:
+                conf_champs[conf] = None
+                continue
+            # Simulate R1: sorted by high_seed → [1v8, 2v7, 3v6, 4v5]
+            w = [sim_series(s) for s in r1]
+            # NBA bracket: 1-seed bracket (w[0]) meets 4-seed bracket (w[3])
+            #              2-seed bracket (w[1]) meets 3-seed bracket (w[2])
+            r2_a = sim_new_series(w[0], w[3])
+            r2_b = sim_new_series(w[1], w[2])
+            conf_champs[conf] = sim_new_series(r2_a, r2_b)
+
+        if conf_champs.get("West") and conf_champs.get("East"):
+            champ = sim_new_series(conf_champs["West"], conf_champs["East"])
+            champ_counts[champ] += 1
+
+    total = sum(champ_counts.values()) or 1
+    result = {t: round(c / total, 4) for t, c in champ_counts.items()}
+    result = dict(sorted(result.items(), key=lambda x: -x[1]))
+    print(f"   ✅ Done. Top 3: {list(result.items())[:3]}")
+    return result
+
+
+# ── Step 12: Build playoff HTML ──────────────────────────────────────────────
+def build_playoff_html(series_list, playin_games, champ_probs, srs_df, mode):
+    """
+    Inject computed data into playoff.html template via DATA_START/DATA_END markers.
+    """
+    import json as _json, re
+
+    print("🎨 Building playoff HTML...")
+    ts = datetime.now(ZoneInfo("America/Chicago")).strftime("%B %d, %Y at %I:%M %p %Z")
+    now = f"{ts} — {'Projected' if mode == 'projected' else 'Live'}"
+
+    tbd_series = {
+        "round": "TBD", "high": "?", "high_seed": "?",
+        "low": "?", "low_seed": "?", "wins": [0, 0],
+        "prob": 0.5, "next": None, "status": "tbd",
+    }
+
+    def to_js(s):
+        round_labels = {1: "First Round", 2: "Second Round", 3: "Conf Finals", 4: "NBA Finals"}
+        return {
+            "round": round_labels.get(s.get("round", 0), s.get("round", "TBD")),
+            "high": s["high"], "high_seed": s["high_seed"],
+            "low": s["low"],   "low_seed": s["low_seed"],
+            "wins": [s["high_wins"], s["low_wins"]],
+            "prob": s["prob"],
+            "next": s.get("next"),
+            "status": s["status"],
+        }
+
+    def pick(lst, idx, round_label):
+        if idx < len(lst):
+            return to_js(lst[idx])
+        return dict(tbd_series, round=round_label)
+
+    def conf_round(conf, rnd):
+        return sorted(
+            [s for s in series_list if s["conf"] == conf and s["round"] == rnd],
+            key=lambda s: s["high_seed"] if isinstance(s["high_seed"], int) else 99,
+        )
+
+    wr1 = conf_round("West", 1)
+    er1 = conf_round("East", 1)
+    wr2 = conf_round("West", 2)
+    er2 = conf_round("East", 2)
+    wcf = conf_round("West", 3)
+    ecf = conf_round("East", 3)
+    fin = [s for s in series_list if s["round"] == 4]
+
+    series_data = {
+        "w1": pick(wr1, 0, "First Round"), "w2": pick(wr1, 1, "First Round"),
+        "w3": pick(wr1, 2, "First Round"), "w4": pick(wr1, 3, "First Round"),
+        "ws1": pick(wr2, 0, "Second Round"), "ws2": pick(wr2, 1, "Second Round"),
+        "wcf": pick(wcf, 0, "Conf Finals"),
+        "e1": pick(er1, 0, "First Round"), "e2": pick(er1, 1, "First Round"),
+        "e3": pick(er1, 2, "First Round"), "e4": pick(er1, 3, "First Round"),
+        "es1": pick(er2, 0, "Second Round"), "es2": pick(er2, 1, "Second Round"),
+        "ecf": pick(ecf, 0, "Conf Finals"),
+        "finals": pick(fin, 0, "NBA Finals"),
+    }
+
+    champ_list = [{"team": t, "prob": p} for t, p in champ_probs.items()]
+
+    data_obj = {
+        "updated": now,
+        "playin": playin_games,
+        "series": series_data,
+        "champ_probs": champ_list,
+    }
+    data_json = _json.dumps(data_obj, indent=2)
+
+    template_path = os.path.join(os.path.dirname(__file__), "playoff.html")
+    with open(template_path) as f:
+        template = f.read()
+
+    replacement = f'// ── DATA_START ──\nconst DATA = {data_json};\n// ── DATA_END ──'
+    new_html = re.sub(
+        r'// ── DATA_START ──.*?// ── DATA_END ──',
+        lambda _: replacement,
+        template,
+        flags=re.DOTALL,
+    )
+    # Update timestamp in header
+    new_html = re.sub(
+        r'Updated:.*?(?=<)',
+        f'Updated: {now}',
+        new_html,
+    )
+
+    with open(template_path, "w") as f:
+        f.write(new_html)
+    print(f"   ✅ playoff.html updated.")
+    return template_path
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 def main():
-    print("\n🏀 NBA Game Importance Scorer")
+    print("\n🏀 NBA Tracker")
     print("=" * 40)
 
+    # SRS is always computed from the full regular season —
+    # this remains the authoritative team strength measure throughout playoffs.
     games = fetch_game_results()
     srs_df, srs_dict = calculate_srs(games)
     standings = fetch_standings()
-    schedule = fetch_remaining_schedule()
-    scored = score_games(schedule, standings, srs_dict)
 
-    output = build_html(scored, srs_df, standings)
+    # Abbreviation → SRS lookup used by playoff functions
+    srs_by_abbr = {
+        row["team"]: srs_dict.get(row["team_id"], 0)
+        for _, row in standings.iterrows()
+    }
 
-    print("\n" + "=" * 40)
-    print("✅ Done! Open this file in your browser:")
-    print(f"   {output}")
-    print("\nTop 5 most important upcoming games:")
-    for _, row in scored.head(5).iterrows():
-        print(f"  {row['rank']}. {row['home']} vs {row['away']} ({row['date']}) — {row['importance']:.1f}/100")
+    mode = detect_mode()
+
+    if mode == "regular_season":
+        schedule = fetch_remaining_schedule()
+        scored = score_games(schedule, standings, srs_dict)
+        output = build_html(scored, srs_df, standings)
+
+        # Also build a projected playoff.html so the preview is always current
+        print("🏆 Building projected playoff bracket (if playoffs started today)...")
+        hyp_playin  = build_hypothetical_playin(standings, srs_by_abbr)
+        hyp_bracket = build_hypothetical_bracket(standings, srs_by_abbr)
+        hyp_champ   = monte_carlo_championship(hyp_bracket, srs_by_abbr)
+        build_playoff_html(hyp_bracket, hyp_playin, hyp_champ, srs_df, "projected")
+
+        print("\n" + "=" * 40)
+        print("✅ Done! Open this file in your browser:")
+        print(f"   {output}")
+        print("   playoff.html — projected bracket (if playoffs started today)")
+        print("\nTop 5 most important upcoming games:")
+        for _, row in scored.head(5).iterrows():
+            print(f"  {row['rank']}. {row['home']} vs {row['away']} ({row['date']}) — {row['importance']:.1f}/100")
+
+    else:
+        # Play-in or Playoffs
+        playin_games = fetch_playin_games(standings, srs_by_abbr)
+
+        series_list = []
+        champ_probs = {}
+        if mode == "playoffs":
+            series_list = fetch_playoff_series(standings, srs_by_abbr)
+            if series_list:
+                champ_probs = monte_carlo_championship(series_list, srs_by_abbr)
+
+        output = build_playoff_html(series_list, playin_games, champ_probs, srs_df, mode)
+
+        # Write a redirect so index.html points to the playoff tracker
+        redirect_path = os.path.join(os.path.dirname(__file__), "index.html")
+        with open(redirect_path, "w") as f:
+            f.write("""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="0; url=playoff.html">
+<title>NBA Tracker</title>
+</head>
+<body>
+<p>Redirecting to <a href="playoff.html">playoff tracker</a>...</p>
+</body>
+</html>""")
+        print("\n" + "=" * 40)
+        print(f"✅ Done! Open playoff.html in your browser.")
+        print(f"   index.html now redirects to playoff.html.")
 
 
 if __name__ == "__main__":
