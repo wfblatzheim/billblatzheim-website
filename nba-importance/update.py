@@ -33,6 +33,9 @@ SRS_ITERATIONS = 500  # Iterations for the solver
 SLEEP = 0.7           # Seconds between API calls (be polite to the API)
 SRS_DECAY = 0.005     # Temporal decay per day; game 180 days ago ≈ 40% weight vs today
 MONTE_CARLO_N = 10_000  # Playoff championship simulations
+SRS_SIGMA    = 1.0      # Uncertainty in SRS estimates (std dev in points).
+                        # 0 = treat SRS as ground truth; higher = more spread.
+                        # ~1 = small spread, ~2-3 = meaningful spread toward DK-style odds.
 
 # Every boundary between seeds carries weight — higher = more consequential.
 # Think of these as the "value of crossing this line":
@@ -1686,21 +1689,6 @@ def monte_carlo_championship(series_list, srs_by_abbr, n=MONTE_CARLO_N):
         if isinstance(s["low_seed"], int):
             team_seeds[s["low"]] = s["low_seed"]
 
-    def sim_series(s):
-        """Simulate an existing series entry to completion."""
-        if s["status"] == "over":
-            return s["high"] if s["high_wins"] == 4 else s["low"]
-        result = _simulate_series_once(s["high_srs"], s["low_srs"], s["high_wins"], s["low_wins"])
-        return s["high"] if result == "high" else s["low"]
-
-    def sim_new_series(team_a, team_b):
-        """Simulate a fresh series between two teams determined by earlier rounds."""
-        seed_a = team_seeds.get(team_a, 99)
-        seed_b = team_seeds.get(team_b, 99)
-        high, low = (team_a, team_b) if seed_a <= seed_b else (team_b, team_a)
-        result = _simulate_series_once(srs_by_abbr.get(high, 0), srs_by_abbr.get(low, 0))
-        return high if result == "high" else low
-
     def conf_series(conf, rnd):
         return sorted(
             [s for s in series_list if s["conf"] == conf and s["round"] == rnd],
@@ -1709,6 +1697,29 @@ def monte_carlo_championship(series_list, srs_by_abbr, n=MONTE_CARLO_N):
 
     champ_counts = defaultdict(int)
     for _ in range(n):
+        # Sample a noisy SRS for each team this trial. SRS_SIGMA = 0 disables this.
+        if SRS_SIGMA > 0:
+            trial_srs = {t: s + np.random.normal(0, SRS_SIGMA) for t, s in srs_by_abbr.items()}
+        else:
+            trial_srs = srs_by_abbr
+
+        def sim_series(s):
+            if s["status"] == "over":
+                return s["high"] if s["high_wins"] == 4 else s["low"]
+            result = _simulate_series_once(
+                trial_srs.get(s["high"], s["high_srs"]),
+                trial_srs.get(s["low"],  s["low_srs"]),
+                s["high_wins"], s["low_wins"],
+            )
+            return s["high"] if result == "high" else s["low"]
+
+        def sim_new_series(team_a, team_b):
+            seed_a = team_seeds.get(team_a, 99)
+            seed_b = team_seeds.get(team_b, 99)
+            high, low = (team_a, team_b) if seed_a <= seed_b else (team_b, team_a)
+            result = _simulate_series_once(trial_srs.get(high, 0), trial_srs.get(low, 0))
+            return high if result == "high" else low
+
         conf_champs = {}
         for conf in ("West", "East"):
             r1 = conf_series(conf, 1)
@@ -1793,6 +1804,14 @@ def build_playoff_html(series_list, playin_games, champ_probs, srs_df, mode):
         "ecf": pick(ecf, 0, "Conf Finals"),
         "finals": pick(fin, 0, "NBA Finals"),
     }
+
+    # Seeds 7 & 8 are decided by the play-in tournament — mark them TBD
+    # in the bracket until the actual playoffs begin.
+    if mode != "playoffs":
+        for key in ("w1", "w2", "e1", "e2"):
+            s = series_data[key]
+            if isinstance(s.get("low_seed"), int) and s["low_seed"] in (7, 8):
+                s["status"] = "playin_tbd"
 
     champ_list = [{"team": t, "prob": p} for t, p in champ_probs.items()]
 
