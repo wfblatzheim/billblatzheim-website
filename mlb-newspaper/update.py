@@ -240,9 +240,9 @@ def build_game(box, line, pbp=None):
     hdp = home_box.get("teamStats",{}).get("fielding",{}).get("doublePlays",0)
     if adp or hdp:
         notes.append(f"DP\u2014{away_abbr} {adp}, {home_abbr} {hdp}")
-    # LOB
-    alob = away_box.get("teamStats",{}).get("batting",{}).get("leftOnBase",0)
-    hlob = home_box.get("teamStats",{}).get("batting",{}).get("leftOnBase",0)
+    # LOB — use linescore team totals, not boxscore individual sums
+    alob = lt.get("away", {}).get("leftOnBase", 0)
+    hlob = lt.get("home", {}).get("leftOnBase", 0)
     notes.append(f"LOB\u2014{away_abbr} {alob}, {home_abbr} {hlob}")
     # XBH / HR / SB
     doubles = hit_notes(away_box,"doubles") + hit_notes(home_box,"doubles")
