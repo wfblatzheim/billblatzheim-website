@@ -667,6 +667,7 @@ function selectGame(gameId) {
 function startTracking() {
   const gameId = document.getElementById('gameIdInput').value.trim();
   if (!gameId) { showError('Please enter a Game ID.'); return; }
+  if (intervalId) clearInterval(intervalId);
   hideError();
   activeGameId = gameId;
   document.getElementById('startBtn').disabled = true;
@@ -850,6 +851,14 @@ function hideError() { document.getElementById('errorMsg').style.display = 'none
 
 document.getElementById('gameIdInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') startTracking();
+});
+
+// Re-fetch when user returns to tab (browsers throttle background intervals)
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    fetchTodaysGames();
+    if (activeGameId) fetchAndUpdate(activeGameId);
+  }
 });
 
 // Boot — load games immediately, refresh list every 60s
