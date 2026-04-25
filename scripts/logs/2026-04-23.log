@@ -1,0 +1,72 @@
+=== Daily update started: Thu Apr 23 04:01:10 CDT 2026 ===
+--- mlb-newspaper/update.py ---
+
+Fetching 2026-04-22...
+  St. Louis Cardinals @ Miami Marlins ... ok
+  Houston Astros @ Cleveland Guardians ... ok
+  Cincinnati Reds @ Tampa Bay Rays ... ok
+  Baltimore Orioles @ Kansas City Royals ... ok
+  Toronto Blue Jays @ Los Angeles Angels ... ok
+  Athletics @ Seattle Mariners ... ok
+  Milwaukee Brewers @ Detroit Tigers ... ok
+  Atlanta Braves @ Washington Nationals ... ok
+  New York Yankees @ Boston Red Sox ... ok
+  Minnesota Twins @ New York Mets ... ok
+  Philadelphia Phillies @ Chicago Cubs ... ok
+  Pittsburgh Pirates @ Texas Rangers ... ok
+  San Diego Padres @ Colorado Rockies ... ok
+  Chicago White Sox @ Arizona Diamondbacks ... ok
+  Los Angeles Dodgers @ San Francisco Giants ... ok
+  Fetching standings for 2026-04-22... ok
+  Fetching leaders for 2026-04-22... ok
+  15 games fetched.
+
+Refreshing probables 2026-04-23 → 2026-04-30... ok
+  Cache saved (2219 KB)
+
+Generating HTML...
+Done -> index.html (2177 KB)
+
+Usage:
+  python3 update.py                   # yesterday
+  python3 update.py 2026-03-24        # specific date
+  python3 update.py --schedule 2026   # load full season schedule
+  python3 update.py --clear-year 2025 # remove a year from cache
+  python3 update.py --rebuild         # regenerate HTML from cache
+--- mlb-newspaper/update_nyt.py ---
+Generating nyt.html...
+Done -> nyt.html (2176 KB)
+--- nba-importance/update.py ---
+
+🏀 NBA Tracker
+========================================
+📡 Fetching game results from NBA API...
+   Regular Season: 1230 games
+   PlayIn: 6 games
+   Playoffs: 16 games
+   ✅ 1247 completed games found.
+🧮 Calculating SRS...
+   ✅ SRS calculated.
+📡 Fetching current standings...
+   ✅ Standings fetched for 30 teams.
+🔍 Detecting season mode...
+   ✅ Mode: PLAYOFFS (completed games found)
+📡 Fetching play-in data...
+   ✅ 6 play-in games found.
+📡 Fetching playoff series data...
+   ✅ 9 playoff series found (via schedule).
+🎲 Running Monte Carlo (10,000 simulations)...
+   ✅ Done. Top 3: [('OKC', 0.4061), ('SAS', 0.2161), ('BOS', 0.1358)]
+🎨 Building playoff HTML...
+   ✅ playoff.html updated.
+
+========================================
+✅ Done! Open playoff.html in your browser.
+   index.html now redirects to playoff.html.
+--- git ---
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+Pushed to GitHub.
+=== Done: Thu Apr 23 04:01:43 CDT 2026 ===

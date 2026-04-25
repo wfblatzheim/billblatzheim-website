@@ -1,0 +1,66 @@
+=== Daily update started: Fri Apr 24 04:03:20 CDT 2026 ===
+--- mlb-newspaper/update.py ---
+
+Fetching 2026-04-23...
+  Atlanta Braves @ Washington Nationals ... ok
+  Milwaukee Brewers @ Detroit Tigers ... ok
+  Philadelphia Phillies @ Chicago Cubs ... ok
+  San Diego Padres @ Colorado Rockies ... ok
+  Chicago White Sox @ Arizona Diamondbacks ... ok
+  Los Angeles Dodgers @ San Francisco Giants ... ok
+  New York Yankees @ Boston Red Sox ... ok
+  Minnesota Twins @ New York Mets ... ok
+  Pittsburgh Pirates @ Texas Rangers ... ok
+  Fetching standings for 2026-04-23... ok
+  Fetching leaders for 2026-04-23... ERROR: HTTPSConnectionPool(host='statsapi.mlb.com', port=443): Read timed out. (read timeout=20)
+  9 games fetched.
+
+Refreshing probables 2026-04-24 → 2026-05-01... ok
+  Cache saved (2264 KB)
+
+Generating HTML...
+Done -> index.html (2220 KB)
+
+Usage:
+  python3 update.py                   # yesterday
+  python3 update.py 2026-03-24        # specific date
+  python3 update.py --schedule 2026   # load full season schedule
+  python3 update.py --clear-year 2025 # remove a year from cache
+  python3 update.py --rebuild         # regenerate HTML from cache
+--- mlb-newspaper/update_nyt.py ---
+Generating nyt.html...
+Done -> nyt.html (2219 KB)
+--- nba-importance/update.py ---
+
+🏀 NBA Tracker
+========================================
+📡 Fetching game results from NBA API...
+   Regular Season: 1230 games
+   PlayIn: 6 games
+   Playoffs: 19 games
+   ✅ 1250 completed games found.
+🧮 Calculating SRS...
+   ✅ SRS calculated.
+📡 Fetching current standings...
+   ✅ Standings fetched for 30 teams.
+🔍 Detecting season mode...
+   ✅ Mode: PLAYOFFS (completed games found)
+📡 Fetching play-in data...
+   ✅ 6 play-in games found.
+📡 Fetching playoff series data...
+   ✅ 9 playoff series found (via schedule).
+🎲 Running Monte Carlo (10,000 simulations)...
+   ✅ Done. Top 3: [('OKC', 0.4095), ('SAS', 0.2176), ('BOS', 0.1391)]
+🎨 Building playoff HTML...
+   ✅ playoff.html updated.
+
+========================================
+✅ Done! Open playoff.html in your browser.
+   index.html now redirects to playoff.html.
+--- git ---
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+Pushed to GitHub.
+=== Done: Fri Apr 24 04:28:07 CDT 2026 ===
