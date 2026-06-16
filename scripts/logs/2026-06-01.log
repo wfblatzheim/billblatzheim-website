@@ -1,0 +1,73 @@
+=== Daily update started: Mon Jun  1 04:07:32 CDT 2026 ===
+--- mlb-newspaper/update.py ---
+
+Fetching 2026-05-31...
+  Toronto Blue Jays @ Baltimore Orioles ... ok
+  San Diego Padres @ Washington Nationals ... ok
+  Minnesota Twins @ Pittsburgh Pirates ... ok
+  Boston Red Sox @ Cleveland Guardians ... ok
+  Los Angeles Angels @ Tampa Bay Rays ... ok
+  Atlanta Braves @ Cincinnati Reds ... ok
+  Miami Marlins @ New York Mets ... ok
+  Detroit Tigers @ Chicago White Sox ... ok
+  Milwaukee Brewers @ Houston Astros ... ok
+  Kansas City Royals @ Texas Rangers ... ok
+  San Francisco Giants @ Colorado Rockies ... ok
+  New York Yankees @ Athletics ... ok
+  Arizona Diamondbacks @ Seattle Mariners ... ok
+  Philadelphia Phillies @ Los Angeles Dodgers ... ERROR: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+  Chicago Cubs @ St. Louis Cardinals ... ok
+  Fetching standings for 2026-05-31... ok
+  Fetching leaders for 2026-05-31... ok
+  14 games fetched.
+
+Refreshing probables 2026-06-01 → 2026-06-08... ok
+  Cache saved (4740 KB)
+
+Generating HTML...
+Done -> index.html (4145 KB)
+
+Usage:
+  python3 update.py                   # yesterday
+  python3 update.py 2026-03-24        # specific date
+  python3 update.py --schedule 2026   # load full season schedule
+  python3 update.py --clear-year 2025 # remove a year from cache
+  python3 update.py --rebuild         # regenerate HTML from cache
+--- mlb-newspaper/update_nyt.py ---
+Generating nyt.html...
+Done -> nyt.html (4144 KB)
+--- nba-importance/update.py ---
+
+🏀 NBA Tracker
+========================================
+📡 Fetching game results from NBA API...
+   Regular Season: 1230 games
+   PlayIn fetch error (skipping): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+   Playoffs: 80 games
+   ✅ 1305 completed games found.
+🧮 Calculating SRS...
+   ✅ SRS calculated.
+📡 Fetching current standings...
+   ✅ Standings fetched for 30 teams.
+🔍 Detecting season mode...
+   ✅ Mode: PLAYOFFS (completed games found)
+📡 Fetching play-in data...
+   Play-in results fetch error: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+   ✅ 6 play-in games found.
+📡 Fetching playoff series data...
+   ✅ 15 playoff series found (via schedule).
+🎲 Running Monte Carlo (10,000 simulations)...
+   ✅ Done. Top 3: [('SAS', 0.6852), ('NYK', 0.3148)]
+🎨 Building playoff HTML...
+   ✅ playoff.html updated.
+
+========================================
+✅ Done! Open playoff.html in your browser.
+   index.html now redirects to playoff.html.
+--- git ---
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+Pushed to GitHub.
+=== Done: Mon Jun  1 04:41:54 CDT 2026 ===

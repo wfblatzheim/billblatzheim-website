@@ -1,0 +1,66 @@
+=== Daily update started: Fri Jun  5 04:00:57 CDT 2026 ===
+--- mlb-newspaper/update.py ---
+
+Fetching 2026-06-04...
+  San Diego Padres @ Philadelphia Phillies ... ok
+  Baltimore Orioles @ Boston Red Sox ... ok
+  Cleveland Guardians @ New York Yankees ... ok
+  San Francisco Giants @ Milwaukee Brewers ... ok
+  Toronto Blue Jays @ Atlanta Braves ... ok
+  Kansas City Royals @ Minnesota Twins ... ok
+  Athletics @ Chicago Cubs ... ok
+  Pittsburgh Pirates @ Houston Astros ... ok
+  Los Angeles Dodgers @ Arizona Diamondbacks ... ok
+  Fetching standings for 2026-06-04... ok
+  Fetching leaders for 2026-06-04... ok
+  9 games fetched.
+
+Refreshing probables 2026-06-05 → 2026-06-12... ok
+  Cache saved (4970 KB)
+
+Generating HTML...
+Done -> index.html (4108 KB)
+
+Usage:
+  python3 update.py                   # yesterday
+  python3 update.py 2026-03-24        # specific date
+  python3 update.py --schedule 2026   # load full season schedule
+  python3 update.py --clear-year 2025 # remove a year from cache
+  python3 update.py --rebuild         # regenerate HTML from cache
+--- mlb-newspaper/update_nyt.py ---
+Generating nyt.html...
+Done -> nyt.html (4107 KB)
+--- nba-importance/update.py ---
+
+🏀 NBA Tracker
+========================================
+📡 Fetching game results from NBA API...
+   Regular Season: 1230 games
+   PlayIn: 6 games
+   Playoffs: 81 games
+   ✅ 1312 completed games found.
+🧮 Calculating SRS...
+   ✅ SRS calculated.
+📡 Fetching current standings...
+   ✅ Standings fetched for 30 teams.
+🔍 Detecting season mode...
+   ✅ Mode: PLAYOFFS (completed games found)
+📡 Fetching play-in data...
+   ✅ 6 play-in games found.
+📡 Fetching playoff series data...
+   ✅ 15 playoff series found (via schedule).
+🎲 Running Monte Carlo (10,000 simulations)...
+   ✅ Done. Top 3: [('NYK', 0.5446), ('SAS', 0.4554)]
+🎨 Building playoff HTML...
+   ✅ playoff.html updated.
+
+========================================
+✅ Done! Open playoff.html in your browser.
+   index.html now redirects to playoff.html.
+--- git ---
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+fatal: Unable to read current working directory: Operation not permitted
+Pushed to GitHub.
+=== Done: Fri Jun  5 04:13:13 CDT 2026 ===
