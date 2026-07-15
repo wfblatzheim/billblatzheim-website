@@ -1,0 +1,2682 @@
+[
+  {
+    "team_slug": "waterville-indians",
+    "team_name": "Waterville Indians",
+    "team_url": "https://www.mnbaseball.org/teams/waterville-indians",
+    "class": "C",
+    "league": "13/60 League",
+    "league_url": "https://mnbaseball.org/leagues/13-60-league",
+    "league_record": "9-2-0",
+    "overall_record": "10-6-0"
+  },
+  {
+    "team_slug": "minnesota-lake-royals",
+    "team_name": "Minnesota Lake Royals",
+    "team_url": "https://www.mnbaseball.org/teams/minnesota-lake-royals",
+    "class": "C",
+    "league": "13/60 League",
+    "league_url": "https://mnbaseball.org/leagues/13-60-league",
+    "league_record": "7-1-0",
+    "overall_record": "8-1-0"
+  },
+  {
+    "team_slug": "blue-earth-pirates",
+    "team_name": "Blue Earth Pirates",
+    "team_url": "https://www.mnbaseball.org/teams/blue-earth-pirates",
+    "class": "C",
+    "league": "13/60 League",
+    "league_url": "https://mnbaseball.org/leagues/13-60-league",
+    "league_record": "5-4-0",
+    "overall_record": "6-9-0"
+  },
+  {
+    "team_slug": "waseca-braves",
+    "team_name": "Waseca Braves",
+    "team_url": "https://www.mnbaseball.org/teams/waseca-braves",
+    "class": "C",
+    "league": "13/60 League",
+    "league_url": "https://mnbaseball.org/leagues/13-60-league",
+    "league_record": "4-3-0",
+    "overall_record": "6-6-1"
+  },
+  {
+    "team_slug": "albert-lea-express",
+    "team_name": "Albert Lea Express",
+    "team_url": "https://mnbaseball.org/teams/albert-lea-express/",
+    "class": "C",
+    "league": "13/60 League",
+    "league_url": "https://mnbaseball.org/leagues/13-60-league",
+    "league_record": "4-4-0",
+    "overall_record": "5-5-0"
+  },
+  {
+    "team_slug": "morristown-morries",
+    "team_name": "Morristown Morries",
+    "team_url": "https://www.mnbaseball.org/teams/morristown-morries",
+    "class": "C",
+    "league": "13/60 League",
+    "league_url": "https://mnbaseball.org/leagues/13-60-league",
+    "league_record": "2-5-0",
+    "overall_record": "2-7-1"
+  },
+  {
+    "team_slug": "north-mankato-gators",
+    "team_name": "Janesville Gators",
+    "team_url": "https://www.mnbaseball.org/teams/north-mankato-gators",
+    "class": "B",
+    "league": "13/60 League",
+    "league_url": "https://mnbaseball.org/leagues/13-60-league",
+    "league_record": "0-2-0",
+    "overall_record": "2-6-0"
+  },
+  {
+    "team_slug": "cleveland-spiders",
+    "team_name": "Cleveland Spiders",
+    "team_url": "https://www.mnbaseball.org/teams/cleveland-spiders",
+    "class": "C",
+    "league": "13/60 League",
+    "league_url": "https://mnbaseball.org/leagues/13-60-league",
+    "league_record": "0-9-0",
+    "overall_record": "1-13-0"
+  },
+  {
+    "team_slug": "cold-spring-rockies",
+    "team_name": "Cold Spring Rockies",
+    "team_url": "https://www.mnbaseball.org/teams/cold-spring-rockies",
+    "class": "C",
+    "league": "Central Valley League",
+    "league_url": "https://mnbaseball.org/leagues/central-valley",
+    "league_record": "7-2-0",
+    "overall_record": "11-7-0"
+  },
+  {
+    "team_slug": "luxemburg-brewers",
+    "team_name": "Luxemburg Brewers",
+    "team_url": "https://www.mnbaseball.org/teams/luxemburg-brewers",
+    "class": "C",
+    "league": "Central Valley League",
+    "league_url": "https://mnbaseball.org/leagues/central-valley",
+    "league_record": "6-2-0",
+    "overall_record": "10-6-0"
+  },
+  {
+    "team_slug": "st-nicholas-nicks",
+    "team_name": "St. Nicholas Nicks",
+    "team_url": "https://www.mnbaseball.org/teams/st-nicholas-nicks",
+    "class": "C",
+    "league": "Central Valley League",
+    "league_url": "https://mnbaseball.org/leagues/central-valley",
+    "league_record": "6-2-0",
+    "overall_record": "8-3-0"
+  },
+  {
+    "team_slug": "watkins-clippers",
+    "team_name": "Watkins Clippers",
+    "team_url": "https://www.mnbaseball.org/teams/watkins-clippers",
+    "class": "C",
+    "league": "Central Valley League",
+    "league_url": "https://mnbaseball.org/leagues/central-valley",
+    "league_record": "5-2-0",
+    "overall_record": "6-4-0"
+  },
+  {
+    "team_slug": "pearl-lake-lakers",
+    "team_name": "Pearl Lake Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/pearl-lake-lakers",
+    "class": "C",
+    "league": "Central Valley League",
+    "league_url": "https://mnbaseball.org/leagues/central-valley",
+    "league_record": "5-4-0",
+    "overall_record": "7-8-1"
+  },
+  {
+    "team_slug": "st-augusta-gussies",
+    "team_name": "St. Augusta Gussies",
+    "team_url": "https://www.mnbaseball.org/teams/st-augusta-gussies",
+    "class": "C",
+    "league": "Central Valley League",
+    "league_url": "https://mnbaseball.org/leagues/central-valley",
+    "league_record": "1-10-0",
+    "overall_record": "1-15-0"
+  },
+  {
+    "team_slug": "eden-valley-hawks",
+    "team_name": "Eden Valley Hawks",
+    "team_url": "https://www.mnbaseball.org/teams/eden-valley-hawks",
+    "class": "C",
+    "league": "Central Valley League",
+    "league_url": "https://mnbaseball.org/leagues/central-valley",
+    "league_record": "0-8-0",
+    "overall_record": "1-9-0"
+  },
+  {
+    "team_slug": "miesville-mudhens",
+    "team_name": "Miesville Mudhens",
+    "team_url": "https://www.mnbaseball.org/teams/miesville-mudhens",
+    "class": "A",
+    "league": "Classic Cannon Valley American League",
+    "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-american",
+    "league_record": "4-1-0",
+    "overall_record": "18-3-0"
+  },
+  {
+    "team_slug": "lakeville-loonatics",
+    "team_name": "Lakeville Loonatics",
+    "team_url": "https://www.mnbaseball.org/teams/lakeville-loonatics",
+    "class": "A",
+    "league": "Classic Cannon Valley American League",
+    "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-american",
+    "league_record": "4-2-0",
+    "overall_record": "8-9-0"
+  },
+  {
+    "team_slug": "dundas-dukes",
+    "team_name": "Dundas Dukes",
+    "team_url": "https://www.mnbaseball.org/teams/dundas-dukes",
+    "class": "A",
+    "league": "Classic Cannon Valley American League",
+    "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-american",
+    "league_record": "3-4-0",
+    "overall_record": "11-14-0"
+  },
+  {
+    "team_slug": "hastings-hawks",
+    "team_name": "Hastings Hawks",
+    "team_url": "https://www.mnbaseball.org/teams/hastings-hawks",
+    "class": "A",
+    "league": "Classic Cannon Valley American League",
+    "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-american",
+    "league_record": "3-8-0",
+    "overall_record": "11-11-0"
+  },
+  {
+    "team_slug": "rochester-royals",
+    "team_name": "Rochester Royals",
+    "team_url": "https://www.mnbaseball.org/teams/rochester-royals",
+    "class": "A",
+    "league": "Classic Cannon Valley American League",
+    "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-american",
+    "league_record": "1-2-0",
+    "overall_record": "10-5-0"
+  },
+  {
+    "team_slug": "hampton-cardinals",
+    "team_name": "Hampton Cardinals",
+    "team_url": "https://www.mnbaseball.org/teams/hampton-cardinals",
+    "class": "A",
+    "league": "Classic Cannon Valley American League",
+    "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-american",
+    "league_record": "1-6-0",
+    "overall_record": "3-13-0"
+  },
+  {
+    "team_slug": "cannon-falls-bears",
+    "team_name": "Cannon Falls Bears",
+    "team_url": "https://www.mnbaseball.org/teams/cannon-falls-bears",
+    "class": "C",
+    "league": "Classic Cannon Valley National League",
+    "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-national",
+    "league_record": "9-3-0",
+    "overall_record": "19-8-0"
+  },
+  {
+    "team_slug": "northfield-knights",
+    "team_name": "Northfield Knights",
+    "team_url": "https://www.mnbaseball.org/teams/northfield-knights",
+    "class": "B",
+    "league": "Classic Cannon Valley National League",
+    "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-national",
+    "league_record": "5-7-0",
+    "overall_record": "6-7-0"
+  },
+  {
+    "team_slug": "red-wing-aces",
+    "team_name": "Red Wing Aces",
+    "team_url": "https://www.mnbaseball.org/teams/red-wing-aces",
+    "class": "B",
+    "league": "Classic Cannon Valley National League",
+    "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-national",
+    "league_record": "3-0-0",
+    "overall_record": "14-7-0"
+  },
+  {
+    "team_slug": "bird-island-bullfrogs",
+    "team_name": "Bird Island Bullfrogs",
+    "team_url": "https://www.mnbaseball.org/teams/bird-island-bullfrogs",
+    "class": "B",
+    "league": "Corn Belt League",
+    "league_url": "https://mnbaseball.org/leagues/corn-belt",
+    "league_record": "10-2-0",
+    "overall_record": "11-2-0"
+  },
+  {
+    "team_slug": "granite-falls-kilowatts",
+    "team_name": "Granite Falls Kilowatts",
+    "team_url": "https://www.mnbaseball.org/teams/granite-falls-kilowatts",
+    "class": "C",
+    "league": "Corn Belt League",
+    "league_url": "https://mnbaseball.org/leagues/corn-belt",
+    "league_record": "5-1-0",
+    "overall_record": "14-4-0"
+  },
+  {
+    "team_slug": "willmar-rails",
+    "team_name": "Willmar Rails",
+    "team_url": "https://www.mnbaseball.org/teams/willmar-rails",
+    "class": "B",
+    "league": "Corn Belt League",
+    "league_url": "https://mnbaseball.org/leagues/corn-belt",
+    "league_record": "5-8-0",
+    "overall_record": "6-9-0"
+  },
+  {
+    "team_slug": "raymond-rockets",
+    "team_name": "Raymond Rockets",
+    "team_url": "https://www.mnbaseball.org/teams/raymond-rockets",
+    "class": "B",
+    "league": "Corn Belt League",
+    "league_url": "https://mnbaseball.org/leagues/corn-belt",
+    "league_record": "4-0-0",
+    "overall_record": "14-3-1"
+  },
+  {
+    "team_slug": "milroy-yankees",
+    "team_name": "Milroy Yankees",
+    "team_url": "https://www.mnbaseball.org/teams/milroy-yankees",
+    "class": "C",
+    "league": "Corn Belt League",
+    "league_url": "https://mnbaseball.org/leagues/corn-belt",
+    "league_record": "4-3-0",
+    "overall_record": "10-6-1"
+  },
+  {
+    "team_slug": "sacred-heart-saints",
+    "team_name": "Sacred Heart Saints",
+    "team_url": "https://www.mnbaseball.org/teams/sacred-heart-saints",
+    "class": "C",
+    "league": "Corn Belt League",
+    "league_url": "https://mnbaseball.org/leagues/corn-belt",
+    "league_record": "2-2-0",
+    "overall_record": "2-12-0"
+  },
+  {
+    "team_slug": "marshall-as",
+    "team_name": "Marshall Athletics",
+    "team_url": "https://www.mnbaseball.org/teams/marshall-as",
+    "class": "C",
+    "league": "Corn Belt League",
+    "league_url": "https://mnbaseball.org/leagues/corn-belt",
+    "league_record": "1-4-0",
+    "overall_record": "8-9-0"
+  },
+  {
+    "team_slug": "willmar-indians",
+    "team_name": "Willmar Indians",
+    "team_url": "https://mnbaseball.org/teams/willmar-indians",
+    "class": "B",
+    "league": "Corn Belt League",
+    "league_url": "https://mnbaseball.org/leagues/corn-belt",
+    "league_record": "1-4-0",
+    "overall_record": "3-12-0"
+  },
+  {
+    "team_slug": "wabasso-jaxx",
+    "team_name": "Wabasso Jaxx",
+    "team_url": "https://www.mnbaseball.org/teams/wabasso-jaxx",
+    "class": "C",
+    "league": "Corn Belt League",
+    "league_url": "https://mnbaseball.org/leagues/corn-belt",
+    "league_record": "1-9-0",
+    "overall_record": "1-9-0"
+  },
+  {
+    "team_slug": "starbuck-stars",
+    "team_name": "Starbuck Stars",
+    "team_url": "https://www.mnbaseball.org/teams/starbuck-stars",
+    "class": "C",
+    "league": "County Line League",
+    "league_url": "https://mnbaseball.org/leagues/county-line",
+    "league_record": "8-2-0",
+    "overall_record": "12-7-0"
+  },
+  {
+    "team_slug": "new-london-spicer-twins",
+    "team_name": "New London-Spicer Twins",
+    "team_url": "https://www.mnbaseball.org/teams/new-london-spicer-twins",
+    "class": "C",
+    "league": "County Line League",
+    "league_url": "https://mnbaseball.org/leagues/county-line",
+    "league_record": "5-3-0",
+    "overall_record": "6-6-0"
+  },
+  {
+    "team_slug": "paynesville-pirates",
+    "team_name": "Paynesville Pirates",
+    "team_url": "https://www.mnbaseball.org/teams/paynesville-pirates",
+    "class": "C",
+    "league": "County Line League",
+    "league_url": "https://mnbaseball.org/leagues/county-line",
+    "league_record": "4-3-0",
+    "overall_record": "7-7-0"
+  },
+  {
+    "team_slug": "atwater-chuckers",
+    "team_name": "Atwater Chuckers",
+    "team_url": "https://www.mnbaseball.org/teams/atwater-chuckers",
+    "class": "C",
+    "league": "County Line League",
+    "league_url": "https://mnbaseball.org/leagues/county-line",
+    "league_record": "4-4-0",
+    "overall_record": "8-5-0"
+  },
+  {
+    "team_slug": "regal-eagles",
+    "team_name": "Regal Eagles",
+    "team_url": "https://www.mnbaseball.org/teams/regal-eagles",
+    "class": "C",
+    "league": "County Line League",
+    "league_url": "https://mnbaseball.org/leagues/county-line",
+    "league_record": "3-7-0",
+    "overall_record": "8-10-2"
+  },
+  {
+    "team_slug": "norway-lake-sunburg-lakers",
+    "team_name": "Norway Lake-Sunburg Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/norway-lake-sunburg-lakers",
+    "class": "C",
+    "league": "County Line League",
+    "league_url": "https://mnbaseball.org/leagues/county-line",
+    "league_record": "1-6-0",
+    "overall_record": "1-8-0"
+  },
+  {
+    "team_slug": "plato-blue-jays",
+    "team_name": "Plato Blue Jays",
+    "team_url": "https://www.mnbaseball.org/teams/plato-blue-jays",
+    "class": "B",
+    "league": "Crow River Valley - North League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-north",
+    "league_record": "7-3-0",
+    "overall_record": "11-9-0"
+  },
+  {
+    "team_slug": "watertown-red-devils",
+    "team_name": "Watertown Red Devils",
+    "team_url": "https://www.mnbaseball.org/teams/watertown-red-devils",
+    "class": "B",
+    "league": "Crow River Valley - North League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-north",
+    "league_record": "6-4-0",
+    "overall_record": "12-6-0"
+  },
+  {
+    "team_slug": "waconia-lakers",
+    "team_name": "Waconia Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/waconia-lakers",
+    "class": "A",
+    "league": "Crow River Valley - North League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-north",
+    "league_record": "5-1-0",
+    "overall_record": "13-5-0"
+  },
+  {
+    "team_slug": "delano-as",
+    "team_name": "Delano Athletics",
+    "team_url": "https://www.mnbaseball.org/teams/delano-as",
+    "class": "B",
+    "league": "Crow River Valley - North League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-north",
+    "league_record": "3-4-0",
+    "overall_record": "9-7-0"
+  },
+  {
+    "team_slug": "carver-black-sox",
+    "team_name": "Carver Black Sox",
+    "team_url": "https://www.mnbaseball.org/teams/carver-black-sox",
+    "class": "B",
+    "league": "Crow River Valley - North League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-north",
+    "league_record": "3-6-0",
+    "overall_record": "11-7-0"
+  },
+  {
+    "team_slug": "young-america-cardinals",
+    "team_name": "Young America Cardinals",
+    "team_url": "https://www.mnbaseball.org/teams/young-america-cardinals",
+    "class": "B",
+    "league": "Crow River Valley - North League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-north",
+    "league_record": "2-0-0",
+    "overall_record": "12-3-0"
+  },
+  {
+    "team_slug": "green-isle-irish",
+    "team_name": "Green Isle Irish",
+    "team_url": "https://www.mnbaseball.org/teams/green-isle-irish",
+    "class": "B",
+    "league": "Crow River Valley - North League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-north",
+    "league_record": "2-7-0",
+    "overall_record": "3-11-0"
+  },
+  {
+    "team_slug": "st-boni-saints",
+    "team_name": "St. Boni Saints",
+    "team_url": "https://www.mnbaseball.org/teams/st-boni-saints",
+    "class": "B",
+    "league": "Crow River Valley - North League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-north",
+    "league_record": "1-0-0",
+    "overall_record": "11-7-1"
+  },
+  {
+    "team_slug": "glencoe-brewers",
+    "team_name": "Glencoe Brewers",
+    "team_url": "https://www.mnbaseball.org/teams/glencoe-brewers",
+    "class": "C",
+    "league": "Crow River Valley - South League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-south",
+    "league_record": "12-2-0",
+    "overall_record": "14-5-0"
+  },
+  {
+    "team_slug": "cologne-hollanders",
+    "team_name": "Cologne Hollanders",
+    "team_url": "https://www.mnbaseball.org/teams/cologne-hollanders",
+    "class": "C",
+    "league": "Crow River Valley - South League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-south",
+    "league_record": "11-4-0",
+    "overall_record": "13-9-0"
+  },
+  {
+    "team_slug": "hamburg-hawks",
+    "team_name": "Hamburg Hawks",
+    "team_url": "https://www.mnbaseball.org/teams/hamburg-hawks",
+    "class": "C",
+    "league": "Crow River Valley - South League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-south",
+    "league_record": "8-9-0",
+    "overall_record": "8-9-0"
+  },
+  {
+    "team_slug": "westonka-waves",
+    "team_name": "Westonka Waves",
+    "team_url": "https://www.mnbaseball.org/teams/westonka-waves",
+    "class": "B",
+    "league": "Crow River Valley - South League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-south",
+    "league_record": "7-6-0",
+    "overall_record": "8-8-0"
+  },
+  {
+    "team_slug": "arlington-as",
+    "team_name": "Arlington Athletics",
+    "team_url": "https://www.mnbaseball.org/teams/arlington-as",
+    "class": "C",
+    "league": "Crow River Valley - South League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-south",
+    "league_record": "6-6-0",
+    "overall_record": "10-9-0"
+  },
+  {
+    "team_slug": "brownton-bruins",
+    "team_name": "Brownton Bruins",
+    "team_url": "https://www.mnbaseball.org/teams/brownton-bruins",
+    "class": "C",
+    "league": "Crow River Valley - South League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-south",
+    "league_record": "5-3-0",
+    "overall_record": "10-5-0"
+  },
+  {
+    "team_slug": "norwood-indians",
+    "team_name": "Norwood Indians",
+    "team_url": "https://www.mnbaseball.org/teams/norwood-indians",
+    "class": "C",
+    "league": "Crow River Valley - South League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-south",
+    "league_record": "5-10-0",
+    "overall_record": "6-12-0"
+  },
+  {
+    "team_slug": "new-germany-dutchmen",
+    "team_name": "New Germany Dutchmen",
+    "team_url": "https://www.mnbaseball.org/teams/new-germany-dutchmen",
+    "class": "C",
+    "league": "Crow River Valley - South League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-south",
+    "league_record": "1-9-0",
+    "overall_record": "1-13-0"
+  },
+  {
+    "team_slug": "winsted-wildcats",
+    "team_name": "Winsted Wildcats",
+    "team_url": "https://www.mnbaseball.org/teams/winsted-wildcats",
+    "class": "C",
+    "league": "Crow River Valley - South League",
+    "league_url": "https://mnbaseball.org/leagues/crow-river-valley-south",
+    "league_record": "1-11-0",
+    "overall_record": "1-13-0"
+  },
+  {
+    "team_slug": "webster-sox",
+    "team_name": "Webster Sox",
+    "team_url": "https://www.mnbaseball.org/teams/webster-sox",
+    "class": "B",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "12-1-0",
+    "overall_record": "15-1-0"
+  },
+  {
+    "team_slug": "union-hill-bulldogs",
+    "team_name": "Union Hill Bulldogs",
+    "team_url": "https://www.mnbaseball.org/teams/union-hill-bulldogs",
+    "class": "B",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "11-4-0",
+    "overall_record": "12-6-0"
+  },
+  {
+    "team_slug": "prior-lake-mudcats",
+    "team_name": "Prior Lake Mudcats",
+    "team_url": "https://www.mnbaseball.org/teams/prior-lake-mudcats",
+    "class": "B",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "9-5-0",
+    "overall_record": "10-8-0"
+  },
+  {
+    "team_slug": "new-prague-orioles",
+    "team_name": "New Prague Orioles",
+    "team_url": "https://www.mnbaseball.org/teams/new-prague-orioles",
+    "class": "B",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "8-7-0",
+    "overall_record": "11-8-0"
+  },
+  {
+    "team_slug": "new-market-muskies",
+    "team_name": "New Market Muskies",
+    "team_url": "https://www.mnbaseball.org/teams/new-market-muskies",
+    "class": "A",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "7-3-0",
+    "overall_record": "9-7-0"
+  },
+  {
+    "team_slug": "veseli-warriors",
+    "team_name": "Veseli Warriors",
+    "team_url": "https://www.mnbaseball.org/teams/veseli-warriors",
+    "class": "C",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "6-6-0",
+    "overall_record": "7-9-0"
+  },
+  {
+    "team_slug": "elko-express",
+    "team_name": "Elko Express",
+    "team_url": "https://www.mnbaseball.org/teams/elko-express",
+    "class": "A",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "5-1-1",
+    "overall_record": "10-7-2"
+  },
+  {
+    "team_slug": "faribault-lakers",
+    "team_name": "Faribault Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/faribault-lakers",
+    "class": "A",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "5-4-0",
+    "overall_record": "8-8-1"
+  },
+  {
+    "team_slug": "montgomery-mallards",
+    "team_name": "Montgomery Mallards",
+    "team_url": "https://www.mnbaseball.org/teams/montgomery-mallards",
+    "class": "B",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "4-8-0",
+    "overall_record": "4-10-0"
+  },
+  {
+    "team_slug": "st-benedict-saints",
+    "team_name": "St. Benedict Saints",
+    "team_url": "https://www.mnbaseball.org/teams/st-benedict-saints",
+    "class": "B",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "4-9-0",
+    "overall_record": "4-13-0"
+  },
+  {
+    "team_slug": "lonsdale-aces",
+    "team_name": "Lonsdale Aces",
+    "team_url": "https://www.mnbaseball.org/teams/lonsdale-aces",
+    "class": "B",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "2-13-1",
+    "overall_record": "3-15-1"
+  },
+  {
+    "team_slug": "shakopee-coyotes",
+    "team_name": "Shakopee Coyotes",
+    "team_url": "https://www.mnbaseball.org/teams/shakopee-coyotes",
+    "class": "B",
+    "league": "Dakota Rice Scott (DRS) League",
+    "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
+    "league_record": "1-13-0",
+    "overall_record": "1-14-0"
+  },
+  {
+    "team_slug": "mora-blue-devils",
+    "team_name": "Mora Blue Devils",
+    "team_url": "https://www.mnbaseball.org/teams/mora-blue-devils",
+    "class": "C",
+    "league": "Eastern Minny - North League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-north",
+    "league_record": "7-5-0",
+    "overall_record": "10-8-0"
+  },
+  {
+    "team_slug": "princeton-panthers",
+    "team_name": "Princeton Panthers",
+    "team_url": "https://www.mnbaseball.org/teams/princeton-panthers",
+    "class": "B",
+    "league": "Eastern Minny - North League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-north",
+    "league_record": "6-2-0",
+    "overall_record": "7-2-0"
+  },
+  {
+    "team_slug": "hinckley-knights",
+    "team_name": "Hinckley Knights",
+    "team_url": "https://www.mnbaseball.org/teams/hinckley-knights",
+    "class": "A",
+    "league": "Eastern Minny - North League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-north",
+    "league_record": "5-0-0",
+    "overall_record": "13-3-0"
+  },
+  {
+    "team_slug": "quamba-cubs",
+    "team_name": "Quamba Cubs",
+    "team_url": "https://www.mnbaseball.org/teams/quamba-cubs",
+    "class": "C",
+    "league": "Eastern Minny - North League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-north",
+    "league_record": "5-3-0",
+    "overall_record": "10-5-1"
+  },
+  {
+    "team_slug": "moose-lake-buzz",
+    "team_name": "Moose Lake Buzz",
+    "team_url": "https://mnbaseball.org/teams/moose-lake-buzz",
+    "class": "B",
+    "league": "Eastern Minny - North League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-north",
+    "league_record": "5-4-0",
+    "overall_record": "8-6-0"
+  },
+  {
+    "team_slug": "ogilvie-orioles",
+    "team_name": "Ogilvie Orioles",
+    "team_url": "https://www.mnbaseball.org/teams/ogilvie-orioles",
+    "class": "C",
+    "league": "Eastern Minny - North League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-north",
+    "league_record": "2-7-0",
+    "overall_record": "4-10-0"
+  },
+  {
+    "team_slug": "cambridge-bandits",
+    "team_name": "Cambridge Bandits",
+    "team_url": "https://www.mnbaseball.org/teams/cambridge-bandits",
+    "class": "C",
+    "league": "Eastern Minny - North League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-north",
+    "league_record": "1-6-0",
+    "overall_record": "2-6-1"
+  },
+  {
+    "team_slug": "braham-snappers",
+    "team_name": "Braham Snappers",
+    "team_url": "https://www.mnbaseball.org/teams/braham-snappers",
+    "class": "C",
+    "league": "Eastern Minny - North League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-north",
+    "league_record": "0-10-0",
+    "overall_record": "0-11-0"
+  },
+  {
+    "team_slug": "isanti-redbirds",
+    "team_name": "Isanti Redbirds",
+    "team_url": "https://www.mnbaseball.org/teams/isanti-redbirds",
+    "class": "B",
+    "league": "Eastern Minny - South League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-south",
+    "league_record": "6-0-0",
+    "overall_record": "9-3-0"
+  },
+  {
+    "team_slug": "east-bethel-bandits",
+    "team_name": "East Bethel Bandits",
+    "team_url": "https://www.mnbaseball.org/teams/east-bethel-bandits",
+    "class": "C",
+    "league": "Eastern Minny - South League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-south",
+    "league_record": "6-2-0",
+    "overall_record": "7-7-0"
+  },
+  {
+    "team_slug": "north-branch-nighthawks",
+    "team_name": "North Branch Nighthawks",
+    "team_url": "https://www.mnbaseball.org/teams/north-branch-nighthawks",
+    "class": "B",
+    "league": "Eastern Minny - South League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-south",
+    "league_record": "6-2-0",
+    "overall_record": "6-2-0"
+  },
+  {
+    "team_slug": "chisago-lakes-bulldogs",
+    "team_name": "Chisago Lakes Bulldogs",
+    "team_url": "https://www.mnbaseball.org/teams/chisago-lakes-bulldogs",
+    "class": "B",
+    "league": "Eastern Minny - South League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-south",
+    "league_record": "6-3-0",
+    "overall_record": "15-7-0"
+  },
+  {
+    "team_slug": "st-francis-silverbacks",
+    "team_name": "St. Francis Silverbacks",
+    "team_url": "https://www.mnbaseball.org/teams/st-francis-silverbacks",
+    "class": "C",
+    "league": "Eastern Minny - South League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-south",
+    "league_record": "4-2-0",
+    "overall_record": "4-3-0"
+  },
+  {
+    "team_slug": "ham-lake-hornets",
+    "team_name": "Ham Lake Hornets",
+    "team_url": "https://www.mnbaseball.org/teams/ham-lake-hornets",
+    "class": "C",
+    "league": "Eastern Minny - South League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-south",
+    "league_record": "1-5-0",
+    "overall_record": "1-8-0"
+  },
+  {
+    "team_slug": "nowthen-knights",
+    "team_name": "Nowthen Knights",
+    "team_url": "https://www.mnbaseball.org/teams/nowthen-knights",
+    "class": "C",
+    "league": "Eastern Minny - South League",
+    "league_url": "https://mnbaseball.org/leagues/eastern-minny-south",
+    "league_record": "0-9-0",
+    "overall_record": "1-11-0"
+  },
+  {
+    "team_slug": "windom-pirates",
+    "team_name": "Windom Pirates",
+    "team_url": "https://www.mnbaseball.org/teams/windom-pirates",
+    "class": "C",
+    "league": "First Nite League",
+    "league_url": "https://mnbaseball.org/leagues/first-nite",
+    "league_record": "1-0-0",
+    "overall_record": "15-1-0"
+  },
+  {
+    "team_slug": "fairmont-martins",
+    "team_name": "Fairmont Martins",
+    "team_url": "https://www.mnbaseball.org/teams/fairmont-martins",
+    "class": "C",
+    "league": "First Nite League",
+    "league_url": "https://mnbaseball.org/leagues/first-nite",
+    "league_record": "1-0-0",
+    "overall_record": "9-4-0"
+  },
+  {
+    "team_slug": "jackson-bulls",
+    "team_name": "Jackson Bulls",
+    "team_url": "https://www.mnbaseball.org/teams/jackson-bulls",
+    "class": "C",
+    "league": "First Nite League",
+    "league_url": "https://mnbaseball.org/leagues/first-nite",
+    "league_record": "0-0-0",
+    "overall_record": "10-5-0"
+  },
+  {
+    "team_slug": "lakefield-horned-frogs",
+    "team_name": "Lakefield Horned Frogs",
+    "team_url": "https://www.mnbaseball.org/teams/lakefield-horned-frogs",
+    "class": "C",
+    "league": "First Nite League",
+    "league_url": "https://mnbaseball.org/leagues/first-nite",
+    "league_record": "0-0-0",
+    "overall_record": "2-10-0"
+  },
+  {
+    "team_slug": "heron-lake-lakers",
+    "team_name": "Heron Lake Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/heron-lake-lakers",
+    "class": "C",
+    "league": "First Nite League",
+    "league_url": "https://mnbaseball.org/leagues/first-nite",
+    "league_record": "0-0-0",
+    "overall_record": "0-13-0"
+  },
+  {
+    "team_slug": "fox-lake-foxes",
+    "team_name": "Fox Lake Foxes",
+    "team_url": "https://www.mnbaseball.org/teams/fox-lake-foxes",
+    "class": "C",
+    "league": "First Nite League",
+    "league_url": "https://mnbaseball.org/leagues/first-nite",
+    "league_record": "0-1-0",
+    "overall_record": "5-8-0"
+  },
+  {
+    "team_slug": "milroy-irish",
+    "team_name": "Milroy Irish",
+    "team_url": "https://www.mnbaseball.org/teams/milroy-irish",
+    "class": "C",
+    "league": "Gopher League",
+    "league_url": "https://mnbaseball.org/leagues/gopher",
+    "league_record": "1-0-0",
+    "overall_record": "12-7-0"
+  },
+  {
+    "team_slug": "hadley-buttermakers",
+    "team_name": "Hadley Buttermakers",
+    "team_url": "https://www.mnbaseball.org/teams/hadley-buttermakers",
+    "class": "C",
+    "league": "Gopher League",
+    "league_url": "https://mnbaseball.org/leagues/gopher",
+    "league_record": "1-0-0",
+    "overall_record": "12-10-0"
+  },
+  {
+    "team_slug": "luverne-redbirds",
+    "team_name": "Luverne Redbirds",
+    "team_url": "https://www.mnbaseball.org/teams/luverne-redbirds",
+    "class": "C",
+    "league": "Gopher League",
+    "league_url": "https://mnbaseball.org/leagues/gopher",
+    "league_record": "0-0-0",
+    "overall_record": "8-6-0"
+  },
+  {
+    "team_slug": "worthington-cubs",
+    "team_name": "Worthington Cubs",
+    "team_url": "https://www.mnbaseball.org/teams/worthington-cubs",
+    "class": "C",
+    "league": "Gopher League",
+    "league_url": "https://mnbaseball.org/leagues/gopher",
+    "league_record": "0-0-0",
+    "overall_record": "6-9-0"
+  },
+  {
+    "team_slug": "pipestone-as",
+    "team_name": "Pipestone Athletics",
+    "team_url": "https://www.mnbaseball.org/teams/pipestone-as",
+    "class": "C",
+    "league": "Gopher League",
+    "league_url": "https://mnbaseball.org/leagues/gopher",
+    "league_record": "0-3-0",
+    "overall_record": "3-13-0"
+  },
+  {
+    "team_slug": "perham-pirates",
+    "team_name": "Perham Pirates",
+    "team_url": "https://www.mnbaseball.org/teams/perham-pirates",
+    "class": "C",
+    "league": "HI-10 League",
+    "league_url": "https://mnbaseball.org/leagues/hi-10",
+    "league_record": "1-0-0",
+    "overall_record": "9-2-0"
+  },
+  {
+    "team_slug": "bluffton-braves",
+    "team_name": "Bluffton Braves",
+    "team_url": "https://www.mnbaseball.org/teams/bluffton-braves",
+    "class": "B",
+    "league": "HI-10 League",
+    "league_url": "https://mnbaseball.org/leagues/hi-10",
+    "league_record": "0-0-0",
+    "overall_record": "12-1-0"
+  },
+  {
+    "team_slug": "new-york-mills-millers",
+    "team_name": "New York Mills Millers",
+    "team_url": "https://www.mnbaseball.org/teams/new-york-mills-millers",
+    "class": "C",
+    "league": "HI-10 League",
+    "league_url": "https://mnbaseball.org/leagues/hi-10",
+    "league_record": "0-0-0",
+    "overall_record": "11-2-0"
+  },
+  {
+    "team_slug": "deer-creek-shockers",
+    "team_name": "Deer Creek Shockers",
+    "team_url": "https://www.mnbaseball.org/teams/deer-creek-shockers",
+    "class": "C",
+    "league": "HI-10 League",
+    "league_url": "https://mnbaseball.org/leagues/hi-10",
+    "league_record": "0-0-0",
+    "overall_record": "8-6-0"
+  },
+  {
+    "team_slug": "clarissa-flyers",
+    "team_name": "Clarissa Flyers",
+    "team_url": "https://www.mnbaseball.org/teams/clarissa-flyers",
+    "class": "C",
+    "league": "HI-10 League",
+    "league_url": "https://mnbaseball.org/leagues/hi-10",
+    "league_record": "0-0-0",
+    "overall_record": "5-7-0"
+  },
+  {
+    "team_slug": "detroit-lakes-ligers",
+    "team_name": "Detroit Lakes Ligers",
+    "team_url": "https://www.mnbaseball.org/teams/detroit-lakes-ligers",
+    "class": "C",
+    "league": "HI-10 League",
+    "league_url": "https://mnbaseball.org/leagues/hi-10",
+    "league_record": "0-0-0",
+    "overall_record": "3-6-0"
+  },
+  {
+    "team_slug": "henning-north-stars",
+    "team_name": "Henning North Stars",
+    "team_url": "https://mnbaseball.org/teams/henning-north-stars",
+    "class": "C",
+    "league": "HI-10 League",
+    "league_url": "https://mnbaseball.org/leagues/hi-10",
+    "league_record": "0-0-0",
+    "overall_record": "3-9-0"
+  },
+  {
+    "team_slug": "vergas-frazee-loons",
+    "team_name": "Frazee-Vergas Loons",
+    "team_url": "https://www.mnbaseball.org/teams/vergas-frazee-loons",
+    "class": "C",
+    "league": "HI-10 League",
+    "league_url": "https://mnbaseball.org/leagues/hi-10",
+    "league_record": "0-0-0",
+    "overall_record": "3-10-0"
+  },
+  {
+    "team_slug": "dent-diamondhawks",
+    "team_name": "Dent DiamondHawks",
+    "team_url": "https://www.mnbaseball.org/teams/dent-diamondhawks",
+    "class": "C",
+    "league": "HI-10 League",
+    "league_url": "https://mnbaseball.org/leagues/hi-10",
+    "league_record": "0-1-0",
+    "overall_record": "0-11-0"
+  },
+  {
+    "team_slug": "nimrod-gnats",
+    "team_name": "Nimrod Gnats",
+    "team_url": "https://www.mnbaseball.org/teams/nimrod-gnats",
+    "class": "C",
+    "league": "Lake and Pine League",
+    "league_url": "https://mnbaseball.org/leagues/lake-and-pine",
+    "league_record": "1-1-0",
+    "overall_record": "3-6-0"
+  },
+  {
+    "team_slug": "hawley-hawks",
+    "team_name": "Hawley Hawks",
+    "team_url": "https://www.mnbaseball.org/teams/hawley-hawks",
+    "class": "C",
+    "league": "Lake and Pine League",
+    "league_url": "https://mnbaseball.org/leagues/lake-and-pine",
+    "league_record": "1-1-0",
+    "overall_record": "3-7-0"
+  },
+  {
+    "team_slug": "midway-snurdbirds",
+    "team_name": "Midway Snurdbirds",
+    "team_url": "https://www.mnbaseball.org/teams/midway-snurdbirds",
+    "class": "C",
+    "league": "Lake and Pine League",
+    "league_url": "https://mnbaseball.org/leagues/lake-and-pine",
+    "league_record": "0-0-0",
+    "overall_record": "7-2-0"
+  },
+  {
+    "team_slug": "sebeka-stingers",
+    "team_name": "Sebeka Stingers",
+    "team_url": "https://www.mnbaseball.org/teams/sebeka-stingers",
+    "class": "C",
+    "league": "Lake and Pine League",
+    "league_url": "https://mnbaseball.org/leagues/lake-and-pine",
+    "league_record": "0-0-0",
+    "overall_record": "2-4-0"
+  },
+  {
+    "team_slug": "madison-mallards",
+    "team_name": "Madison Mallards",
+    "team_url": "https://www.mnbaseball.org/teams/madison-mallards",
+    "class": "C",
+    "league": "Land O' Ducks - Teal League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
+    "league_record": "7-1-0",
+    "overall_record": "11-1-0"
+  },
+  {
+    "team_slug": "minneota-mudhens",
+    "team_name": "Minneota Mudhens",
+    "team_url": "https://www.mnbaseball.org/teams/minneota-mudhens",
+    "class": "C",
+    "league": "Land O' Ducks - Teal League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
+    "league_record": "5-4-0",
+    "overall_record": "5-6-0"
+  },
+  {
+    "team_slug": "benson-plowboys",
+    "team_name": "Benson Plowboys",
+    "team_url": "https://www.mnbaseball.org/teams/benson-plowboys",
+    "class": "C",
+    "league": "Land O' Ducks - Teal League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
+    "league_record": "5-4-0",
+    "overall_record": "5-7-0"
+  },
+  {
+    "team_slug": "rosen-express",
+    "team_name": "Rosen Express",
+    "team_url": "https://www.mnbaseball.org/teams/rosen-express",
+    "class": "C",
+    "league": "Land O' Ducks - Teal League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
+    "league_record": "3-5-0",
+    "overall_record": "7-9-0"
+  },
+  {
+    "team_slug": "cottonwood-cardinals",
+    "team_name": "Cottonwood Cardinals",
+    "team_url": "https://www.mnbaseball.org/teams/cottonwood-cardinals",
+    "class": "C",
+    "league": "Land O' Ducks - Teal League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
+    "league_record": "2-7-0",
+    "overall_record": "3-7-0"
+  },
+  {
+    "team_slug": "dawson-drakes",
+    "team_name": "Dawson Drakes",
+    "team_url": "https://www.mnbaseball.org/teams/dawson-drakes",
+    "class": "C",
+    "league": "Land O' Ducks - Teal League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
+    "league_record": "2-8-0",
+    "overall_record": "3-12-0"
+  },
+  {
+    "team_slug": "ortonville-rox",
+    "team_name": "Ortonville Rox",
+    "team_url": "https://www.mnbaseball.org/teams/ortonville-rox",
+    "class": "C",
+    "league": "Land O' Ducks - Teal League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
+    "league_record": "1-6-0",
+    "overall_record": "1-7-0"
+  },
+  {
+    "team_slug": "morris-eagles",
+    "team_name": "Morris Eagles",
+    "team_url": "https://www.mnbaseball.org/teams/morris-eagles",
+    "class": "C",
+    "league": "Land O' Ducks - Wood League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-wood",
+    "league_record": "9-0-0",
+    "overall_record": "10-0-0"
+  },
+  {
+    "team_slug": "clinton-cards",
+    "team_name": "Clinton Cards",
+    "team_url": "https://www.mnbaseball.org/teams/clinton-cards",
+    "class": "C",
+    "league": "Land O' Ducks - Wood League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-wood",
+    "league_record": "7-2-0",
+    "overall_record": "8-6-0"
+  },
+  {
+    "team_slug": "dumont-saints",
+    "team_name": "Dumont Saints",
+    "team_url": "https://www.mnbaseball.org/teams/dumont-saints",
+    "class": "C",
+    "league": "Land O' Ducks - Wood League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-wood",
+    "league_record": "6-2-0",
+    "overall_record": "7-3-0"
+  },
+  {
+    "team_slug": "hancock-orphans",
+    "team_name": "Hancock Orphans",
+    "team_url": "https://www.mnbaseball.org/teams/hancock-orphans",
+    "class": "C",
+    "league": "Land O' Ducks - Wood League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-wood",
+    "league_record": "3-4-0",
+    "overall_record": "4-4-0"
+  },
+  {
+    "team_slug": "chokio-coyotes",
+    "team_name": "Chokio Coyotes",
+    "team_url": "https://www.mnbaseball.org/teams/chokio-coyotes",
+    "class": "C",
+    "league": "Land O' Ducks - Wood League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-wood",
+    "league_record": "3-5-0",
+    "overall_record": "4-6-0"
+  },
+  {
+    "team_slug": "appleton-as",
+    "team_name": "Appleton Athletics",
+    "team_url": "https://www.mnbaseball.org/teams/appleton-as",
+    "class": "C",
+    "league": "Land O' Ducks - Wood League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-wood",
+    "league_record": "0-5-0",
+    "overall_record": "1-8-0"
+  },
+  {
+    "team_slug": "forest-lake-brewers",
+    "team_name": "Forest Lake Brewers",
+    "team_url": "https://www.mnbaseball.org/teams/forest-lake-brewers",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "11-1-0",
+    "overall_record": "16-5-0"
+  },
+  {
+    "team_slug": "twin-ports-timbers",
+    "team_name": "Twin Ports Timbers",
+    "team_url": "https://www.mnbaseball.org/teams/twin-ports-timbers",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "9-3-0",
+    "overall_record": "10-3-1"
+  },
+  {
+    "team_slug": "andover-aces",
+    "team_name": "Andover Aces",
+    "team_url": "https://www.mnbaseball.org/teams/andover-aces",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "6-3-0",
+    "overall_record": "10-7-0"
+  },
+  {
+    "team_slug": "coon-rapids-redbirds",
+    "team_name": "Coon Rapids Redbirds",
+    "team_url": "https://www.mnbaseball.org/teams/coon-rapids-redbirds",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "6-4-0",
+    "overall_record": "12-5-1"
+  },
+  {
+    "team_slug": "anoka-bucs",
+    "team_name": "Anoka Bucs",
+    "team_url": "https://www.mnbaseball.org/teams/anoka-bucs",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "6-4-0",
+    "overall_record": "8-7-0"
+  },
+  {
+    "team_slug": "champlin-park-logators",
+    "team_name": "Champlin Park LoGators",
+    "team_url": "https://www.mnbaseball.org/teams/champlin-park-logators",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "4-6-0",
+    "overall_record": "8-10-0"
+  },
+  {
+    "team_slug": "centennial-cougars",
+    "team_name": "Centennial Cougars",
+    "team_url": "https://www.mnbaseball.org/teams/centennial-cougars",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "2-6-0",
+    "overall_record": "7-11-0"
+  },
+  {
+    "team_slug": "monticello-polecats",
+    "team_name": "Monticello Polecats",
+    "team_url": "https://www.mnbaseball.org/teams/monticello-polecats",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "2-6-0",
+    "overall_record": "4-8-0"
+  },
+  {
+    "team_slug": "elk-river-lumberjacks",
+    "team_name": "Elk River Lumberjacks",
+    "team_url": "https://www.mnbaseball.org/teams/elk-river-lumberjacks",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "2-6-0",
+    "overall_record": "3-8-0"
+  },
+  {
+    "team_slug": "shoreview-stumpgrinders",
+    "team_name": "Shoreview Stumpgrinders",
+    "team_url": "https://www.mnbaseball.org/teams/shoreview-stumpgrinders",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "2-11-0",
+    "overall_record": "3-20-0"
+  },
+  {
+    "team_slug": "loretto-larks",
+    "team_name": "Loretto Larks",
+    "team_url": "https://www.mnbaseball.org/teams/loretto-larks",
+    "class": "B",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "10-2-0",
+    "overall_record": "10-2-0"
+  },
+  {
+    "team_slug": "howard-lake-orphans",
+    "team_name": "Howard Lake Orphans",
+    "team_url": "https://www.mnbaseball.org/teams/howard-lake-orphans",
+    "class": "C",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "9-4-0",
+    "overall_record": "15-7-0"
+  },
+  {
+    "team_slug": "hutchinson-huskies",
+    "team_name": "Hutchinson Huskies",
+    "team_url": "https://www.mnbaseball.org/teams/hutchinson-huskies",
+    "class": "B",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "9-5-0",
+    "overall_record": "15-7-0"
+  },
+  {
+    "team_slug": "dassel-cokato-saints",
+    "team_name": "Dassel-Cokato Saints",
+    "team_url": "https://www.mnbaseball.org/teams/dassel-cokato-saints",
+    "class": "C",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "8-7-0",
+    "overall_record": "13-8-0"
+  },
+  {
+    "team_slug": "buffalo-bulldogs",
+    "team_name": "Buffalo Bulldogs",
+    "team_url": "https://www.mnbaseball.org/teams/buffalo-bulldogs",
+    "class": "A",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "7-2-0",
+    "overall_record": "12-4-0"
+  },
+  {
+    "team_slug": "litchfield-blues",
+    "team_name": "Litchfield Blues",
+    "team_url": "https://www.mnbaseball.org/teams/litchfield-blues",
+    "class": "C",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "7-5-0",
+    "overall_record": "10-6-0"
+  },
+  {
+    "team_slug": "rockford-crows",
+    "team_name": "Rockford Crows",
+    "team_url": "https://www.mnbaseball.org/teams/rockford-crows",
+    "class": "C",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "7-6-0",
+    "overall_record": "8-6-0"
+  },
+  {
+    "team_slug": "maple-lake-lakers",
+    "team_name": "Maple Lake Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/maple-lake-lakers",
+    "class": "B",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "6-5-0",
+    "overall_record": "9-6-0"
+  },
+  {
+    "team_slug": "hamel-hawks",
+    "team_name": "Hamel Hawks",
+    "team_url": "https://www.mnbaseball.org/teams/hamel-hawks",
+    "class": "B",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "6-8-0",
+    "overall_record": "8-13-0"
+  },
+  {
+    "team_slug": "maple-plain-diamond-devils",
+    "team_name": "Maple Plain Diamond Devils",
+    "team_url": "https://www.mnbaseball.org/teams/maple-plain-diamond-devils",
+    "class": "B",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "5-7-0",
+    "overall_record": "7-11-0"
+  },
+  {
+    "team_slug": "kimball-express",
+    "team_name": "Kimball Express",
+    "team_url": "https://www.mnbaseball.org/teams/kimball-express",
+    "class": "B",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "4-9-0",
+    "overall_record": "5-9-0"
+  },
+  {
+    "team_slug": "cokato-kernels",
+    "team_name": "Cokato Kernels",
+    "team_url": "https://www.mnbaseball.org/teams/cokato-kernels",
+    "class": "C",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "2-10-0",
+    "overall_record": "6-14-0"
+  },
+  {
+    "team_slug": "montrose-waverly-stingers",
+    "team_name": "Montrose-Waverly Stingers",
+    "team_url": "https://www.mnbaseball.org/teams/montrose-waverly-stingers",
+    "class": "C",
+    "league": "North Star League",
+    "league_url": "https://mnbaseball.org/leagues/north-star",
+    "league_record": "1-11-0",
+    "overall_record": "5-18-0"
+  },
+  {
+    "team_slug": "roseau-royals",
+    "team_name": "Roseau Royals",
+    "team_url": "https://www.mnbaseball.org/teams/roseau-royals",
+    "class": "B",
+    "league": "Northwest Border League",
+    "league_url": "https://mnbaseball.org/leagues/northwest-border",
+    "league_record": "3-1-0",
+    "overall_record": "6-3-0"
+  },
+  {
+    "team_slug": "agassiz-gamblers",
+    "team_name": "Agassiz Gamblers",
+    "team_url": "https://www.mnbaseball.org/teams/agassiz-gamblers",
+    "class": "C",
+    "league": "Northwest Border League",
+    "league_url": "https://mnbaseball.org/leagues/northwest-border",
+    "league_record": "3-2-0",
+    "overall_record": "7-5-0"
+  },
+  {
+    "team_slug": "hibbing-miners",
+    "team_name": "Hibbing Miners",
+    "team_url": "https://www.mnbaseball.org/teams/hibbing-miners",
+    "class": "A",
+    "league": "Northwest Border League",
+    "league_url": "https://mnbaseball.org/leagues/northwest-border",
+    "league_record": "2-0-0",
+    "overall_record": "5-3-0"
+  },
+  {
+    "team_slug": "warroad-muskies",
+    "team_name": "Warroad Muskies",
+    "team_url": "https://www.mnbaseball.org/teams/warroad-muskies",
+    "class": "C",
+    "league": "Northwest Border League",
+    "league_url": "https://mnbaseball.org/leagues/northwest-border",
+    "league_record": "2-1-0",
+    "overall_record": "4-4-0"
+  },
+  {
+    "team_slug": "bemidji-blue-ox",
+    "team_name": "Bemidji Blue Ox",
+    "team_url": "https://www.mnbaseball.org/teams/bemidji-blue-ox",
+    "class": "B",
+    "league": "Northwest Border League",
+    "league_url": "https://mnbaseball.org/leagues/northwest-border",
+    "league_record": "2-2-0",
+    "overall_record": "7-5-0"
+  },
+  {
+    "team_slug": "fosston-trash-pandas",
+    "team_name": "Fosston Trash Pandas",
+    "team_url": "https://www.mnbaseball.org/teams/fosston-trash-pandas",
+    "class": "C",
+    "league": "Northwest Border League",
+    "league_url": "https://mnbaseball.org/leagues/northwest-border",
+    "league_record": "2-3-0",
+    "overall_record": "3-4-0"
+  },
+  {
+    "team_slug": "bemidji-bucks",
+    "team_name": "Bemidji Bucks",
+    "team_url": "https://www.mnbaseball.org/teams/bemidji-bucks",
+    "class": "A",
+    "league": "Northwest Border League",
+    "league_url": "https://mnbaseball.org/leagues/northwest-border",
+    "league_record": "2-4-0",
+    "overall_record": "4-10-0"
+  },
+  {
+    "team_slug": "rainy-lake-north-stars",
+    "team_name": "Rainy Lake North Stars",
+    "team_url": "https://www.mnbaseball.org/teams/rainy-lake-north-stars",
+    "class": "C",
+    "league": "Northwest Border League",
+    "league_url": "https://mnbaseball.org/leagues/northwest-border",
+    "league_record": "1-5-0",
+    "overall_record": "1-7-0"
+  },
+  {
+    "team_slug": "lyons-pub-warriors",
+    "team_name": "Macs Industrial Warriors",
+    "team_url": "https://www.mnbaseball.org/teams/lyons-pub-warriors",
+    "class": "A",
+    "league": "Park National League",
+    "league_url": "https://mnbaseball.org/leagues/park-national",
+    "league_record": "10-0-0",
+    "overall_record": "15-4-0"
+  },
+  {
+    "team_slug": "minneapolis-mudcats",
+    "team_name": "Minneapolis MudCats",
+    "team_url": "https://www.mnbaseball.org/teams/minneapolis-mudcats",
+    "class": "A",
+    "league": "Park National League",
+    "league_url": "https://mnbaseball.org/leagues/park-national",
+    "league_record": "8-3-0",
+    "overall_record": "11-10-0"
+  },
+  {
+    "team_slug": "minneapolis-cobras",
+    "team_name": "Minneapolis Cobras",
+    "team_url": "https://www.mnbaseball.org/teams/minneapolis-cobras",
+    "class": "A",
+    "league": "Park National League",
+    "league_url": "https://mnbaseball.org/leagues/park-national",
+    "league_record": "7-3-0",
+    "overall_record": "10-12-0"
+  },
+  {
+    "team_slug": "metro-merchants",
+    "team_name": "Metro Merchants",
+    "team_url": "https://www.mnbaseball.org/teams/metro-merchants",
+    "class": "A",
+    "league": "Park National League",
+    "league_url": "https://mnbaseball.org/leagues/park-national",
+    "league_record": "5-5-0",
+    "overall_record": "5-10-0"
+  },
+  {
+    "team_slug": "minneapolis-river-rats",
+    "team_name": "Minneapolis River Rats",
+    "team_url": "https://www.mnbaseball.org/teams/minneapolis-river-rats",
+    "class": "A",
+    "league": "Park National League",
+    "league_url": "https://mnbaseball.org/leagues/park-national",
+    "league_record": "4-7-0",
+    "overall_record": "6-8-0"
+  },
+  {
+    "team_slug": "minneapolis-angels",
+    "team_name": "Minneapolis Angels",
+    "team_url": "https://www.mnbaseball.org/teams/minneapolis-angels",
+    "class": "A",
+    "league": "Park National League",
+    "league_url": "https://mnbaseball.org/leagues/park-national",
+    "league_record": "3-6-0",
+    "overall_record": "3-6-0"
+  },
+  {
+    "team_slug": "crystal-cowboys",
+    "team_name": "Crystal Cowboys",
+    "team_url": "https://www.mnbaseball.org/teams/crystal-cowboys",
+    "class": "A",
+    "league": "Park National League",
+    "league_url": "https://mnbaseball.org/leagues/park-national",
+    "league_record": "3-7-0",
+    "overall_record": "4-10-0"
+  },
+  {
+    "team_slug": "minneapolis-blue-sox",
+    "team_name": "Minneapolis Blue Sox",
+    "team_url": "https://www.mnbaseball.org/teams/minneapolis-blue-sox",
+    "class": "A",
+    "league": "Park National League",
+    "league_url": "https://mnbaseball.org/leagues/park-national",
+    "league_record": "0-9-0",
+    "overall_record": "0-10-0"
+  },
+  {
+    "team_slug": "sauk-centre-titans",
+    "team_name": "Sauk Centre Titans",
+    "team_url": "https://www.mnbaseball.org/teams/sauk-centre-titans",
+    "class": "C",
+    "league": "Resorters League",
+    "league_url": "https://mnbaseball.org/leagues/resorters",
+    "league_record": "6-2-0",
+    "overall_record": "6-5-0"
+  },
+  {
+    "team_slug": "urbank-parkers-prairie-bombers",
+    "team_name": "Urbank-Parkers Prairie Bombers",
+    "team_url": "https://www.mnbaseball.org/teams/urbank-parkers-prairie-bombers",
+    "class": "C",
+    "league": "Resorters League",
+    "league_url": "https://mnbaseball.org/leagues/resorters",
+    "league_record": "5-1-0",
+    "overall_record": "9-2-0"
+  },
+  {
+    "team_slug": "alexandria-black-sox",
+    "team_name": "Alexandria Black Sox",
+    "team_url": "https://www.mnbaseball.org/teams/alexandria-black-sox",
+    "class": "A",
+    "league": "Resorters League",
+    "league_url": "https://mnbaseball.org/leagues/resorters",
+    "league_record": "2-3-0",
+    "overall_record": "2-3-0"
+  },
+  {
+    "team_slug": "ashby-as",
+    "team_name": "Ashby Athletics",
+    "team_url": "https://www.mnbaseball.org/teams/ashby-as",
+    "class": "C",
+    "league": "Resorters League",
+    "league_url": "https://mnbaseball.org/leagues/resorters",
+    "league_record": "1-3-0",
+    "overall_record": "3-4-0"
+  },
+  {
+    "team_slug": "long-prairie-predators",
+    "team_name": "Long Prairie Predators",
+    "team_url": "https://www.mnbaseball.org/teams/long-prairie-predators",
+    "class": "C",
+    "league": "Resorters League",
+    "league_url": "https://mnbaseball.org/leagues/resorters",
+    "league_record": "1-3-0",
+    "overall_record": "1-3-0"
+  },
+  {
+    "team_slug": "kensington-norsemen",
+    "team_name": "Kensington Norsemen",
+    "team_url": "https://www.mnbaseball.org/teams/kensington-norsemen",
+    "class": "C",
+    "league": "Resorters League",
+    "league_url": "https://mnbaseball.org/leagues/resorters",
+    "league_record": "0-3-0",
+    "overall_record": "0-6-0"
+  },
+  {
+    "team_slug": "jordan-brewers",
+    "team_name": "Jordan Brewers",
+    "team_url": "https://www.mnbaseball.org/teams/jordan-brewers",
+    "class": "B",
+    "league": "River Valley Central League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley",
+    "league_record": "0-0-0",
+    "overall_record": "17-6-0"
+  },
+  {
+    "team_slug": "eagle-lake-expos",
+    "team_name": "Eagle Lake Expos",
+    "team_url": "https://www.mnbaseball.org/teams/eagle-lake-expos",
+    "class": "B",
+    "league": "River Valley Central League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley",
+    "league_record": "0-0-0",
+    "overall_record": "11-6-0"
+  },
+  {
+    "team_slug": "le-sueur-braves",
+    "team_name": "Le Sueur Braves",
+    "team_url": "https://www.mnbaseball.org/teams/le-sueur-braves",
+    "class": "B",
+    "league": "River Valley Central League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley",
+    "league_record": "0-0-0",
+    "overall_record": "10-6-0"
+  },
+  {
+    "team_slug": "belle-plaine-tigers",
+    "team_name": "Belle Plaine Tigers",
+    "team_url": "https://www.mnbaseball.org/teams/belle-plaine-tigers",
+    "class": "C",
+    "league": "River Valley Central League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley",
+    "league_record": "0-0-0",
+    "overall_record": "6-8-0"
+  },
+  {
+    "team_slug": "st-patrick-irish",
+    "team_name": "St. Patrick Irish",
+    "team_url": "https://www.mnbaseball.org/teams/st-patrick-irish",
+    "class": "A",
+    "league": "River Valley East League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-east",
+    "league_record": "1-0-0",
+    "overall_record": "15-2-0"
+  },
+  {
+    "team_slug": "burnsville-bobcats",
+    "team_name": "Burnsville Bobcats",
+    "team_url": "https://www.mnbaseball.org/teams/burnsville-bobcats",
+    "class": "A",
+    "league": "River Valley East League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-east",
+    "league_record": "0-0-0",
+    "overall_record": "14-5-0"
+  },
+  {
+    "team_slug": "prior-lake-jays",
+    "team_name": "Prior Lake Jays",
+    "team_url": "https://www.mnbaseball.org/teams/prior-lake-jays",
+    "class": "A",
+    "league": "River Valley East League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-east",
+    "league_record": "0-0-0",
+    "overall_record": "5-13-1"
+  },
+  {
+    "team_slug": "burnsville-badgers",
+    "team_name": "Burnsville Badgers",
+    "team_url": "https://mnbaseball.org/teams/burnsville-badgers",
+    "class": "A",
+    "league": "River Valley East League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-east",
+    "league_record": "0-0-0",
+    "overall_record": "1-7-0"
+  },
+  {
+    "team_slug": "eagan-bandits",
+    "team_name": "Eagan Bandits",
+    "team_url": "https://www.mnbaseball.org/teams/eagan-bandits",
+    "class": "A",
+    "league": "River Valley East League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-east",
+    "league_record": "0-0-0",
+    "overall_record": "0-0-0"
+  },
+  {
+    "team_slug": "chaska-cubs",
+    "team_name": "Chaska Cubs",
+    "team_url": "https://www.mnbaseball.org/teams/chaska-cubs",
+    "class": "A",
+    "league": "River Valley North League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-north",
+    "league_record": "0-0-0",
+    "overall_record": "17-6-0"
+  },
+  {
+    "team_slug": "shakopee-indians",
+    "team_name": "Shakopee Indians",
+    "team_url": "https://www.mnbaseball.org/teams/shakopee-indians",
+    "class": "A",
+    "league": "River Valley North League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-north",
+    "league_record": "0-0-0",
+    "overall_record": "8-16-0"
+  },
+  {
+    "team_slug": "victoria-vics",
+    "team_name": "Victoria Vics",
+    "team_url": "https://www.mnbaseball.org/teams/victoria-vics",
+    "class": "A",
+    "league": "River Valley North League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-north",
+    "league_record": "0-0-0",
+    "overall_record": "4-9-0"
+  },
+  {
+    "team_slug": "st-peter-saints",
+    "team_name": "St. Peter Saints",
+    "team_url": "https://www.mnbaseball.org/teams/st-peter-saints",
+    "class": "C",
+    "league": "River Valley West League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-west",
+    "league_record": "2-2-0",
+    "overall_record": "7-10-1"
+  },
+  {
+    "team_slug": "st-clair-wood-ducks",
+    "team_name": "Waldorf Wood Ducks",
+    "team_url": "https://www.mnbaseball.org/teams/st-clair-wood-ducks",
+    "class": "B",
+    "league": "River Valley West League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-west",
+    "league_record": "1-0-0",
+    "overall_record": "5-5-0"
+  },
+  {
+    "team_slug": "gaylord-islanders",
+    "team_name": "Gaylord Islanders",
+    "team_url": "https://www.mnbaseball.org/teams/gaylord-islanders",
+    "class": "C",
+    "league": "River Valley West League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-west",
+    "league_record": "1-3-0",
+    "overall_record": "5-10-0"
+  },
+  {
+    "team_slug": "lake-crystal-9",
+    "team_name": "Lake Crystal 9",
+    "team_url": "https://mnbaseball.org/teams/lake-crystal-9",
+    "class": "C",
+    "league": "River Valley West League",
+    "league_url": "https://mnbaseball.org/leagues/river-valley-west",
+    "league_record": "0-1-0",
+    "overall_record": "1-9-0"
+  },
+  {
+    "team_slug": "baseball-365",
+    "team_name": "Baseball 365",
+    "team_url": "https://www.mnbaseball.org/teams/baseball-365",
+    "class": "A",
+    "league": "Riverview League",
+    "league_url": "https://mnbaseball.org/leagues/riverview",
+    "league_record": "7-2-0",
+    "overall_record": "15-8-0"
+  },
+  {
+    "team_slug": "northwest-orioles",
+    "team_name": "Northwest Orioles",
+    "team_url": "https://www.mnbaseball.org/teams/northwest-orioles",
+    "class": "A",
+    "league": "Riverview League",
+    "league_url": "https://mnbaseball.org/leagues/riverview",
+    "league_record": "6-3-0",
+    "overall_record": "6-6-0"
+  },
+  {
+    "team_slug": "minnetonka-monarchs",
+    "team_name": "Minnetonka Monarchs",
+    "team_url": "https://www.mnbaseball.org/teams/minnetonka-monarchs",
+    "class": "A",
+    "league": "Riverview League",
+    "league_url": "https://mnbaseball.org/leagues/riverview",
+    "league_record": "4-3-0",
+    "overall_record": "14-6-0"
+  },
+  {
+    "team_slug": "macstrength-grizzlies",
+    "team_name": "Macstrength Grizzlies",
+    "team_url": "https://www.mnbaseball.org/teams/macstrength-grizzlies",
+    "class": "A",
+    "league": "Riverview League",
+    "league_url": "https://mnbaseball.org/leagues/riverview",
+    "league_record": "1-5-0",
+    "overall_record": "1-10-0"
+  },
+  {
+    "team_slug": "plymouth-hitdawg",
+    "team_name": "Plymouth Hitdawg",
+    "team_url": "https://www.mnbaseball.org/teams/plymouth-hitdawg",
+    "class": "A",
+    "league": "Riverview League",
+    "league_url": "https://mnbaseball.org/leagues/riverview",
+    "league_record": "1-6-0",
+    "overall_record": "4-9-0"
+  },
+  {
+    "team_slug": "cold-spring-springers",
+    "team_name": "Cold Spring Springers",
+    "team_url": "https://www.mnbaseball.org/teams/cold-spring-springers",
+    "class": "B",
+    "league": "Sauk Valley League",
+    "league_url": "https://mnbaseball.org/leagues/sauk-valley",
+    "league_record": "10-0-0",
+    "overall_record": "12-1-0"
+  },
+  {
+    "team_slug": "sauk-rapids-cyclones",
+    "team_name": "Sauk Rapids Cyclones",
+    "team_url": "https://www.mnbaseball.org/teams/sauk-rapids-cyclones",
+    "class": "B",
+    "league": "Sauk Valley League",
+    "league_url": "https://mnbaseball.org/leagues/sauk-valley",
+    "league_record": "8-2-0",
+    "overall_record": "10-4-0"
+  },
+  {
+    "team_slug": "sartell-muskies",
+    "team_name": "Sartell Muskies",
+    "team_url": "https://www.mnbaseball.org/teams/sartell-muskies",
+    "class": "A",
+    "league": "Sauk Valley League",
+    "league_url": "https://mnbaseball.org/leagues/sauk-valley",
+    "league_record": "7-4-0",
+    "overall_record": "9-6-0"
+  },
+  {
+    "team_slug": "sartell-stone-poneys",
+    "team_name": "Sartell Stone Poneys",
+    "team_url": "https://www.mnbaseball.org/teams/sartell-stone-poneys",
+    "class": "A",
+    "league": "Sauk Valley League",
+    "league_url": "https://mnbaseball.org/leagues/sauk-valley",
+    "league_record": "5-4-0",
+    "overall_record": "10-5-0"
+  },
+  {
+    "team_slug": "clearwater-river-cats",
+    "team_name": "Clearwater River Cats",
+    "team_url": "https://www.mnbaseball.org/teams/clearwater-river-cats",
+    "class": "C",
+    "league": "Sauk Valley League",
+    "league_url": "https://mnbaseball.org/leagues/sauk-valley",
+    "league_record": "5-6-0",
+    "overall_record": "8-11-0"
+  },
+  {
+    "team_slug": "st-joseph-joes",
+    "team_name": "St. Joseph Joes",
+    "team_url": "https://www.mnbaseball.org/teams/st-joseph-joes",
+    "class": "B",
+    "league": "Sauk Valley League",
+    "league_url": "https://mnbaseball.org/leagues/sauk-valley",
+    "league_record": "3-5-0",
+    "overall_record": "6-6-0"
+  },
+  {
+    "team_slug": "albertville-anglers",
+    "team_name": "Albertville Anglers",
+    "team_url": "https://www.mnbaseball.org/teams/albertville-anglers",
+    "class": "B",
+    "league": "Sauk Valley League",
+    "league_url": "https://mnbaseball.org/leagues/sauk-valley",
+    "league_record": "2-11-0",
+    "overall_record": "8-14-0"
+  },
+  {
+    "team_slug": "becker-bandits",
+    "team_name": "Becker Bandits",
+    "team_url": "https://www.mnbaseball.org/teams/becker-bandits",
+    "class": "C",
+    "league": "Sauk Valley League",
+    "league_url": "https://mnbaseball.org/leagues/sauk-valley",
+    "league_record": "1-9-0",
+    "overall_record": "6-10-0"
+  },
+  {
+    "team_slug": "st-anthony-hogs",
+    "team_name": "St. Anthony Hogs",
+    "team_url": "https://www.mnbaseball.org/teams/st-anthony-hogs",
+    "class": "A",
+    "league": "Skyline League",
+    "league_url": "https://mnbaseball.org/leagues/skyline",
+    "league_record": "6-2-0",
+    "overall_record": "14-6-0"
+  },
+  {
+    "team_slug": "white-bear-township",
+    "team_name": "White Bear Township",
+    "team_url": "https://www.mnbaseball.org/teams/white-bear-township",
+    "class": "A",
+    "league": "Skyline League",
+    "league_url": "https://mnbaseball.org/leagues/skyline",
+    "league_record": "6-2-0",
+    "overall_record": "8-7-2"
+  },
+  {
+    "team_slug": "stockmens-irish",
+    "team_name": "Stockmens Irish",
+    "team_url": "https://www.mnbaseball.org/teams/stockmens-irish",
+    "class": "A",
+    "league": "Skyline League",
+    "league_url": "https://mnbaseball.org/leagues/skyline",
+    "league_record": "4-2-0",
+    "overall_record": "10-6-0"
+  },
+  {
+    "team_slug": "north-st-paul-snowmen",
+    "team_name": "North St. Paul Snowmen",
+    "team_url": "https://www.mnbaseball.org/teams/north-st-paul-snowmen",
+    "class": "A",
+    "league": "Skyline League",
+    "league_url": "https://mnbaseball.org/leagues/skyline",
+    "league_record": "3-3-0",
+    "overall_record": "11-7-0"
+  },
+  {
+    "team_slug": "metro-knights",
+    "team_name": "Metro Knights",
+    "team_url": "https://www.mnbaseball.org/teams/metro-knights",
+    "class": "A",
+    "league": "Skyline League",
+    "league_url": "https://mnbaseball.org/leagues/skyline",
+    "league_record": "3-4-0",
+    "overall_record": "7-11-0"
+  },
+  {
+    "team_slug": "minneapolis-north-stars",
+    "team_name": "Minneapolis North Stars",
+    "team_url": "https://www.mnbaseball.org/teams/minneapolis-north-stars",
+    "class": "A",
+    "league": "Skyline League",
+    "league_url": "https://mnbaseball.org/leagues/skyline",
+    "league_record": "1-6-0",
+    "overall_record": "2-9-0"
+  },
+  {
+    "team_slug": "stillwater-loggers",
+    "team_name": "Stillwater Loggers",
+    "team_url": "https://www.mnbaseball.org/teams/stillwater-loggers",
+    "class": "A",
+    "league": "Skyline League",
+    "league_url": "https://mnbaseball.org/leagues/skyline",
+    "league_record": "0-4-0",
+    "overall_record": "0-4-0"
+  },
+  {
+    "team_slug": "air-freight-unlimited",
+    "team_name": "Air Freight Unlimited",
+    "team_url": "https://www.mnbaseball.org/teams/air-freight-unlimited",
+    "class": "A",
+    "league": "St. Paul League",
+    "league_url": "https://mnbaseball.org/leagues/st-paul",
+    "league_record": "8-2-0",
+    "overall_record": "8-2-0"
+  },
+  {
+    "team_slug": "st-paul-mudhens",
+    "team_name": "St. Paul Mudhens",
+    "team_url": "https://www.mnbaseball.org/teams/st-paul-mudhens",
+    "class": "A",
+    "league": "St. Paul League",
+    "league_url": "https://mnbaseball.org/leagues/st-paul",
+    "league_record": "7-1-0",
+    "overall_record": "12-3-0"
+  },
+  {
+    "team_slug": "st-paul-hops",
+    "team_name": "St. Paul Hops",
+    "team_url": "https://www.mnbaseball.org/teams/st-paul-hops",
+    "class": "A",
+    "league": "St. Paul League",
+    "league_url": "https://mnbaseball.org/leagues/st-paul",
+    "league_record": "6-4-0",
+    "overall_record": "12-6-0"
+  },
+  {
+    "team_slug": "rosetown-as",
+    "team_name": "Rosetown Athletics",
+    "team_url": "https://www.mnbaseball.org/teams/rosetown-as",
+    "class": "A",
+    "league": "St. Paul League",
+    "league_url": "https://mnbaseball.org/leagues/st-paul",
+    "league_record": "4-4-0",
+    "overall_record": "5-6-0"
+  },
+  {
+    "team_slug": "highland-park-beavers",
+    "team_name": "Highland Park Beavers",
+    "team_url": "https://www.mnbaseball.org/teams/highland-park-beavers",
+    "class": "A",
+    "league": "St. Paul League",
+    "league_url": "https://mnbaseball.org/leagues/st-paul",
+    "league_record": "3-4-0",
+    "overall_record": "6-10-0"
+  },
+  {
+    "team_slug": "twin-city-saints",
+    "team_name": "Twin City Saints",
+    "team_url": "https://www.mnbaseball.org/teams/twin-city-saints",
+    "class": "A",
+    "league": "St. Paul League",
+    "league_url": "https://mnbaseball.org/leagues/st-paul",
+    "league_record": "2-6-0",
+    "overall_record": "4-10-0"
+  },
+  {
+    "team_slug": "north-end-biscuits",
+    "team_name": "North End Storm",
+    "team_url": "https://www.mnbaseball.org/teams/north-end-biscuits",
+    "class": "A",
+    "league": "St. Paul League",
+    "league_url": "https://mnbaseball.org/leagues/st-paul",
+    "league_record": "0-9-0",
+    "overall_record": "0-9-0"
+  },
+  {
+    "team_slug": "elrosa-saints",
+    "team_name": "Elrosa Saints",
+    "team_url": "https://www.mnbaseball.org/teams/elrosa-saints",
+    "class": "C",
+    "league": "Stearns County - North League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-north",
+    "league_record": "8-3-0",
+    "overall_record": "16-5-0"
+  },
+  {
+    "team_slug": "spring-hill-chargers",
+    "team_name": "Spring Hill Chargers",
+    "team_url": "https://www.mnbaseball.org/teams/spring-hill-chargers",
+    "class": "C",
+    "league": "Stearns County - North League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-north",
+    "league_record": "7-4-0",
+    "overall_record": "8-7-0"
+  },
+  {
+    "team_slug": "greenwald-cubs",
+    "team_name": "Greenwald Cubs",
+    "team_url": "https://www.mnbaseball.org/teams/greenwald-cubs",
+    "class": "C",
+    "league": "Stearns County - North League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-north",
+    "league_record": "5-6-0",
+    "overall_record": "6-8-0"
+  },
+  {
+    "team_slug": "new-munich-silverstreaks",
+    "team_name": "New Munich SilverStreaks",
+    "team_url": "https://www.mnbaseball.org/teams/new-munich-silverstreaks",
+    "class": "C",
+    "league": "Stearns County - North League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-north",
+    "league_record": "5-6-0",
+    "overall_record": "6-8-0"
+  },
+  {
+    "team_slug": "meire-grove-grovers",
+    "team_name": "Meire Grove Grovers",
+    "team_url": "https://www.mnbaseball.org/teams/meire-grove-grovers",
+    "class": "C",
+    "league": "Stearns County - North League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-north",
+    "league_record": "2-7-0",
+    "overall_record": "2-9-0"
+  },
+  {
+    "team_slug": "st-martin-martins",
+    "team_name": "St. Martin Martins",
+    "team_url": "https://www.mnbaseball.org/teams/st-martin-martins",
+    "class": "B",
+    "league": "Stearns County - South League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-south",
+    "league_record": "7-2-0",
+    "overall_record": "13-3-0"
+  },
+  {
+    "team_slug": "richmond-royals",
+    "team_name": "Richmond Royals",
+    "team_url": "https://www.mnbaseball.org/teams/richmond-royals",
+    "class": "C",
+    "league": "Stearns County - South League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-south",
+    "league_record": "6-4-0",
+    "overall_record": "10-7-1"
+  },
+  {
+    "team_slug": "farming-flames",
+    "team_name": "Farming Flames",
+    "team_url": "https://www.mnbaseball.org/teams/farming-flames",
+    "class": "C",
+    "league": "Stearns County - South League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-south",
+    "league_record": "5-7-0",
+    "overall_record": "5-10-0"
+  },
+  {
+    "team_slug": "lake-henry-lakers",
+    "team_name": "Lake Henry Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/lake-henry-lakers",
+    "class": "C",
+    "league": "Stearns County - South League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-south",
+    "league_record": "4-7-0",
+    "overall_record": "6-9-0"
+  },
+  {
+    "team_slug": "roscoe-rangers",
+    "team_name": "Roscoe Rangers",
+    "team_url": "https://www.mnbaseball.org/teams/roscoe-rangers",
+    "class": "C",
+    "league": "Stearns County - South League",
+    "league_url": "https://mnbaseball.org/leagues/stearns-county-south",
+    "league_record": "4-7-0",
+    "overall_record": "5-9-0"
+  },
+  {
+    "team_slug": "moorhead-brewers",
+    "team_name": "Moorhead Brewers",
+    "team_url": "https://www.mnbaseball.org/teams/moorhead-brewers",
+    "class": "A",
+    "league": "The Red River Amateur Baseball League",
+    "league_url": "https://mnbaseball.org/leagues/the-red-river-ameteur-baseball-league",
+    "league_record": "4-1-0",
+    "overall_record": "8-1-0"
+  },
+  {
+    "team_slug": "ada-as",
+    "team_name": "Ada Athletics",
+    "team_url": "https://www.mnbaseball.org/teams/ada-as",
+    "class": "C",
+    "league": "The Red River Amateur Baseball League",
+    "league_url": "https://mnbaseball.org/leagues/the-red-river-ameteur-baseball-league",
+    "league_record": "4-3-0",
+    "overall_record": "7-9-0"
+  },
+  {
+    "team_slug": "moorhead-mudcats",
+    "team_name": "Moorhead Mudcats",
+    "team_url": "https://www.mnbaseball.org/teams/moorhead-mudcats",
+    "class": "A",
+    "league": "The Red River Amateur Baseball League",
+    "league_url": "https://mnbaseball.org/leagues/the-red-river-ameteur-baseball-league",
+    "league_record": "3-0-0",
+    "overall_record": "10-0-0"
+  },
+  {
+    "team_slug": "dilworth-raildogs",
+    "team_name": "Dilworth Raildogs",
+    "team_url": "https://www.mnbaseball.org/teams/dilworth-raildogs",
+    "class": "A",
+    "league": "The Red River Amateur Baseball League",
+    "league_url": "https://mnbaseball.org/leagues/the-red-river-ameteur-baseball-league",
+    "league_record": "3-4-0",
+    "overall_record": "6-5-1"
+  },
+  {
+    "team_slug": "fergus-falls-hurricanes",
+    "team_name": "Fergus Falls Hurricanes",
+    "team_url": "https://www.mnbaseball.org/teams/fergus-falls-hurricanes",
+    "class": "B",
+    "league": "The Red River Amateur Baseball League",
+    "league_url": "https://mnbaseball.org/leagues/the-red-river-ameteur-baseball-league",
+    "league_record": "1-3-0",
+    "overall_record": "2-4-0"
+  },
+  {
+    "team_slug": "sabin-mets",
+    "team_name": "Sabin Mets",
+    "team_url": "https://mnbaseball.org/teams/sabin-mets",
+    "class": "A",
+    "league": "The Red River Amateur Baseball League",
+    "league_url": "https://mnbaseball.org/leagues/the-red-river-ameteur-baseball-league",
+    "league_record": "0-3-0",
+    "overall_record": "1-7-0"
+  },
+  {
+    "team_slug": "courtland-cubs",
+    "team_name": "Courtland Cubs",
+    "team_url": "https://www.mnbaseball.org/teams/courtland-cubs",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "11-2-0",
+    "overall_record": "15-4-0"
+  },
+  {
+    "team_slug": "hanska-lakers",
+    "team_name": "Hanska Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/hanska-lakers",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "10-2-0",
+    "overall_record": "11-4-1"
+  },
+  {
+    "team_slug": "new-ulm-brewers",
+    "team_name": "New Ulm Brewers",
+    "team_url": "https://www.mnbaseball.org/teams/new-ulm-brewers",
+    "class": "A",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "8-1-0",
+    "overall_record": "8-2-0"
+  },
+  {
+    "team_slug": "springfield-tigers",
+    "team_name": "Springfield Tigers",
+    "team_url": "https://www.mnbaseball.org/teams/springfield-tigers",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "8-4-0",
+    "overall_record": "8-5-1"
+  },
+  {
+    "team_slug": "lamberton-long-sox",
+    "team_name": "Lamberton Long Sox",
+    "team_url": "https://www.mnbaseball.org/teams/lamberton-long-sox",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "6-4-0",
+    "overall_record": "7-5-0"
+  },
+  {
+    "team_slug": "searles-grizzlies",
+    "team_name": "Searles Grizzlies",
+    "team_url": "https://www.mnbaseball.org/teams/searles-grizzlies",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "5-5-0",
+    "overall_record": "5-5-0"
+  },
+  {
+    "team_slug": "stark-longhorns",
+    "team_name": "Stark Longhorns",
+    "team_url": "https://www.mnbaseball.org/teams/stark-longhorns",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "5-7-0",
+    "overall_record": "5-9-0"
+  },
+  {
+    "team_slug": "leavenworth-orioles",
+    "team_name": "Leavenworth Orioles",
+    "team_url": "https://www.mnbaseball.org/teams/leavenworth-orioles",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "4-6-0",
+    "overall_record": "4-6-0"
+  },
+  {
+    "team_slug": "gibbon-reds",
+    "team_name": "Gibbon Reds",
+    "team_url": "https://www.mnbaseball.org/teams/gibbon-reds",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "4-6-0",
+    "overall_record": "4-7-0"
+  },
+  {
+    "team_slug": "st-james-as",
+    "team_name": "St. James Athletics",
+    "team_url": "https://mnbaseball.org/teams/st-james-as",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "3-7-0",
+    "overall_record": "5-8-0"
+  },
+  {
+    "team_slug": "sleepy-eye-indians",
+    "team_name": "Sleepy Eye Indians",
+    "team_url": "https://www.mnbaseball.org/teams/sleepy-eye-indians",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "3-8-0",
+    "overall_record": "3-9-0"
+  },
+  {
+    "team_slug": "fairfax-cardinals",
+    "team_name": "Fairfax Cardinals",
+    "team_url": "https://www.mnbaseball.org/teams/fairfax-cardinals",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "2-8-0",
+    "overall_record": "3-8-0"
+  },
+  {
+    "team_slug": "essig-bluejays",
+    "team_name": "Essig Bluejays",
+    "team_url": "https://www.mnbaseball.org/teams/essig-bluejays",
+    "class": "C",
+    "league": "Tomahawk East League",
+    "league_url": "https://mnbaseball.org/leagues/tomahawk-east",
+    "league_record": "2-10-0",
+    "overall_record": "4-10-0"
+  },
+  {
+    "team_slug": "austin-greyhounds",
+    "team_name": "Austin Greyhounds",
+    "team_url": "https://www.mnbaseball.org/teams/austin-greyhounds",
+    "class": "B",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "12-0-0",
+    "overall_record": "14-1-0"
+  },
+  {
+    "team_slug": "stewartville-racine-sharks",
+    "team_name": "Stewartville-Racine Sharks",
+    "team_url": "https://www.mnbaseball.org/teams/stewartville-racine-sharks",
+    "class": "B",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "10-2-0",
+    "overall_record": "13-3-0"
+  },
+  {
+    "team_slug": "dodge-county-diamondbacks",
+    "team_name": "Dodge County Diamondbacks",
+    "team_url": "https://www.mnbaseball.org/teams/dodge-county-diamondbacks",
+    "class": "B",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "7-5-0",
+    "overall_record": "8-7-0"
+  },
+  {
+    "team_slug": "plainview-bucks",
+    "team_name": "Plainview Bucks",
+    "team_url": "https://www.mnbaseball.org/teams/plainview-bucks",
+    "class": "B",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "6-3-0",
+    "overall_record": "6-3-0"
+  },
+  {
+    "team_slug": "winona-chiefs",
+    "team_name": "Winona Chiefs",
+    "team_url": "https://www.mnbaseball.org/teams/winona-chiefs",
+    "class": "B",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "4-7-0",
+    "overall_record": "4-9-0"
+  },
+  {
+    "team_slug": "pine-island-pioneers",
+    "team_name": "Pine Island Pioneers",
+    "team_url": "https://www.mnbaseball.org/teams/pine-island-pioneers",
+    "class": "C",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "4-8-0",
+    "overall_record": "4-10-0"
+  },
+  {
+    "team_slug": "rush-creek-spartans",
+    "team_name": "Rush Creek Spartans",
+    "team_url": "https://www.mnbaseball.org/teams/rush-creek-spartans",
+    "class": "C",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "4-9-0",
+    "overall_record": "5-11-0"
+  },
+  {
+    "team_slug": "owatonna-aces",
+    "team_name": "Owatonna Aces",
+    "team_url": "https://www.mnbaseball.org/teams/owatonna-aces",
+    "class": "A",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "3-4-0",
+    "overall_record": "6-9-0"
+  },
+  {
+    "team_slug": "austin-blue-jays",
+    "team_name": "Austin Blue Jays",
+    "team_url": "https://www.mnbaseball.org/teams/austin-blue-jays",
+    "class": "B",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "3-6-0",
+    "overall_record": "3-7-0"
+  },
+  {
+    "team_slug": "wanamingo-jacks",
+    "team_name": "Wanamingo Jacks",
+    "team_url": "https://www.mnbaseball.org/teams/wanamingo-jacks",
+    "class": "C",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "3-6-0",
+    "overall_record": "3-8-0"
+  },
+  {
+    "team_slug": "rochester-roadrunners",
+    "team_name": "Rochester Roadrunners",
+    "team_url": "https://www.mnbaseball.org/teams/rochester-roadrunners",
+    "class": "B",
+    "league": "Twin Rivers League",
+    "league_url": "https://mnbaseball.org/leagues/twin-rivers",
+    "league_record": "3-9-0",
+    "overall_record": "3-13-0"
+  },
+  {
+    "team_slug": "buckman-billygoats",
+    "team_name": "Buckman Billygoats",
+    "team_url": "https://www.mnbaseball.org/teams/buckman-billygoats",
+    "class": "B",
+    "league": "Victory B League",
+    "league_url": "https://mnbaseball.org/leagues/victory-b",
+    "league_record": "10-1-0",
+    "overall_record": "10-1-0"
+  },
+  {
+    "team_slug": "nisswa-lightning",
+    "team_name": "Nisswa Lightning",
+    "team_url": "https://www.mnbaseball.org/teams/nisswa-lightning",
+    "class": "B",
+    "league": "Victory B League",
+    "league_url": "https://mnbaseball.org/leagues/victory-b",
+    "league_record": "9-2-0",
+    "overall_record": "10-3-0"
+  },
+  {
+    "team_slug": "sobieski-skis",
+    "team_name": "Sobieski Skis",
+    "team_url": "https://www.mnbaseball.org/teams/sobieski-skis",
+    "class": "B",
+    "league": "Victory B League",
+    "league_url": "https://mnbaseball.org/leagues/victory-b",
+    "league_record": "7-4-0",
+    "overall_record": "9-5-0"
+  },
+  {
+    "team_slug": "pierz-lakers",
+    "team_name": "Pierz Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/pierz-lakers",
+    "class": "B",
+    "league": "Victory B League",
+    "league_url": "https://mnbaseball.org/leagues/victory-b",
+    "league_record": "5-6-0",
+    "overall_record": "9-6-0"
+  },
+  {
+    "team_slug": "avon-lakers",
+    "team_name": "Avon Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/avon-lakers",
+    "class": "B",
+    "league": "Victory B League",
+    "league_url": "https://mnbaseball.org/leagues/victory-b",
+    "league_record": "5-6-0",
+    "overall_record": "5-6-0"
+  },
+  {
+    "team_slug": "foley-lumberjacks",
+    "team_name": "Foley Lumberjacks",
+    "team_url": "https://www.mnbaseball.org/teams/foley-lumberjacks",
+    "class": "B",
+    "league": "Victory B League",
+    "league_url": "https://mnbaseball.org/leagues/victory-b",
+    "league_record": "3-8-0",
+    "overall_record": "4-8-0"
+  },
+  {
+    "team_slug": "st-stephen-steves",
+    "team_name": "St. Stephen Steves",
+    "team_url": "https://www.mnbaseball.org/teams/st-stephen-steves",
+    "class": "B",
+    "league": "Victory B League",
+    "league_url": "https://mnbaseball.org/leagues/victory-b",
+    "league_record": "3-8-0",
+    "overall_record": "3-8-0"
+  },
+  {
+    "team_slug": "fort-ripley-rebels",
+    "team_name": "Fort Ripley Rebels",
+    "team_url": "https://www.mnbaseball.org/teams/fort-ripley-rebels",
+    "class": "B",
+    "league": "Victory B League",
+    "league_url": "https://mnbaseball.org/leagues/victory-b",
+    "league_record": "2-9-0",
+    "overall_record": "2-9-0"
+  },
+  {
+    "team_slug": "randall-cubs",
+    "team_name": "Randall Cubs",
+    "team_url": "https://www.mnbaseball.org/teams/randall-cubs",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "8-2-0",
+    "overall_record": "8-2-0"
+  },
+  {
+    "team_slug": "clear-lake-lakers",
+    "team_name": "Clear Lake Lakers",
+    "team_url": "https://www.mnbaseball.org/teams/clear-lake-lakers",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "7-3-0",
+    "overall_record": "9-5-0"
+  },
+  {
+    "team_slug": "pierz-brewers",
+    "team_name": "Pierz Brewers",
+    "team_url": "https://www.mnbaseball.org/teams/pierz-brewers",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "7-3-0",
+    "overall_record": "8-3-0"
+  },
+  {
+    "team_slug": "opole-bears",
+    "team_name": "Opole Bears",
+    "team_url": "https://www.mnbaseball.org/teams/opole-bears",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "6-4-0",
+    "overall_record": "7-5-0"
+  },
+  {
+    "team_slug": "st-wendel-saints",
+    "team_name": "St. Wendel Saints",
+    "team_url": "https://www.mnbaseball.org/teams/st-wendel-saints",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "6-4-0",
+    "overall_record": "7-10-0"
+  },
+  {
+    "team_slug": "upsala-blue-jays",
+    "team_name": "Upsala Blue Jays",
+    "team_url": "https://www.mnbaseball.org/teams/upsala-blue-jays",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "5-4-0",
+    "overall_record": "6-5-0"
+  },
+  {
+    "team_slug": "aitkin-steam",
+    "team_name": "Aitkin Steam",
+    "team_url": "https://www.mnbaseball.org/teams/aitkin-steam",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "5-5-0",
+    "overall_record": "6-6-0"
+  },
+  {
+    "team_slug": "pierz-bulldogs",
+    "team_name": "Pierz Bulldogs",
+    "team_url": "https://www.mnbaseball.org/teams/pierz-bulldogs",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "5-5-0",
+    "overall_record": "5-7-0"
+  },
+  {
+    "team_slug": "freeport-black-sox",
+    "team_name": "Freeport Black Sox",
+    "team_url": "https://www.mnbaseball.org/teams/freeport-black-sox",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "4-5-0",
+    "overall_record": "4-9-0"
+  },
+  {
+    "team_slug": "royalton-riverdogs",
+    "team_name": "Royalton Riverdogs",
+    "team_url": "https://www.mnbaseball.org/teams/royalton-riverdogs",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "3-7-0",
+    "overall_record": "3-7-0"
+  },
+  {
+    "team_slug": "st-mathias-devils",
+    "team_name": "St. Mathias Devils",
+    "team_url": "https://www.mnbaseball.org/teams/st-mathias-devils",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "3-7-0",
+    "overall_record": "3-7-0"
+  },
+  {
+    "team_slug": "flensburg-falcons",
+    "team_name": "Flensburg Falcons",
+    "team_url": "https://www.mnbaseball.org/teams/flensburg-falcons",
+    "class": "C",
+    "league": "Victory C League",
+    "league_url": "https://mnbaseball.org/leagues/victory-c",
+    "league_record": "0-10-0",
+    "overall_record": "0-10-0"
+  }
+]
