@@ -32,17 +32,27 @@ mkdir -p "$LOG_DIR"
   fi
 
   echo "--- git ---"
-  git add mlb-newspaper/index.html mlb-newspaper/nyt.html mlb-newspaper/mlb_cache.json nba-importance/
-  git diff --cached --quiet && { echo "Nothing to commit."; } || {
-    git commit -m "$COMMIT_MSG"
-    git push
-    echo "Pushed to GitHub."
-  }
+  GIT_STATUS=0
+  if ! git add mlb-newspaper/index.html mlb-newspaper/nyt.html mlb-newspaper/mlb_cache.json nba-importance/; then
+    echo "ERROR: git add failed."
+    GIT_STATUS=1
+  fi
+
+  if [[ $GIT_STATUS -eq 0 ]]; then
+    if git diff --cached --quiet; then
+      echo "Nothing to commit."
+    elif git commit -m "$COMMIT_MSG" && git push; then
+      echo "Pushed to GitHub."
+    else
+      echo "ERROR: git commit/push failed."
+      GIT_STATUS=1
+    fi
+  fi
 
   echo "=== Done: $(date) ==="
 
   # macOS notification
-  if [[ $MLB_STATUS -eq 0 && $NYT_STATUS -eq 0 && $NBA_STATUS -eq 0 ]]; then
+  if [[ $MLB_STATUS -eq 0 && $NYT_STATUS -eq 0 && $NBA_STATUS -eq 0 && $GIT_STATUS -eq 0 ]]; then
     osascript -e 'display notification "All scripts ran successfully." with title "Daily Update"'
   else
     osascript -e 'display notification "One or more scripts had errors — check logs." with title "Daily Update ⚠️"'
