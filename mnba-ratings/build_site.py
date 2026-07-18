@@ -51,7 +51,10 @@ PAGE = """<!DOCTYPE html>
 <style>
 body {{ font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #222; line-height: 1.5; }}
 h1 {{ font-size: 22px; margin-bottom: 4px; }}
-.subtitle {{ color: #777; font-size: 13px; margin-bottom: 24px; }}
+.subtitle {{ color: #777; font-size: 13px; margin-bottom: 4px; }}
+.nav {{ font-size: 13px; margin-bottom: 24px; }}
+.nav a {{ color: #06c; text-decoration: none; }}
+.nav a:hover {{ text-decoration: underline; }}
 .note {{ background: #fffbe6; border: 1px solid #f0e2a3; border-radius: 4px; padding: 12px 16px; font-size: 14px; margin-bottom: 28px; }}
 .explainer {{ font-size: 15px; margin-bottom: 32px; }}
 .explainer ul {{ padding-left: 20px; }}
@@ -70,6 +73,7 @@ footer {{ margin-top: 48px; color: #999; font-size: 12px; border-top: 1px solid 
 
 <h1>Minnesota Town Ball Ratings <span style="color:#999;font-weight:normal;">(draft)</span></h1>
 <div class="subtitle">Unofficial, not affiliated with the MBA &middot; generated {generated_date}</div>
+<div class="nav"><a href="scores.html">Scores &rarr;</a></div>
 
 <div class="note">
 This is an early, unfinished prototype. Ratings will change as more games are played and as the

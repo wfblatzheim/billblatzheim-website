@@ -18,6 +18,7 @@ STEPS = [
     "batch_fit.py",
     "elo_live.py",
     "build_site.py",
+    "build_scores.py",
 ]
 
 if __name__ == "__main__":
@@ -28,4 +29,5 @@ if __name__ == "__main__":
             print(f"\nFAILED at {step} (exit code {result.returncode}) -- stopping.")
             sys.exit(1)
     print("\nPipeline complete: games_raw.json, teams_raw.json, games_clean.json, "
-          "ratings_2026.json, ratings_2026_live_elo.json, and index.html are all up to date.")
+          "ratings_2026.json, ratings_2026_live_elo.json, index.html, and scores.html "
+          "are all up to date.")
