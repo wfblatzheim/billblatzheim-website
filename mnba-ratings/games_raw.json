@@ -59495,7 +59495,7 @@
     "time": "20:00:00",
     "game": "Waldorf Wood Ducks @ Veseli Warriors",
     "game_type": "Region/Section/District Game",
-    "score": "",
+    "score": "3 - 2",
     "scored": "Yes",
     "stats": "No"
   },
@@ -61726,6 +61726,16 @@
     "game": "Cambridge Bandits @ Princeton Panthers",
     "game_type": "League Game",
     "score": "3 - 13",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9068,
+    "date": "Jun 9th, 2026",
+    "time": "19:00:00",
+    "game": "Northwest Orioles @ Macstrength Grizzlies",
+    "game_type": "Riverview Game",
+    "score": "17 - 10",
     "scored": "Yes",
     "stats": "No"
   },
@@ -70765,8 +70775,8 @@
     "time": "18:15:00",
     "game": "St. Paul Mudhens @ North End Storm",
     "game_type": "St. Paul Game",
-    "score": "",
-    "scored": null,
+    "score": "7 - 0",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -72150,6 +72160,16 @@
     "stats": "No"
   },
   {
+    "game_id": 9074,
+    "date": "Jul 8th, 2026",
+    "time": "18:00:00",
+    "game": "Hawley Hawks @ Frazee-Vergas Loons",
+    "game_type": "Exhibition Game",
+    "score": "7 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
     "game_id": 6502,
     "date": "Jul 9th, 2026",
     "time": "19:00:00",
@@ -72725,8 +72745,8 @@
     "time": "19:30:00",
     "game": "Marshall Athletics @ Willmar Indians",
     "game_type": "Exhibition Game",
-    "score": "",
-    "scored": null,
+    "score": "13 - 0",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -72785,8 +72805,8 @@
     "time": "20:00:00",
     "game": "St. Paul Mudhens @ River Falls Fighting Fish",
     "game_type": "Exhibition Game",
-    "score": "",
-    "scored": null,
+    "score": "11 - 1",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -72825,8 +72845,8 @@
     "time": "19:30:00",
     "game": "Granite Falls Kilowatts @ Bird Island Bullfrogs",
     "game_type": "Corn Belt Game",
-    "score": "",
-    "scored": null,
+    "score": "2 - 3",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -73525,8 +73545,8 @@
     "time": "13:00:00",
     "game": "Hamel Hawks @ Buffalo Bulldogs",
     "game_type": "North Star Game",
-    "score": "",
-    "scored": null,
+    "score": "4 - 12",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -73855,7 +73875,7 @@
     "time": "14:00:00",
     "game": "Plymouth Hitdawg @ Northwest Orioles",
     "game_type": "Riverview Game",
-    "score": "0 - 1",
+    "score": "0 - 9",
     "scored": "Yes",
     "stats": "No"
   },
@@ -73985,8 +74005,8 @@
     "time": "13:30:00",
     "game": "Hawley Hawks @ Sebeka Stingers",
     "game_type": "Lake and Pine Game",
-    "score": "",
-    "scored": null,
+    "score": "3 - 0",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -74226,6 +74246,16 @@
     "game": "Metro Knights @ Stillwater Loggers",
     "game_type": "Skyline Game",
     "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9075,
+    "date": "Jul 12th, 2026",
+    "time": "15:30:00",
+    "game": "Hawley Hawks @ Sebeka Stingers",
+    "game_type": "League Game",
+    "score": "14 - 0",
     "scored": "Yes",
     "stats": "No"
   },
@@ -74665,8 +74695,8 @@
     "time": "19:30:00",
     "game": "Hamel Hawks @ Dundas Dukes",
     "game_type": "Exhibition Game",
-    "score": "",
-    "scored": null,
+    "score": "2 - 12",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -74756,7 +74786,7 @@
     "game": "Shoreview Stumpgrinders @ Hastings Hawks",
     "game_type": "Exhibition Game",
     "score": "",
-    "scored": null,
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -74835,8 +74865,8 @@
     "time": "19:30:00",
     "game": "Shakopee Coyotes @ Le Sueur Braves",
     "game_type": "District 3 Game",
-    "score": "",
-    "scored": null,
+    "score": "1 - 11",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -74875,8 +74905,8 @@
     "time": "19:30:00",
     "game": "Raymond Rockets @ Willmar Indians",
     "game_type": "Exhibition Game",
-    "score": "",
-    "scored": null,
+    "score": "10 - 2",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -74970,33 +75000,1323 @@
     "stats": "No"
   },
   {
-    "game_id": 8298,
-    "date": "Jul 15th, 2026",
+    "game_id": 8817,
+    "date": "Jul 13th, 2026",
     "time": "19:00:00",
-    "game": "Eagan Bandits @ Chaska Cubs",
-    "game_type": "Section 2 Game",
+    "game": "St. Anthony Hogs @ Minneapolis North Stars",
+    "game_type": "Skyline Game",
     "score": "",
     "scored": null,
     "stats": "No"
   },
   {
-    "game_id": 8402,
-    "date": "Jul 15th, 2026",
-    "time": "19:30:00",
-    "game": "Burnsville Bobcats @ Burnsville Badgers",
-    "game_type": "Section 2 Game",
+    "game_id": 8818,
+    "date": "Jul 16th, 2026",
+    "time": "19:00:00",
+    "game": "Champlin Park LoGators @ St. Anthony Hogs",
+    "game_type": "Exhibition Game",
     "score": "",
     "scored": null,
     "stats": "No"
   },
   {
-    "game_id": 8410,
+    "game_id": 8820,
+    "date": "May 13th, 2026",
+    "time": "19:00:00",
+    "game": "Sabin Mets @ Hawley Hawks",
+    "game_type": "Exhibition Game",
+    "score": "7 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8821,
+    "date": "May 25th, 2026",
+    "time": "13:00:00",
+    "game": "Pierz Lakers @ Avon Lakers",
+    "game_type": "Victory B Game",
+    "score": "4 - 8",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8822,
+    "date": "May 27th, 2026",
+    "time": "18:30:00",
+    "game": "Macstrength Grizzlies @ Maple Plain Diamond Devils",
+    "game_type": "Exhibition Game",
+    "score": "10 - 16",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8823,
+    "date": "May 16th, 2026",
+    "time": "14:00:00",
+    "game": "Meire Grove Grovers @ New Munich SilverStreaks",
+    "game_type": "League Game",
+    "score": "7 - 11",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8824,
+    "date": "May 17th, 2026",
+    "time": "14:00:00",
+    "game": "Fairmont Martins @ Fox Lake Foxes",
+    "game_type": "League Game",
+    "score": "5 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8825,
+    "date": "Jun 3rd, 2026",
+    "time": "19:00:00",
+    "game": "Fosston Trash Pandas @ Bemidji Blue Ox",
+    "game_type": "Exhibition Game",
+    "score": "2 - 8",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8826,
+    "date": "Jun 14th, 2026",
+    "time": "14:00:00",
+    "game": "Fosston Trash Pandas @ Sabin Mets",
+    "game_type": "The Red River Amateur Baseball League Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8827,
+    "date": "Jun 14th, 2026",
+    "time": "16:00:00",
+    "game": "Fosston Trash Pandas @ Sabin Mets",
+    "game_type": "The Red River Amateur Baseball League Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8828,
+    "date": "Jul 10th, 2026",
+    "time": "19:00:00",
+    "game": "Moorhead Brewers @ Fosston Trash Pandas",
+    "game_type": "Exhibition Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8829,
+    "date": "Jul 19th, 2026",
+    "time": "13:00:00",
+    "game": "Fosston Trash Pandas @ Moorhead Mudcats",
+    "game_type": "Exhibition Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8830,
+    "date": "Jun 24th, 2026",
+    "time": "18:15:00",
+    "game": "North End Storm @ Rosetown Athletics",
+    "game_type": "St. Paul Game",
+    "score": "0 - 10",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8831,
+    "date": "Jul 13th, 2026",
+    "time": "18:30:00",
+    "game": "Rosetown Athletics @ Air Freight Unlimited",
+    "game_type": "St. Paul Game",
+    "score": "5 - 7",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8832,
+    "date": "Jun 29th, 2026",
+    "time": "18:00:00",
+    "game": "North End Storm @ Rosetown Athletics",
+    "game_type": "St. Paul Game",
+    "score": "4 - 12",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8833,
+    "date": "Jul 7th, 2026",
+    "time": "18:00:00",
+    "game": "Air Freight Unlimited @ Rosetown Athletics",
+    "game_type": "St. Paul Game",
+    "score": "6 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8834,
+    "date": "May 26th, 2026",
+    "time": "19:30:00",
+    "game": "Highland Park Beavers @ Stockmens Irish",
+    "game_type": "Exhibition Game",
+    "score": "3 - 4",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8835,
+    "date": "May 29th, 2026",
+    "time": "19:30:00",
+    "game": "Shakopee Indians @ Stockmens Irish",
+    "game_type": "Exhibition Game",
+    "score": "1 - 11",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8836,
+    "date": "Jun 5th, 2026",
+    "time": "19:30:00",
+    "game": "Stockmens Irish @ River Falls Fighting Fish",
+    "game_type": "Exhibition Game",
+    "score": "13 - 15",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8837,
+    "date": "Jun 14th, 2026",
+    "time": "14:00:00",
+    "game": "New Market Muskies @ St. Benedict Saints",
+    "game_type": "Dakota Rice Scott (DRS) Game",
+    "score": "13 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8838,
+    "date": "Jun 28th, 2026",
+    "time": "13:00:00",
+    "game": "Roseau Royals @ Fosston Trash Pandas",
+    "game_type": "Northwest Border Game",
+    "score": "7 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8840,
+    "date": "May 27th, 2026",
+    "time": "20:00:00",
+    "game": "New Richmond Millers @ Metro Knights",
+    "game_type": "Exhibition Game",
+    "score": "1 - 4",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8841,
+    "date": "Jun 24th, 2026",
+    "time": "19:30:00",
+    "game": "Centennial Cougars @ Burnsville Bobcats",
+    "game_type": "Exhibition Game",
+    "score": "1 - 9",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8842,
+    "date": "Jun 1st, 2026",
+    "time": "18:15:00",
+    "game": "Minneapolis MudCats @ Minneapolis Blue Sox",
+    "game_type": "Park National Game",
+    "score": "11 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8843,
+    "date": "Jun 14th, 2026",
+    "time": "11:00:00",
+    "game": "Upsala Blue Jays @ Minneapolis MudCats",
+    "game_type": "Exhibition Game",
+    "score": "4 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8844,
+    "date": "Jun 1st, 2026",
+    "time": "18:30:00",
+    "game": "North End Storm @ Air Freight Unlimited",
+    "game_type": "St. Paul Game",
+    "score": "1 - 8",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8845,
+    "date": "Jul 15th, 2026",
+    "time": "18:30:00",
+    "game": "Air Freight Unlimited @ North End Storm",
+    "game_type": "St. Paul Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8846,
+    "date": "Jun 5th, 2026",
+    "time": "20:00:00",
+    "game": "Lake Henry Lakers @ Elrosa Saints",
+    "game_type": "Stearns County - North Game",
+    "score": "4 - 9",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8847,
+    "date": "Jun 5th, 2026",
+    "time": "20:45:00",
+    "game": "Eagle Lake Expos @ Courtland Cubs",
+    "game_type": "Arlington \u201cFriendly\u201d Game",
+    "score": "10 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8848,
+    "date": "May 29th, 2026",
+    "time": "19:00:00",
+    "game": "Minneapolis Cobras @ Elko Express",
+    "game_type": "Exhibition Game",
+    "score": "2 - 16",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8849,
+    "date": "Jun 10th, 2026",
+    "time": "19:30:00",
+    "game": "Minneapolis Cobras @ Plato Blue Jays",
+    "game_type": "Exhibition Game",
+    "score": "6 - 10",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8850,
+    "date": "May 19th, 2026",
+    "time": "20:30:00",
+    "game": "Minneapolis Blue Sox @ Metro Merchants",
+    "game_type": "Park National Game",
+    "score": "4 - 14",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8851,
+    "date": "May 27th, 2026",
+    "time": "18:15:00",
+    "game": "Metro Merchants @ Minneapolis River Rats",
+    "game_type": "Park National Game",
+    "score": "11 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8852,
+    "date": "Jun 1st, 2026",
+    "time": "20:30:00",
+    "game": "Minneapolis River Rats @ Metro Merchants",
+    "game_type": "Park National Game",
+    "score": "9 - 12",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8853,
+    "date": "Jun 12th, 2026",
+    "time": "18:00:00",
+    "game": "Dodge County Diamondbacks @ Metro Merchants",
+    "game_type": "Cannon Falls Game",
+    "score": "4 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8854,
+    "date": "Jun 16th, 2026",
+    "time": "18:15:00",
+    "game": "Minneapolis Cobras @ Metro Merchants",
+    "game_type": "Park National Game",
+    "score": "13 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8855,
+    "date": "Jun 29th, 2026",
+    "time": "18:15:00",
+    "game": "Metro Merchants @ Crystal Cowboys",
+    "game_type": "Park National Game",
+    "score": "6 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8856,
+    "date": "Jul 17th, 2026",
+    "time": "18:15:00",
+    "game": "Metro Merchants @ Minneapolis Blue Sox",
+    "game_type": "Park National Game",
+    "score": "7 - 12",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8858,
+    "date": "Jun 29th, 2006",
+    "time": "19:30:00",
+    "game": "Minneapolis MudCats @ Burnsville Bobcats",
+    "game_type": "Exhibition Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8859,
+    "date": "Jul 2nd, 2026",
+    "time": "19:30:00",
+    "game": "Minneapolis MudCats @ Stockmens Irish",
+    "game_type": "Exhibition Game",
+    "score": "1 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8860,
+    "date": "Jun 5th, 2026",
+    "time": "19:00:00",
+    "game": "Stillwater Loggers @ North St. Paul Snowmen",
+    "game_type": "Skyline Game",
+    "score": "1 - 9",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8861,
+    "date": "Jun 13th, 2026",
+    "time": "19:00:00",
+    "game": "North St. Paul Snowmen @ River Falls Fighting Fish",
+    "game_type": "Exhibition Game",
+    "score": "16 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8862,
+    "date": "Jun 18th, 2026",
+    "time": "20:00:00",
+    "game": "North St. Paul Snowmen @ Metro Knights",
+    "game_type": "Skyline Game",
+    "score": "4 - 3",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8864,
+    "date": "Jun 21st, 2026",
+    "time": "13:00:00",
+    "game": "North St. Paul Snowmen @ Prescott Pirates",
+    "game_type": "Exhibition Game",
+    "score": "10 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8865,
+    "date": "Jun 28th, 2026",
+    "time": "16:00:00",
+    "game": "North St. Paul Snowmen @ Stillwater Loggers",
+    "game_type": "Skyline Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8866,
+    "date": "Jun 29th, 2026",
+    "time": "19:00:00",
+    "game": "Minneapolis North Stars @ North St. Paul Snowmen",
+    "game_type": "Skyline Game",
+    "score": "0 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8867,
+    "date": "Jul 2nd, 2026",
+    "time": "19:00:00",
+    "game": "Hudson River Rats @ North St. Paul Snowmen",
+    "game_type": "Exhibition Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8868,
+    "date": "Jul 9th, 2026",
+    "time": "19:30:00",
+    "game": "North St. Paul Snowmen @ Stockmens Irish",
+    "game_type": "Skyline Game",
+    "score": "6 - 9",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8869,
+    "date": "Jul 13th, 2026",
+    "time": "19:30:00",
+    "game": "North St. Paul Snowmen @ Minnetonka Monarchs",
+    "game_type": "Exhibition Game",
+    "score": "4 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8870,
+    "date": "Jul 16th, 2026",
+    "time": "19:00:00",
+    "game": "Metro Knights @ North St. Paul Snowmen",
+    "game_type": "Skyline Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8871,
+    "date": "Jul 17th, 2026",
+    "time": "19:00:00",
+    "game": "North St. Paul Snowmen @ Minneapolis North Stars",
+    "game_type": "Skyline Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8874,
+    "date": "Jun 17th, 2026",
+    "time": "19:30:00",
+    "game": "St. Patrick Irish @ Burnsville Badgers",
+    "game_type": "Section 2 Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8875,
+    "date": "Jun 9th, 2026",
+    "time": "19:30:00",
+    "game": "Hudson River Rats @ Stockmens Irish",
+    "game_type": "Exhibition Game",
+    "score": "4 - 11",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8876,
+    "date": "Jun 6th, 2026",
+    "time": "19:00:00",
+    "game": "St. Paul Hops @ River Falls Fighting Fish",
+    "game_type": "Exhibition Game",
+    "score": "5 - 13",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8877,
+    "date": "Jun 6th, 2026",
+    "time": "10:00:00",
+    "game": "Twin City Saints @ Shoreview Stumpgrinders",
+    "game_type": "The Friendly Game",
+    "score": "5 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8879,
+    "date": "Jun 19th, 2026",
+    "time": "19:30:00",
+    "game": "Cleveland Spiders @ St. Boni Saints",
+    "game_type": "Exhibition Game",
+    "score": "5 - 17",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8880,
+    "date": "Jul 14th, 2026",
+    "time": "19:30:00",
+    "game": "Prior Lake Jays @ St. Boni Saints",
+    "game_type": "Exhibition Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8884,
+    "date": "Jun 26th, 2026",
+    "time": "19:30:00",
+    "game": "Brownton Bruins @ Westonka Waves",
+    "game_type": "Crow River Valley - South Game",
+    "score": "15 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8885,
+    "date": "Jun 10th, 2026",
+    "time": "20:00:00",
+    "game": "Macstrength Grizzlies @ Metro Knights",
+    "game_type": "Exhibition Game",
+    "score": "2 - 7",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8886,
+    "date": "Jun 12th, 2026",
+    "time": "19:30:00",
+    "game": "Stillwater Loggers @ Metro Knights",
+    "game_type": "Skyline Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8887,
+    "date": "Jun 9th, 2026",
+    "time": "18:00:00",
+    "game": "Twin City Saints @ North End Storm",
+    "game_type": "St. Paul Game",
+    "score": "17 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8888,
+    "date": "Jun 6th, 2026",
+    "time": "18:00:00",
+    "game": "Moorhead Brewers @ Forest Lake Brewers",
+    "game_type": "Brennan Field Classic Game",
+    "score": "6 - 3",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8889,
+    "date": "Jun 7th, 2026",
+    "time": "15:30:00",
+    "game": "Andover Aces @ Forest Lake Brewers",
+    "game_type": "Brennan Field Classic Game",
+    "score": "5 - 10",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8890,
+    "date": "Jun 12th, 2026",
+    "time": "20:00:00",
+    "game": "Rochester Roadrunners @ Miesville Mudhens",
+    "game_type": "Exhibition Game",
+    "score": "1 - 9",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8891,
+    "date": "Jun 15th, 2026",
+    "time": "19:15:00",
+    "game": "Minneapolis Cobras @ Minneapolis North Stars",
+    "game_type": "Exhibition Game",
+    "score": "8 - 3",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8892,
+    "date": "Jun 15th, 2026",
+    "time": "20:00:00",
+    "game": "Stockmens Irish @ Metro Knights",
+    "game_type": "Skyline Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8893,
+    "date": "Jul 6th, 2026",
+    "time": "19:30:00",
+    "game": "Rochester Roadrunners @ Lakeville Loonatics",
+    "game_type": "Exhibition Game",
+    "score": "0 - 17",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8895,
+    "date": "May 20th, 2026",
+    "time": "19:00:00",
+    "game": "Sabin Mets @ Cass County Catfish",
+    "game_type": "Exhibition Game",
+    "score": "3 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8896,
+    "date": "Jun 19th, 2026",
+    "time": "19:30:00",
+    "game": "Minneapolis Cobras @ Plymouth Hitdawg",
+    "game_type": "Exhibition Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8897,
+    "date": "Jun 13th, 2026",
+    "time": "15:00:00",
+    "game": "Macstrength Grizzlies @ Stewartville-Racine Sharks",
+    "game_type": "Tigertown Classic Game",
+    "score": "1 - 11",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8898,
+    "date": "May 27th, 2026",
+    "time": "17:00:00",
+    "game": "Harrisburg Woodies @ Pipestone Athletics",
+    "game_type": "Exhibition Game",
+    "score": "8 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8899,
+    "date": "May 27th, 2026",
+    "time": "19:00:00",
+    "game": "Dent DiamondHawks @ Deer Creek Shockers",
+    "game_type": "Exhibition Game",
+    "score": "0 - 22",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8900,
+    "date": "May 27th, 2026",
+    "time": "19:30:00",
+    "game": "Moorhead Brewers @ Sabin Mets",
+    "game_type": "Exhibition Game",
+    "score": "13 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8901,
+    "date": "May 29th, 2026",
+    "time": "19:30:00",
+    "game": "Norway Lake-Sunburg Lakers @ New London-Spicer Twins",
+    "game_type": "County Line Game",
+    "score": "2 - 9",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8902,
+    "date": "May 29th, 2026",
+    "time": "19:30:00",
+    "game": "Spring Valley Hawks @ North St. Paul Snowmen",
+    "game_type": "Exhibition Game",
+    "score": "10 - 8",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8903,
+    "date": "May 31st, 2026",
+    "time": "17:00:00",
+    "game": "Milroy Irish @ Windom Pirates",
+    "game_type": "Exhibition Game",
+    "score": "3 - 4",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8904,
+    "date": "Jun 14th, 2026",
+    "time": "13:15:00",
+    "game": "Howard Lake Orphans @ Stewartville-Racine Sharks",
+    "game_type": "Tigertown Classic Game",
+    "score": "2 - 4",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8905,
+    "date": "Jun 14th, 2026",
+    "time": "14:00:00",
+    "game": "Ashby Athletics @ Kensington Norsemen",
+    "game_type": "Resorters Game",
+    "score": "5 - 3",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8906,
+    "date": "Jun 13th, 2026",
+    "time": "20:00:00",
+    "game": "Spring Valley @ Sauk Centre Titans",
+    "game_type": "FBI Tournament Game",
+    "score": "3 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8907,
+    "date": "Jun 14th, 2026",
+    "time": "15:30:00",
+    "game": "Atwater Chuckers @ Minneapolis MudCats",
+    "game_type": "Exhibition Game",
+    "score": "11 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8908,
+    "date": "Jun 13th, 2026",
+    "time": "17:30:00",
+    "game": "St. Paul Mudhens @ Dodge County Diamondbacks",
+    "game_type": "Josh Harrison Memorial Tourney (Cannon Falls) Game",
+    "score": "10 - 3",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8909,
+    "date": "Jun 14th, 2026",
+    "time": "16:00:00",
+    "game": "St. Paul Hops @ St. Paul Mudhens",
+    "game_type": "Josh Harrison Memorial Tourney (Cannon Falls) Game",
+    "score": "6 - 10",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8910,
+    "date": "Jun 13th, 2026",
+    "time": "16:00:00",
+    "game": "Jordan Brewers @ Luxemburg Brewers",
+    "game_type": "Farming Baseball Invitational Game",
+    "score": "4 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8911,
+    "date": "Jun 14th, 2026",
+    "time": "14:00:00",
+    "game": "Jordan Brewers @ Sartell Stone Poneys",
+    "game_type": "Farming Baseball Invitational Game",
+    "score": "16 - 7",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8912,
+    "date": "Jun 5th, 2026",
+    "time": "18:45:00",
+    "game": "Prior Lake Mudcats @ Arlington Athletics",
+    "game_type": "Grain Belt Premium Light Invite Game",
+    "score": "1 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8913,
+    "date": "Jun 6th, 2026",
+    "time": "20:00:00",
+    "game": "Eagle Lake Expos @ Arlington Athletics",
+    "game_type": "Grain Belt Premium Light Invite Game",
+    "score": "5 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8914,
+    "date": "Jul 6th, 2026",
+    "time": "19:30:00",
+    "game": "St. Patrick Irish @ Burnsville Badgers",
+    "game_type": "Section 2 Game",
+    "score": "15 - 3",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8915,
+    "date": "Jun 18th, 2026",
+    "time": "19:30:00",
+    "game": "Minneapolis North Stars @ Stockmens Irish",
+    "game_type": "League Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8916,
+    "date": "Jun 19th, 2026",
+    "time": "19:00:00",
+    "game": "Stockmens Irish @ North St. Paul Snowmen",
+    "game_type": "League Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8917,
+    "date": "Jun 24th, 2026",
+    "time": "19:30:00",
+    "game": "St. Anthony Hogs @ Stockmens Irish",
+    "game_type": "League Game",
+    "score": "11 - 7",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8918,
+    "date": "Jun 10th, 2026",
+    "time": "19:00:00",
+    "game": "Minneapolis North Stars @ St. Anthony Hogs",
+    "game_type": "Skyline Game",
+    "score": "8 - 9",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8919,
+    "date": "Jun 26th, 2026",
+    "time": "19:00:00",
+    "game": "Hudson River Rats @ St. Anthony Hogs",
+    "game_type": "Exhibition Game",
+    "score": "2 - 8",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8920,
+    "date": "Jun 3rd, 2026",
+    "time": "19:00:00",
+    "game": "Minneapolis River Rats @ Crystal Cowboys",
+    "game_type": "Park National Game",
+    "score": "3 - 4",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8922,
+    "date": "Jun 5th, 2026",
+    "time": "19:00:00",
+    "game": "Fox Lake Foxes @ Fairmont Martins",
+    "game_type": "Exhibition Game",
+    "score": "1 - 7",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8923,
+    "date": "Jun 5th, 2026",
+    "time": "19:00:00",
+    "game": "Dent DiamondHawks @ Frazee-Vergas Loons",
+    "game_type": "Exhibition Game",
+    "score": "1 - 11",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8924,
+    "date": "Jun 5th, 2026",
+    "time": "19:00:00",
+    "game": "Volga Cormorants @ Pipestone Athletics",
+    "game_type": "Pepsi Invite Game",
+    "score": "4 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8925,
+    "date": "Jun 6th, 2026",
+    "time": "16:00:00",
+    "game": "Andover Aces @ Sartell Muskies",
+    "game_type": "Brennan Classic Game",
+    "score": "2 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8926,
+    "date": "Jun 6th, 2026",
+    "time": "10:00:00",
+    "game": "Minneapolis North Stars @ Sartell Muskies",
+    "game_type": "Brennan Classic Game",
+    "score": "2 - 12",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8927,
+    "date": "Jun 6th, 2026",
+    "time": "18:00:00",
+    "game": "Metro Knights @ Hinckley Knights",
+    "game_type": "Brennan Classic Game",
+    "score": "0 - 4",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8928,
+    "date": "Jun 6th, 2026",
+    "time": "12:00:00",
+    "game": "Courtland Cubs @ Prior Lake Mudcats",
+    "game_type": "The Friendly Game",
+    "score": "5 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8929,
+    "date": "Jun 6th, 2026",
+    "time": "12:00:00",
+    "game": "Brooking Cubs @ Prior Lake Jays",
+    "game_type": "The Friendly Game",
+    "score": "4 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8930,
+    "date": "Jun 6th, 2026",
+    "time": "18:00:00",
+    "game": "Prior Lake Jays @ Shoreview Stumpgrinders",
+    "game_type": "The Friendly Game",
+    "score": "7 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8931,
+    "date": "Jun 6th, 2026",
+    "time": "12:00:00",
+    "game": "Brandon Belugas @ Pipestone Athletics",
+    "game_type": "Pepsi Invite Game",
+    "score": "1 - 4",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8932,
+    "date": "Jun 19th, 2026",
+    "time": "19:00:00",
+    "game": "Metro Knights @ Prior Lake Jays",
+    "game_type": "Exhibition Game",
+    "score": "2 - 3",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8933,
+    "date": "Jun 20th, 2026",
+    "time": "20:00:00",
+    "game": "Mora Blue Devils @ Sauk Rapids Cyclones",
+    "game_type": "Freeport Game",
+    "score": "0 - 10",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8935,
+    "date": "Jun 21st, 2026",
+    "time": "12:00:00",
+    "game": "Mora Blue Devils @ St. Nicholas Nicks",
+    "game_type": "Freeport Game",
+    "score": "5 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8936,
+    "date": "Jun 26th, 2026",
+    "time": "19:30:00",
+    "game": "St. Boni Saints @ Cologne Hollanders",
+    "game_type": "Exhibition Game",
+    "score": "2 - 8",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8937,
     "date": "Jul 15th, 2026",
     "time": "19:30:00",
-    "game": "Ham Lake Hornets @ St. Francis Silverbacks",
+    "game": "Westonka Waves @ Chaska Cubs",
+    "game_type": "Exhibition Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8939,
+    "date": "Jun 24th, 2026",
+    "time": "19:00:00",
+    "game": "Eagle Lake Expos @ Waterville Indians",
+    "game_type": "Exhibition Game",
+    "score": "13 - 2",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8940,
+    "date": "Jul 1st, 2026",
+    "time": "19:00:00",
+    "game": "Eagle Lake Expos @ Blue Earth Pirates",
+    "game_type": "Exhibition Game",
+    "score": "",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8942,
+    "date": "Jun 21st, 2026",
+    "time": "14:00:00",
+    "game": "Clear Lake Lakers @ Sauk Rapids Cyclones",
+    "game_type": "Freeport Game",
+    "score": "2 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8943,
+    "date": "Jun 27th, 2026",
+    "time": "19:30:00",
+    "game": "Opole Bears @ Pierz Bulldogs",
+    "game_type": "Victory C Game",
+    "score": "7 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8944,
+    "date": "Jul 6th, 2026",
+    "time": "19:30:00",
+    "game": "Minneapolis North Stars @ Stockmens Irish",
+    "game_type": "League Game",
+    "score": "2 - 12",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8945,
+    "date": "Jun 27th, 2026",
+    "time": "16:30:00",
+    "game": "Minnetonka Monarchs @ Stockmens Irish",
+    "game_type": "Tournament Game",
+    "score": "10 - 4",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8946,
+    "date": "Jun 30th, 2026",
+    "time": "19:30:00",
+    "game": "Stillwater Loggers @ Stockmens Irish",
+    "game_type": "League Game",
+    "score": "2 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8947,
+    "date": "Jul 7th, 2026",
+    "time": "19:00:00",
+    "game": "Metro Knights @ Stockmens Irish",
+    "game_type": "Skyline Game",
+    "score": "5 - 8",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8948,
+    "date": "Jul 15th, 2026",
+    "time": "19:30:00",
+    "game": "Stillwater Loggers @ Stockmens Irish",
     "game_type": "League Game",
     "score": "",
     "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 8950,
+    "date": "Jun 7th, 2026",
+    "time": "12:00:00",
+    "game": "Renner Rangers @ Pipestone Athletics",
+    "game_type": "Pepsi Invite Game",
+    "score": "3 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8951,
+    "date": "Jun 7th, 2026",
+    "time": "12:00:00",
+    "game": "Courtland Cubs @ Prior Lake Jays",
+    "game_type": "The Friendly Game",
+    "score": "9 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8952,
+    "date": "Jun 7th, 2026",
+    "time": "12:00:00",
+    "game": "Brooking Cubs @ Twin City Saints",
+    "game_type": "The Friendly Game",
+    "score": "12 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8953,
+    "date": "Jun 7th, 2026",
+    "time": "12:00:00",
+    "game": "Ada Athletics @ Minneapolis North Stars",
+    "game_type": "Brennan Classic Game",
+    "score": "2 - 3",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8954,
+    "date": "Jun 7th, 2026",
+    "time": "14:00:00",
+    "game": "Minneapolis North Stars @ Hinckley Knights",
+    "game_type": "Brennan Classic Game",
+    "score": "0 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8955,
+    "date": "Jun 7th, 2026",
+    "time": "16:00:00",
+    "game": "Moorhead Brewers @ Sartell Muskies",
+    "game_type": "Brennan Classic Game",
+    "score": "5 - 3",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8956,
+    "date": "Jun 7th, 2026",
+    "time": "15:00:00",
+    "game": "Bemidji Blue Ox @ Hibbing Miners",
+    "game_type": "Exhibition Game",
+    "score": "5 - 4",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8958,
+    "date": "Jun 10th, 2026",
+    "time": "18:15:00",
+    "game": "Minneapolis Blue Sox @ Minneapolis River Rats",
+    "game_type": "League Game",
+    "score": "2 - 12",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8959,
+    "date": "Jun 29th, 2026",
+    "time": "20:30:00",
+    "game": "Macs Industrial Warriors @ Minneapolis River Rats",
+    "game_type": "League Game",
+    "score": "10 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8960,
+    "date": "Jul 8th, 2026",
+    "time": "18:15:00",
+    "game": "Minneapolis River Rats @ Minneapolis Blue Sox",
+    "game_type": "League Game",
+    "score": "8 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8962,
+    "date": "Jul 1st, 2026",
+    "time": "19:30:00",
+    "game": "Coon Rapids Redbirds @ Champlin Park LoGators",
+    "game_type": "Metro Minny Game",
+    "score": "4 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8963,
+    "date": "Jun 20th, 2026",
+    "time": "11:00:00",
+    "game": "Albertville Anglers @ Roscoe Rangers",
+    "game_type": "Tournament Game",
+    "score": "2 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8964,
+    "date": "Jun 20th, 2026",
+    "time": "16:00:00",
+    "game": "Albertville Anglers @ Agassiz Gamblers",
+    "game_type": "Tournament Game",
+    "score": "10 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8965,
+    "date": "Jun 21st, 2026",
+    "time": "11:00:00",
+    "game": "Benson Plowboys @ Albertville Anglers",
+    "game_type": "Tournament Game",
+    "score": "3 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 8966,
+    "date": "Jun 21st, 2026",
+    "time": "17:00:00",
+    "game": "St. Anthony Hogs @ Red Wing Aces",
+    "game_type": "Exhibition Game",
+    "score": "8 - 13",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -75305,8 +76625,8 @@
     "time": "19:30:00",
     "game": "Stewartville-Racine Sharks @ River Falls Fighting Fish",
     "game_type": "Exhibition Game",
-    "score": "",
-    "scored": null,
+    "score": "7 - 10",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -75406,6 +76726,16 @@
     "game": "Bemidji Bucks @ Bemidji Blue Ox",
     "game_type": "Northwest Border Game",
     "score": "6 - 9",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9013,
+    "date": "Jul 19th, 2026",
+    "time": "17:00:00",
+    "game": "Fergus Falls Hurricanes @ Sabin Mets",
+    "game_type": "The Red River Amateur Baseball League Game",
+    "score": "0 - 9",
     "scored": "Yes",
     "stats": "No"
   },
@@ -75804,6 +77134,86 @@
     "date": "Jul 14th, 2026",
     "time": "19:30:00",
     "game": "White Bear Township @ Stockmens Irish",
+    "game_type": "League Game",
+    "score": "2 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9067,
+    "date": "Jul 19th, 2026",
+    "time": "17:00:00",
+    "game": "Minneapolis Cobras @ Chaska Cubs",
+    "game_type": "Exhibition Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 9068,
+    "date": "Jun 9th, 2026",
+    "time": "19:00:00",
+    "game": "Northwest Orioles @ Macstrength Grizzlies",
+    "game_type": "Riverview Game",
+    "score": "17 - 10",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9070,
+    "date": "Jul 18th, 2026",
+    "time": "14:30:00",
+    "game": "Courtland Cubs @ Stockmens Irish",
+    "game_type": "Tournament Game",
+    "score": "5 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9071,
+    "date": "Jul 19th, 2026",
+    "time": "11:00:00",
+    "game": "river falls fighting fish @ Stockmens Irish",
+    "game_type": "Tournament Game",
+    "score": "",
+    "scored": null,
+    "stats": "No"
+  },
+  {
+    "game_id": 9074,
+    "date": "Jul 8th, 2026",
+    "time": "18:00:00",
+    "game": "Hawley Hawks @ Frazee-Vergas Loons",
+    "game_type": "Exhibition Game",
+    "score": "7 - 1",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9075,
+    "date": "Jul 12th, 2026",
+    "time": "15:30:00",
+    "game": "Hawley Hawks @ Sebeka Stingers",
+    "game_type": "League Game",
+    "score": "14 - 0",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9076,
+    "date": "Jul 19th, 2026",
+    "time": "13:00:00",
+    "game": "Midway Snurdbirds @ Hawley Hawks",
+    "game_type": "League Game",
+    "score": "0 - 5",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9077,
+    "date": "Jul 19th, 2026",
+    "time": "15:00:00",
+    "game": "Midway Snurdbirds @ Hawley Hawks",
     "game_type": "League Game",
     "score": "2 - 6",
     "scored": "Yes",
