@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Prior Lake Mudcats — 2026 Rating Progression</title>
+<style>
+:root {
+  --paper: #EDEAE0;
+  --paper-raised: #F6F4EB;
+  --ink: #22303A;
+  --ink-secondary: #4B5A61;
+  --ink-muted: #7C8A88;
+  --accent: #B4791F;
+  --win: #2F6B4F;
+  --loss: #A13D3D;
+  --border: rgba(34,48,58,0.14);
+  --grid: rgba(34,48,58,0.09);
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #171C18;
+    --paper-raised: #1F2620;
+    --ink: #EDE8DB;
+    --ink-secondary: #B9C2B9;
+    --ink-muted: #869088;
+    --accent: #E0A94A;
+    --win: #5FA37F;
+    --loss: #D17272;
+    --border: rgba(237,232,219,0.16);
+    --grid: rgba(237,232,219,0.09);
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { overflow-x: hidden; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px 18px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* header */
+.masthead { display: flex; flex-direction: column; gap: 10px; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.08;
+  margin: 0;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px 16px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+@media (max-width: 560px) {
+  .stat-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.stat { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.stat .num { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.stat .num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.stat .lbl {
+  font-size: 10.5px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.stat .num.accent { color: var(--accent); }
+
+/* explainer */
+.lede {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--ink-secondary);
+  max-width: 62ch;
+}
+.lede strong { color: var(--ink); font-weight: 600; }
+
+/* section labels */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: -6px;
+}
+
+/* chart card */
+.card {
+  background: var(--paper-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 16px 14px;
+}
+.chart-key {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--ink-secondary);
+  margin-bottom: 6px;
+}
+.chart-key span { display: inline-flex; align-items: center; gap: 5px; }
+.chart-key .mk { width: 9px; height: 9px; display: inline-block; }
+.chart-key .mk.win { background: var(--win); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+.chart-key .mk.loss { background: var(--loss); clip-path: polygon(0% 0%, 100% 0%, 50% 100%); }
+
+.chart-wrap { position: relative; }
+svg#chart { display: block; width: 100%; height: auto; overflow: visible; }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.seed-line { stroke: var(--ink-muted); stroke-width: 1; stroke-dasharray: 3 4; }
+.rating-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.axis-label { font-family: var(--font-mono); font-size: 9.5px; fill: var(--ink-muted); }
+.marker { cursor: pointer; }
+.marker-hit { fill: transparent; cursor: pointer; }
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.5;
+  padding: 8px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transform: translate(-50%, calc(-100% - 12px));
+  opacity: 0;
+  transition: opacity .1s ease;
+  z-index: 5;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+.tooltip.show { opacity: 1; }
+.tooltip .t-opp { color: var(--paper); font-weight: 600; }
+.tooltip .t-sub { color: var(--ink-muted); }
+
+/* callouts */
+.callouts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .callouts { grid-template-columns: 1fr; } }
+.callout {
+  background: var(--paper-raised);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--c, var(--ink-muted));
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.callout.up { --c: var(--win); }
+.callout.down { --c: var(--loss); }
+.callout .co-delta {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 19px;
+  font-weight: 700;
+}
+.callout.up .co-delta { color: var(--win); }
+.callout.down .co-delta { color: var(--loss); }
+.callout .co-game { font-size: 12.5px; color: var(--ink); font-weight: 600; }
+.callout .co-why { font-size: 12.5px; color: var(--ink-secondary); line-height: 1.5; }
+
+/* table */
+.table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 13px; }
+thead th {
+  text-align: left;
+  font-size: 10.5px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--paper-raised);
+  position: sticky;
+  top: 0;
+}
+tbody td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+}
+tbody td.opp { font-family: var(--font-body); color: var(--ink); white-space: normal; }
+tbody tr:last-child td { border-bottom: none; }
+td.result { font-family: var(--font-body); font-weight: 700; text-align: center; }
+td.result.w { color: var(--win); }
+td.result.l { color: var(--loss); }
+td.delta { text-align: right; font-weight: 600; }
+td.delta.pos { color: var(--win); }
+td.delta.neg { color: var(--loss); }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  font-size: 12px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="masthead">
+    <div class="eyebrow">MN Town Ball &middot; Elo Rating &middot; 2026 Season</div>
+    <h1>Prior Lake Mudcats</h1>
+    <div class="stat-strip">
+      <div class="stat"><span class="num accent" id="stat-rating">—</span><span class="lbl">Current Rating</span></div>
+      <div class="stat"><span class="num" id="stat-record">—</span><span class="lbl">Record</span></div>
+      <div class="stat"><span class="num" id="stat-seed">—</span><span class="lbl">Season-Open Seed</span></div>
+      <div class="stat"><span class="num" id="stat-net">—</span><span class="lbl">Net Change</span></div>
+    </div>
+  </div>
+
+  <p class="lede">
+    Every team starts the season with a rating carried over from last year (regressed toward
+    the average for its class — a good or bad 2025 doesn't fully follow a team into 2026).
+    From there, <strong>every game moves the rating based on who was favored and by how much
+    they won or lost.</strong> Beating a team you were supposed to lose to gains a lot; barely
+    beating a team you were expected to blow out gains almost nothing. A decisive win moves
+    the needle more than a nail-biter — but only up to a point, since blowout margins get
+    capped once they stop telling us anything new.
+  </p>
+
+  <div>
+    <div class="section-label">Rating by game</div>
+    <div class="card">
+      <div class="chart-key">
+        <span><i class="mk win"></i> Win</span>
+        <span><i class="mk loss"></i> Loss</span>
+        <span style="color:var(--ink-muted)">- - - season-open seed</span>
+      </div>
+      <div class="chart-wrap">
+        <svg id="chart" viewBox="0 0 600 260" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="tooltip" id="tooltip"></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-label">Biggest swings</div>
+    <div class="callouts" style="margin-top:8px">
+      <div class="callout up">
+        <div class="co-delta">+29.5</div>
+        <div class="co-game">6/19 &middot; W 11-2 @ Montgomery Mallards</div>
+        <div class="co-why">An 11-run road win over a team rated close to even — the margin plus the "shouldn't have won by that much" surprise is what moves a rating the most.</div>
+      </div>
+      <div class="callout down">
+        <div class="co-delta">−34.2</div>
+        <div class="co-game">6/24 &middot; L 1-11 vs Faribault Lakers</div>
+        <div class="co-why">Faribault was rated almost dead even going in, so there was no "big underdog" cushion — losing by 10 to a coin-flip opponent costs the most.</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-label">Full game log</div>
+    <div class="table-scroll" style="margin-top:8px">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th><th>Result</th><th>Score</th><th>Opponent</th>
+            <th>Before</th><th>Opp. Rtg</th><th>After</th><th>Change</th>
+          </tr>
+        </thead>
+        <tbody id="game-log"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    Unofficial, not affiliated with the MBA. Ratings are a live, in-season Elo model —
+    seeded from a regressed 2025 carryover, then updated game by game with a margin-of-victory
+    weight (capped, since a 10-run-rule game and a true 9-inning blowout can't be told apart).
+    Full rankings at <a href="https://billblatzheim.com/mnba-ratings/">billblatzheim.com/mnba-ratings</a>.
+  </footer>
+
+</div>
+
+<script>
+const SEED = 1431.9;
+
+const GAMES = [
+  {date:"5/3",  opp:"New Market Muskies",  home:true,  us:2,  them:8,  result:"L", before:1431.9, oppBefore:1627.1, after:1418.1},
+  {date:"5/15", opp:"St. Benedict Saints", home:true,  us:1,  them:4,  result:"L", before:1418.1, oppBefore:1507.5, after:1403.2},
+  {date:"5/17", opp:"New Prague Orioles",  home:false, us:1,  them:3,  result:"L", before:1403.2, oppBefore:1527.5, after:1392.7},
+  {date:"5/20", opp:"Union Hill Bulldogs", home:false, us:4,  them:3,  result:"W", before:1392.7, oppBefore:1623.6, after:1408.6},
+  {date:"5/22", opp:"Veseli Warriors",     home:false, us:2,  them:0,  result:"W", before:1408.6, oppBefore:1424.3, after:1425.1},
+  {date:"5/25", opp:"Prior Lake Jays",     home:true,  us:5,  them:4,  result:"W", before:1425.1, oppBefore:1571.1, after:1439.1},
+  {date:"6/5",  opp:"Arlington Athletics", home:false, us:1,  them:5,  result:"L", before:1439.1, oppBefore:1420.6, after:1414.6},
+  {date:"6/6",  opp:"Courtland Cubs",      home:true,  us:1,  them:5,  result:"L", before:1414.6, oppBefore:1686.3, after:1406.6},
+  {date:"6/10", opp:"Union Hill Bulldogs", home:true,  us:5,  them:4,  result:"W", before:1406.6, oppBefore:1612.7, after:1421.9},
+  {date:"6/11", opp:"Lonsdale Aces",       home:true,  us:7,  them:6,  result:"W", before:1421.9, oppBefore:1314.4, after:1428.9},
+  {date:"6/14", opp:"Shakopee Coyotes",    home:true,  us:9,  them:7,  result:"W", before:1428.9, oppBefore:1214.9, after:1436.1},
+  {date:"6/19", opp:"Montgomery Mallards", home:false, us:11, them:2,  result:"W", before:1436.1, oppBefore:1396.8, after:1465.6},
+  {date:"6/21", opp:"Montgomery Mallards", home:true,  us:5,  them:4,  result:"W", before:1465.6, oppBefore:1367.3, after:1472.8},
+  {date:"6/24", opp:"Faribault Lakers",    home:true,  us:1,  them:11, result:"L", before:1472.8, oppBefore:1477.2, after:1438.7},
+  {date:"6/25", opp:"Veseli Warriors",     home:true,  us:0,  them:6,  result:"L", before:1438.7, oppBefore:1423.7, after:1409.4},
+  {date:"6/28", opp:"Eagle Lake Expos",    home:false, us:2,  them:3,  result:"L", before:1409.4, oppBefore:1664.2, after:1405.6},
+  {date:"7/1",  opp:"Shakopee Coyotes",    home:false, us:8,  them:3,  result:"W", before:1405.6, oppBefore:1182.4, after:1416.8},
+  {date:"7/8",  opp:"New Prague Orioles",  home:true,  us:3,  them:2,  result:"W", before:1416.8, oppBefore:1561.5, after:1430.8},
+  {date:"7/9",  opp:"Chaska Cubs",         home:false, us:1,  them:11, result:"L", before:1430.8, oppBefore:1909.4, after:1426.6},
+  {date:"7/15", opp:"Webster Sox",         home:true,  us:0,  them:13, result:"L", before:1426.6, oppBefore:1787.7, after:1418.9},
+];
+
+// header stats
+const final = GAMES[GAMES.length - 1].after;
+const wins = GAMES.filter(g => g.result === "W").length;
+const losses = GAMES.length - wins;
+document.getElementById("stat-rating").textContent = final.toFixed(1);
+document.getElementById("stat-record").textContent = `${wins}-${losses}`;
+document.getElementById("stat-seed").textContent = SEED.toFixed(1);
+const net = final - SEED;
+const netEl = document.getElementById("stat-net");
+netEl.textContent = (net >= 0 ? "+" : "") + net.toFixed(1);
+netEl.style.color = net >= 0 ? "var(--win)" : "var(--loss)";
+
+// game log table
+const tbody = document.getElementById("game-log");
+tbody.innerHTML = GAMES.map(g => {
+  const delta = g.after - g.before;
+  const deltaCls = delta >= 0 ? "pos" : "neg";
+  const deltaStr = (delta >= 0 ? "+" : "") + delta.toFixed(1);
+  const vs = g.home ? "vs" : "@";
+  return `<tr>
+    <td>${g.date}</td>
+    <td class="result ${g.result === "W" ? "w" : "l"}">${g.result}</td>
+    <td>${g.us}-${g.them}</td>
+    <td class="opp">${vs} ${g.opp}</td>
+    <td>${g.before.toFixed(1)}</td>
+    <td>${g.oppBefore.toFixed(1)}</td>
+    <td>${g.after.toFixed(1)}</td>
+    <td class="delta ${deltaCls}">${deltaStr}</td>
+  </tr>`;
+}).join("");
+
+// chart
+const W = 600, H = 260;
+const padL = 40, padR = 14, padT = 14, padB = 26;
+const plotW = W - padL - padR, plotH = H - padT - padB;
+
+const ratings = [SEED, ...GAMES.map(g => g.after)];
+const minR = Math.min(...ratings) - 20;
+const maxR = Math.max(...ratings) + 20;
+
+function xForIndex(i) { return padL + (i / (GAMES.length)) * plotW; }
+function yForRating(r) { return padT + plotH - ((r - minR) / (maxR - minR)) * plotH; }
+
+const svg = document.getElementById("chart");
+svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+
+let svgContent = "";
+
+// gridlines (round rating steps)
+const step = 25;
+const gridStart = Math.ceil(minR / step) * step;
+for (let r = gridStart; r <= maxR; r += step) {
+  const y = yForRating(r);
+  svgContent += `<line class="gridline" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" />`;
+  svgContent += `<text class="axis-label" x="${padL - 6}" y="${y + 3}" text-anchor="end">${r}</text>`;
+}
+
+// seed reference line
+const seedY = yForRating(SEED);
+svgContent += `<line class="seed-line" x1="${padL}" y1="${seedY}" x2="${W - padR}" y2="${seedY}" />`;
+
+// rating line
+let points = [[xForIndex(0), yForRating(SEED)]];
+GAMES.forEach((g, i) => points.push([xForIndex(i + 1), yForRating(g.after)]));
+const pathD = points.map((p, i) => (i === 0 ? "M" : "L") + p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ");
+svgContent += `<path class="rating-line" d="${pathD}" />`;
+
+// x-axis labels (sparse: first, ~mid, last)
+[0, Math.floor(GAMES.length / 2), GAMES.length - 1].forEach(i => {
+  const x = xForIndex(i + 1);
+  svgContent += `<text class="axis-label" x="${x}" y="${H - 8}" text-anchor="middle">${GAMES[i].date}</text>`;
+});
+
+// markers
+GAMES.forEach((g, i) => {
+  const x = xForIndex(i + 1);
+  const y = yForRating(g.after);
+  const color = g.result === "W" ? "var(--win)" : "var(--loss)";
+  const shape = g.result === "W"
+    ? `<path class="marker" d="M ${x} ${y-5} L ${x-5} ${y+4} L ${x+5} ${y+4} Z" fill="${color}" />`
+    : `<path class="marker" d="M ${x-5} ${y-4} L ${x+5} ${y-4} L ${x} ${y+5} Z" fill="${color}" />`;
+  svgContent += shape;
+  svgContent += `<circle class="marker-hit" data-i="${i}" cx="${x}" cy="${y}" r="12" />`;
+});
+
+svg.innerHTML = svgContent;
+
+// hover tooltip
+const tooltip = document.getElementById("tooltip");
+const wrap = document.querySelector(".chart-wrap");
+svg.querySelectorAll(".marker-hit").forEach(hit => {
+  hit.addEventListener("mouseenter", showTip);
+  hit.addEventListener("touchstart", showTip, {passive: true});
+  hit.addEventListener("mouseleave", hideTip);
+});
+
+function showTip(e) {
+  const i = +e.currentTarget.dataset.i;
+  const g = GAMES[i];
+  const delta = g.after - g.before;
+  const deltaStr = (delta >= 0 ? "+" : "") + delta.toFixed(1);
+  const vs = g.home ? "vs" : "@";
+  tooltip.innerHTML = `<div class="t-opp">${g.date} &middot; ${g.result} ${g.us}-${g.them} ${vs} ${g.opp}</div>
+    <div class="t-sub">${g.before.toFixed(1)} &rarr; ${g.after.toFixed(1)} (${deltaStr})</div>`;
+  const rect = e.currentTarget.getBoundingClientRect();
+  const wrapRect = wrap.getBoundingClientRect();
+  tooltip.style.left = (rect.left - wrapRect.left + rect.width / 2) + "px";
+  tooltip.style.top = (rect.top - wrapRect.top) + "px";
+  tooltip.classList.add("show");
+}
+function hideTip() { tooltip.classList.remove("show"); }
+</script>
+</body>
+</html>
