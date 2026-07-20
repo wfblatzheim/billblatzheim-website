@@ -5,23 +5,23 @@ on mnbaseball.org. Companion to build_site.py (ratings page) -- same plain
 styling.
 """
 import json
-import re
 from datetime import date
 
+# game_type_raw is the source's own "game_type" enum (Exhibition, League,
+# Tournament, Region/Section/District, State Tourney, ...). "Region/Section/
+# District" games are regular-season regional-schedule games (played all
+# season, count toward playoff seeding) -- not the postseason bracket
+# itself, so they fall through to League. Only "State Tourney" is the real
+# postseason bracket.
+CATEGORY_BY_GAME_TYPE = {
+    "State Tourney": "Playoff",
+    "Tournament": "Tournament",
+    "Exhibition": "Exhibition",
+}
 
-def categorize(raw):
-    r = raw.lower()
-    # "Region"/"Section"/"District" games are regular-season regional-schedule
-    # games (played all season, count toward playoff seeding) -- not the
-    # postseason bracket itself. Actual playoff games say "playoff", "state
-    # tourn(ament/ey)", or use a "- Rd N -" bracket-round label.
-    if "state tourn" in r or "playoff" in r or re.search(r"-\s*rd\s*\d", r):
-        return "Playoff"
-    if r == "exhibition game":
-        return "Exhibition"
-    if re.search(r"(tournament|invite|invitational|classic|shindig|showdown|bash|tigertown|elite 8|friendly)", r):
-        return "Tournament"
-    return "League"
+
+def categorize(game_type_raw):
+    return CATEGORY_BY_GAME_TYPE.get(game_type_raw, "League")
 
 
 def load_games():

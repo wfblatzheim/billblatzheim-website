@@ -55,16 +55,34 @@ def load_data():
     return rows
 
 
-def render_table(rows):
+def render_table(rows, show_class=False):
     rows = sorted(rows, key=lambda r: -r["rating"])
-    out = ['<table>', '<thead><tr><th>#</th><th>Team</th><th>League</th><th>Record</th><th>Last Game</th><th>Rating</th></tr></thead>', '<tbody>']
+    class_col = '<col style="width:56px">' if show_class else ''
+    class_th = '<th>Class</th>' if show_class else ''
+    colgroup = (
+        '<colgroup>'
+        '<col style="width:44px">'
+        '<col style="width:22%">'
+        f'{class_col}'
+        '<col style="width:26%">'
+        '<col style="width:80px">'
+        '<col style="width:24%">'
+        '<col style="width:70px">'
+        '</colgroup>'
+    )
+    out = [
+        '<div class="table-wrap"><table>', colgroup,
+        f'<thead><tr><th>#</th><th>Team</th>{class_th}<th>League</th><th>Record</th><th>Last Game</th><th>Rating</th></tr></thead>',
+        '<tbody>',
+    ]
     for i, r in enumerate(rows, 1):
+        class_td = f'<td class="class">{r["class"]}</td>' if show_class else ''
         out.append(
-            f'<tr><td>{i}</td><td>{r["team"]}</td><td class="league">{r["league"]}</td>'
+            f'<tr><td class="rank">{i}</td><td class="team">{r["team"]}</td>{class_td}<td class="league">{r["league"]}</td>'
             f'<td>{r["record"]}</td><td class="last-game">{r["last_game"]}</td>'
             f'<td class="rating">{r["rating"]}</td></tr>'
         )
-    out.append('</tbody></table>')
+    out.append('</tbody></table></div>')
     return "\n".join(out)
 
 
@@ -75,7 +93,7 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MN Town Ball Ratings (beta)</title>
 <style>
-body {{ font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #222; line-height: 1.5; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 16px; color: #222; line-height: 1.5; }}
 h1 {{ font-size: 22px; margin-bottom: 4px; }}
 .subtitle {{ color: #777; font-size: 13px; margin-bottom: 4px; }}
 .nav {{ font-size: 13px; margin-bottom: 24px; }}
@@ -86,14 +104,23 @@ h1 {{ font-size: 22px; margin-bottom: 4px; }}
 .explainer ul {{ padding-left: 20px; }}
 .explainer li {{ margin-bottom: 6px; }}
 h2 {{ font-size: 18px; border-bottom: 2px solid #333; padding-bottom: 4px; margin-top: 40px; }}
-table {{ border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 12px; }}
-th, td {{ text-align: left; padding: 5px 8px; border-bottom: 1px solid #eee; }}
+.table-wrap {{ overflow-x: auto; }}
+table {{ border-collapse: collapse; width: 100%; min-width: 560px; table-layout: fixed; font-size: 14px; margin-top: 12px; }}
+th, td {{ text-align: left; padding: 5px 8px; border-bottom: 1px solid #eee; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 th {{ color: #777; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; }}
+td.rank {{ overflow: visible; white-space: nowrap; color: #999; }}
+td.team {{ font-weight: 500; }}
 td.rating {{ text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }}
 td.league {{ color: #888; font-size: 13px; }}
-td.last-game {{ color: #555; font-size: 13px; white-space: nowrap; }}
+td.last-game {{ color: #555; font-size: 13px; }}
+td.class {{ color: #888; font-size: 13px; }}
 tr:nth-child(even) {{ background: #fafafa; }}
 footer {{ margin-top: 48px; color: #999; font-size: 12px; border-top: 1px solid #eee; padding-top: 12px; }}
+.view-toggle {{ display: flex; gap: 6px; margin-top: 24px; }}
+.view-toggle button {{ font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid #ccc; background: #fafafa; color: #444; cursor: pointer; }}
+.view-toggle button.active {{ background: #222; border-color: #222; color: #fff; }}
+.view {{ display: none; }}
+.view.active {{ display: block; }}
 </style>
 </head>
 <body>
@@ -126,12 +153,34 @@ metro team possible at all.</li>
 looks off.</p>
 </div>
 
-{tables}
+<div class="view-toggle">
+<button data-view="by-class" class="active">By Class</button>
+<button data-view="overall">Overall</button>
+</div>
+
+<div id="by-class" class="view active">
+{tables_by_class}
+</div>
+
+<div id="overall" class="view">
+{table_overall}
+</div>
 
 <footer>
 Built from mnbaseball.org schedule/results and standings data. Ratings shown are a live, in-season
 model (not a season-end snapshot) &mdash; last updated {generated_date}.
 </footer>
+
+<script>
+document.querySelectorAll('.view-toggle button').forEach(function(btn) {{
+  btn.addEventListener('click', function() {{
+    document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(btn.dataset.view).classList.add('active');
+  }});
+}});
+</script>
 
 </body>
 </html>
@@ -141,15 +190,16 @@ model (not a season-end snapshot) &mdash; last updated {generated_date}.
 if __name__ == "__main__":
     rows = load_data()
 
-    tables = []
+    tables_by_class = []
     for cls in ["A", "B", "C"]:
         cls_rows = [r for r in rows if r["class"] == cls]
-        tables.append(f"<h2>Class {cls}</h2>")
-        tables.append(render_table(cls_rows))
+        tables_by_class.append(f"<h2>Class {cls}</h2>")
+        tables_by_class.append(render_table(cls_rows))
 
     html = PAGE.format(
         generated_date=date.today().strftime("%B %-d, %Y"),
-        tables="\n".join(tables),
+        tables_by_class="\n".join(tables_by_class),
+        table_overall=render_table(rows, show_class=True),
     )
 
     with open("index.html", "w") as f:

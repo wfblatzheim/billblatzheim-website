@@ -12,37 +12,27 @@ Design decisions (see conversation/notes for rationale):
 - Ranking output will later be restricted to known 2026 teams; unknown teams
   still contribute their game results to the graph so known teams' records
   against them count.
+- Only games_raw.json records with result == "Finished" are kept. The source
+  API fills in a "0" run count for postponed/cancelled/not-yet-played games
+  too, which would otherwise show up as phantom 0-0 ties.
 """
 import json
-import re
 
 JUNK_NAMES = {"", "tbd", "tba", "the yard 18u"}
 
-MONTHS = {
-    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
-    "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
-}
-
 
 def parse_date(date_str):
-    # e.g. "Jul 14th, 2026"
-    m = re.match(r"(\w+)\s+(\d+)\w*,\s*(\d+)", date_str)
-    if not m:
+    # game_date is already "YYYY-MM-DD"; just sanity-check it.
+    parts = date_str.split("-")
+    if len(parts) != 3:
         return None
-    mon, day, year = m.groups()
-    mon_num = MONTHS.get(mon[:3].lower())
-    year = int(year)
-    day = int(day)
-    if not mon_num or year < 2024 or year > 2027 or not (1 <= day <= 31):
+    year, month, day = parts
+    if not (year.isdigit() and month.isdigit() and day.isdigit()):
         return None
-    return f"{year:04d}-{mon_num:02d}-{day:02d}"
-
-
-def parse_score(score_str):
-    m = re.match(r"^\s*(\d+)\s*-\s*(\d+)\s*$", score_str or "")
-    if not m:
+    year, month, day = int(year), int(month), int(day)
+    if year < 2024 or year > 2027 or not (1 <= month <= 12) or not (1 <= day <= 31):
         return None
-    return int(m.group(1)), int(m.group(2))
+    return date_str
 
 
 def build_known_lookup(teams):
@@ -55,29 +45,34 @@ def build_known_lookup(teams):
 def clean(games, teams):
     known = build_known_lookup(teams)
     cleaned = []
-    dropped = {"bad_game_field": 0, "junk_team": 0, "bad_date": 0, "no_score": 0}
+    dropped = {"junk_team": 0, "bad_date": 0, "not_finished": 0, "bad_score": 0}
 
     for g in games:
-        parts = g["game"].split(" @ ")
-        if len(parts) != 2:
-            dropped["bad_game_field"] += 1
-            continue
-        away_raw, home_raw = parts[0].strip(), parts[1].strip()
+        away_raw, home_raw = g["away_team"].strip(), g["home_team"].strip()
 
         if away_raw.lower() in JUNK_NAMES or home_raw.lower() in JUNK_NAMES:
             dropped["junk_team"] += 1
             continue
 
-        date = parse_date(g["date"])
+        date = parse_date(g["game_date"])
         if date is None:
             dropped["bad_date"] += 1
             continue
 
-        score = parse_score(g["score"])
-        if score is None:
-            dropped["no_score"] += 1
+        try:
+            away_score, home_score = int(g["away_team_r"]), int(g["home_team_r"])
+        except (TypeError, ValueError):
+            dropped["bad_score"] += 1
             continue
-        away_score, home_score = score
+
+        # result == "Finished" is the normal signal a game was actually played.
+        # But some historical (mostly 2024) records carry a real, non-0-0
+        # scoreline without that status field being set -- keep those too.
+        # A 0-0 line with no "Finished" status is ambiguous (not-yet-played
+        # placeholder vs. genuine cancellation) and gets dropped either way.
+        if g["result"] != "Finished" and (away_score, home_score) == (0, 0):
+            dropped["not_finished"] += 1
+            continue
 
         away_known = known.get(away_raw.lower())
         home_known = known.get(home_raw.lower())
@@ -96,7 +91,6 @@ def clean(games, teams):
             "home_league": home_known["league"] if home_known else None,
             "away_score": away_score,
             "home_score": home_score,
-            "has_stats": g["stats"] == "Yes",
         })
 
     return cleaned, dropped
