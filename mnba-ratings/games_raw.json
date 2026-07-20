@@ -71666,7 +71666,7 @@
     "game": "Luxemburg Brewers @ Atwater Chuckers",
     "game_type": "Exhibition Game",
     "score": "",
-    "scored": null,
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -72265,8 +72265,8 @@
     "time": "19:00:00",
     "game": "Prior Lake Mudcats @ Chaska Cubs",
     "game_type": "Exhibition Game",
-    "score": "",
-    "scored": null,
+    "score": "1 - 11",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -72415,8 +72415,8 @@
     "time": "19:30:00",
     "game": "Luxemburg Brewers @ Eden Valley Hawks",
     "game_type": "Central Valley Game",
-    "score": "",
-    "scored": null,
+    "score": "11 - 1",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -72465,8 +72465,8 @@
     "time": "19:30:00",
     "game": "Willmar Rails @ Sacred Heart Saints",
     "game_type": "Corn Belt Game",
-    "score": "",
-    "scored": null,
+    "score": "1 - 0",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -73005,8 +73005,8 @@
     "time": "13:00:00",
     "game": "Watkins Clippers @ Luxemburg Brewers",
     "game_type": "Central Valley Game",
-    "score": "",
-    "scored": null,
+    "score": "1 - 7",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -73435,8 +73435,8 @@
     "time": "14:00:00",
     "game": "Luxemburg Brewers @ St. Nicholas Nicks",
     "game_type": "Central Valley Game",
-    "score": "",
-    "scored": null,
+    "score": "10 - 4",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -74445,8 +74445,8 @@
     "time": "19:30:00",
     "game": "New Prague Orioles @ Belle Plaine Tigers",
     "game_type": "Region 12 Game",
-    "score": "",
-    "scored": null,
+    "score": "9 - 1",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -74735,8 +74735,8 @@
     "time": "19:30:00",
     "game": "Dawson Drakes @ Sacred Heart Saints",
     "game_type": "League Game",
-    "score": "",
-    "scored": null,
+    "score": "4 - 2",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -74745,8 +74745,8 @@
     "time": "19:30:00",
     "game": "Princeton Panthers @ Chisago Lakes Bulldogs",
     "game_type": "League Game",
-    "score": "",
-    "scored": null,
+    "score": "0 - 8",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -76075,8 +76075,8 @@
     "time": "19:30:00",
     "game": "Westonka Waves @ Chaska Cubs",
     "game_type": "Exhibition Game",
-    "score": "",
-    "scored": null,
+    "score": "1 - 11",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -77085,8 +77085,8 @@
     "time": "20:00:00",
     "game": "Plato Blue Jays @ Cold Spring Springers",
     "game_type": "2026 Charlie Larca Invitational Tournament - Jordan Game",
-    "score": "",
-    "scored": null,
+    "score": "11 - 1",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -77145,8 +77145,8 @@
     "time": "17:00:00",
     "game": "Minneapolis Cobras @ Chaska Cubs",
     "game_type": "Exhibition Game",
-    "score": "",
-    "scored": null,
+    "score": "3 - 13",
+    "scored": "Yes",
     "stats": "No"
   },
   {
@@ -77216,6 +77216,36 @@
     "game": "Midway Snurdbirds @ Hawley Hawks",
     "game_type": "League Game",
     "score": "2 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9078,
+    "date": "Jul 18th, 2026",
+    "time": "19:00:00",
+    "game": "Plato Blue Jays @ Jordan Brewers",
+    "game_type": "Charlie Larca Invitational Game",
+    "score": "7 - 9",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9079,
+    "date": "Jul 19th, 2026",
+    "time": "16:00:00",
+    "game": "Delano Athletics @ Jordan Brewers",
+    "game_type": "Charlie Larca Invitational Game",
+    "score": "5 - 6",
+    "scored": "Yes",
+    "stats": "No"
+  },
+  {
+    "game_id": 9081,
+    "date": "Jul 19th, 2026",
+    "time": "13:30:00",
+    "game": "Plato Blue Jays @ Bird Island Bullfrogs",
+    "game_type": "2026 Charlie Larca Invitational Tournament - Jordan Game",
+    "score": "6 - 4",
     "scored": "Yes",
     "stats": "No"
   }

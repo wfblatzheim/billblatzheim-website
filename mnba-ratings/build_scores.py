@@ -1,8 +1,8 @@
 """
 Generates scores.html: every 2026 MBA town ball game result in one
 searchable/filterable page, instead of the multi-click game-by-game browsing
-on mnbaseball.org. Companion to build_site.py (ratings page) -- same plain,
-private-share styling.
+on mnbaseball.org. Companion to build_site.py (ratings page) -- same plain
+styling.
 """
 import json
 import re
@@ -53,8 +53,7 @@ PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>MN Town Ball Scores (draft)</title>
+<title>MN Town Ball Scores (beta)</title>
 <style>
 body {{ font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #222; line-height: 1.5; }}
 h1 {{ font-size: 22px; margin-bottom: 4px; }}
@@ -99,14 +98,13 @@ footer {{ margin-top: 48px; color: #999; font-size: 12px; border-top: 1px solid 
 </head>
 <body>
 
-<h1>Minnesota Town Ball Scores <span style="color:#999;font-weight:normal;">(draft)</span></h1>
+<h1>Minnesota Town Ball Scores <span style="color:#999;font-weight:normal;">(beta)</span></h1>
 <div class="subtitle">Unofficial, not affiliated with the MBA &middot; generated {generated_date}</div>
 <div class="nav"><a href="index.html">&larr; Ratings</a></div>
 
 <div class="note">
 Every 2026 game result in one page &mdash; search a team, filter by class or game type, instead of
-clicking through mnbaseball.org one team/date at a time. Same early-prototype caveat as the ratings
-page: please don't share this link further yet.
+clicking through mnbaseball.org one team/date at a time.
 </div>
 
 <div class="controls">

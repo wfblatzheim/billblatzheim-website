@@ -1,15 +1,40 @@
 """
-Generates a bare-bones index.html from the live-Elo ratings. Not linked from
-the main site nav -- this is a private-share link for early feedback, so
-kept deliberately plain (no chart/design polish yet).
+Generates a bare-bones index.html from the live-Elo ratings. Linked from the
+main site nav now -- still evolving, so kept deliberately plain (no
+chart/design polish yet).
 """
 import json
-from datetime import date
+from datetime import date, datetime
+
+def load_last_games():
+    games = json.load(open("games_clean.json"))
+    last = {}
+    for g in games:
+        game_date = datetime.strptime(g["date"], "%Y-%m-%d").date()
+        for side, opp_side in (("home", "away"), ("away", "home")):
+            team = g[f"{side}_team"]
+            prev = last.get(team)
+            if prev and prev["date"] >= game_date:
+                continue
+            team_score = g[f"{side}_score"]
+            opp_score = g[f"{opp_side}_score"]
+            result = "W" if team_score > opp_score else "L" if team_score < opp_score else "T"
+            last[team] = {
+                "date": game_date,
+                "text": (
+                    f'{result} {team_score}-{opp_score} '
+                    f'{"vs" if side == "home" else "@"} {g[f"{opp_side}_team"]} '
+                    f'({game_date.strftime("%-m/%-d")})'
+                ),
+            }
+    return {team: v["text"] for team, v in last.items()}
+
 
 def load_data():
     live = json.load(open("ratings_2026_live_elo.json"))
     teams = json.load(open("teams_raw.json"))
     teams_meta = {t["team_name"]: t for t in teams}
+    last_games = load_last_games()
 
     rows = []
     for r in live:
@@ -25,17 +50,19 @@ def load_data():
             "league": meta["league"],
             "record": record,
             "rating": round(r["elo_live"]),
+            "last_game": last_games.get(r["team"], "—"),
         })
     return rows
 
 
 def render_table(rows):
     rows = sorted(rows, key=lambda r: -r["rating"])
-    out = ['<table>', '<thead><tr><th>#</th><th>Team</th><th>League</th><th>Record</th><th>Rating</th></tr></thead>', '<tbody>']
+    out = ['<table>', '<thead><tr><th>#</th><th>Team</th><th>League</th><th>Record</th><th>Last Game</th><th>Rating</th></tr></thead>', '<tbody>']
     for i, r in enumerate(rows, 1):
         out.append(
             f'<tr><td>{i}</td><td>{r["team"]}</td><td class="league">{r["league"]}</td>'
-            f'<td>{r["record"]}</td><td class="rating">{r["rating"]}</td></tr>'
+            f'<td>{r["record"]}</td><td class="last-game">{r["last_game"]}</td>'
+            f'<td class="rating">{r["rating"]}</td></tr>'
         )
     out.append('</tbody></table>')
     return "\n".join(out)
@@ -46,8 +73,7 @@ PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
-<title>MN Town Ball Ratings (draft)</title>
+<title>MN Town Ball Ratings (beta)</title>
 <style>
 body {{ font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #222; line-height: 1.5; }}
 h1 {{ font-size: 22px; margin-bottom: 4px; }}
@@ -65,20 +91,20 @@ th, td {{ text-align: left; padding: 5px 8px; border-bottom: 1px solid #eee; }}
 th {{ color: #777; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; }}
 td.rating {{ text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }}
 td.league {{ color: #888; font-size: 13px; }}
+td.last-game {{ color: #555; font-size: 13px; white-space: nowrap; }}
 tr:nth-child(even) {{ background: #fafafa; }}
 footer {{ margin-top: 48px; color: #999; font-size: 12px; border-top: 1px solid #eee; padding-top: 12px; }}
 </style>
 </head>
 <body>
 
-<h1>Minnesota Town Ball Ratings <span style="color:#999;font-weight:normal;">(draft)</span></h1>
+<h1>Minnesota Town Ball Ratings <span style="color:#999;font-weight:normal;">(beta)</span></h1>
 <div class="subtitle">Unofficial, not affiliated with the MBA &middot; generated {generated_date}</div>
 <div class="nav"><a href="scores.html">Scores &rarr;</a></div>
 
 <div class="note">
-This is an early, unfinished prototype. Ratings will change as more games are played and as the
-underlying model gets refined. Please don't share this link further yet &mdash; just looking for
-gut-check feedback on whether these rankings feel roughly right.
+This is a live, in-season model &mdash; ratings shift as more games are played and the underlying
+model keeps getting refined. If a result looks off to you, I'd love to hear about it.
 </div>
 
 <div class="explainer">

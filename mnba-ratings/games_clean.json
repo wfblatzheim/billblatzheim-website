@@ -97264,6 +97264,22 @@
     "has_stats": false
   },
   {
+    "game_id": 8296,
+    "date": "2026-07-09",
+    "game_type_raw": "Exhibition Game",
+    "away_team": "Prior Lake Mudcats",
+    "away_known": true,
+    "away_class": "B",
+    "away_league": "Dakota Rice Scott (DRS) League",
+    "home_team": "Chaska Cubs",
+    "home_known": true,
+    "home_class": "A",
+    "home_league": "River Valley North League",
+    "away_score": 1,
+    "home_score": 11,
+    "has_stats": false
+  },
+  {
     "game_id": 8365,
     "date": "2026-07-09",
     "game_type_raw": "Riverview Game",
@@ -97424,6 +97440,22 @@
     "has_stats": false
   },
   {
+    "game_id": 6542,
+    "date": "2026-07-10",
+    "game_type_raw": "Central Valley Game",
+    "away_team": "Luxemburg Brewers",
+    "away_known": true,
+    "away_class": "C",
+    "away_league": "Central Valley League",
+    "home_team": "Eden Valley Hawks",
+    "home_known": true,
+    "home_class": "C",
+    "home_league": "Central Valley League",
+    "away_score": 11,
+    "home_score": 1,
+    "has_stats": false
+  },
+  {
     "game_id": 6562,
     "date": "2026-07-10",
     "game_type_raw": "Metro Minny Game",
@@ -97485,6 +97517,22 @@
     "home_league": "North Star League",
     "away_score": 4,
     "home_score": 14,
+    "has_stats": false
+  },
+  {
+    "game_id": 6660,
+    "date": "2026-07-10",
+    "game_type_raw": "Corn Belt Game",
+    "away_team": "Willmar Rails",
+    "away_known": true,
+    "away_class": "B",
+    "away_league": "Corn Belt League",
+    "home_team": "Sacred Heart Saints",
+    "home_known": true,
+    "home_class": "C",
+    "home_league": "Corn Belt League",
+    "away_score": 1,
+    "home_score": 0,
     "has_stats": false
   },
   {
@@ -97984,6 +98032,22 @@
     "has_stats": false
   },
   {
+    "game_id": 6536,
+    "date": "2026-07-11",
+    "game_type_raw": "Central Valley Game",
+    "away_team": "Watkins Clippers",
+    "away_known": true,
+    "away_class": "C",
+    "away_league": "Central Valley League",
+    "home_team": "Luxemburg Brewers",
+    "home_known": true,
+    "home_class": "C",
+    "home_league": "Central Valley League",
+    "away_score": 1,
+    "home_score": 7,
+    "has_stats": false
+  },
+  {
     "game_id": 6563,
     "date": "2026-07-11",
     "game_type_raw": "Metro Minny Game",
@@ -98396,6 +98460,22 @@
     "home_class": "C",
     "home_league": "Land O' Ducks - Teal League",
     "away_score": 15,
+    "home_score": 4,
+    "has_stats": false
+  },
+  {
+    "game_id": 6543,
+    "date": "2026-07-12",
+    "game_type_raw": "Central Valley Game",
+    "away_team": "Luxemburg Brewers",
+    "away_known": true,
+    "away_class": "C",
+    "away_league": "Central Valley League",
+    "home_team": "St. Nicholas Nicks",
+    "home_known": true,
+    "home_class": "C",
+    "home_league": "Central Valley League",
+    "away_score": 10,
     "home_score": 4,
     "has_stats": false
   },
@@ -99232,6 +99312,22 @@
     "has_stats": true
   },
   {
+    "game_id": 7765,
+    "date": "2026-07-14",
+    "game_type_raw": "Region 12 Game",
+    "away_team": "New Prague Orioles",
+    "away_known": true,
+    "away_class": "B",
+    "away_league": "Dakota Rice Scott (DRS) League",
+    "home_team": "Belle Plaine Tigers",
+    "home_known": true,
+    "home_class": "C",
+    "home_league": "River Valley Central League",
+    "away_score": 9,
+    "home_score": 1,
+    "has_stats": false
+  },
+  {
     "game_id": 7906,
     "date": "2026-07-14",
     "game_type_raw": "Riverview Game",
@@ -99549,6 +99645,38 @@
     "home_league": "Skyline League",
     "away_score": 5,
     "home_score": 3,
+    "has_stats": false
+  },
+  {
+    "game_id": 6977,
+    "date": "2026-07-15",
+    "game_type_raw": "League Game",
+    "away_team": "Dawson Drakes",
+    "away_known": true,
+    "away_class": "C",
+    "away_league": "Land O' Ducks - Teal League",
+    "home_team": "Sacred Heart Saints",
+    "home_known": true,
+    "home_class": "C",
+    "home_league": "Corn Belt League",
+    "away_score": 4,
+    "home_score": 2,
+    "has_stats": false
+  },
+  {
+    "game_id": 6980,
+    "date": "2026-07-15",
+    "game_type_raw": "League Game",
+    "away_team": "Princeton Panthers",
+    "away_known": true,
+    "away_class": "B",
+    "away_league": "Eastern Minny - North League",
+    "home_team": "Chisago Lakes Bulldogs",
+    "home_known": true,
+    "home_class": "B",
+    "home_league": "Eastern Minny - South League",
+    "away_score": 0,
+    "home_score": 8,
     "has_stats": false
   },
   {
@@ -101120,6 +101248,22 @@
     "has_stats": false
   },
   {
+    "game_id": 8937,
+    "date": "2026-07-15",
+    "game_type_raw": "Exhibition Game",
+    "away_team": "Westonka Waves",
+    "away_known": true,
+    "away_class": "B",
+    "away_league": "Crow River Valley - South League",
+    "home_team": "Chaska Cubs",
+    "home_known": true,
+    "home_class": "A",
+    "home_league": "River Valley North League",
+    "away_score": 1,
+    "home_score": 11,
+    "has_stats": false
+  },
+  {
     "game_id": 8939,
     "date": "2026-06-24",
     "game_type_raw": "Exhibition Game",
@@ -102592,6 +102736,22 @@
     "has_stats": false
   },
   {
+    "game_id": 9057,
+    "date": "2026-07-17",
+    "game_type_raw": "2026 Charlie Larca Invitational Tournament - Jordan Game",
+    "away_team": "Plato Blue Jays",
+    "away_known": true,
+    "away_class": "B",
+    "away_league": "Crow River Valley - North League",
+    "home_team": "Cold Spring Springers",
+    "home_known": true,
+    "home_class": "B",
+    "home_league": "Sauk Valley League",
+    "away_score": 11,
+    "home_score": 1,
+    "has_stats": false
+  },
+  {
     "game_id": 9060,
     "date": "2026-07-15",
     "game_type_raw": "Exhibition Game",
@@ -102653,6 +102813,22 @@
     "home_league": "Skyline League",
     "away_score": 2,
     "home_score": 6,
+    "has_stats": false
+  },
+  {
+    "game_id": 9067,
+    "date": "2026-07-19",
+    "game_type_raw": "Exhibition Game",
+    "away_team": "Minneapolis Cobras",
+    "away_known": true,
+    "away_class": "A",
+    "away_league": "Park National League",
+    "home_team": "Chaska Cubs",
+    "home_known": true,
+    "home_class": "A",
+    "home_league": "River Valley North League",
+    "away_score": 3,
+    "home_score": 13,
     "has_stats": false
   },
   {
@@ -102749,6 +102925,54 @@
     "home_league": "Lake and Pine League",
     "away_score": 2,
     "home_score": 6,
+    "has_stats": false
+  },
+  {
+    "game_id": 9078,
+    "date": "2026-07-18",
+    "game_type_raw": "Charlie Larca Invitational Game",
+    "away_team": "Plato Blue Jays",
+    "away_known": true,
+    "away_class": "B",
+    "away_league": "Crow River Valley - North League",
+    "home_team": "Jordan Brewers",
+    "home_known": true,
+    "home_class": "B",
+    "home_league": "River Valley Central League",
+    "away_score": 7,
+    "home_score": 9,
+    "has_stats": false
+  },
+  {
+    "game_id": 9079,
+    "date": "2026-07-19",
+    "game_type_raw": "Charlie Larca Invitational Game",
+    "away_team": "Delano Athletics",
+    "away_known": true,
+    "away_class": "B",
+    "away_league": "Crow River Valley - North League",
+    "home_team": "Jordan Brewers",
+    "home_known": true,
+    "home_class": "B",
+    "home_league": "River Valley Central League",
+    "away_score": 5,
+    "home_score": 6,
+    "has_stats": false
+  },
+  {
+    "game_id": 9081,
+    "date": "2026-07-19",
+    "game_type_raw": "2026 Charlie Larca Invitational Tournament - Jordan Game",
+    "away_team": "Plato Blue Jays",
+    "away_known": true,
+    "away_class": "B",
+    "away_league": "Crow River Valley - North League",
+    "home_team": "Bird Island Bullfrogs",
+    "home_known": true,
+    "home_class": "B",
+    "home_league": "Corn Belt League",
+    "away_score": 6,
+    "home_score": 4,
     "has_stats": false
   }
 ]
