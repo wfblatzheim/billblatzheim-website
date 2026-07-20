@@ -15,6 +15,7 @@ from datetime import date
 # postseason bracket.
 CATEGORY_BY_GAME_TYPE = {
     "State Tourney": "Playoff",
+    "State Tournament": "Playoff",
     "Tournament": "Tournament",
     "Exhibition": "Exhibition",
 }
