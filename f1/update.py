@@ -1049,9 +1049,9 @@ def main():
     size_kb = len(html.encode()) / 1024
     print(f"✅ Done! → index.html  ({size_kb:.0f} KB)\n")
     print("Tips:")
-    print("  python3 f1_dashboard_multi.py                        # rebuild from cache")
-    print("  python3 f1_dashboard_multi.py --add 2026             # fetch & cache 2026")
-    print("  python3 f1_dashboard_multi.py --refresh 2025         # re-fetch 2025\n")
+    print("  python3 update.py                        # rebuild from cache")
+    print("  python3 update.py --add 2026             # fetch & cache 2026")
+    print("  python3 update.py --refresh 2025         # re-fetch 2025\n")
 
 if __name__ == "__main__":
     main()

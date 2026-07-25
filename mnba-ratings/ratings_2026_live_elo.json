@@ -12,8 +12,8 @@
     "team": "St. Patrick Irish",
     "known": true,
     "class": "A",
-    "elo_live": 1926.1,
-    "games_played": 20,
+    "elo_live": 1930.7,
+    "games_played": 21,
     "raw_2025_rating": 1836.0,
     "blended_seed": 1764.9
   },
@@ -45,6 +45,15 @@
     "blended_seed": 1758.4
   },
   {
+    "team": "Buckman Billygoats",
+    "known": true,
+    "class": "B",
+    "elo_live": 1879.5,
+    "games_played": 14,
+    "raw_2025_rating": 1768.7,
+    "blended_seed": 1707.1
+  },
+  {
     "team": "Jordan Brewers",
     "known": true,
     "class": "B",
@@ -52,15 +61,6 @@
     "games_played": 29,
     "raw_2025_rating": 1961.6,
     "blended_seed": 1842.2
-  },
-  {
-    "team": "Buckman Billygoats",
-    "known": true,
-    "class": "B",
-    "elo_live": 1871.0,
-    "games_played": 13,
-    "raw_2025_rating": 1768.7,
-    "blended_seed": 1707.1
   },
   {
     "team": "Chaska Cubs",
@@ -108,13 +108,13 @@
     "blended_seed": 1819.7
   },
   {
-    "team": "Nisswa Lightning",
+    "team": "Elko Express",
     "known": true,
-    "class": "B",
-    "elo_live": 1821.3,
-    "games_played": 15,
-    "raw_2025_rating": 1770.5,
-    "blended_seed": 1708.4
+    "class": "A",
+    "elo_live": 1825.0,
+    "games_played": 27,
+    "raw_2025_rating": 1639.6,
+    "blended_seed": 1627.4
   },
   {
     "team": "Delano Athletics",
@@ -126,15 +126,6 @@
     "blended_seed": 1774.8
   },
   {
-    "team": "Forest Lake Brewers",
-    "known": true,
-    "class": "A",
-    "elo_live": 1815.8,
-    "games_played": 25,
-    "raw_2025_rating": 1653.9,
-    "blended_seed": 1637.4
-  },
-  {
     "team": "Minnetonka Monarchs",
     "known": true,
     "class": "A",
@@ -144,6 +135,15 @@
     "blended_seed": 1654.2
   },
   {
+    "team": "Nisswa Lightning",
+    "known": true,
+    "class": "B",
+    "elo_live": 1812.8,
+    "games_played": 16,
+    "raw_2025_rating": 1770.5,
+    "blended_seed": 1708.4
+  },
+  {
     "team": "Cold Spring Springers",
     "known": true,
     "class": "B",
@@ -151,15 +151,6 @@
     "games_played": 16,
     "raw_2025_rating": 1840.6,
     "blended_seed": 1757.5
-  },
-  {
-    "team": "Elko Express",
-    "known": true,
-    "class": "A",
-    "elo_live": 1804.1,
-    "games_played": 25,
-    "raw_2025_rating": 1639.6,
-    "blended_seed": 1627.4
   },
   {
     "team": "Webster Sox",
@@ -223,6 +214,15 @@
     "games_played": 15,
     "raw_2025_rating": 1898.8,
     "blended_seed": 1779.2
+  },
+  {
+    "team": "Forest Lake Brewers",
+    "known": true,
+    "class": "A",
+    "elo_live": 1777.0,
+    "games_played": 26,
+    "raw_2025_rating": 1653.9,
+    "blended_seed": 1637.4
   },
   {
     "team": "New Ulm Brewers",
@@ -369,15 +369,6 @@
     "blended_seed": 1559.2
   },
   {
-    "team": "St. Anthony Hogs",
-    "known": true,
-    "class": "A",
-    "elo_live": 1715.7,
-    "games_played": 26,
-    "raw_2025_rating": 1671.9,
-    "blended_seed": 1650.0
-  },
-  {
     "team": "Sobieski Skis",
     "known": true,
     "class": "B",
@@ -450,6 +441,15 @@
     "blended_seed": 1586.5
   },
   {
+    "team": "St. Anthony Hogs",
+    "known": true,
+    "class": "A",
+    "elo_live": 1700.7,
+    "games_played": 27,
+    "raw_2025_rating": 1671.9,
+    "blended_seed": 1650.0
+  },
+  {
     "team": "Roseau Royals",
     "known": true,
     "class": "B",
@@ -511,6 +511,24 @@
     "games_played": 22,
     "raw_2025_rating": 1483.0,
     "blended_seed": 1507.1
+  },
+  {
+    "team": "Champlin Park LoGators",
+    "known": true,
+    "class": "A",
+    "elo_live": 1663.7,
+    "games_played": 19,
+    "raw_2025_rating": 1864.4,
+    "blended_seed": 1784.8
+  },
+  {
+    "team": "Avon Lakers",
+    "known": true,
+    "class": "B",
+    "elo_live": 1659.9,
+    "games_played": 14,
+    "raw_2025_rating": 1582.9,
+    "blended_seed": 1577.1
   },
   {
     "team": "Perham Pirates",
@@ -594,15 +612,6 @@
     "blended_seed": 1583.0
   },
   {
-    "team": "Avon Lakers",
-    "known": true,
-    "class": "B",
-    "elo_live": 1642.3,
-    "games_played": 13,
-    "raw_2025_rating": 1582.9,
-    "blended_seed": 1577.1
-  },
-  {
     "team": "Starbuck Stars",
     "known": true,
     "class": "C",
@@ -664,15 +673,6 @@
     "games_played": 27,
     "raw_2025_rating": 1699.8,
     "blended_seed": 1669.5
-  },
-  {
-    "team": "Champlin Park LoGators",
-    "known": true,
-    "class": "A",
-    "elo_live": 1624.9,
-    "games_played": 18,
-    "raw_2025_rating": 1864.4,
-    "blended_seed": 1784.8
   },
   {
     "team": "Luxemburg Brewers",
@@ -801,15 +801,6 @@
     "blended_seed": 1527.2
   },
   {
-    "team": "Fort Ripley Rebels",
-    "known": true,
-    "class": "B",
-    "elo_live": 1601.2,
-    "games_played": 13,
-    "raw_2025_rating": 1546.2,
-    "blended_seed": 1551.4
-  },
-  {
     "team": "Maple Lake Lakers",
     "known": true,
     "class": "B",
@@ -873,6 +864,15 @@
     "blended_seed": 1571.6
   },
   {
+    "team": "Fort Ripley Rebels",
+    "known": true,
+    "class": "B",
+    "elo_live": 1583.5,
+    "games_played": 14,
+    "raw_2025_rating": 1546.2,
+    "blended_seed": 1551.4
+  },
+  {
     "team": "Atwater Chuckers",
     "known": true,
     "class": "C",
@@ -880,6 +880,15 @@
     "games_played": 13,
     "raw_2025_rating": 1581.9,
     "blended_seed": 1535.6
+  },
+  {
+    "team": "Minneapolis Cobras",
+    "known": true,
+    "class": "A",
+    "elo_live": 1581.5,
+    "games_played": 27,
+    "raw_2025_rating": 1616.0,
+    "blended_seed": 1610.9
   },
   {
     "team": "Union Hill Bulldogs",
@@ -1024,15 +1033,6 @@
     "games_played": 17,
     "raw_2025_rating": 1563.7,
     "blended_seed": 1522.9
-  },
-  {
-    "team": "Minneapolis Cobras",
-    "known": true,
-    "class": "A",
-    "elo_live": 1555.9,
-    "games_played": 26,
-    "raw_2025_rating": 1616.0,
-    "blended_seed": 1610.9
   },
   {
     "team": "Hudson River Rats",
@@ -1296,15 +1296,6 @@
     "blended_seed": 1674.0
   },
   {
-    "team": "Highland Park Beavers",
-    "known": true,
-    "class": "A",
-    "elo_live": 1504.1,
-    "games_played": 18,
-    "raw_2025_rating": 1562.4,
-    "blended_seed": 1573.4
-  },
-  {
     "team": "Spring Valley Hawks",
     "known": false,
     "class": null,
@@ -1377,15 +1368,6 @@
     "blended_seed": 1518.1
   },
   {
-    "team": "Prior Lake Jays",
-    "known": true,
-    "class": "A",
-    "elo_live": 1491.0,
-    "games_played": 18,
-    "raw_2025_rating": 1540.2,
-    "blended_seed": 1557.8
-  },
-  {
     "team": "Kimball Express",
     "known": true,
     "class": "B",
@@ -1420,6 +1402,15 @@
     "games_played": 4,
     "raw_2025_rating": null,
     "blended_seed": 1500.0
+  },
+  {
+    "team": "Prior Lake Jays",
+    "known": true,
+    "class": "A",
+    "elo_live": 1486.5,
+    "games_played": 19,
+    "raw_2025_rating": 1540.2,
+    "blended_seed": 1557.8
   },
   {
     "team": "North Branch Nighthawks",
@@ -1501,6 +1492,15 @@
     "games_played": 18,
     "raw_2025_rating": 1373.1,
     "blended_seed": 1440.9
+  },
+  {
+    "team": "Highland Park Beavers",
+    "known": true,
+    "class": "A",
+    "elo_live": 1478.5,
+    "games_played": 19,
+    "raw_2025_rating": 1562.4,
+    "blended_seed": 1573.4
   },
   {
     "team": "Larchwood Diamonds",
@@ -1827,13 +1827,13 @@
     "blended_seed": 1336.5
   },
   {
-    "team": "Montgomery Mallards",
+    "team": "Benson Plowboys",
     "known": true,
-    "class": "B",
-    "elo_live": 1412.3,
-    "games_played": 17,
-    "raw_2025_rating": 1416.3,
-    "blended_seed": 1460.5
+    "class": "C",
+    "elo_live": 1412.5,
+    "games_played": 15,
+    "raw_2025_rating": 1309.9,
+    "blended_seed": 1345.2
   },
   {
     "team": "Stillwater Loggers",
@@ -1843,6 +1843,15 @@
     "games_played": 6,
     "raw_2025_rating": 1439.2,
     "blended_seed": 1487.1
+  },
+  {
+    "team": "Montgomery Mallards",
+    "known": true,
+    "class": "B",
+    "elo_live": 1406.5,
+    "games_played": 18,
+    "raw_2025_rating": 1416.3,
+    "blended_seed": 1460.5
   },
   {
     "team": "Brandon Belugas",
@@ -2007,15 +2016,6 @@
     "blended_seed": 1390.9
   },
   {
-    "team": "Benson Plowboys",
-    "known": true,
-    "class": "C",
-    "elo_live": 1384.0,
-    "games_played": 14,
-    "raw_2025_rating": 1309.9,
-    "blended_seed": 1345.2
-  },
-  {
     "team": "Cottonwood Cardinals",
     "known": true,
     "class": "C",
@@ -2133,6 +2133,15 @@
     "blended_seed": 1324.0
   },
   {
+    "team": "Metro Merchants",
+    "known": true,
+    "class": "A",
+    "elo_live": 1344.0,
+    "games_played": 19,
+    "raw_2025_rating": 1292.0,
+    "blended_seed": 1384.1
+  },
+  {
     "team": "Gaylord Islanders",
     "known": true,
     "class": "C",
@@ -2169,24 +2178,6 @@
     "blended_seed": 1409.9
   },
   {
-    "team": "Crystal Cowboys",
-    "known": true,
-    "class": "A",
-    "elo_live": 1338.7,
-    "games_played": 15,
-    "raw_2025_rating": 1340.5,
-    "blended_seed": 1418.0
-  },
-  {
-    "team": "Ortonville Rox",
-    "known": true,
-    "class": "C",
-    "elo_live": 1334.4,
-    "games_played": 10,
-    "raw_2025_rating": 1432.4,
-    "blended_seed": 1431.0
-  },
-  {
     "team": "Dawson Drakes",
     "known": true,
     "class": "C",
@@ -2194,15 +2185,6 @@
     "games_played": 17,
     "raw_2025_rating": 1297.3,
     "blended_seed": 1336.4
-  },
-  {
-    "team": "Metro Merchants",
-    "known": true,
-    "class": "A",
-    "elo_live": 1333.9,
-    "games_played": 18,
-    "raw_2025_rating": 1292.0,
-    "blended_seed": 1384.1
   },
   {
     "team": "Twin City Saints",
@@ -2230,6 +2212,15 @@
     "games_played": 12,
     "raw_2025_rating": 1195.2,
     "blended_seed": 1264.9
+  },
+  {
+    "team": "Crystal Cowboys",
+    "known": true,
+    "class": "A",
+    "elo_live": 1328.6,
+    "games_played": 16,
+    "raw_2025_rating": 1340.5,
+    "blended_seed": 1418.0
   },
   {
     "team": "Gibbon Reds",
@@ -2302,6 +2293,15 @@
     "games_played": 16,
     "raw_2025_rating": 1430.7,
     "blended_seed": 1429.8
+  },
+  {
+    "team": "Ortonville Rox",
+    "known": true,
+    "class": "C",
+    "elo_live": 1305.8,
+    "games_played": 11,
+    "raw_2025_rating": 1432.4,
+    "blended_seed": 1431.0
   },
   {
     "team": "Long Prairie Predators",
