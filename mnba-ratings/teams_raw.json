@@ -896,8 +896,8 @@
     "class": "C",
     "league": "Gopher League",
     "league_url": "https://mnbaseball.org/leagues/gopher",
-    "league_record": "1-0-0",
-    "overall_record": "13-11-0"
+    "league_record": "2-0-0",
+    "overall_record": "14-11-0"
   },
   {
     "team_slug": "milroy-irish",
@@ -936,8 +936,8 @@
     "class": "C",
     "league": "Gopher League",
     "league_url": "https://mnbaseball.org/leagues/gopher",
-    "league_record": "0-3-0",
-    "overall_record": "3-15-0"
+    "league_record": "0-4-0",
+    "overall_record": "3-16-0"
   },
   {
     "team_slug": "perham-pirates",
@@ -1100,6 +1100,16 @@
     "overall_record": "6-8-0"
   },
   {
+    "team_slug": "rosen-express",
+    "team_name": "Rosen Express",
+    "team_url": "https://www.mnbaseball.org/teams/rosen-express",
+    "class": "C",
+    "league": "Land O' Ducks - Teal League",
+    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
+    "league_record": "5-7-0",
+    "overall_record": "9-11-0"
+  },
+  {
     "team_slug": "dawson-drakes",
     "team_name": "Dawson Drakes",
     "team_url": "https://www.mnbaseball.org/teams/dawson-drakes",
@@ -1108,16 +1118,6 @@
     "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
     "league_record": "5-8-0",
     "overall_record": "6-12-0"
-  },
-  {
-    "team_slug": "rosen-express",
-    "team_name": "Rosen Express",
-    "team_url": "https://www.mnbaseball.org/teams/rosen-express",
-    "class": "C",
-    "league": "Land O' Ducks - Teal League",
-    "league_url": "https://mnbaseball.org/leagues/land-o-ducks-teal",
-    "league_record": "4-7-0",
-    "overall_record": "8-11-0"
   },
   {
     "team_slug": "cottonwood-cardinals",
@@ -1196,8 +1196,8 @@
     "class": "C",
     "league": "Land O' Ducks - Wood League",
     "league_url": "https://mnbaseball.org/leagues/land-o-ducks-wood",
-    "league_record": "1-7-0",
-    "overall_record": "2-9-0"
+    "league_record": "1-8-0",
+    "overall_record": "2-10-0"
   },
   {
     "team_slug": "forest-lake-brewers",
@@ -1517,7 +1517,7 @@
     "league": "Park National League",
     "league_url": "https://mnbaseball.org/leagues/park-national",
     "league_record": "13-0-0",
-    "overall_record": "20-4-0"
+    "overall_record": "20-5-0"
   },
   {
     "team_slug": "minneapolis-cobras",
@@ -1817,7 +1817,7 @@
     "league": "Riverview League",
     "league_url": "https://mnbaseball.org/leagues/riverview",
     "league_record": "8-3-0",
-    "overall_record": "20-7-0"
+    "overall_record": "21-7-0"
   },
   {
     "team_slug": "baseball-365",

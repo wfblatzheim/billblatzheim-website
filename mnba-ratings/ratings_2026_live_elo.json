@@ -1,14 +1,5 @@
 [
   {
-    "team": "St. Patrick Irish",
-    "known": true,
-    "class": "A",
-    "elo_live": 1961.5,
-    "games_played": 22,
-    "raw_2025_rating": 1836.0,
-    "blended_seed": 1764.9
-  },
-  {
     "team": "Miesville Mudhens",
     "known": true,
     "class": "A",
@@ -16,6 +7,15 @@
     "games_played": 27,
     "raw_2025_rating": 1816.0,
     "blended_seed": 1750.9
+  },
+  {
+    "team": "St. Patrick Irish",
+    "known": true,
+    "class": "A",
+    "elo_live": 1944.4,
+    "games_played": 23,
+    "raw_2025_rating": 1836.0,
+    "blended_seed": 1764.9
   },
   {
     "team": "Buffalo Bulldogs",
@@ -63,6 +63,15 @@
     "blended_seed": 1758.4
   },
   {
+    "team": "St. Paul Mudhens",
+    "known": true,
+    "class": "A",
+    "elo_live": 1846.9,
+    "games_played": 22,
+    "raw_2025_rating": 1772.1,
+    "blended_seed": 1720.2
+  },
+  {
     "team": "Hutchinson Huskies",
     "known": true,
     "class": "B",
@@ -70,6 +79,15 @@
     "games_played": 25,
     "raw_2025_rating": 1806.4,
     "blended_seed": 1733.5
+  },
+  {
+    "team": "Minnetonka Monarchs",
+    "known": true,
+    "class": "A",
+    "elo_live": 1839.4,
+    "games_played": 28,
+    "raw_2025_rating": 1677.9,
+    "blended_seed": 1654.2
   },
   {
     "team": "Young America Cardinals",
@@ -90,15 +108,6 @@
     "blended_seed": 1627.4
   },
   {
-    "team": "St. Paul Mudhens",
-    "known": true,
-    "class": "A",
-    "elo_live": 1834.8,
-    "games_played": 21,
-    "raw_2025_rating": 1772.1,
-    "blended_seed": 1720.2
-  },
-  {
     "team": "Chaska Cubs",
     "known": true,
     "class": "A",
@@ -108,15 +117,6 @@
     "blended_seed": 1880.8
   },
   {
-    "team": "Macs Industrial Warriors",
-    "known": true,
-    "class": "A",
-    "elo_live": 1826.0,
-    "games_played": 24,
-    "raw_2025_rating": 1914.3,
-    "blended_seed": 1819.7
-  },
-  {
     "team": "Cold Spring Springers",
     "known": true,
     "class": "B",
@@ -124,15 +124,6 @@
     "games_played": 17,
     "raw_2025_rating": 1840.6,
     "blended_seed": 1757.5
-  },
-  {
-    "team": "Minnetonka Monarchs",
-    "known": true,
-    "class": "A",
-    "elo_live": 1815.4,
-    "games_played": 27,
-    "raw_2025_rating": 1677.9,
-    "blended_seed": 1654.2
   },
   {
     "team": "Nisswa Lightning",
@@ -151,6 +142,15 @@
     "games_played": 20,
     "raw_2025_rating": 1792.6,
     "blended_seed": 1734.5
+  },
+  {
+    "team": "Macs Industrial Warriors",
+    "known": true,
+    "class": "A",
+    "elo_live": 1802.1,
+    "games_played": 25,
+    "raw_2025_rating": 1914.3,
+    "blended_seed": 1819.7
   },
   {
     "team": "Windom Pirates",
@@ -252,6 +252,15 @@
     "blended_seed": 1644.1
   },
   {
+    "team": "Webster Sox",
+    "known": true,
+    "class": "B",
+    "elo_live": 1764.7,
+    "games_played": 23,
+    "raw_2025_rating": 1660.1,
+    "blended_seed": 1631.1
+  },
+  {
     "team": "Le Sueur Braves",
     "known": true,
     "class": "B",
@@ -259,15 +268,6 @@
     "games_played": 21,
     "raw_2025_rating": 1735.4,
     "blended_seed": 1683.8
-  },
-  {
-    "team": "Webster Sox",
-    "known": true,
-    "class": "B",
-    "elo_live": 1747.3,
-    "games_played": 22,
-    "raw_2025_rating": 1660.1,
-    "blended_seed": 1631.1
   },
   {
     "team": "Morris Eagles",
@@ -295,6 +295,15 @@
     "games_played": 24,
     "raw_2025_rating": 1907.7,
     "blended_seed": 1815.1
+  },
+  {
+    "team": "Coon Rapids Redbirds",
+    "known": true,
+    "class": "A",
+    "elo_live": 1743.4,
+    "games_played": 23,
+    "raw_2025_rating": null,
+    "blended_seed": 1599.0
   },
   {
     "team": "Pierz Lakers",
@@ -367,15 +376,6 @@
     "games_played": 20,
     "raw_2025_rating": 1580.5,
     "blended_seed": 1586.0
-  },
-  {
-    "team": "Coon Rapids Redbirds",
-    "known": true,
-    "class": "A",
-    "elo_live": 1724.1,
-    "games_played": 22,
-    "raw_2025_rating": null,
-    "blended_seed": 1599.0
   },
   {
     "team": "Austin Greyhounds",
@@ -459,15 +459,6 @@
     "blended_seed": 1784.8
   },
   {
-    "team": "North St. Paul Snowmen",
-    "known": true,
-    "class": "A",
-    "elo_live": 1689.0,
-    "games_played": 23,
-    "raw_2025_rating": 1734.5,
-    "blended_seed": 1693.8
-  },
-  {
     "team": "Urbank-Parkers Prairie Bombers",
     "known": true,
     "class": "C",
@@ -493,6 +484,15 @@
     "games_played": 20,
     "raw_2025_rating": 1704.0,
     "blended_seed": 1672.5
+  },
+  {
+    "team": "North St. Paul Snowmen",
+    "known": true,
+    "class": "A",
+    "elo_live": 1677.0,
+    "games_played": 24,
+    "raw_2025_rating": 1734.5,
+    "blended_seed": 1693.8
   },
   {
     "team": "Victoria Vics",
@@ -522,6 +522,24 @@
     "blended_seed": 1602.8
   },
   {
+    "team": "Chisago Lakes Bulldogs",
+    "known": true,
+    "class": "B",
+    "elo_live": 1671.9,
+    "games_played": 27,
+    "raw_2025_rating": 1422.7,
+    "blended_seed": 1464.9
+  },
+  {
+    "team": "Dundas Dukes",
+    "known": true,
+    "class": "A",
+    "elo_live": 1671.7,
+    "games_played": 32,
+    "raw_2025_rating": 1699.8,
+    "blended_seed": 1669.5
+  },
+  {
     "team": "Bemidji Bucks",
     "known": true,
     "class": "A",
@@ -531,15 +549,6 @@
     "blended_seed": 1785.8
   },
   {
-    "team": "Chisago Lakes Bulldogs",
-    "known": true,
-    "class": "B",
-    "elo_live": 1665.7,
-    "games_played": 26,
-    "raw_2025_rating": 1422.7,
-    "blended_seed": 1464.9
-  },
-  {
     "team": "Stewartville-Racine Sharks",
     "known": true,
     "class": "B",
@@ -547,15 +556,6 @@
     "games_played": 22,
     "raw_2025_rating": 1483.0,
     "blended_seed": 1507.1
-  },
-  {
-    "team": "Andover Aces",
-    "known": true,
-    "class": "A",
-    "elo_live": 1663.7,
-    "games_played": 18,
-    "raw_2025_rating": 1775.3,
-    "blended_seed": 1722.4
   },
   {
     "team": "Shakopee Indians",
@@ -585,15 +585,6 @@
     "blended_seed": 1576.9
   },
   {
-    "team": "Dundas Dukes",
-    "known": true,
-    "class": "A",
-    "elo_live": 1654.6,
-    "games_played": 31,
-    "raw_2025_rating": 1699.8,
-    "blended_seed": 1669.5
-  },
-  {
     "team": "Starbuck Stars",
     "known": true,
     "class": "C",
@@ -610,6 +601,15 @@
     "games_played": 14,
     "raw_2025_rating": 1692.7,
     "blended_seed": 1613.2
+  },
+  {
+    "team": "Andover Aces",
+    "known": true,
+    "class": "A",
+    "elo_live": 1644.5,
+    "games_played": 19,
+    "raw_2025_rating": 1775.3,
+    "blended_seed": 1722.4
   },
   {
     "team": "Carver Black Sox",
@@ -1026,15 +1026,6 @@
     "blended_seed": 1573.2
   },
   {
-    "team": "Lakeville Loonatics",
-    "known": true,
-    "class": "A",
-    "elo_live": 1557.6,
-    "games_played": 22,
-    "raw_2025_rating": null,
-    "blended_seed": 1599.0
-  },
-  {
     "team": "Dassel-Cokato Saints",
     "known": true,
     "class": "C",
@@ -1150,6 +1141,15 @@
     "games_played": 18,
     "raw_2025_rating": 1582.5,
     "blended_seed": 1536.1
+  },
+  {
+    "team": "Lakeville Loonatics",
+    "known": true,
+    "class": "A",
+    "elo_live": 1540.2,
+    "games_played": 23,
+    "raw_2025_rating": null,
+    "blended_seed": 1599.0
   },
   {
     "team": "Maple Plain Diamond Devils",
@@ -2151,15 +2151,6 @@
     "blended_seed": 1334.3
   },
   {
-    "team": "Albertville Anglers",
-    "known": true,
-    "class": "B",
-    "elo_live": 1341.0,
-    "games_played": 24,
-    "raw_2025_rating": 1063.9,
-    "blended_seed": 1213.8
-  },
-  {
     "team": "Chokio Coyotes",
     "known": true,
     "class": "C",
@@ -2194,6 +2185,15 @@
     "games_played": 14,
     "raw_2025_rating": 1393.8,
     "blended_seed": 1455.3
+  },
+  {
+    "team": "Albertville Anglers",
+    "known": true,
+    "class": "B",
+    "elo_live": 1334.8,
+    "games_played": 25,
+    "raw_2025_rating": 1063.9,
+    "blended_seed": 1213.8
   },
   {
     "team": "Twin City Saints",
