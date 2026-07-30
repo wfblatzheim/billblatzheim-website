@@ -156,8 +156,8 @@
     "class": "A",
     "league": "Classic Cannon Valley American League",
     "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-american",
-    "league_record": "6-1-0",
-    "overall_record": "24-3-0"
+    "league_record": "7-1-0",
+    "overall_record": "25-3-0"
   },
   {
     "team_slug": "lakeville-loonatics",
@@ -167,7 +167,7 @@
     "league": "Classic Cannon Valley American League",
     "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-american",
     "league_record": "4-5-0",
-    "overall_record": "8-14-0"
+    "overall_record": "8-15-0"
   },
   {
     "team_slug": "rochester-royals",
@@ -187,7 +187,7 @@
     "league": "Classic Cannon Valley American League",
     "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-american",
     "league_record": "3-4-0",
-    "overall_record": "15-16-0"
+    "overall_record": "16-16-0"
   },
   {
     "team_slug": "hastings-hawks",
@@ -226,8 +226,8 @@
     "class": "B",
     "league": "Classic Cannon Valley National League",
     "league_url": "https://mnbaseball.org/leagues/classic-cannon-valley-national",
-    "league_record": "7-8-0",
-    "overall_record": "8-8-0"
+    "league_record": "7-9-0",
+    "overall_record": "8-9-0"
   },
   {
     "team_slug": "red-wing-aces",
@@ -427,7 +427,7 @@
     "league": "Crow River Valley - North League",
     "league_url": "https://mnbaseball.org/leagues/crow-river-valley-north",
     "league_record": "4-6-0",
-    "overall_record": "16-10-0"
+    "overall_record": "16-11-0"
   },
   {
     "team_slug": "carver-black-sox",
@@ -567,7 +567,7 @@
     "league": "Dakota Rice Scott (DRS) League",
     "league_url": "https://mnbaseball.org/leagues/dakota-rice-scott",
     "league_record": "16-3-0",
-    "overall_record": "19-3-0"
+    "overall_record": "20-3-0"
   },
   {
     "team_slug": "union-hill-bulldogs",
@@ -767,7 +767,7 @@
     "league": "Eastern Minny - South League",
     "league_url": "https://mnbaseball.org/leagues/eastern-minny-south",
     "league_record": "10-4-0",
-    "overall_record": "19-7-0"
+    "overall_record": "20-7-0"
   },
   {
     "team_slug": "isanti-redbirds",
@@ -1210,6 +1210,16 @@
     "overall_record": "18-8-0"
   },
   {
+    "team_slug": "coon-rapids-redbirds",
+    "team_name": "Coon Rapids Redbirds",
+    "team_url": "https://www.mnbaseball.org/teams/coon-rapids-redbirds",
+    "class": "A",
+    "league": "Metro Minny League",
+    "league_url": "https://mnbaseball.org/leagues/metro-minny",
+    "league_record": "10-6-0",
+    "overall_record": "16-7-1"
+  },
+  {
     "team_slug": "twin-ports-timbers",
     "team_name": "Twin Ports Timbers",
     "team_url": "https://www.mnbaseball.org/teams/twin-ports-timbers",
@@ -1218,16 +1228,6 @@
     "league_url": "https://mnbaseball.org/leagues/metro-minny",
     "league_record": "9-3-0",
     "overall_record": "10-3-1"
-  },
-  {
-    "team_slug": "coon-rapids-redbirds",
-    "team_name": "Coon Rapids Redbirds",
-    "team_url": "https://www.mnbaseball.org/teams/coon-rapids-redbirds",
-    "class": "A",
-    "league": "Metro Minny League",
-    "league_url": "https://mnbaseball.org/leagues/metro-minny",
-    "league_record": "9-6-0",
-    "overall_record": "15-7-1"
   },
   {
     "team_slug": "champlin-park-logators",
@@ -1256,8 +1256,8 @@
     "class": "A",
     "league": "Metro Minny League",
     "league_url": "https://mnbaseball.org/leagues/metro-minny",
-    "league_record": "6-5-0",
-    "overall_record": "9-9-0"
+    "league_record": "6-6-0",
+    "overall_record": "9-10-0"
   },
   {
     "team_slug": "centennial-cougars",
@@ -1287,7 +1287,7 @@
     "league": "Metro Minny League",
     "league_url": "https://mnbaseball.org/leagues/metro-minny",
     "league_record": "3-8-0",
-    "overall_record": "4-10-0"
+    "overall_record": "4-11-0"
   },
   {
     "team_slug": "shoreview-stumpgrinders",
@@ -1536,8 +1536,8 @@
     "class": "A",
     "league": "Park National League",
     "league_url": "https://mnbaseball.org/leagues/park-national",
-    "league_record": "8-5-0",
-    "overall_record": "11-12-0"
+    "league_record": "8-6-0",
+    "overall_record": "12-13-0"
   },
   {
     "team_slug": "metro-merchants",
@@ -1560,6 +1560,16 @@
     "overall_record": "8-10-0"
   },
   {
+    "team_slug": "crystal-cowboys",
+    "team_name": "Crystal Cowboys",
+    "team_url": "https://www.mnbaseball.org/teams/crystal-cowboys",
+    "class": "A",
+    "league": "Park National League",
+    "league_url": "https://mnbaseball.org/leagues/park-national",
+    "league_record": "5-9-0",
+    "overall_record": "6-12-0"
+  },
+  {
     "team_slug": "minneapolis-angels",
     "team_name": "Minneapolis Angels",
     "team_url": "https://www.mnbaseball.org/teams/minneapolis-angels",
@@ -1568,16 +1578,6 @@
     "league_url": "https://mnbaseball.org/leagues/park-national",
     "league_record": "4-8-0",
     "overall_record": "4-8-0"
-  },
-  {
-    "team_slug": "crystal-cowboys",
-    "team_name": "Crystal Cowboys",
-    "team_url": "https://www.mnbaseball.org/teams/crystal-cowboys",
-    "class": "A",
-    "league": "Park National League",
-    "league_url": "https://mnbaseball.org/leagues/park-national",
-    "league_record": "4-9-0",
-    "overall_record": "5-12-0"
   },
   {
     "team_slug": "minneapolis-blue-sox",
@@ -1697,7 +1697,7 @@
     "league": "River Valley East League",
     "league_url": "https://mnbaseball.org/leagues/river-valley-east",
     "league_record": "1-0-0",
-    "overall_record": "19-3-0"
+    "overall_record": "19-4-0"
   },
   {
     "team_slug": "burnsville-bobcats",
@@ -1747,7 +1747,7 @@
     "league": "River Valley North League",
     "league_url": "https://mnbaseball.org/leagues/river-valley-north",
     "league_record": "0-0-0",
-    "overall_record": "12-18-0"
+    "overall_record": "13-19-0"
   },
   {
     "team_slug": "victoria-vics",
@@ -1917,7 +1917,7 @@
     "league": "Sauk Valley League",
     "league_url": "https://mnbaseball.org/leagues/sauk-valley",
     "league_record": "2-12-0",
-    "overall_record": "9-15-1"
+    "overall_record": "9-16-1"
   },
   {
     "team_slug": "becker-bandits",
@@ -1937,7 +1937,7 @@
     "league": "Skyline League",
     "league_url": "https://mnbaseball.org/leagues/skyline",
     "league_record": "9-3-0",
-    "overall_record": "17-10-0"
+    "overall_record": "18-10-0"
   },
   {
     "team_slug": "stockmens-irish",
@@ -1956,8 +1956,8 @@
     "class": "A",
     "league": "Skyline League",
     "league_url": "https://mnbaseball.org/leagues/skyline",
-    "league_record": "7-4-0",
-    "overall_record": "9-10-2"
+    "league_record": "7-5-0",
+    "overall_record": "9-11-2"
   },
   {
     "team_slug": "north-st-paul-snowmen",
@@ -1967,7 +1967,7 @@
     "league": "Skyline League",
     "league_url": "https://mnbaseball.org/leagues/skyline",
     "league_record": "5-4-0",
-    "overall_record": "13-10-0"
+    "overall_record": "13-11-0"
   },
   {
     "team_slug": "metro-knights",
@@ -1980,6 +1980,16 @@
     "overall_record": "9-14-0"
   },
   {
+    "team_slug": "stillwater-loggers",
+    "team_name": "Stillwater Loggers",
+    "team_url": "https://www.mnbaseball.org/teams/stillwater-loggers",
+    "class": "A",
+    "league": "Skyline League",
+    "league_url": "https://mnbaseball.org/leagues/skyline",
+    "league_record": "1-6-0",
+    "overall_record": "1-6-0"
+  },
+  {
     "team_slug": "minneapolis-north-stars",
     "team_name": "Minneapolis North Stars",
     "team_url": "https://www.mnbaseball.org/teams/minneapolis-north-stars",
@@ -1990,16 +2000,6 @@
     "overall_record": "2-12-0"
   },
   {
-    "team_slug": "stillwater-loggers",
-    "team_name": "Stillwater Loggers",
-    "team_url": "https://www.mnbaseball.org/teams/stillwater-loggers",
-    "class": "A",
-    "league": "Skyline League",
-    "league_url": "https://mnbaseball.org/leagues/skyline",
-    "league_record": "0-6-0",
-    "overall_record": "0-6-0"
-  },
-  {
     "team_slug": "st-paul-mudhens",
     "team_name": "St. Paul Mudhens",
     "team_url": "https://www.mnbaseball.org/teams/st-paul-mudhens",
@@ -2007,7 +2007,7 @@
     "league": "St. Paul League",
     "league_url": "https://mnbaseball.org/leagues/st-paul",
     "league_record": "11-1-0",
-    "overall_record": "17-4-0"
+    "overall_record": "18-4-0"
   },
   {
     "team_slug": "air-freight-unlimited",
