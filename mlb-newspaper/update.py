@@ -344,6 +344,7 @@ DIVISIONS = {
     203: "NL West",
 }
 DIV_ORDER = ["AL East", "AL Central", "AL West", "NL East", "NL Central", "NL West"]
+LEAGUES = {103: "AL", 104: "NL"}
 
 def fetch_standings(date_str):
     print(f"  Fetching standings for {date_str}...", end=" ", flush=True)
@@ -355,9 +356,11 @@ def fetch_standings(date_str):
             "date": date_str,
         })
         divisions = {}
+        wildcard = {}
         for record in data.get("records", []):
             div_id = record.get("division", {}).get("id")
             div = DIVISIONS.get(div_id)
+            lg = LEAGUES.get(record.get("league", {}).get("id"))
             if not div:
                 continue
             teams = []
@@ -370,12 +373,46 @@ def fetch_standings(date_str):
                     "pct": tr.get("winningPercentage", ".000"),
                     "gb": tr.get("gamesBack", "-"),
                 })
+                if lg:
+                    wildcard.setdefault(lg, []).append({
+                        "abbr": get_abbr(tr["team"]["name"]),
+                        "w": tr.get("wins", 0),
+                        "l": tr.get("losses", 0),
+                        "pct": tr.get("winningPercentage", ".000"),
+                        "gb": tr.get("wildCardGamesBack", "-"),
+                        "leader": bool(tr.get("divisionLeader", False)),
+                    })
             divisions[div] = teams
+
+        def gb_value(gb):
+            # API convention: "+X" = cushion over the cutoff team (holding a spot),
+            # "-" = the cutoff team itself, plain "X" = games back of the cutoff.
+            if gb is None:
+                return 0.0
+            if gb.startswith("+"):
+                return -float(gb[1:])
+            if gb == "-":
+                return 0.0
+            return float(gb)
+
+        for lg, teams in wildcard.items():
+            leaders = [t for t in teams if t["leader"]]
+            leaders.sort(key=lambda t: -float(t["pct"]))
+            contenders = [t for t in teams if not t["leader"]]
+            contenders.sort(key=lambda t: gb_value(t["gb"]))
+            cutoff_idx = None
+            for i, t in enumerate(contenders):
+                if gb_value(t["gb"]) <= 0:
+                    cutoff_idx = i
+            if cutoff_idx is not None:
+                contenders[cutoff_idx]["cutoff"] = True
+            wildcard[lg] = leaders + contenders
+
         print("ok")
-        return divisions
+        return divisions, wildcard
     except Exception as e:
         print(f"ERROR: {e}")
-        return {}
+        return {}, {}
 
 def fetch_leaders(date_str):
     print(f"  Fetching leaders for {date_str}...", end=" ", flush=True)
@@ -435,10 +472,10 @@ def fetch_day(date_str):
         except Exception as e:
             print(f"ERROR: {e}")
 
-    standings = fetch_standings(date_str)
+    standings, wildcard = fetch_standings(date_str)
     leaders = fetch_leaders(date_str)
     print(f"  {len(games)} games fetched.")
-    return {"games": games, "standings": standings, "leaders": leaders}
+    return {"games": games, "standings": standings, "wildcard": wildcard, "leaders": leaders}
 
 
 # ── HTML GENERATION ───────────────────────────────────────────────────────────
@@ -456,12 +493,15 @@ def generate_html(cache, generated_at):
         return entry["games"] if isinstance(entry, dict) else entry
     def get_standings(entry):
         return entry.get("standings", {}) if isinstance(entry, dict) else {}
+    def get_wildcard(entry):
+        return entry.get("wildcard", {}) if isinstance(entry, dict) else {}
     def get_leaders(entry):
         return entry.get("leaders", {}) if isinstance(entry, dict) else {}
 
-    js_data = "const gamesData={};\nconst standingsData={};\nconst leadersData={};\n" + "\n".join(
+    js_data = "const gamesData={};\nconst standingsData={};\nconst wildcardData={};\nconst leadersData={};\n" + "\n".join(
         f"gamesData['{d}']={json.dumps(get_games(cache[d]), ensure_ascii=False, separators=(',',':'))};"
         f"standingsData['{d}']={json.dumps(get_standings(cache[d]), ensure_ascii=False, separators=(',',':'))};"
+        f"wildcardData['{d}']={json.dumps(get_wildcard(cache[d]), ensure_ascii=False, separators=(',',':'))};"
         f"leadersData['{d}']={json.dumps(get_leaders(cache[d]), ensure_ascii=False, separators=(',',':'))};"
         for d in game_dates
     )
@@ -620,6 +660,13 @@ table.st th:nth-child(4),table.st td:nth-child(4){{width:30px}}
 table.st th:nth-child(5),table.st td:nth-child(5){{width:26px}}
 table.st tr.div-leader td{{font-weight:800}}
 
+/* ── Wild Card standings ── */
+.wc-inner{{display:grid;grid-template-columns:repeat(2,minmax(0,260px));border-left:1px solid #bbb;justify-content:center}}
+@media(max-width:600px){{.wc-inner{{grid-template-columns:minmax(0,260px)}}}}
+table.wc tr.wc-out td{{color:#aaa}}
+table.wc tr.wc-cutoff td{{border-bottom:2px solid #1a1a1a;padding-bottom:3px}}
+table.wc td.wc-tag{{font-size:9px;color:#aaa;font-weight:700;letter-spacing:.05em;padding-left:3px}}
+
 /* ── Leaders strip ── */
 .leaders-inner{{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));border-left:1px solid #bbb;border-bottom:2px solid #1a1a1a}}
 @media(max-width:800px){{.leaders-inner{{grid-template-columns:repeat(4,minmax(0,1fr))}}}}
@@ -664,6 +711,7 @@ table.st tr.div-leader td{{font-weight:800}}
 <div class="arc-months">{month_btns}</div>
 <div class="arc-dates" id="arc-dates"></div>
 <div class="standings-wrap" id="standings"></div>
+<div class="standings-wrap" id="wildcard"></div>
 <div id="leaders"></div>
 <div id="content"></div>
 <div class="footer">Generated {generated_at} &middot; Data: MLB Stats API</div>
@@ -715,13 +763,21 @@ function selectMonth(ym) {{
 }}
 
 const DIV_ORDER = ['AL East','AL Central','AL West','NL East','NL Central','NL West'];
+const WC_ORDER = ['AL','NL'];
 let standingsOpen = true;
+let wildcardOpen = true;
 let leadersOpen = true;
 
 function toggleStandings() {{
   standingsOpen = !standingsOpen;
   document.getElementById('standings-body').style.display = standingsOpen ? '' : 'none';
   document.getElementById('standings-arrow').textContent = standingsOpen ? '\u25be' : '\u25b8';
+}}
+
+function toggleWildCard() {{
+  wildcardOpen = !wildcardOpen;
+  document.getElementById('wildcard-body').style.display = wildcardOpen ? '' : 'none';
+  document.getElementById('wildcard-arrow').textContent = wildcardOpen ? '\u25be' : '\u25b8';
 }}
 
 function toggleLeaders() {{
@@ -762,6 +818,41 @@ function renderStandings(dateStr) {{
      </div>`;
 }}
 
+function renderWildCard(dateStr) {{
+  const wc = wildcardData[dateStr];
+  if (!wc || !Object.keys(wc).length) {{
+    document.getElementById('wildcard').innerHTML = '';
+    return;
+  }}
+  const cols = WC_ORDER.map(lg => {{
+    const teams = wc[lg] || [];
+    let pastCutoff = false;
+    const rows = teams.map(t => {{
+      let cls = t.leader ? 'div-leader' : (pastCutoff ? 'wc-out' : '');
+      if (!t.leader && t.cutoff) {{ cls += ' wc-cutoff'; pastCutoff = true; }}
+      return `<tr class="${{cls.trim()}}">
+        <td>${{t.abbr}}</td><td>${{t.w}}</td><td>${{t.l}}</td><td>${{t.pct}}</td><td>${{t.gb}}</td><td class="wc-tag">${{t.leader?'DIV':''}}</td>
+      </tr>`;
+    }}).join('');
+    return `<div class="standings-div">
+      <div class="standings-div-name">${{lg}} Wild Card</div>
+      <table class="st wc">
+        <thead><tr><th></th><th>W</th><th>L</th><th>PCT</th><th>GB</th><th></th></tr></thead>
+        <tbody>${{rows}}</tbody>
+      </table>
+    </div>`;
+  }}).join('');
+  const label = fmtDateLabel(dateStr);
+  document.getElementById('wildcard').innerHTML =
+    `<div class="section-hdr" onclick="toggleWildCard()">
+       <span>Wild Card &mdash; through games of ${{label}}</span>
+       <span class="section-hdr-arrow" id="wildcard-arrow">${{wildcardOpen ? '▾' : '▸'}}</span>
+     </div>
+     <div id="wildcard-body" style="display:${{wildcardOpen ? '' : 'none'}}">
+       <div class="wc-inner">${{cols}}</div>
+     </div>`;
+}}
+
 function dateRelativeLabel(dateStr) {{
   const yesterday = new Date(TODAY + 'T12:00:00');
   yesterday.setDate(yesterday.getDate() - 1);
@@ -782,6 +873,7 @@ function renderDate(dateStr) {{
   document.getElementById('hdr-context').textContent = dateRelativeLabel(dateStr);
 
   renderStandings(dateStr);
+  renderWildCard(dateStr);
   renderLeaders(dateStr);
 
   const games = gamesData[dateStr];
